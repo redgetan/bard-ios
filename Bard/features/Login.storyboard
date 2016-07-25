@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Authentication-->
+        <!--Home-->
         <scene sceneID="04C-ck-8xb">
             <objects>
-                <viewController storyboardIdentifier="LoginViewController" id="jzm-3g-xfU" customClass="LoginViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WelcomeViewController" id="jzm-3g-xfU" customClass="WelcomeViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BPJ-3P-7Zw"/>
                         <viewControllerLayoutGuide type="bottom" id="osX-O4-ulb"/>
@@ -51,9 +51,6 @@
                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="nK5-Pn-aOB" kind="show" id="J5H-Mm-du9"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kKO-F1-MlP" customClass="BorderedButton" customModule="Bard" customModuleProvider="target">
                                 <rect key="frame" x="20" y="452" width="560" height="50"/>
@@ -97,7 +94,7 @@
                             <constraint firstItem="GYe-UJ-VTW" firstAttribute="centerX" secondItem="uB5-mu-3zu" secondAttribute="centerX" id="mbB-hy-jIH"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Authentication" id="Np1-df-D5N"/>
+                    <navigationItem key="navigationItem" title="Home" id="Np1-df-D5N"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yD9-wh-Xxn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
