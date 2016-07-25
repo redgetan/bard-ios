@@ -51,6 +51,9 @@
                                         <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <segue destination="nK5-Pn-aOB" kind="show" id="Ydd-VH-xoX"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kKO-F1-MlP" customClass="BorderedButton" customModule="Bard" customModuleProvider="target">
                                 <rect key="frame" x="20" y="452" width="560" height="50"/>
@@ -75,7 +78,7 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <segue destination="iwg-8y-8tL" kind="show" id="fB9-Kg-Sq7"/>
+                                    <segue destination="iwg-8y-8tL" kind="show" id="fnr-YN-ml2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -139,9 +142,7 @@
                             <constraint firstItem="4ai-Io-44E" firstAttribute="top" secondItem="oeF-r9-kgb" secondAttribute="bottom" id="lxE-h2-hhd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Login" id="Urr-GW-Giz">
-                        <barButtonItem key="backBarButtonItem" title=" Back" id="Hlt-ON-3ES"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Login" id="qKc-KU-iP5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K7U-Kt-biK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -160,9 +161,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Sign Up" id="vic-g4-IgR">
-                        <barButtonItem key="backBarButtonItem" title=" Back" id="V4r-qo-975"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Sign Up" id="pK0-Yc-EHN"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NBW-W0-2pa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
