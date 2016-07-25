@@ -7,14 +7,18 @@
 //
 
 import UIKit
+import SwiftyDrop
 
 class SignupInputViewController: UIViewController {
 
+    
+    @IBOutlet weak var usernameTextField: BorderedTextField!
+    @IBOutlet weak var emailTextField: BorderedTextField!
+    
+    @IBOutlet weak var passwordTextField: BorderedTextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationItem.backBarButtonItem = UIBarButtonItem(title:"", style:.Plain, target:nil, action:nil)
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
@@ -22,15 +26,17 @@ class SignupInputViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
+    @IBAction func doSignUp(sender: UIButton) {
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        
+        BardClient.signUp(username: self.usernameTextField.text!,
+                            email: self.emailTextField.text!,
+                            password: self.passwordTextField.text!, success: { value in
+            Drop.down("Account successfully created", state: .Success, duration: 2)
+        }, failure: { errorMessage in
+            Drop.down(errorMessage, state: .Error, duration: 3)
+        })
     }
-    */
-
+  
 }

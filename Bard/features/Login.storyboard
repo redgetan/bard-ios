@@ -17,14 +17,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Bard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmr-cN-6WF">
-                                <rect key="frame" x="232" y="110" width="136" height="58"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bard" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zmr-cN-6WF">
+                                <rect key="frame" x="259" y="154" width="82" height="48"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="40"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="A text to video app" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYe-UJ-VTW">
-                                <rect key="frame" x="207" y="176" width="187" height="21"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A text to video app" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GYe-UJ-VTW">
+                                <rect key="frame" x="228" y="212" width="144" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -135,7 +135,7 @@
                                     <constraint firstAttribute="height" constant="50" id="BqX-eR-cRm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLine" value="YES"/>
                                     <userDefinedRuntimeAttribute type="color" keyPath="linesColor">
@@ -143,14 +143,22 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="we are in the middle of toronto in a hot summer day hiding in a library thats about to close" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="3dn-n9-gdN">
+                                <rect key="frame" x="20" y="279" width="560" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nGG-9m-tcZ" secondAttribute="trailing" id="Fo0-yT-pWC"/>
                             <constraint firstItem="nGG-9m-tcZ" firstAttribute="leading" secondItem="cbT-VX-1qP" secondAttribute="leading" id="Lpd-HL-Yez"/>
+                            <constraint firstItem="3dn-n9-gdN" firstAttribute="centerX" secondItem="cbT-VX-1qP" secondAttribute="centerX" id="SRR-4e-vOa"/>
                             <constraint firstItem="nGG-9m-tcZ" firstAttribute="top" secondItem="4ai-Io-44E" secondAttribute="bottom" id="Sel-AQ-db9"/>
                             <constraint firstItem="4ai-Io-44E" firstAttribute="leading" secondItem="cbT-VX-1qP" secondAttribute="leading" id="VVr-rZ-Ms4"/>
                             <constraint firstAttribute="trailing" secondItem="4ai-Io-44E" secondAttribute="trailing" id="ZJc-Q1-kq6"/>
+                            <constraint firstItem="3dn-n9-gdN" firstAttribute="top" secondItem="nGG-9m-tcZ" secondAttribute="bottom" constant="115" id="kG8-kn-RnE"/>
                             <constraint firstItem="4ai-Io-44E" firstAttribute="top" secondItem="oeF-r9-kgb" secondAttribute="bottom" id="lxE-h2-hhd"/>
                         </constraints>
                     </view>
@@ -163,7 +171,7 @@
         <!--Sign Up Input-->
         <scene sceneID="Ptf-90-T5C">
             <objects>
-                <viewController id="iwg-8y-8tL" userLabel="Sign Up Input" sceneMemberID="viewController">
+                <viewController id="iwg-8y-8tL" userLabel="Sign Up Input" customClass="SignupInputViewController" customModule="Bard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="kxE-HF-tjb"/>
                         <viewControllerLayoutGuide type="bottom" id="alb-j7-dkw"/>
@@ -200,7 +208,7 @@
                                     <constraint firstAttribute="height" constant="50" id="1x4-QJ-Fxv"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLine" value="YES"/>
                                 </userDefinedRuntimeAttributes>
@@ -227,6 +235,9 @@
                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="doSignUp:" destination="iwg-8y-8tL" eventType="touchUpInside" id="cVb-6G-xAC"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -248,6 +259,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="pK0-Yc-EHN"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="GN9-5c-4lE" id="UKC-ny-xqa"/>
+                        <outlet property="passwordTextField" destination="uCc-Jk-Luh" id="JKJ-wp-7BS"/>
+                        <outlet property="usernameTextField" destination="O4H-Il-f47" id="C7D-TU-JXA"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NBW-W0-2pa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

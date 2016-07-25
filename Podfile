@@ -9,5 +9,6 @@ target 'Bard' do
   pod 'RealmSwift'
   pod 'Alamofire', '~> 3.4'
   pod 'AlamofireObjectMapper', '~> 3.0'
+  pod 'SwiftyDrop', '~>2.0'
 
 end

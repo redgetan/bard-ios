@@ -10,12 +10,14 @@ PODS:
   - Realm/Headers (1.0.2)
   - RealmSwift (1.0.2):
     - Realm (= 1.0.2)
+  - SwiftyDrop (2.4.1)
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
   - AlamofireObjectMapper (~> 3.0)
   - Player
   - RealmSwift
+  - SwiftyDrop (~> 2.0)
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
@@ -24,7 +26,8 @@ SPEC CHECKSUMS:
   Player: 575e1e8cde1e6b7cd62d6d6bc06e492d02e62b9e
   Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
   RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
+  SwiftyDrop: 54a30c4edd51be9863429c3ad2ad4108eb7b7814
 
-PODFILE CHECKSUM: 6af83d17f937b4406df52f85c9a88c6a5099f3b4
+PODFILE CHECKSUM: e674dca1d9440993b2ce1e5564c7648c6ea3f843
 
 COCOAPODS: 1.0.1

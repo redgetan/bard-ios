@@ -21,6 +21,8 @@
 		89C986261D46823A0056E687 /* SignupInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986251D46823A0056E687 /* SignupInputViewController.swift */; };
 		89C9862A1D468F7F0056E687 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986291D468F7F0056E687 /* WelcomeViewController.swift */; };
 		89C9862C1D4691D90056E687 /* BorderedTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C9862B1D4691D90056E687 /* BorderedTextField.swift */; };
+		89C9862F1D46A56F0056E687 /* BardClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C9862E1D46A56F0056E687 /* BardClient.swift */; };
+		89C986321D46AF230056E687 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986311D46AF230056E687 /* Configuration.swift */; };
 		FD17554C7E51AFA7656D7139 /* Pods_Bard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977A13353D1C37465D0C5F9D /* Pods_Bard.framework */; };
 /* End PBXBuildFile section */
 
@@ -42,6 +44,8 @@
 		89C986251D46823A0056E687 /* SignupInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignupInputViewController.swift; path = ui/SignupInputViewController.swift; sourceTree = "<group>"; };
 		89C986291D468F7F0056E687 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeViewController.swift; path = ui/WelcomeViewController.swift; sourceTree = "<group>"; };
 		89C9862B1D4691D90056E687 /* BorderedTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BorderedTextField.swift; path = ui/views/BorderedTextField.swift; sourceTree = "<group>"; };
+		89C9862E1D46A56F0056E687 /* BardClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BardClient.swift; path = api/BardClient.swift; sourceTree = "<group>"; };
+		89C986311D46AF230056E687 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = config/Configuration.swift; sourceTree = "<group>"; };
 		977A13353D1C37465D0C5F9D /* Pods_Bard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B128EAF2B771CB927D36F828 /* Pods-Bard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bard/Pods-Bard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -88,6 +92,8 @@
 		89114E161D45A29E0078205C /* Bard */ = {
 			isa = PBXGroup;
 			children = (
+				89C986301D46AED20056E687 /* config */,
+				89C9862D1D46A5590056E687 /* api */,
 				89C9860D1D45BA5C0056E687 /* storage */,
 				89C9860C1D45BA570056E687 /* models */,
 				89C9860B1D45BA510056E687 /* ui */,
@@ -145,6 +151,22 @@
 				89C9862B1D4691D90056E687 /* BorderedTextField.swift */,
 			);
 			name = views;
+			sourceTree = "<group>";
+		};
+		89C9862D1D46A5590056E687 /* api */ = {
+			isa = PBXGroup;
+			children = (
+				89C9862E1D46A56F0056E687 /* BardClient.swift */,
+			);
+			name = api;
+			sourceTree = "<group>";
+		};
+		89C986301D46AED20056E687 /* config */ = {
+			isa = PBXGroup;
+			children = (
+				89C986311D46AF230056E687 /* Configuration.swift */,
+			);
+			name = config;
 			sourceTree = "<group>";
 		};
 		A41798276B171025AEF27ED2 /* Frameworks */ = {
@@ -284,7 +306,9 @@
 				89C986201D4660290056E687 /* BorderedButton.swift in Sources */,
 				89C986171D45BA8E0056E687 /* UserConfig.swift in Sources */,
 				89C9861C1D45BA990056E687 /* ProfileViewController.swift in Sources */,
+				89C986321D46AF230056E687 /* Configuration.swift in Sources */,
 				89C986261D46823A0056E687 /* SignupInputViewController.swift in Sources */,
+				89C9862F1D46A56F0056E687 /* BardClient.swift in Sources */,
 				89C9860F1D45BA720056E687 /* AppDelegate.swift in Sources */,
 				89C9862C1D4691D90056E687 /* BorderedTextField.swift in Sources */,
 				89C986221D467A570056E687 /* LoginNavigationViewController.swift in Sources */,
@@ -387,6 +411,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Bard/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_SWIFT_FLAGS = "$(inherited) -DDEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = com.roplabs.Bard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
