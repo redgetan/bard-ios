@@ -16,9 +16,11 @@
 		89C9861B1D45BA990056E687 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986181D45BA990056E687 /* LoginViewController.swift */; };
 		89C9861C1D45BA990056E687 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986191D45BA990056E687 /* ProfileViewController.swift */; };
 		89C9861D1D45BA990056E687 /* RepositoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C9861A1D45BA990056E687 /* RepositoriesViewController.swift */; };
+		FD17554C7E51AFA7656D7139 /* Pods_Bard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977A13353D1C37465D0C5F9D /* Pods_Bard.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		42EA2D9D909571F24121B875 /* Pods-Bard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bard/Pods-Bard.release.xcconfig"; sourceTree = "<group>"; };
 		89114E141D45A29E0078205C /* Bard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89114E201D45A29E0078205C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89114E251D45A29E0078205C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -30,6 +32,8 @@
 		89C986181D45BA990056E687 /* LoginViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginViewController.swift; path = ui/LoginViewController.swift; sourceTree = "<group>"; };
 		89C986191D45BA990056E687 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileViewController.swift; path = ui/ProfileViewController.swift; sourceTree = "<group>"; };
 		89C9861A1D45BA990056E687 /* RepositoriesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RepositoriesViewController.swift; path = ui/RepositoriesViewController.swift; sourceTree = "<group>"; };
+		977A13353D1C37465D0C5F9D /* Pods_Bard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B128EAF2B771CB927D36F828 /* Pods-Bard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bard/Pods-Bard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -37,17 +41,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD17554C7E51AFA7656D7139 /* Pods_Bard.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		686E856CA3F55BCF83FD52E8 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B128EAF2B771CB927D36F828 /* Pods-Bard.debug.xcconfig */,
+				42EA2D9D909571F24121B875 /* Pods-Bard.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		89114E0B1D45A29E0078205C = {
 			isa = PBXGroup;
 			children = (
 				89114E161D45A29E0078205C /* Bard */,
 				89114E151D45A29E0078205C /* Products */,
+				686E856CA3F55BCF83FD52E8 /* Pods */,
+				A41798276B171025AEF27ED2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -108,6 +124,14 @@
 			name = storage;
 			sourceTree = "<group>";
 		};
+		A41798276B171025AEF27ED2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				977A13353D1C37465D0C5F9D /* Pods_Bard.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -115,9 +139,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 89114E281D45A29E0078205C /* Build configuration list for PBXNativeTarget "Bard" */;
 			buildPhases = (
+				559CB3D99DD111105D4001BE /* [CP] Check Pods Manifest.lock */,
 				89114E101D45A29E0078205C /* Sources */,
 				89114E111D45A29E0078205C /* Frameworks */,
 				89114E121D45A29E0078205C /* Resources */,
+				E46759F306270173631FC45D /* [CP] Embed Pods Frameworks */,
+				767A0489858A44FCB227562E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -174,6 +201,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		559CB3D99DD111105D4001BE /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		767A0489858A44FCB227562E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bard/Pods-Bard-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E46759F306270173631FC45D /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bard/Pods-Bard-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		89114E101D45A29E0078205C /* Sources */ = {
@@ -278,6 +353,7 @@
 		};
 		89114E291D45A29E0078205C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B128EAF2B771CB927D36F828 /* Pods-Bard.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -292,6 +368,7 @@
 		};
 		89114E2A1D45A29E0078205C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 42EA2D9D909571F24121B875 /* Pods-Bard.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
