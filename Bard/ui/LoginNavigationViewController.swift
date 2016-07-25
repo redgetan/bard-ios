@@ -1,40 +1,38 @@
 //
-//  LoginViewController.swift
+//  LoginNavigationViewController.swift
 //  Bard
 //
-//  Created by Reginald Tan on 2016-07-24.
+//  Created by Reginald Tan on 2016-07-25.
 //  Copyright © 2016 ROP Labs. All rights reserved.
 //
 
 import UIKit
 
-class LoginViewController: UIViewController {
-
+class LoginNavigationViewController: UINavigationController {
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.navigationBarHidden = true
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.navigationBarHidden = true
+    }
+    
+    override func showViewController(vc: UIViewController, sender: AnyObject?) {
+        super.showViewController(vc,sender: sender)
+    
+        self.navigationBarHidden = false
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        print("hasdf")
-    }
-    
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-//        self.navigationBarHidden = true
-    }
-    
-
-    
-    override func viewWillDisappear(animated: Bool)
-    {
-        super.viewWillDisappear(animated)
-        self.navigationController?.navigationBarHidden = false
-    }
-
 
     /*
     // MARK: - Navigation

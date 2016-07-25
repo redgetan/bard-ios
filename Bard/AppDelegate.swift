@@ -21,7 +21,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if isLogined {
 
         } else {
-            startLoginOrRegisterStoryboard()
+//            startLoginOrRegisterStoryboard()
         }
         
         return true
@@ -55,9 +55,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // http://stackoverflow.com/questions/19962276/best-practices-for-storyboard-login-screen-handling-clearing-of-data-upon-logou
         // http://www.newventuresoftware.com/blog/organizing-xcode-projects-using-multiple-storyboards
         let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        let rootViewController = storyboard.instantiateViewControllerWithIdentifier("LoginViewController")
+        let rootViewController = storyboard.instantiateViewControllerWithIdentifier("LoginNavigationController") as? UINavigationController
         window?.rootViewController = rootViewController
-        
     }
 
 
