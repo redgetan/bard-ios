@@ -38,7 +38,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Log in">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -48,7 +48,7 @@
                                         <real key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                        <color key="value" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -57,7 +57,7 @@
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kKO-F1-MlP" customClass="BorderedButton" customModule="Bard" customModuleProvider="target">
                                 <rect key="frame" x="20" y="452" width="560" height="50"/>
-                                <color key="backgroundColor" red="0.0" green="0.91731546773405048" blue="0.95298477565641027" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.58785130033557043" green="0.91764705882352937" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="fQE-Ty-bbh"/>
                                 </constraints>
@@ -171,7 +171,81 @@
                     <view key="view" contentMode="scaleToFill" id="BJa-dW-T6c">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="O4H-Il-f47" customClass="BorderedTextField" customModule="Bard" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="600" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="Ohd-ut-Cn0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLine" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="GN9-5c-4lE" customClass="BorderedTextField" customModule="Bard" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="114" width="600" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="aQq-V7-nN0"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLine" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uCc-Jk-Luh" customClass="BorderedTextField" customModule="Bard" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="164" width="600" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="1x4-QJ-Fxv"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLine" value="YES"/>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KW6-4y-Oni" customClass="BorderedButton" customModule="Bard" customModuleProvider="target">
+                                <rect key="frame" x="226" y="254" width="145" height="40"/>
+                                <color key="backgroundColor" red="0.58785130029999999" green="0.91764705879999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="29v-Lh-oCT"/>
+                                    <constraint firstAttribute="width" constant="145" id="6pW-ix-bmc"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="Create">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="KW6-4y-Oni" firstAttribute="centerX" secondItem="BJa-dW-T6c" secondAttribute="centerX" constant="-1.5" id="1JC-PL-SfU"/>
+                            <constraint firstItem="GN9-5c-4lE" firstAttribute="leading" secondItem="BJa-dW-T6c" secondAttribute="leading" id="4gE-tc-X6y"/>
+                            <constraint firstAttribute="trailing" secondItem="O4H-Il-f47" secondAttribute="trailing" id="H0U-uH-HcZ"/>
+                            <constraint firstItem="uCc-Jk-Luh" firstAttribute="top" secondItem="GN9-5c-4lE" secondAttribute="bottom" id="ILB-83-Nz1"/>
+                            <constraint firstAttribute="trailing" secondItem="uCc-Jk-Luh" secondAttribute="trailing" id="PGx-m3-6Mp"/>
+                            <constraint firstItem="uCc-Jk-Luh" firstAttribute="leading" secondItem="BJa-dW-T6c" secondAttribute="leading" id="Zoj-Q6-Y85"/>
+                            <constraint firstAttribute="trailing" secondItem="O4H-Il-f47" secondAttribute="trailing" id="cos-kJ-gFG"/>
+                            <constraint firstItem="O4H-Il-f47" firstAttribute="leading" secondItem="BJa-dW-T6c" secondAttribute="leading" id="k1I-RS-Lzt"/>
+                            <constraint firstItem="KW6-4y-Oni" firstAttribute="top" secondItem="uCc-Jk-Luh" secondAttribute="bottom" constant="40" id="ktq-1k-zTw"/>
+                            <constraint firstItem="GN9-5c-4lE" firstAttribute="top" secondItem="O4H-Il-f47" secondAttribute="bottom" id="mE7-q7-Qql"/>
+                            <constraint firstItem="O4H-Il-f47" firstAttribute="top" secondItem="kxE-HF-tjb" secondAttribute="bottom" id="osv-2F-Qgw"/>
+                            <constraint firstItem="O4H-Il-f47" firstAttribute="leading" secondItem="BJa-dW-T6c" secondAttribute="leading" id="pVb-qR-VbO"/>
+                            <constraint firstAttribute="trailing" secondItem="GN9-5c-4lE" secondAttribute="trailing" id="rvr-oR-ROo"/>
+                            <constraint firstItem="O4H-Il-f47" firstAttribute="top" secondItem="kxE-HF-tjb" secondAttribute="bottom" id="sac-8H-Wyz"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="pK0-Yc-EHN"/>
                 </viewController>
