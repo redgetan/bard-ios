@@ -15,7 +15,7 @@ class BorderedTextField: UITextField {
     
     @IBInspectable var linesWidth: CGFloat = 1.0 { didSet{ drawLines() } }
     
-    @IBInspectable var linesColor: UIColor = UIColor.blackColor() { didSet{ drawLines() } }
+    @IBInspectable var linesColor: UIColor = UIColor.lightGrayColor() { didSet{ drawLines() } }
     
     @IBInspectable var leftLine: Bool = false { didSet{ drawLines() } }
     @IBInspectable var rightLine: Bool = false { didSet{ drawLines() } }
