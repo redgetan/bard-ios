@@ -16,6 +16,21 @@ class BardClient {
         return "\(Configuration.bardAccountBaseURL)/users"
     }
     
+    static func getLoginURL() -> String {
+        return "\(Configuration.bardAccountBaseURL)/users/sign_in"
+    }
+    
+    
+    static func login(usernameOrEmail usernameOrEmail: String, password: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
+        
+        let params : [String : String] = [
+            "email"    : usernameOrEmail,
+            "password" : password
+        ]
+        
+        bardApiRequest(.POST, url: getLoginURL(), parameters: params, success: success, failure: failure)
+    }
+    
     static func signUp(username username: String, email: String, password: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
         
         let params : [String : String] = [

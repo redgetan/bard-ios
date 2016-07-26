@@ -1,0 +1,10 @@
+[ ] authentication
+  [ ] should process to main.storyboard if already loggedin
+  [ ] signup
+    [x] should create user
+    [ ] should navigate to main.storyboard
+    [ ] should store authToken
+  [ ] login
+    [ ] should navigate to main.storyboard
+    [ ] should store authToken
+

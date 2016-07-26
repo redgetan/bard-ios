@@ -143,26 +143,49 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" misplaced="YES" text="we are in the middle of toronto in a hot summer day hiding in a library thats about to close" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="560" translatesAutoresizingMaskIntoConstraints="NO" id="3dn-n9-gdN">
-                                <rect key="frame" x="20" y="279" width="560" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OZd-Uw-qny" customClass="BorderedButton" customModule="Bard" customModuleProvider="target">
+                                <rect key="frame" x="234" y="214" width="133" height="40"/>
+                                <color key="backgroundColor" red="0.58823529409999997" green="0.91764705879999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="133" id="6Y3-hk-fuc"/>
+                                    <constraint firstAttribute="height" constant="40" id="AXO-X0-8tl"/>
+                                </constraints>
+                                <state key="normal" title="Login">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="6"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="doLogin:" destination="nK5-Pn-aOB" eventType="touchUpInside" id="jdn-JQ-BYA"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="nGG-9m-tcZ" secondAttribute="trailing" id="Fo0-yT-pWC"/>
                             <constraint firstItem="nGG-9m-tcZ" firstAttribute="leading" secondItem="cbT-VX-1qP" secondAttribute="leading" id="Lpd-HL-Yez"/>
-                            <constraint firstItem="3dn-n9-gdN" firstAttribute="centerX" secondItem="cbT-VX-1qP" secondAttribute="centerX" id="SRR-4e-vOa"/>
                             <constraint firstItem="nGG-9m-tcZ" firstAttribute="top" secondItem="4ai-Io-44E" secondAttribute="bottom" id="Sel-AQ-db9"/>
+                            <constraint firstItem="OZd-Uw-qny" firstAttribute="centerX" secondItem="cbT-VX-1qP" secondAttribute="centerX" id="VJ9-3n-2Cf"/>
                             <constraint firstItem="4ai-Io-44E" firstAttribute="leading" secondItem="cbT-VX-1qP" secondAttribute="leading" id="VVr-rZ-Ms4"/>
                             <constraint firstAttribute="trailing" secondItem="4ai-Io-44E" secondAttribute="trailing" id="ZJc-Q1-kq6"/>
-                            <constraint firstItem="3dn-n9-gdN" firstAttribute="top" secondItem="nGG-9m-tcZ" secondAttribute="bottom" constant="115" id="kG8-kn-RnE"/>
+                            <constraint firstItem="OZd-Uw-qny" firstAttribute="top" secondItem="nGG-9m-tcZ" secondAttribute="bottom" constant="50" id="kKY-tN-iDe"/>
                             <constraint firstItem="4ai-Io-44E" firstAttribute="top" secondItem="oeF-r9-kgb" secondAttribute="bottom" id="lxE-h2-hhd"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Login" id="qKc-KU-iP5"/>
+                    <connections>
+                        <outlet property="passwordTextField" destination="nGG-9m-tcZ" id="orH-Re-bHn"/>
+                        <outlet property="usernameOrEmailTextField" destination="4ai-Io-44E" id="gJV-si-ScK"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K7U-Kt-biK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -215,7 +238,7 @@
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KW6-4y-Oni" customClass="BorderedButton" customModule="Bard" customModuleProvider="target">
                                 <rect key="frame" x="226" y="254" width="145" height="40"/>
-                                <color key="backgroundColor" red="0.58785130029999999" green="0.91764705879999997" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.58823529411764708" green="0.91764705882352937" blue="0.95294117647058818" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="29v-Lh-oCT"/>
                                     <constraint firstAttribute="width" constant="145" id="6pW-ix-bmc"/>

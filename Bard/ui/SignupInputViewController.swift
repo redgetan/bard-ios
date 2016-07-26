@@ -34,6 +34,7 @@ class SignupInputViewController: UIViewController {
                             email: self.emailTextField.text!,
                             password: self.passwordTextField.text!, success: { value in
             Drop.down("Account successfully created", state: .Success, duration: 2)
+            UserConfig.storeCredentials(value)
         }, failure: { errorMessage in
             Drop.down(errorMessage, state: .Error, duration: 3)
         })

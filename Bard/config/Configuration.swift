@@ -12,35 +12,16 @@ class Configuration {
     
     #if DEBUG
     
-    static var bardAccountBaseURL: String {
-        get {
-            return "http://localhost:3000"
-        }
-    }
+    static let bardAccountBaseURL = "http://localhost:3000"
+    static let keychainService    = "co.bard.auth-token-debug"
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     
     #else
     
+    static let bardAccountBaseURL = "http://bard.zrqp9xghrt.us-west-2.elasticbeanstalk.com"
+    static let keychainService    = "co.bard.auth-token"
     
-    
-    
-    
-    
-    
-    static var bardAccountBaseURL: String {
-        get {
-            return "http://bard.zrqp9xghrt.us-west-2.elasticbeanstalk.com"
-        }
-    }
     
     #endif
     
