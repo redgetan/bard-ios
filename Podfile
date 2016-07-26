@@ -11,5 +11,7 @@ target 'Bard' do
   pod 'AlamofireObjectMapper', '~> 3.0'
   pod 'SwiftyDrop', '~>2.0'
   pod 'KeychainAccess'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
 end

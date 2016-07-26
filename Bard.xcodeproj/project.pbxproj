@@ -198,6 +198,7 @@
 				89114E121D45A29E0078205C /* Resources */,
 				E46759F306270173631FC45D /* [CP] Embed Pods Frameworks */,
 				767A0489858A44FCB227562E /* [CP] Copy Pods Resources */,
+				89C9863A1D46F4460056E687 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -285,6 +286,19 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bard/Pods-Bard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		89C9863A1D46F4460056E687 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Fabric/run\" bf06d741fa30b7cb5be2fe488dfe67d7f1952540 b860b36d5b7ad36fc97e3cc219718d0769ca260c30346b2da95e5e9d06f732b9";
 		};
 		E46759F306270173631FC45D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
