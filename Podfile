@@ -14,5 +14,7 @@ target 'Bard' do
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'Instabug'
+  pod 'Firebase'
+  pod 'Mixpanel'
 
 end

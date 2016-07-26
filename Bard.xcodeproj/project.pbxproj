@@ -23,6 +23,7 @@
 		89C986341D46D8350056E687 /* LoginInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986331D46D8350056E687 /* LoginInputViewController.swift */; };
 		89C986371D46E3430056E687 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986361D46E3430056E687 /* Helper.swift */; };
 		89C986391D46EE040056E687 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986381D46EE040056E687 /* WelcomeViewController.swift */; };
+		89E3BBE71D47D72300963EEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */; };
 		FD17554C7E51AFA7656D7139 /* Pods_Bard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977A13353D1C37465D0C5F9D /* Pods_Bard.framework */; };
 /* End PBXBuildFile section */
 
@@ -47,6 +48,7 @@
 		89C986361D46E3430056E687 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helper.swift; path = util/Helper.swift; sourceTree = "<group>"; };
 		89C986381D46EE040056E687 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeViewController.swift; path = ui/WelcomeViewController.swift; sourceTree = "<group>"; };
 		89E3BBE51D47A9A000963EEE /* Bard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bard-Bridging-Header.h"; sourceTree = "<group>"; };
+		89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		977A13353D1C37465D0C5F9D /* Pods_Bard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B128EAF2B771CB927D36F828 /* Pods-Bard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bard/Pods-Bard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -103,6 +105,7 @@
 				89114E201D45A29E0078205C /* Assets.xcassets */,
 				89C9860E1D45BA720056E687 /* AppDelegate.swift */,
 				89114E251D45A29E0078205C /* Info.plist */,
+				89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */,
 				89E3BBE51D47A9A000963EEE /* Bard-Bridging-Header.h */,
 			);
 			path = Bard;
@@ -252,6 +255,7 @@
 			files = (
 				89114E211D45A29E0078205C /* Assets.xcassets in Resources */,
 				89C986131D45BA800056E687 /* LaunchScreen.storyboard in Resources */,
+				89E3BBE71D47D72300963EEE /* GoogleService-Info.plist in Resources */,
 				89C986141D45BA800056E687 /* Login.storyboard in Resources */,
 				89C986151D45BA800056E687 /* Main.storyboard in Resources */,
 			);

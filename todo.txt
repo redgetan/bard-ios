@@ -13,7 +13,16 @@
 
 [ ] analytics
   [x] crashlytics
-  [ ] instabug
+  [x] instabug
+  [x] google analytics / firebase
+  [ ] mixpanel
+    [ ] track events
+      [ ] signup
+      [ ] login
+      [ ] view repo
+      [ ] go to editor (character/scene)
+      [ ] play (text/character/scene/duration)
+      [ ] share
 
 [ ] library tab
   [ ] create button
