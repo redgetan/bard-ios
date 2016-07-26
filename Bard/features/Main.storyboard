@@ -104,7 +104,7 @@
         <!--Choose Actor-->
         <scene sceneID="0oK-8w-Vut">
             <objects>
-                <viewController id="eBH-KA-a80" sceneMemberID="viewController">
+                <viewController id="eBH-KA-a80" customClass="CharacterSelectViewController" customModule="Bard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ba9-tW-bn5"/>
                         <viewControllerLayoutGuide type="bottom" id="zps-QX-879"/>
@@ -140,7 +140,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Choose Actor" id="cKr-Jr-nlk">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Myw-wA-JFR"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Myw-wA-JFR">
+                            <connections>
+                                <action selector="cancel:" destination="eBH-KA-a80" id="P3N-eS-mUf"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="76n-zF-xDX" userLabel="First Responder" sceneMemberID="firstResponder"/>
