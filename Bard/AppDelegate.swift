@@ -13,15 +13,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
 
-        let isLogined = false //UserConfig.isLogined()
+        let isLogined = UserConfig.isLogined()
         
         if isLogined {
-
+            Helper.openStoryboard(window: window,
+                                  storyboardName: "Main",
+                                  viewControllerName: "TabBarController")
         } else {
-//            startLoginOrRegisterStoryboard()
+            Helper.openStoryboard(window: window,
+                                  storyboardName: "Login",
+                                  viewControllerName: "LoginNavigationController")
         }
         
         return true
@@ -49,15 +52,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    // MARK: helpers
-    
-    func startLoginOrRegisterStoryboard() {
-        // http://stackoverflow.com/questions/19962276/best-practices-for-storyboard-login-screen-handling-clearing-of-data-upon-logou
-        // http://www.newventuresoftware.com/blog/organizing-xcode-projects-using-multiple-storyboards
-        let storyboard = UIStoryboard(name: "Login", bundle: nil)
-        let rootViewController = storyboard.instantiateViewControllerWithIdentifier("LoginNavigationController") as? UINavigationController
-        window?.rootViewController = rootViewController
-    }
 
 
 }

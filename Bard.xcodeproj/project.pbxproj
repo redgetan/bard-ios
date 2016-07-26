@@ -23,6 +23,7 @@
 		89C9862F1D46A56F0056E687 /* BardClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C9862E1D46A56F0056E687 /* BardClient.swift */; };
 		89C986321D46AF230056E687 /* Configuration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986311D46AF230056E687 /* Configuration.swift */; };
 		89C986341D46D8350056E687 /* LoginInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986331D46D8350056E687 /* LoginInputViewController.swift */; };
+		89C986371D46E3430056E687 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986361D46E3430056E687 /* Helper.swift */; };
 		FD17554C7E51AFA7656D7139 /* Pods_Bard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977A13353D1C37465D0C5F9D /* Pods_Bard.framework */; };
 /* End PBXBuildFile section */
 
@@ -46,6 +47,7 @@
 		89C9862E1D46A56F0056E687 /* BardClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BardClient.swift; path = api/BardClient.swift; sourceTree = "<group>"; };
 		89C986311D46AF230056E687 /* Configuration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Configuration.swift; path = config/Configuration.swift; sourceTree = "<group>"; };
 		89C986331D46D8350056E687 /* LoginInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginInputViewController.swift; path = ui/LoginInputViewController.swift; sourceTree = "<group>"; };
+		89C986361D46E3430056E687 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helper.swift; path = util/Helper.swift; sourceTree = "<group>"; };
 		977A13353D1C37465D0C5F9D /* Pods_Bard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B128EAF2B771CB927D36F828 /* Pods-Bard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bard/Pods-Bard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -98,6 +100,7 @@
 				89C9860C1D45BA570056E687 /* models */,
 				89C9860B1D45BA510056E687 /* ui */,
 				89C9860A1D45BA480056E687 /* features */,
+				89C986351D46E3300056E687 /* util */,
 				89114E201D45A29E0078205C /* Assets.xcassets */,
 				89C9860E1D45BA720056E687 /* AppDelegate.swift */,
 				89114E251D45A29E0078205C /* Info.plist */,
@@ -167,6 +170,14 @@
 				89C986311D46AF230056E687 /* Configuration.swift */,
 			);
 			name = config;
+			sourceTree = "<group>";
+		};
+		89C986351D46E3300056E687 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				89C986361D46E3430056E687 /* Helper.swift */,
+			);
+			name = util;
 			sourceTree = "<group>";
 		};
 		A41798276B171025AEF27ED2 /* Frameworks */ = {
@@ -310,6 +321,7 @@
 				89C9862F1D46A56F0056E687 /* BardClient.swift in Sources */,
 				89C9860F1D45BA720056E687 /* AppDelegate.swift in Sources */,
 				89C986341D46D8350056E687 /* LoginInputViewController.swift in Sources */,
+				89C986371D46E3430056E687 /* Helper.swift in Sources */,
 				89C9862C1D4691D90056E687 /* BorderedTextField.swift in Sources */,
 				89C986221D467A570056E687 /* LoginNavigationViewController.swift in Sources */,
 			);

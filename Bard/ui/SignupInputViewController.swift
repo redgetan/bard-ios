@@ -28,13 +28,13 @@ class SignupInputViewController: UIViewController {
     
     
     @IBAction func doSignUp(sender: UIButton) {
-
-        
         BardClient.signUp(username: self.usernameTextField.text!,
                             email: self.emailTextField.text!,
                             password: self.passwordTextField.text!, success: { value in
             Drop.down("Account successfully created", state: .Success, duration: 2)
             UserConfig.storeCredentials(value)
+            Helper.openStoryboard(sourceViewController: self, storyboardName: "Main", viewControllerName: "TabBarController")
+
         }, failure: { errorMessage in
             Drop.down(errorMessage, state: .Error, duration: 3)
         })
