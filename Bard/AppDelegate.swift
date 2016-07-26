@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         Instabug.startWithToken("b95aeb23d36646812b25000303399919", invocationEvent: IBGInvocationEvent.Shake)
-//        Fabric.with([Crashlytics.self])
+        Fabric.with([Crashlytics.self])
         
         let isLogined = UserConfig.isLogined()
         
