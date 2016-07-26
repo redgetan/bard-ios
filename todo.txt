@@ -12,8 +12,31 @@
   [ ] testflight
 
 [ ] analytics
-  [ ] crashlytics
+  [x] crashlytics
   [ ] instabug
+
+[ ] library tab
+  [ ] create button
+    [ ] show characters
+      [ ] fetch character list from server
+      [ ] click on char would display scene list
+      [ ] scene list should include (all)
+    [ ] scene
+      [ ] fetch scene list from server
+      [ ] should be quick (json cached in column)
+      [ ] if there's missing scene on realm (add it)
+  [ ] show list of repo
+  [ ] click on item should display the video
+  [ ] let user delete
+  [ ] VideoPlayerViewController
+    [ ] should allow people to share
+
+[ ] TextToVideoEditor
+  [ ] player
+  [ ] textfield
+  [ ] show sticky error (invalid word)
+  [ ] clickable wordlist (toggle show/hide)
+  [ ] play goes to VideoPlayerViewController
 
 [ ] profile tab
   [ ] set avatar

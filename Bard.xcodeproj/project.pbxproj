@@ -46,6 +46,7 @@
 		89C986331D46D8350056E687 /* LoginInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginInputViewController.swift; path = ui/LoginInputViewController.swift; sourceTree = "<group>"; };
 		89C986361D46E3430056E687 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helper.swift; path = util/Helper.swift; sourceTree = "<group>"; };
 		89C986381D46EE040056E687 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeViewController.swift; path = ui/WelcomeViewController.swift; sourceTree = "<group>"; };
+		89E3BBE51D47A9A000963EEE /* Bard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bard-Bridging-Header.h"; sourceTree = "<group>"; };
 		977A13353D1C37465D0C5F9D /* Pods_Bard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B128EAF2B771CB927D36F828 /* Pods-Bard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bard/Pods-Bard.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +103,7 @@
 				89114E201D45A29E0078205C /* Assets.xcassets */,
 				89C9860E1D45BA720056E687 /* AppDelegate.swift */,
 				89114E251D45A29E0078205C /* Info.plist */,
+				89E3BBE51D47A9A000963EEE /* Bard-Bridging-Header.h */,
 			);
 			path = Bard;
 			sourceTree = "<group>";
@@ -437,6 +439,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.roplabs.Bard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Bard/Bard-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -452,6 +455,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.roplabs.Bard;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OBJC_BRIDGING_HEADER = "Bard/Bard-Bridging-Header.h";
 			};
 			name = Release;
 		};

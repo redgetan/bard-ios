@@ -13,5 +13,6 @@ target 'Bard' do
   pod 'KeychainAccess'
   pod 'Fabric'
   pod 'Crashlytics'
+  pod 'Instabug'
 
 end

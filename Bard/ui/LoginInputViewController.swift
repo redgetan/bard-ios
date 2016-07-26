@@ -24,6 +24,8 @@ class LoginInputViewController: UIViewController {
 
 
     @IBAction func doLogin(sender: UIButton) {
+        var x: String? = nil
+        let result = x!.isEmpty
         BardClient.login(usernameOrEmail: usernameOrEmailTextField.text!,
                          password: passwordTextField.text!, success: { value in
             UserConfig.storeCredentials(value)

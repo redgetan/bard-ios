@@ -17,9 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        Fabric.with([Crashlytics.self])
+        Instabug.startWithToken("b95aeb23d36646812b25000303399919", invocationEvent: IBGInvocationEvent.Shake)
+//        Fabric.with([Crashlytics.self])
         
         let isLogined = UserConfig.isLogined()
+        
+      
         
         if isLogined {
             Helper.openStoryboard(window: window,
