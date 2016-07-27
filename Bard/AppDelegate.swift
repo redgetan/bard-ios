@@ -22,6 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         Instabug.startWithToken("b95aeb23d36646812b25000303399919", invocationEvent: IBGInvocationEvent.Shake)
         Fabric.with([Crashlytics.self])
+        Storage.setup()
         
         let isLogined = UserConfig.isLogined()
         

@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		890D3E5D1D493931008F96DF /* Scene.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E5C1D493931008F96DF /* Scene.swift */; };
+		890D3E5F1D493A20008F96DF /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E5E1D493A20008F96DF /* Repository.swift */; };
+		890D3E611D493A8C008F96DF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E601D493A8C008F96DF /* Storage.swift */; };
+		890D3E631D493B98008F96DF /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E621D493B98008F96DF /* Character.swift */; };
+		890D3E651D493E8E008F96DF /* SceneSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E641D493E8E008F96DF /* SceneSelectViewController.swift */; };
+		890D3E671D49420C008F96DF /* BardEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E661D49420C008F96DF /* BardEditorViewController.swift */; };
+		890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E681D494A5D008F96DF /* VideoMerger.swift */; };
 		89114E211D45A29E0078205C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89114E201D45A29E0078205C /* Assets.xcassets */; };
 		89C9860F1D45BA720056E687 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C9860E1D45BA720056E687 /* AppDelegate.swift */; };
 		89C986131D45BA800056E687 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C986101D45BA800056E687 /* LaunchScreen.storyboard */; };
@@ -30,6 +37,13 @@
 
 /* Begin PBXFileReference section */
 		42EA2D9D909571F24121B875 /* Pods-Bard.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bard.release.xcconfig"; path = "Pods/Target Support Files/Pods-Bard/Pods-Bard.release.xcconfig"; sourceTree = "<group>"; };
+		890D3E5C1D493931008F96DF /* Scene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Scene.swift; path = models/Scene.swift; sourceTree = "<group>"; };
+		890D3E5E1D493A20008F96DF /* Repository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Repository.swift; path = models/Repository.swift; sourceTree = "<group>"; };
+		890D3E601D493A8C008F96DF /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Storage.swift; path = storage/Storage.swift; sourceTree = "<group>"; };
+		890D3E621D493B98008F96DF /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Character.swift; path = models/Character.swift; sourceTree = "<group>"; };
+		890D3E641D493E8E008F96DF /* SceneSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneSelectViewController.swift; path = ui/SceneSelectViewController.swift; sourceTree = "<group>"; };
+		890D3E661D49420C008F96DF /* BardEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BardEditorViewController.swift; path = ui/BardEditorViewController.swift; sourceTree = "<group>"; };
+		890D3E681D494A5D008F96DF /* VideoMerger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoMerger.swift; path = models/VideoMerger.swift; sourceTree = "<group>"; };
 		89114E141D45A29E0078205C /* Bard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89114E201D45A29E0078205C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89114E251D45A29E0078205C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -133,6 +147,8 @@
 				89C986251D46823A0056E687 /* SignupInputViewController.swift */,
 				89C986381D46EE040056E687 /* WelcomeViewController.swift */,
 				89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */,
+				890D3E641D493E8E008F96DF /* SceneSelectViewController.swift */,
+				890D3E661D49420C008F96DF /* BardEditorViewController.swift */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -140,6 +156,10 @@
 		89C9860C1D45BA570056E687 /* models */ = {
 			isa = PBXGroup;
 			children = (
+				890D3E5C1D493931008F96DF /* Scene.swift */,
+				890D3E5E1D493A20008F96DF /* Repository.swift */,
+				890D3E621D493B98008F96DF /* Character.swift */,
+				890D3E681D494A5D008F96DF /* VideoMerger.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -148,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				89C986161D45BA8E0056E687 /* UserConfig.swift */,
+				890D3E601D493A8C008F96DF /* Storage.swift */,
 			);
 			name = storage;
 			sourceTree = "<group>";
@@ -333,17 +354,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				89C9861D1D45BA990056E687 /* RepositoriesViewController.swift in Sources */,
+				890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */,
+				890D3E671D49420C008F96DF /* BardEditorViewController.swift in Sources */,
 				89C986201D4660290056E687 /* BorderedButton.swift in Sources */,
+				890D3E5F1D493A20008F96DF /* Repository.swift in Sources */,
 				89C986171D45BA8E0056E687 /* UserConfig.swift in Sources */,
 				89C9861C1D45BA990056E687 /* ProfileViewController.swift in Sources */,
+				890D3E5D1D493931008F96DF /* Scene.swift in Sources */,
 				89C986321D46AF230056E687 /* Configuration.swift in Sources */,
 				89C986261D46823A0056E687 /* SignupInputViewController.swift in Sources */,
 				89E3BBE91D47F48600963EEE /* CharacterSelectViewController.swift in Sources */,
+				890D3E651D493E8E008F96DF /* SceneSelectViewController.swift in Sources */,
 				89C986391D46EE040056E687 /* WelcomeViewController.swift in Sources */,
 				89C9862F1D46A56F0056E687 /* BardClient.swift in Sources */,
 				89C9860F1D45BA720056E687 /* AppDelegate.swift in Sources */,
 				89C986341D46D8350056E687 /* LoginInputViewController.swift in Sources */,
+				890D3E611D493A8C008F96DF /* Storage.swift in Sources */,
 				89C986371D46E3430056E687 /* Helper.swift in Sources */,
+				890D3E631D493B98008F96DF /* Character.swift in Sources */,
 				89C9862C1D4691D90056E687 /* BorderedTextField.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
