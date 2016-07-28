@@ -15,7 +15,6 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
     @IBOutlet weak var charactersTableView: UITableView!
     var characters: Results<Character>? = nil
     let cellIdentifier = "CharacterTableViewCell"
-    var selectedCharacter: Character? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,18 +58,20 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
     
     func tableView(tableView: UITableView,
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        selectedCharacter = self.characters![indexPath.row]
+        let character = self.characters![indexPath.row]
         
         let cell = charactersTableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-        cell.textLabel?.text = selectedCharacter!.name
-        cell.detailTextLabel?.text = selectedCharacter!.details
+        cell.textLabel?.text = character.name
+        cell.detailTextLabel?.text = character.details
         return cell;
     }
-
+ 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "characterToScene") {
+            let indexPath = charactersTableView.indexPathForCell(sender as! UITableViewCell)!
+            let character = self.characters![indexPath.row]
             let viewController = segue.destinationViewController as! SceneSelectViewController;
-            viewController.characterToken = selectedCharacter!.token
+            viewController.characterToken = character.token
         }
     }
 

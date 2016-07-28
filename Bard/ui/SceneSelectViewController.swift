@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import SwiftyDrop
+import Haneke
 
 class SceneSelectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -17,7 +18,6 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     var scenes: Results<Scene>? = nil
     let cellIdentifier = "SceneTableViewCell"
     var characterToken = ""
-    var selectedScene: Scene? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,18 +62,25 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView,
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        selectedScene = self.scenes![indexPath.row]
+        let scene = self.scenes![indexPath.row]
         
-        let cell = scenesTableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-        cell.textLabel?.text = selectedScene!.name
+        let cell = scenesTableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SceneTableViewCell
+        cell.sceneNameLabel?.text = scene.name
+        
+        if let url = NSURL(string: scene.thumbnailUrl) {
+            cell.sceneImageView.hnk_setImageFromURL(url)
+        }
+
         return cell;
     }
-    
+ 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "sceneToEditor") {
+            let indexPath = scenesTableView.indexPathForCell(sender as! UITableViewCell)!
+            let scene = self.scenes![indexPath.row]
             let viewController = segue.destinationViewController as! BardEditorViewController;
-            viewController.characterToken = selectedScene!.characterToken
-            viewController.sceneToken     = selectedScene!.token
+            viewController.characterToken = scene.characterToken
+            viewController.sceneToken     = scene.token
 
         }
     }

@@ -15,6 +15,7 @@
 		890D3E671D49420C008F96DF /* BardEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E661D49420C008F96DF /* BardEditorViewController.swift */; };
 		890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E681D494A5D008F96DF /* VideoMerger.swift */; };
 		89114E211D45A29E0078205C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89114E201D45A29E0078205C /* Assets.xcassets */; };
+		899145C11D4A873C00C99369 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899145C01D4A873C00C99369 /* SceneTableViewCell.swift */; };
 		89C9860F1D45BA720056E687 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C9860E1D45BA720056E687 /* AppDelegate.swift */; };
 		89C986131D45BA800056E687 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C986101D45BA800056E687 /* LaunchScreen.storyboard */; };
 		89C986141D45BA800056E687 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C986111D45BA800056E687 /* Login.storyboard */; };
@@ -47,6 +48,7 @@
 		89114E141D45A29E0078205C /* Bard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89114E201D45A29E0078205C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89114E251D45A29E0078205C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		899145C01D4A873C00C99369 /* SceneTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneTableViewCell.swift; path = ui/views/SceneTableViewCell.swift; sourceTree = "<group>"; };
 		89C9860E1D45BA720056E687 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89C986101D45BA800056E687 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = features/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C986111D45BA800056E687 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Login.storyboard; path = features/Login.storyboard; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			children = (
 				89C9861F1D4660290056E687 /* BorderedButton.swift */,
 				89C9862B1D4691D90056E687 /* BorderedTextField.swift */,
+				899145C01D4A873C00C99369 /* SceneTableViewCell.swift */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -353,6 +356,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				899145C11D4A873C00C99369 /* SceneTableViewCell.swift in Sources */,
 				89C9861D1D45BA990056E687 /* RepositoriesViewController.swift in Sources */,
 				890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */,
 				890D3E671D49420C008F96DF /* BardEditorViewController.swift in Sources */,

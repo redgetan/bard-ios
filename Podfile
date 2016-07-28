@@ -10,10 +10,16 @@ target 'Bard' do
   pod 'Alamofire', '~> 3.4'
   pod 'SwiftyDrop', '~>2.0'
   pod 'KeychainAccess'
+  pod 'HanekeSwift'
+
+  # crash reporting
   pod 'Fabric'
   pod 'Crashlytics'
   pod 'Instabug'
+
+  # analytics
   pod 'Firebase'
   pod 'Mixpanel'
+
 
 end

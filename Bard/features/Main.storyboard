@@ -128,7 +128,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="bLr-EZ-ITe" kind="show" identifier="characterToScene" id="jYo-iP-tqZ"/>
+                                            <segue destination="bLr-EZ-ITe" kind="show" identifier="characterToScene" id="1pM-8X-mK4"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -169,18 +169,43 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JIF-4J-oO8">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JIF-4J-oO8">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SceneTableViewCell" id="PWX-Np-Vym">
-                                        <rect key="frame" x="0.0" y="92" width="600" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SceneTableViewCell" rowHeight="90" id="PWX-Np-Vym" customClass="SceneTableViewCell" customModule="Bard" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="92" width="600" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PWX-Np-Vym" id="dMc-Jf-JDr">
-                                            <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="567" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mV8-H5-0EG">
+                                                    <rect key="frame" x="0.0" y="0.0" width="90" height="89"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="90" id="81K-Nb-g6P"/>
+                                                        <constraint firstAttribute="height" constant="89" id="ZKe-fa-xmw"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scene Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7p-42-8Fa">
+                                                    <rect key="frame" x="98" y="8" width="461" height="73"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="P7p-42-8Fa" firstAttribute="leading" secondItem="mV8-H5-0EG" secondAttribute="trailing" constant="8" id="DuN-fW-VPP"/>
+                                                <constraint firstAttribute="trailing" secondItem="P7p-42-8Fa" secondAttribute="trailing" constant="8" id="Eki-gN-r6b"/>
+                                                <constraint firstItem="P7p-42-8Fa" firstAttribute="top" secondItem="dMc-Jf-JDr" secondAttribute="top" constant="8" id="PKg-xL-OY8"/>
+                                                <constraint firstItem="mV8-H5-0EG" firstAttribute="top" secondItem="dMc-Jf-JDr" secondAttribute="top" id="PQw-ZU-8iX"/>
+                                                <constraint firstItem="mV8-H5-0EG" firstAttribute="leading" secondItem="dMc-Jf-JDr" secondAttribute="leading" id="RuO-MY-DEu"/>
+                                                <constraint firstAttribute="bottom" secondItem="P7p-42-8Fa" secondAttribute="bottom" constant="8" id="wsD-1l-9WW"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="sceneImageView" destination="mV8-H5-0EG" id="AWU-x3-duo"/>
+                                            <outlet property="sceneNameLabel" destination="P7p-42-8Fa" id="kGs-Kw-FHe"/>
                                             <segue destination="WNR-dj-mS0" kind="show" identifier="sceneToEditor" id="3c3-Ye-Dbo"/>
                                         </connections>
                                     </tableViewCell>

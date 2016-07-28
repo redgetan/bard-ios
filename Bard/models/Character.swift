@@ -23,8 +23,13 @@ class Character: Object {
         character.details = obj["description"] as? String
         
         let realm = try! Realm()
+
+        if realm.objects(Character.self).filter("token = '\(character.token)'").first != nil {
+            return
+        }
+        
         try! realm.write {
-            realm.add(character, update: true)
+            realm.add(character)
         }
         
     }

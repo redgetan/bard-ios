@@ -26,8 +26,13 @@ class Scene: Object {
         scene.wordList = obj["wordList"] as? String
         
         let realm = try! Realm()
+        
+        if realm.objects(Scene.self).filter("token = '\(scene.token)'").first != nil {
+            return
+        }
+        
         try! realm.write {
-            realm.add(scene, update: true)
+            realm.add(scene)
         }
     }
     
