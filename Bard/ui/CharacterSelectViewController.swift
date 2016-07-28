@@ -32,7 +32,7 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
     
     func syncRemoteData() {
         BardClient.getCharacterList(success: { value in
-            for characterValues in value as? NSArray {
+            for characterValues in (value as? NSArray)! {
                 Character.create(characterValues)
             }
         }, failure: { errorMessage in
