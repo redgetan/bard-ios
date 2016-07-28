@@ -8,21 +8,27 @@
 
 import Foundation
 import RealmSwift
-import ObjectMapper
 
-class Character: Object, Mappable {
+class Character: Object {
     dynamic var token: String = ""
     dynamic var name: String = ""
     dynamic var details: String = ""
     dynamic var createdAt: NSDate = NSDate()
     
-    required convenience init?(_ map: Map) {
-        self.init()
+    static func create(obj: AnyObject) -> Void {
+        let character = Character()
+        
+        character.name = obj["name"] as! String
+        character.token = obj["token"] as! String
+        character.details = obj["description"] as! String
+        
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(character, update: true)
+        }
+        
+        
     }
     
-    func mapping(map: Map) {
-        token <- map["token"]
-        name <- map["name"]
-        details <- map["description"]
-    }
+
 }

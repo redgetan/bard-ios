@@ -12,12 +12,16 @@ import Alamofire
 class BardClient {
  
     
-    static func getSignUpURL() -> String {
-        return "\(Configuration.bardAccountBaseURL)/users"
-    }
+    static let signUpUrl = "\(Configuration.bardAccountBaseURL)/users"
+    static let loginUrl  = "\(Configuration.bardAccountBaseURL)/users/sign_in"
+    static let characterListUrl  = "\(Configuration.bardAccountBaseURL)/bundles"
     
-    static func getLoginURL() -> String {
-        return "\(Configuration.bardAccountBaseURL)/users/sign_in"
+    static func getSceneListUrl(characterToken: String) -> String  {
+        return "\(Configuration.bardAccountBaseURL)/bundles/\(characterToken)/scenes"
+    }
+
+    static func getSceneUrl(characterToken: String, sceneToken: String) -> String  {
+        return "\(Configuration.bardAccountBaseURL)/bundles/\(characterToken)/scenes/sceneToken"
     }
     
     
@@ -28,7 +32,7 @@ class BardClient {
             "password" : password
         ]
         
-        bardApiRequest(.POST, url: getLoginURL(), parameters: params, success: success, failure: failure)
+        bardApiRequest(.POST, url: loginUrl, parameters: params, success: success, failure: failure)
     }
     
     static func signUp(username username: String, email: String, password: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
@@ -39,7 +43,11 @@ class BardClient {
             "password" : password
         ]
         
-        bardApiRequest(.POST, url: getSignUpURL(), parameters: params, success: success, failure: failure)
+        bardApiRequest(.POST, url: signUpUrl, parameters: params, success: success, failure: failure)
+    }
+    
+    static func getCharacterList(success success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
+        bardApiRequest(.GET, url: characterListUrl, success: success, failure: failure)
     }
     
     static func bardApiRequest(method: Alamofire.Method, url: String, parameters: [String : AnyObject]? = nil, headers: [String : String]? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {

@@ -8,9 +8,8 @@
 
 import Foundation
 import RealmSwift
-import ObjectMapper
 
-class Scene: Object, Mappable {
+class Scene: Object {
     dynamic var name: String = ""
     dynamic var token: String = ""
     dynamic var characterToken: String = ""
@@ -18,16 +17,20 @@ class Scene: Object, Mappable {
     dynamic var thumbnailUrl: String = ""
     dynamic var createdAt: NSDate = NSDate()
 
-    
-    required convenience init?(_ map: Map) {
-        self.init()
+    static func create(obj: AnyObject) {
+        var scene = Scene()
+        scene.name = obj["name"] as! String
+        scene.token = obj["videoToken"] as! String
+        scene.characterToken = obj["bundleToken"] as! String
+        scene.thumbnailUrl = obj["thumbnailUrl"] as! String
+        scene.wordList = obj["wordList"] as! String
+        
+        let realm = try! Realm()
+        try! realm.write {
+            realm.add(scene, update: true)
+        }
     }
     
-    func mapping(map: Map) {
-        name <- map["name"]
-        token <- map["videoToken"]
-        characterToken <- map["bundleToken"]
-        thumbnailUrl <- map["thumbnailUrl"]
-        wordList <- map["wordList"]
-    }
+    
+    
 }

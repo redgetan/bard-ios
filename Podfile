@@ -8,7 +8,6 @@ target 'Bard' do
   pod 'Player'
   pod 'RealmSwift'
   pod 'Alamofire', '~> 3.4'
-  pod 'AlamofireObjectMapper', '~> 3.0'
   pod 'SwiftyDrop', '~>2.0'
   pod 'KeychainAccess'
   pod 'Fabric'

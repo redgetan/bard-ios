@@ -21,11 +21,23 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
         initCharacters()
         charactersTableView.delegate = self
         charactersTableView.dataSource = self
+        
+        syncRemoteData()
     }
     
     func initCharacters() {
         self.characters = try! Realm().objects(Character.self)
                                       .sorted("createdAt", ascending: false)
+    }
+    
+    func syncRemoteData() {
+        BardClient.getCharacterList(success: { value in
+            for characterValues in value as? NSArray {
+                Character.create(characterValues)
+            }
+        }, failure: { errorMessage in
+                
+        })
     }
 
     override func didReceiveMemoryWarning() {
