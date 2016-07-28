@@ -19,8 +19,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IW4-1x-dYi">
-                                <rect key="frame" x="0.0" y="192" width="600" height="360"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IW4-1x-dYi">
+                                <rect key="frame" x="0.0" y="191" width="600" height="360"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RepositoryTableViewCell" id="93Q-kw-mHP">
@@ -128,7 +128,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="bLr-EZ-ITe" kind="show" id="jYo-iP-tqZ"/>
+                                            <segue destination="bLr-EZ-ITe" kind="show" identifier="characterToScene" id="jYo-iP-tqZ"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -160,7 +160,7 @@
         <!--Choose Scene-->
         <scene sceneID="VW6-dq-xGa">
             <objects>
-                <viewController id="bLr-EZ-ITe" sceneMemberID="viewController">
+                <viewController id="bLr-EZ-ITe" customClass="SceneSelectViewController" customModule="Bard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="blL-qS-kFw"/>
                         <viewControllerLayoutGuide type="bottom" id="7MF-Y8-x0M"/>
@@ -181,7 +181,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="WNR-dj-mS0" kind="show" id="3c3-Ye-Dbo"/>
+                                            <segue destination="WNR-dj-mS0" kind="show" identifier="sceneToEditor" id="3c3-Ye-Dbo"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -196,6 +196,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Choose Scene" id="fNn-fg-K9Z"/>
+                    <connections>
+                        <outlet property="scenesTableView" destination="JIF-4J-oO8" id="5OS-1D-kQ3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BqI-r0-CAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -222,8 +225,8 @@
                                     <segue destination="cOM-kx-JFe" kind="embed" id="f9Z-qI-Aeg"/>
                                 </connections>
                             </containerView>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NoN-5I-6DY">
-                                <rect key="frame" x="0.0" y="401" width="600" height="60"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NoN-5I-6DY">
+                                <rect key="frame" x="0.0" y="402" width="600" height="60"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5R-yX-rXv">
                                         <rect key="frame" x="8" y="8" width="50" height="44"/>
@@ -251,7 +254,6 @@
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="7Ji-mi-cnf"/>
-                                    <constraint firstItem="ELG-Wc-1WQ" firstAttribute="leading" secondItem="A5R-yX-rXv" secondAttribute="trailing" id="Mxc-2k-5xK"/>
                                 </constraints>
                                 <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                             </stackView>
@@ -312,17 +314,9 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Loaded by SecondViewController" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NDk-cv-Gan">
-                                <rect key="frame" x="192" y="329" width="216" height="17"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="top" secondItem="zEq-FU-wV5" secondAttribute="bottom" constant="8" symbolic="YES" id="Day-4N-Vmt"/>
-                            <constraint firstItem="NDk-cv-Gan" firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="JgO-Fn-dHn"/>
                             <constraint firstAttribute="centerX" secondItem="zEq-FU-wV5" secondAttribute="centerX" id="qqM-NS-xev"/>
                             <constraint firstAttribute="centerY" secondItem="zEq-FU-wV5" secondAttribute="centerY" id="qzY-Ky-pLD"/>
                         </constraints>

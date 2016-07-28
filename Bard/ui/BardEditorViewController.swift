@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import Player
 import Photos
+import SwiftyDrop
 
 
 class BardEditorViewController: UIViewController {
@@ -125,7 +126,23 @@ class BardEditorViewController: UIViewController {
     
     func initDictionary() {
         for scene in getScenes() {
-            addWordListToDictionary(scene.wordList)
+            if let wordList = scene.wordList {
+                addWordListToDictionary(wordList)
+            } else {
+                BardClient.getSceneWordList(characterToken, sceneToken: sceneToken, success: { value in
+                    if let sceneWordList = value["wordList"] as? String {
+                        let realm = try! Realm()
+                        try! realm.write {
+                            scene.wordList = sceneWordList
+                        }
+                        
+                        self.addWordListToDictionary(sceneWordList)
+                    }
+
+                }, failure: { errorMessage in
+                    Drop.down("Failed to load word list", state: .Error, duration: 3)
+                })
+            }
         }
     }
     

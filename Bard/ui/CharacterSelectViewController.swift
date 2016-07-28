@@ -8,12 +8,14 @@
 
 import UIKit
 import RealmSwift
+import SwiftyDrop
 
 class CharacterSelectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
     @IBOutlet weak var charactersTableView: UITableView!
     var characters: Results<Character>? = nil
     let cellIdentifier = "CharacterTableViewCell"
+    var selectedCharacter: Character? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +37,9 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
             for characterValues in (value as? NSArray)! {
                 Character.create(characterValues)
             }
+            self.charactersTableView.reloadData()
         }, failure: { errorMessage in
-                
+            Drop.down("Failed to list characters from the network", state: .Error, duration: 3)
         })
     }
 
@@ -56,13 +59,19 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
     
     func tableView(tableView: UITableView,
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let character = self.characters![indexPath.row]
+        selectedCharacter = self.characters![indexPath.row]
         
         let cell = charactersTableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
-        cell.textLabel?.text = character.name
-        cell.detailTextLabel?.text = character.details
+        cell.textLabel?.text = selectedCharacter!.name
+        cell.detailTextLabel?.text = selectedCharacter!.details
         return cell;
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "characterToScene") {
+            let viewController = segue.destinationViewController as! SceneSelectViewController;
+            viewController.characterToken = selectedCharacter!.token
+        }
+    }
 
 }
