@@ -15,6 +15,13 @@ class Character: Object {
     dynamic var details: String? = ""
     dynamic var createdAt: NSDate = NSDate()
     
+    static var count: Int {
+        get {
+            let realm = try! Realm()
+            return realm.objects(Character.self).count
+        }
+    }
+    
     static func create(obj: AnyObject) -> Void {
         let character = Character()
         

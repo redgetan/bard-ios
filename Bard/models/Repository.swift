@@ -33,10 +33,6 @@ class Repository: Object {
 
     }
     
-    override static func primaryKey() -> String? {
-        return "token"
-    }
-    
     func details() -> String {
         var result = [String]()
         var word: String

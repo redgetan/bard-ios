@@ -16,6 +16,13 @@ class Scene: Object {
     dynamic var wordList: String? = ""
     dynamic var thumbnailUrl: String = ""
     dynamic var createdAt: NSDate = NSDate()
+    
+    static var count: Int {
+        get {
+            let realm = try! Realm()
+            return realm.objects(Scene.self).count
+        }
+    }
 
     static func create(obj: AnyObject) {
         let scene = Scene()

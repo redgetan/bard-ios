@@ -24,7 +24,13 @@ class BardEditorViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        initPlayer()
         initDictionary()
+    }
+    
+    
+    @IBAction func onPlayBtnClick(sender: UIButton) {
+        generateBardVideo()
     }
     
     func generateBardVideo() {
@@ -169,6 +175,9 @@ class BardEditorViewController: UIViewController {
     
     func initPlayer() {
         self.player = self.childViewControllers.last as! Player
+        self.player.view.layer.hidden = false
+        self.player.view.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1.0)
+        
         let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
