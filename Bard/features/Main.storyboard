@@ -250,50 +250,62 @@
                                     <segue destination="cOM-kx-JFe" kind="embed" id="f9Z-qI-Aeg"/>
                                 </connections>
                             </containerView>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NoN-5I-6DY">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8tI-Jw-5hX">
                                 <rect key="frame" x="0.0" y="402" width="600" height="60"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5R-yX-rXv">
-                                        <rect key="frame" x="8" y="8" width="50" height="44"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NoN-5I-6DY">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="60"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5R-yX-rXv">
+                                                <rect key="frame" x="8" y="8" width="50" height="44"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="50" id="EfY-xD-YDW"/>
+                                                </constraints>
+                                                <state key="normal" title="#"/>
+                                            </button>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Say something" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ELG-Wc-1WQ">
+                                                <rect key="frame" x="66" y="8" width="448" height="44"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Odk-Ph-xDP">
+                                                <rect key="frame" x="522" y="8" width="70" height="44"/>
+                                                <color key="backgroundColor" red="0.43921568630000002" green="0.30196078430000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="70" id="Qi0-OM-zRU"/>
+                                                </constraints>
+                                                <state key="normal" title="Play">
+                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="onPlayBtnClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="rPe-Ao-Q53"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="EfY-xD-YDW"/>
+                                            <constraint firstAttribute="height" constant="60" id="7Ji-mi-cnf"/>
                                         </constraints>
-                                        <state key="normal" title="#"/>
-                                    </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Say something" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ELG-Wc-1WQ">
-                                        <rect key="frame" x="66" y="8" width="448" height="44"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Odk-Ph-xDP">
-                                        <rect key="frame" x="522" y="8" width="70" height="44"/>
-                                        <color key="backgroundColor" red="0.43921568630000002" green="0.30196078430000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="70" id="Qi0-OM-zRU"/>
-                                        </constraints>
-                                        <state key="normal" title="Play">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="onPlayBtnClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="rPe-Ao-Q53"/>
-                                        </connections>
-                                    </button>
+                                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
+                                    </stackView>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.88759156989999999" green="0.93725490199999995" blue="0.88907707430000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="60" id="7Ji-mi-cnf"/>
+                                    <constraint firstItem="NoN-5I-6DY" firstAttribute="leading" secondItem="8tI-Jw-5hX" secondAttribute="leading" id="1M7-Lj-BTo"/>
+                                    <constraint firstItem="NoN-5I-6DY" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="top" id="AOS-Yz-s2R"/>
+                                    <constraint firstAttribute="height" constant="60" id="JFg-eV-bR2"/>
+                                    <constraint firstAttribute="trailing" secondItem="NoN-5I-6DY" secondAttribute="trailing" id="dnx-7c-9VJ"/>
                                 </constraints>
-                                <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                            </stackView>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="8tI-Jw-5hX" firstAttribute="leading" secondItem="gRG-Tb-sIp" secondAttribute="leading" id="V3P-pu-aAA"/>
+                            <constraint firstItem="8tI-Jw-5hX" firstAttribute="top" secondItem="cbC-Tr-7su" secondAttribute="bottom" id="bUJ-hr-yY4"/>
                             <constraint firstAttribute="trailing" secondItem="cbC-Tr-7su" secondAttribute="trailing" id="brN-TN-HBp"/>
-                            <constraint firstAttribute="trailing" secondItem="NoN-5I-6DY" secondAttribute="trailing" id="hX9-Z3-evn"/>
+                            <constraint firstAttribute="trailing" secondItem="8tI-Jw-5hX" secondAttribute="trailing" id="pTs-5a-PDI"/>
                             <constraint firstItem="cbC-Tr-7su" firstAttribute="top" secondItem="43r-cU-jUd" secondAttribute="bottom" id="qbv-qz-KK5"/>
-                            <constraint firstItem="NoN-5I-6DY" firstAttribute="top" secondItem="cbC-Tr-7su" secondAttribute="bottom" id="rM7-re-BKd"/>
                             <constraint firstItem="cbC-Tr-7su" firstAttribute="leading" secondItem="gRG-Tb-sIp" secondAttribute="leading" id="rXv-xd-neO"/>
-                            <constraint firstItem="NoN-5I-6DY" firstAttribute="leading" secondItem="gRG-Tb-sIp" secondAttribute="leading" id="tMu-Qy-KNi"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="47H-eK-ZYP"/>
