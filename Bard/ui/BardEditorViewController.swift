@@ -56,6 +56,42 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(BardEditorViewController.keyboardWillAppear(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(BardEditorViewController.keyboardWillDisappear(_:)), name: UIKeyboardWillHideNotification, object: nil)
+        
+        NSNotificationCenter.defaultCenter().addObserver(
+            self,
+            selector: #selector(BardEditorViewController.textFieldTextChanged(_:)),
+            name: UITextFieldTextDidChangeNotification,
+            object: inputTextField
+        )
+        
+    }
+    
+    func textFieldTextChanged(sender : AnyObject) {
+        // iterate through every words, see if it exists in wordTagMap
+        let missingWordList = getInvalidWords()
+        
+        if !missingWordList.isEmpty {
+            let missingWords = missingWordList.joinWithSeparator(",")
+            if let drop = UIApplication.sharedApplication().keyWindow?.subviews.last as? Drop {
+                (drop.subviews.last as! UILabel).text = "Invalid words: \(missingWords)"
+            } else {
+                Drop.down("Invalid words: \(missingWords)", state: .Error, duration: 60)
+            }
+        } else {
+            Drop.upAll()
+        }
+    }
+    
+    func getInvalidWords() -> [String] {
+        var missingWordList = [String]()
+        
+        for word in (inputTextField.text?.componentsSeparatedByString(" "))! {
+            if !word.isEmpty && wordTagMap[word] == nil {
+                missingWordList.append(word)
+            }
+        }
+        
+        return missingWordList
     }
     
     func keyboardWillAppear(notification: NSNotification){

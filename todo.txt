@@ -42,7 +42,7 @@
 [ ] TextToVideoEditor
   [x] player
   [x] textfield
-  [ ] show sticky error (invalid word)
+  [x] show sticky error (invalid word)
   [ ] clickable wordlist (toggle show/hide)
     [ ] toggle ui
       - https://github.com/hilen/TSWeChat
@@ -55,9 +55,9 @@
       - http://derpturkey.com/uitextfield-docked-like-ios-messenger/
       - https://robots.thoughtbot.com/input-accessorizing-uiviewcontroller
 
-    [ ] wordlist ui
+    [x] wordlist ui
       - http://www.techotopia.com/index.php/A_Swift_iOS_8_Storyboard-based_Collection_View_Tutorial
-      [ ] https://github.com/keighl/KTCenterFlowLayout
+      [x] https://github.com/keighl/KTCenterFlowLayout
         - http://stackoverflow.com/a/26287287/803865
       [ ] https://github.com/mokagio/UICollectionViewLeftAlignedLayout
       [ ] https://codentrick.com/create-a-tag-flow-layout-with-uicollectionview/
