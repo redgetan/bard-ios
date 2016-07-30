@@ -31,7 +31,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         // http://stackoverflow.com/a/16570399/803865
 //        wordTagCollectionView.backgroundView!.backgroundColor = UIColor.clearColor()
-        wordTagCollectionView.contentInset=UIEdgeInsetsMake(20.0,0.0,0.0,0.0);
+        wordTagCollectionView.contentInset=UIEdgeInsetsMake(20.0,20.0,20.0,20.0);
         wordTagCollectionView.delegate = self
         wordTagCollectionView.dataSource = self
         initPlayer()
@@ -71,8 +71,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     // MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        
-        self.sizingCell.textLabel.text = self.wordTagStringList[indexPath.row];
+        let wordTagString = self.wordTagStringList[indexPath.row]
+        let word = wordTagString.componentsSeparatedByString(":")[0]
+        self.sizingCell.textLabel.text = word;
         return self.sizingCell.intrinsicContentSize()
     }
 
