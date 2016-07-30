@@ -20,8 +20,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var wordTagMap: [String: [String]] = [String: [String]]()
     var wordTagStringList: [String] = [String]()
     var player: Player!
+    var isKeyboardShown: Bool = false
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var wordTagCollectionView: UICollectionView!
+    @IBOutlet weak var controlButton: UIButton!
+    
     let cellIdentifier = "wordTagCollectionViewCell"
     let words = ["this","is","sparta","300","everyone","speaks","english","funny","spadina","bathurst","station","is","coming"]
     let sizingCell: WordTagCollectionViewCell = WordTagCollectionViewCell()
@@ -38,6 +41,36 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         initDictionary()
         initCollectionViewCell()
     }
+    
+    @IBAction func controlButtonClick(sender: UIButton) {
+        if isKeyboardShown {
+            inputTextField.resignFirstResponder()
+        } else {
+//            inputTextField.endEditing(true)
+            inputTextField.becomeFirstResponder()
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(BardEditorViewController.keyboardWillAppear(_:)), name: UIKeyboardWillShowNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(BardEditorViewController.keyboardWillDisappear(_:)), name: UIKeyboardWillHideNotification, object: nil)
+    }
+    
+    func keyboardWillAppear(notification: NSNotification){
+        isKeyboardShown = true
+    }
+    
+    func keyboardWillDisappear(notification: NSNotification){
+        isKeyboardShown = false
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
     
     func initCollectionViewCell() {
         wordTagCollectionView.registerClass(WordTagCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
