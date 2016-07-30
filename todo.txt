@@ -25,26 +25,43 @@
       [ ] share
 
 [ ] library tab
-  [ ] create button
+  [x] create button
     [ ] show characters
-      [ ] fetch character list from server
-      [ ] click on char would display scene list
+      [x] fetch character list from server
+      [x] click on char would display scene list
       [ ] scene list should include (all)
     [ ] scene
-      [ ] fetch scene list from server
-      [ ] should be quick (json cached in column)
+      [x] fetch scene list from server
       [ ] if there's missing scene on realm (add it)
-  [ ] show list of repo
+  [x] show list of repo
   [ ] click on item should display the video
   [ ] let user delete
   [ ] VideoPlayerViewController
     [ ] should allow people to share
 
 [ ] TextToVideoEditor
-  [ ] player
-  [ ] textfield
+  [x] player
+  [x] textfield
   [ ] show sticky error (invalid word)
   [ ] clickable wordlist (toggle show/hide)
+    [ ] toggle ui
+      - https://github.com/hilen/TSWeChat
+      - https://github.com/jessesquires/JSQMessagesViewController
+      - https://github.com/badoo/Chatto
+      [ ] keyboard height
+      - http://stackoverflow.com/questions/31774006/how-to-get-height-of-keyboard-swift
+      - http://swiftandpainless.com/adjust-for-the-keyboard-in-ios-using-swift/
+      - http://stackoverflow.com/questions/35689528/add-a-view-on-top-of-the-keyboard-using-inputaccessoryview-swift
+      - http://derpturkey.com/uitextfield-docked-like-ios-messenger/
+      - https://robots.thoughtbot.com/input-accessorizing-uiviewcontroller
+
+    [ ] wordlist ui
+      - http://www.techotopia.com/index.php/A_Swift_iOS_8_Storyboard-based_Collection_View_Tutorial
+      [ ] https://github.com/keighl/KTCenterFlowLayout
+        - http://stackoverflow.com/a/26287287/803865
+      [ ] https://github.com/mokagio/UICollectionViewLeftAlignedLayout
+      [ ] https://codentrick.com/create-a-tag-flow-layout-with-uicollectionview/
+      [ ] http://stackoverflow.com/questions/16544186/how-can-i-center-rows-in-uicollectionview
   [ ] play goes to VideoPlayerViewController
 
 [ ] profile tab

@@ -190,7 +190,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scene Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7p-42-8Fa">
                                                     <rect key="frame" x="98" y="8" width="461" height="73"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -297,20 +297,41 @@
                                     <constraint firstAttribute="trailing" secondItem="NoN-5I-6DY" secondAttribute="trailing" id="dnx-7c-9VJ"/>
                                 </constraints>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qL0-xj-jDG">
+                                <rect key="frame" x="0.0" y="462" width="600" height="138"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <collectionViewLayout key="collectionViewLayout" id="9g0-ui-xUd" customClass="KTCenterFlowLayout"/>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="wordTagCollectionViewCell" id="lYj-VU-mfI">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="7uk-Wd-AL8" firstAttribute="top" secondItem="qL0-xj-jDG" secondAttribute="bottom" id="0Xl-vU-8TH"/>
+                            <constraint firstAttribute="trailing" secondItem="qL0-xj-jDG" secondAttribute="trailing" id="T9P-jK-fyc"/>
                             <constraint firstItem="8tI-Jw-5hX" firstAttribute="leading" secondItem="gRG-Tb-sIp" secondAttribute="leading" id="V3P-pu-aAA"/>
                             <constraint firstItem="8tI-Jw-5hX" firstAttribute="top" secondItem="cbC-Tr-7su" secondAttribute="bottom" id="bUJ-hr-yY4"/>
                             <constraint firstAttribute="trailing" secondItem="cbC-Tr-7su" secondAttribute="trailing" id="brN-TN-HBp"/>
+                            <constraint firstItem="qL0-xj-jDG" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="bottom" id="hNx-42-Wfn"/>
                             <constraint firstAttribute="trailing" secondItem="8tI-Jw-5hX" secondAttribute="trailing" id="pTs-5a-PDI"/>
                             <constraint firstItem="cbC-Tr-7su" firstAttribute="top" secondItem="43r-cU-jUd" secondAttribute="bottom" id="qbv-qz-KK5"/>
                             <constraint firstItem="cbC-Tr-7su" firstAttribute="leading" secondItem="gRG-Tb-sIp" secondAttribute="leading" id="rXv-xd-neO"/>
+                            <constraint firstItem="qL0-xj-jDG" firstAttribute="leading" secondItem="gRG-Tb-sIp" secondAttribute="leading" id="yjx-8c-nz2"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="47H-eK-ZYP"/>
                     <connections>
                         <outlet property="inputTextField" destination="ELG-Wc-1WQ" id="ly0-xx-3zP"/>
+                        <outlet property="wordTagCollectionView" destination="qL0-xj-jDG" id="DGR-25-biz"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fV5-fk-QU5" userLabel="First Responder" sceneMemberID="firstResponder"/>

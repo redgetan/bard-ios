@@ -13,21 +13,69 @@ import Photos
 import SwiftyDrop
 
 
-class BardEditorViewController: UIViewController {
+class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     let cdnPath = "https://d22z4oll34c07f.cloudfront.net"
     var characterToken = ""
     var sceneToken = ""
     var wordTagMap: [String: [String]] = [String: [String]]()
+    var wordTagStringList: [String] = [String]()
     var player: Player!
     @IBOutlet weak var inputTextField: UITextField!
+    @IBOutlet weak var wordTagCollectionView: UICollectionView!
+    let cellIdentifier = "wordTagCollectionViewCell"
+    let words = ["this","is","sparta","300","everyone","speaks","english","funny","spadina","bathurst","station","is","coming"]
+    let sizingCell: WordTagCollectionViewCell = WordTagCollectionViewCell()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // http://stackoverflow.com/a/16570399/803865
+//        wordTagCollectionView.backgroundView!.backgroundColor = UIColor.clearColor()
+        wordTagCollectionView.contentInset=UIEdgeInsetsMake(20.0,0.0,0.0,0.0);
+        wordTagCollectionView.delegate = self
+        wordTagCollectionView.dataSource = self
         initPlayer()
         initDictionary()
+        initCollectionViewCell()
     }
     
+    func initCollectionViewCell() {
+        wordTagCollectionView.registerClass(WordTagCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+    }
+    
+    
+    // MARK: UICollectionViewDataSource protocol
+    
+    func collectionView(collectionView: UICollectionView,
+                                 numberOfItemsInSection section: Int) -> Int {
+        return self.wordTagStringList.count
+    }
+    
+    // MARK: UICollectionViewDelegate protocol
+    
+    func collectionView(collectionView: UICollectionView,
+                                 cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier,
+        forIndexPath: indexPath) as! WordTagCollectionViewCell
+
+        let wordTagString = self.wordTagStringList[indexPath.row]
+        let word = wordTagString.componentsSeparatedByString(":")[0]
+
+        cell.textLabel.text = word
+        cell.wordTagString = wordTagString
+
+        return cell
+    }
+    
+    // MARK: UICollectionViewDelegateFlowLayout
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+        self.sizingCell.textLabel.text = self.wordTagStringList[indexPath.row];
+        return self.sizingCell.intrinsicContentSize()
+    }
+
     
     @IBAction func onPlayBtnClick(sender: UIButton) {
         generateBardVideo()
@@ -156,6 +204,7 @@ class BardEditorViewController: UIViewController {
         var word: String
 
         for wordTagString in wordList.componentsSeparatedByString(",") {
+            wordTagStringList.append(wordTagString)
             word = wordTagString.componentsSeparatedByString(":")[0]
             
             if wordTagMap[word] != nil {
