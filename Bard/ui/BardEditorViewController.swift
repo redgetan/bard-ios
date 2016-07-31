@@ -137,6 +137,22 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         return cell
     }
     
+    
+    // http://stackoverflow.com/a/22675450/803865
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let wordTagString = self.wordTagStringList[indexPath.row]
+        let word = wordTagString.componentsSeparatedByString(":")[0]
+        
+        if let selectedTextRange = inputTextField.selectedTextRange {
+            inputTextField.replaceRange(selectedTextRange, withText: " \(word) ")
+        } else {
+            inputTextField.text = "\(inputTextField.text!) \(word)"
+        }
+        
+    }
+    
+    
     // MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
