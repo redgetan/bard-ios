@@ -24,9 +24,9 @@
       [ ] play (text/character/scene/duration)
       [ ] share
 
-[ ] application
+[x] application
   [x] violet header
-  [ ] activity indicators when loading fetching from network
+  [x] activity indicators when loading fetching from network
     - https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/UIKitUICatalog/UIActivityIndicatorView.html#//apple_ref/doc/uid/TP40012857-UIActivityIndicatorView
 
 [ ] library tab

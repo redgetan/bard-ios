@@ -98,6 +98,7 @@
                     <navigationItem key="navigationItem" title="Library" id="pMx-11-fOW"/>
                     <connections>
                         <outlet property="repositoriesTableView" destination="IW4-1x-dYi" id="7HK-pe-HQ2"/>
+                        <outlet property="upperPanel" destination="zWz-du-qNz" id="0rV-Ij-dN6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>

@@ -11,6 +11,7 @@ import RealmSwift
 
 class RepositoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
+    @IBOutlet weak var upperPanel: UIView!
     @IBOutlet weak var repositoriesTableView: UITableView!
     var repositories: Results<Repository>? = nil
     let cellIdentifier = "RepositoryTableViewCell"
@@ -18,6 +19,8 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Helper.addBorder(upperPanel, edges: [.Bottom], colour: UIColor(hex: "#CCCCCC"))
         
         initRepositories()
         repositoriesTableView.delegate = self
