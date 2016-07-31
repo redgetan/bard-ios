@@ -113,7 +113,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func initCollectionView() {
         // http://stackoverflow.com/a/16570399/803865
-        wordTagCollectionView.contentInset=UIEdgeInsetsMake(20.0,20.0,20.0,20.0);
+        wordTagCollectionView.contentInset=UIEdgeInsetsMake(20.0,20.0,20.0,20.0)
         wordTagCollectionView.delegate = self
         wordTagCollectionView.dataSource = self
         wordTagCollectionView.registerClass(WordTagCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)

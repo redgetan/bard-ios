@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if isLogined {
             Helper.openStoryboard(window: window,
                                   storyboardName: "Main",
-                                  viewControllerName: "TabBarController")
+                                  viewControllerName: "TabBarViewController")
         } else {
             Helper.openStoryboard(window: window,
                                   storyboardName: "Login",
