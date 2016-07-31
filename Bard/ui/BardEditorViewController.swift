@@ -68,18 +68,24 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func textFieldTextChanged(sender : AnyObject) {
         // iterate through every words, see if it exists in wordTagMap
+        NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(displayInvalidWords), object: nil)
+        performSelector(#selector(displayInvalidWords), withObject: nil, afterDelay: 1)
+    }
+    
+    func displayInvalidWords() {
         let missingWordList = getInvalidWords()
         
         if !missingWordList.isEmpty {
             let missingWords = missingWordList.joinWithSeparator(",")
             if let drop = UIApplication.sharedApplication().keyWindow?.subviews.last as? Drop {
-                (drop.subviews.last as! UILabel).text = "Invalid words: \(missingWords)"
+                (drop.subviews.last as! UILabel).text = "Unavailable words: \(missingWords)"
             } else {
-                Drop.down("Invalid words: \(missingWords)", state: .Error, duration: 60)
+                Drop.down("Unavailable words: \(missingWords)", state: .Error, duration: 60)
             }
         } else {
             Drop.upAll()
         }
+        
     }
     
     func getInvalidWords() -> [String] {
