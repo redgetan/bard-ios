@@ -23,11 +23,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Instabug.startWithToken("b95aeb23d36646812b25000303399919", invocationEvent: IBGInvocationEvent.Shake)
         Fabric.with([Crashlytics.self])
         Storage.setup()
+        setupNavigationBarColor()
         
         let isLogined = UserConfig.isLogined()
-        
-      
-        
+    
         if isLogined {
             Helper.openStoryboard(window: window,
                                   storyboardName: "Main",
@@ -39,6 +38,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         
         return true
+    }
+    
+    // http://stackoverflow.com/a/27929937/803865
+    // http://stackoverflow.com/a/24687648/803865
+    private func setupNavigationBarColor() {
+        UINavigationBar.appearance().barTintColor = UIColor(hex: "#704DEF", alpha:1.0)
+        UINavigationBar.appearance().tintColor = UIColor.whiteColor()
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName : UIColor.whiteColor()]
     }
 
     func applicationWillResignActive(application: UIApplication) {

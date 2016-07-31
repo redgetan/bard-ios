@@ -1,1 +1,2 @@
 #96EAF3 - primary action button
+#704DEF  - purple
