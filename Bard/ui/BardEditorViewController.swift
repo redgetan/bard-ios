@@ -21,6 +21,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var wordTagStringList: [String] = [String]()
     var player: Player!
     var isKeyboardShown: Bool = false
+    var activityIndicator: UIActivityIndicatorView? = nil
+    
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var wordTagCollectionView: UICollectionView!
     @IBOutlet weak var controlButton: UIButton!
@@ -178,6 +180,16 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             return
         }
         
+        if self.activityIndicator == nil {
+            self.activityIndicator = addActivityIndicator(self.player.view)
+        }
+        
+        print("starting to animate")
+        
+        // http://stackoverflow.com/questions/10781291/center-uiactivityindicatorview-in-a-uiimageview
+        // http://stackoverflow.com/questions/17530659/uiactivityindicatorview-animation-delayed
+        self.activityIndicator?.startAnimating()
+        
         let wordTagStrings = getWordTagStrings(text)
         let segmentUrls = wordTagStrings.map { wordTagString in
             segmentUrlFromWordTag(wordTagString)
@@ -186,6 +198,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         fetchSegments(segmentUrls, completion: { filePaths in
             VideoMerger.mergeMultipleVideos(filePaths, finished: { outputURL, localIdentifier in
                 Repository.create(wordTagStrings, fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier)
+                print("stop animate")
+                self.activityIndicator?.stopAnimating()
                 self.playVideo(outputURL)
             })
         })
@@ -198,9 +212,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let group = dispatch_group_create()
         
         for segmentUrl in segmentUrls {
-            dispatch_group_async(group, dispatch_get_main_queue(), {
+            dispatch_group_async(group, dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
                 Storage.saveRemoteVideo(segmentUrl)
-            })
+            }
         }
         
         dispatch_group_notify(group, dispatch_get_main_queue(),{
@@ -322,6 +336,17 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    // https://coderwall.com/p/6onn0g/adding-progress-icon-programmatically-to-a-new-uiview
+    
+    func addActivityIndicator(view: UIView) -> UIActivityIndicatorView {
+        let progressIcon = UIActivityIndicatorView()
+        progressIcon.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+        // http://stackoverflow.com/a/10781464
+        progressIcon.center = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds));
+        view.addSubview(progressIcon)
+        return progressIcon
     }
     
     func playVideo(fileUrl: NSURL) {

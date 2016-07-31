@@ -19,18 +19,24 @@ class Repository: Object {
     dynamic var wordList: String = ""
     dynamic var createdAt: NSDate = NSDate()
     
-    static func create(wordTagStrings: [String], fileName: String, localIdentifier: String?) {
+    static func create(wordTagStrings: [String], fileName: String, localIdentifier: String?, repoCreated: (Void -> Void)? = nil) {
         let repository = Repository()
         repository.wordList = wordTagStrings.joinWithSeparator(",")
         repository.fileName = fileName
         repository.localIdentifier = localIdentifier
         repository.createdAt = NSDate()
         
-        let realm = try! Realm()
-        try! realm.write {
-            realm.add(repository)
-        }
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
+            let realm = try! Realm()
+            try! realm.write {
+                realm.add(repository)
+                dispatch_async(dispatch_get_main_queue()) {
+                    repoCreated?()
+                }
+            }
 
+        }
+        
     }
     
     func details() -> String {

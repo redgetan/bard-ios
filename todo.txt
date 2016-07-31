@@ -24,15 +24,20 @@
       [ ] play (text/character/scene/duration)
       [ ] share
 
+[ ] application
+  [x] violet header
+  [ ] activity indicators when loading fetching from network
+    - https://developer.apple.com/library/ios/documentation/UserExperience/Conceptual/UIKitUICatalog/UIActivityIndicatorView.html#//apple_ref/doc/uid/TP40012857-UIActivityIndicatorView
+
 [ ] library tab
   [x] create button
-    [ ] show characters
+    [x] show characters
       [x] fetch character list from server
       [x] click on char would display scene list
       [ ] scene list should include (all)
-    [ ] scene
+    [x] scene
       [x] fetch scene list from server
-      [ ] if there's missing scene on realm (add it)
+      [x] if there's missing scene on realm (add it)
   [x] show list of repo
   [ ] click on item should display the video
   [ ] let user delete
@@ -43,8 +48,8 @@
   [x] player
   [x] textfield
   [x] show sticky error (invalid word)
-  [ ] clickable wordlist (toggle show/hide)
-    [ ] toggle ui
+  [x] clickable wordlist (toggle show/hide)
+    [x] toggle ui
       - https://github.com/hilen/TSWeChat
       - https://github.com/jessesquires/JSQMessagesViewController
       - https://github.com/badoo/Chatto

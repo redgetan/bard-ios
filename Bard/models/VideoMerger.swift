@@ -12,23 +12,30 @@ import AVFoundation
 
 class VideoMerger {
     static func mergeMultipleVideos(filePaths: [String], finished: ((NSURL, String?) -> Void)) {
-        let mixComposition = AVMutableComposition()
-        var url: NSURL
-        var asset: AVAsset
-        var insertionTime: CMTime = kCMTimeZero
-        
-        for filePath in filePaths {
-            url = NSURL.fileURLWithPath(filePath)
-            asset = AVAsset(URL: url)
-            insertionTime = appendAsset(asset, composition: mixComposition, atTime: insertionTime)
-        }
-        
-        exportAsset(mixComposition, completion: { outputURL in
-            Storage.copyFileToAlbum(localFileUrl: outputURL,
-                handler: { localIdentifier in
-                    finished(outputURL, localIdentifier)
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+            
+            let mixComposition = AVMutableComposition()
+            var url: NSURL
+            var asset: AVAsset
+            var insertionTime: CMTime = kCMTimeZero
+            
+            for filePath in filePaths {
+                url = NSURL.fileURLWithPath(filePath)
+                asset = AVAsset(URL: url)
+                insertionTime = appendAsset(asset, composition: mixComposition, atTime: insertionTime)
+            }
+            
+            exportAsset(mixComposition, completion: { outputURL in
+                Storage.copyFileToAlbum(localFileUrl: outputURL,
+                    handler: { localIdentifier in
+                        dispatch_async(dispatch_get_main_queue()) {
+                            finished(outputURL, localIdentifier)
+                        }
+                        
+                })
             })
-        })
+
+        }
         
     }
     
@@ -132,10 +139,8 @@ class VideoMerger {
         exporter.shouldOptimizeForNetworkUse = true
         
         exporter.exportAsynchronouslyWithCompletionHandler() {
-            dispatch_async(dispatch_get_main_queue()) { _ in
-                if exporter.status == AVAssetExportSessionStatus.Completed {
-                    completion(exporter.outputURL!)
-                }
+            if exporter.status == AVAssetExportSessionStatus.Completed {
+                completion(exporter.outputURL!)
             }
         }
     }

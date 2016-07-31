@@ -81,32 +81,30 @@ class Storage {
     
     static func copyFileToAlbum(localFileUrl filePathUrl: NSURL, handler: (String? -> Void)? = nil ) {
         var assetPlaceholder: PHObjectPlaceholder = PHObjectPlaceholder()
-        
-        dispatch_async(dispatch_get_main_queue(), {
-            PHPhotoLibrary.sharedPhotoLibrary().performChanges({
-                // asset
-                let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(filePathUrl)
-                assetPlaceholder = createAssetRequest!.placeholderForCreatedAsset!
-                
-                // album
-                let albumResult = getAlbumResult(ALBUM_NAME)
-                let albumAssetCollection = albumResult.firstObject as! PHAssetCollection
-                
-                // add asset to album
-                let albumChangeRequest = PHAssetCollectionChangeRequest(
-                    forAssetCollection: albumAssetCollection,
-                    assets: albumResult)
-                albumChangeRequest!.addAssets([assetPlaceholder])
-                
-            }) { completed, error in
-                if completed {
-                    print("File copied to album")
-                    handler?(assetPlaceholder.localIdentifier)
-                } else if error != nil {
-                    handler?(nil)
-                }
+    
+        PHPhotoLibrary.sharedPhotoLibrary().performChanges({
+            // asset
+            let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(filePathUrl)
+            assetPlaceholder = createAssetRequest!.placeholderForCreatedAsset!
+            
+            // album
+            let albumResult = getAlbumResult(ALBUM_NAME)
+            let albumAssetCollection = albumResult.firstObject as! PHAssetCollection
+            
+            // add asset to album
+            let albumChangeRequest = PHAssetCollectionChangeRequest(
+                forAssetCollection: albumAssetCollection,
+                assets: albumResult)
+            albumChangeRequest!.addAssets([assetPlaceholder])
+            
+        }) { completed, error in
+            if completed {
+                print("File copied to album")
+                handler?(assetPlaceholder.localIdentifier)
+            } else if error != nil {
+                handler?(nil)
             }
-        })
+        }
         
     }
     
