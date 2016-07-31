@@ -42,7 +42,7 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
             }
             self.scenesTableView.reloadData()
             }, failure: { errorMessage in
-                if Scene.count == 0 {
+                if self.scenes?.count == 0 {
                     Drop.down("Failed to list scenes from the network", state: .Error, duration: 3)
                 }
         })

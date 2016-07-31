@@ -32,14 +32,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // http://stackoverflow.com/a/16570399/803865
-//        wordTagCollectionView.backgroundView!.backgroundColor = UIColor.clearColor()
-        wordTagCollectionView.contentInset=UIEdgeInsetsMake(20.0,20.0,20.0,20.0);
-        wordTagCollectionView.delegate = self
-        wordTagCollectionView.dataSource = self
         initPlayer()
         initDictionary()
-        initCollectionViewCell()
+        initCollectionView()
     }
     
     @IBAction func controlButtonClick(sender: UIButton) {
@@ -114,7 +109,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     
-    func initCollectionViewCell() {
+    func initCollectionView() {
+        // http://stackoverflow.com/a/16570399/803865
+        wordTagCollectionView.contentInset=UIEdgeInsetsMake(20.0,20.0,20.0,20.0);
+        wordTagCollectionView.delegate = self
+        wordTagCollectionView.dataSource = self
         wordTagCollectionView.registerClass(WordTagCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
     }
     
@@ -283,6 +282,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                         }
                         
                         self.addWordListToDictionary(sceneWordList)
+                        self.wordTagCollectionView.reloadData()
                     }
 
                 }, failure: { errorMessage in

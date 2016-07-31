@@ -38,7 +38,7 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
             }
             self.charactersTableView.reloadData()
         }, failure: { errorMessage in
-            if Character.count == 0 {
+            if self.characters?.count == 0 {
                 Drop.down("Failed to list characters from the network", state: .Error, duration: 3)
             }
         })
