@@ -75,6 +75,7 @@
   [ ] About row (link to bard.co)
     [ ] bard.co should be mobile-friendly
   [ ] feedback row (instabug)
+  [ ] Tell a friend (i.e whats app - mail/message/twitter/facebook)
   [ ] Logout
     [ ] should clear authToken
     [ ] should unset is_user_logedin from nsuserdefaults

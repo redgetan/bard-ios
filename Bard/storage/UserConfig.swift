@@ -32,4 +32,14 @@ class UserConfig {
         keychain["authentication_token"] = authToken
     }
     
+    static func getUsername() -> String {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.stringForKey("username")!
+    }
+    
+    static func getEmail() -> String {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.stringForKey("email")!
+    }
+    
 }

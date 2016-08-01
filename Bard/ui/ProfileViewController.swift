@@ -10,9 +10,22 @@ import UIKit
 
 class ProfileViewController: UIViewController {
 
+    @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var usernameLabel: UILabel!
+    @IBOutlet weak var emailLabel: UILabel!
+    @IBOutlet weak var profilesTableView: UITableView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        
+        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
+        self.profileImageView.clipsToBounds = true
+        self.profileImageView.layer.borderWidth = 2.0
+        self.profileImageView.layer.borderColor = UIColor.whiteColor().CGColor
+        self.usernameLabel.text = UserConfig.getUsername()
+        self.emailLabel.text = UserConfig.getEmail()
     }
 
     override func didReceiveMemoryWarning() {

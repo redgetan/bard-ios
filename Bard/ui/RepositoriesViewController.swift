@@ -21,7 +21,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         
         Helper.addBorder(upperPanel, edges: [.Bottom], colour: UIColor(hex: "#CCCCCC"))
-        repositoriesTableView.contentInset=UIEdgeInsetsMake(10.0,0.0,10.0,0.0)
+//        repositoriesTableView.contentInset=UIEdgeInsetsMake(10.0,0.0,10.0,0.0)
         
         initRepositories()
         repositoriesTableView.delegate = self
