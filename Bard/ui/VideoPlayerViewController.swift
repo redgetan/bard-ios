@@ -24,8 +24,7 @@ class VideoPlayerViewController: UIViewController {
     func initPlayer() {
         self.player = self.childViewControllers.last as! Player
         self.player.view.layer.hidden = false
-        self.player.view.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1.0)
-        
+        self.player.view.backgroundColor = UIColor.blackColor()
         let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
