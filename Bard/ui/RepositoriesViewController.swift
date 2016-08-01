@@ -38,8 +38,9 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: UITableViewDataSource
     
     func tableView(tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
@@ -60,6 +61,15 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
         return cell;
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "repositoryToPlayer") {
+            let indexPath = repositoriesTableView.indexPathForCell(sender as! UITableViewCell)!
+            let repository = self.repositories![indexPath.row]
+            let viewController = segue.destinationViewController as! VideoPlayerViewController;
+            viewController.repository = repository
+        }
+    }
+    
 
 
 }

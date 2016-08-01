@@ -30,6 +30,9 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <segue destination="JTi-mz-fgM" kind="push" identifier="repositoryToPlayer" id="iPo-an-TUG"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -517,6 +520,41 @@
             </objects>
             <point key="canvasLocation" x="750" y="-320"/>
         </scene>
+        <!--phrase-->
+        <scene sceneID="cdc-gr-azh">
+            <objects>
+                <viewController id="JTi-mz-fgM" customClass="VideoPlayerViewController" customModule="Bard" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="l65-db-m6U"/>
+                        <viewControllerLayoutGuide type="bottom" id="Frp-3j-gnI"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Wz4-do-hzH">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1PD-1r-EDz">
+                                <rect key="frame" x="0.0" y="94" width="600" height="457"/>
+                                <connections>
+                                    <segue destination="Rcx-cD-D4k" kind="embed" id="x5X-92-sq6"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="1PD-1r-EDz" firstAttribute="top" secondItem="l65-db-m6U" secondAttribute="bottom" id="0dm-Bl-J51"/>
+                            <constraint firstItem="Frp-3j-gnI" firstAttribute="top" secondItem="1PD-1r-EDz" secondAttribute="bottom" id="9I1-wH-6Uk"/>
+                            <constraint firstAttribute="trailing" secondItem="1PD-1r-EDz" secondAttribute="trailing" id="nWP-mc-eyB"/>
+                            <constraint firstItem="1PD-1r-EDz" firstAttribute="leading" secondItem="Wz4-do-hzH" secondAttribute="leading" id="yLw-gg-d48"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" title="phrase" id="db0-6w-1y2">
+                        <barButtonItem key="rightBarButtonItem" title="Share" id="Vym-l1-7e6"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UlZ-0p-rWX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2278" y="-985"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="Y5n-7o-ksg">
             <objects>
@@ -557,6 +595,20 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CRm-bE-5tr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="750" y="360"/>
+        </scene>
+        <!--Player-->
+        <scene sceneID="9Mk-gk-1fN">
+            <objects>
+                <viewController id="Rcx-cD-D4k" customClass="Player" customModule="Player" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="MsB-NP-p0O">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="457"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IDe-gH-D0K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2977" y="-1209.5"/>
         </scene>
     </scenes>
     <resources>

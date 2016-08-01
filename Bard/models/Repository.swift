@@ -56,6 +56,10 @@ class Repository: Object {
         return "\(directoryPath)/\(fileName)"
     }
     
+    func getFileUrl() -> NSURL {
+        return NSURL(fileURLWithPath: getFilePath())
+    }
+    
     func getUIImage() -> UIImage? {
         // http://stackoverflow.com/a/31779221/803865
         
