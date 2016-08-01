@@ -293,10 +293,17 @@
                             <constraint firstItem="qL0-xj-jDG" firstAttribute="leading" secondItem="gRG-Tb-sIp" secondAttribute="leading" id="yjx-8c-nz2"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="47H-eK-ZYP"/>
+                    <navigationItem key="navigationItem" id="47H-eK-ZYP">
+                        <barButtonItem key="rightBarButtonItem" enabled="NO" title="Share" id="zrL-b0-yfN">
+                            <connections>
+                                <action selector="shareRepository:" destination="WNR-dj-mS0" id="2s0-5Z-bfu"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="controlButton" destination="A5R-yX-rXv" id="TIS-gv-iF8"/>
                         <outlet property="inputTextField" destination="ELG-Wc-1WQ" id="ly0-xx-3zP"/>
+                        <outlet property="shareButton" destination="zrL-b0-yfN" id="bHb-M1-lYT"/>
                         <outlet property="wordTagCollectionView" destination="qL0-xj-jDG" id="DGR-25-biz"/>
                     </connections>
                 </viewController>
@@ -496,7 +503,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="phrase" id="db0-6w-1y2">
-                        <barButtonItem key="rightBarButtonItem" title="Share" id="Vym-l1-7e6"/>
+                        <barButtonItem key="rightBarButtonItem" title="Share" id="Vym-l1-7e6">
+                            <connections>
+                                <action selector="shareVideo:" destination="JTi-mz-fgM" id="jR6-PT-ftb"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UlZ-0p-rWX" userLabel="First Responder" sceneMemberID="firstResponder"/>

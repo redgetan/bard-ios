@@ -11,6 +11,7 @@ import RealmSwift
 import AVFoundation
 
 class Repository: Object {
+    dynamic var id: Int = 0
     dynamic var token: String = ""
     dynamic var url: String = ""
     dynamic var fileName: String = ""
@@ -21,8 +22,19 @@ class Repository: Object {
     dynamic var sceneToken: String? = nil
     dynamic var createdAt: NSDate = NSDate()
     
-    static func create(wordTagStrings: [String], fileName: String, localIdentifier: String?, characterToken: String, sceneToken: String? = nil, repoCreated: (Void -> Void)? = nil) {
+    override static func primaryKey() -> String? {
+        return "id"
+    }
+    
+    static func find(id: Int) -> Repository {
+        let repo = try! Realm().objects(Repository.self).filter("id = \(id)").first!
+        return repo
+    }
+    
+    static func create(wordTagStrings: [String], fileName: String, localIdentifier: String?, characterToken: String, sceneToken: String? = nil, repoCreated: (Int -> Void)? = nil) {
+
         let repository = Repository()
+        repository.id = getNextId()
         repository.wordList = wordTagStrings.joinWithSeparator(",")
         repository.fileName = fileName
         repository.localIdentifier = localIdentifier
@@ -33,15 +45,27 @@ class Repository: Object {
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             let realm = try! Realm()
+           
             try! realm.write {
                 realm.add(repository)
-                dispatch_async(dispatch_get_main_queue()) {
-                    repoCreated?()
-                }
+            }
+            
+            let id = repository.id
+            dispatch_async(dispatch_get_main_queue()) {
+                repoCreated?(id)
             }
 
         }
         
+    }
+    
+    static func getNextId() -> Int {
+        let realm = try! Realm()
+        if let maxId: Int = realm.objects(Repository.self).max("id") {
+            return maxId + 1
+        } else {
+            return 1
+        }
     }
     
     func details() -> String {

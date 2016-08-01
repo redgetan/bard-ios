@@ -18,6 +18,11 @@ class VideoPlayerViewController: UIViewController {
         
         self.title = repository.details()
         initPlayer()
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
         playVideo(repository.getFileUrl())
     }
     
@@ -34,8 +39,18 @@ class VideoPlayerViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
     
+    @IBAction func shareVideo(sender: AnyObject) {
+    
+        let objectsToShare = [repository.getFileUrl()]
+        let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+    
+    }
+    
+    
     func playVideo(fileUrl: NSURL) {
         self.player.setUrl(fileUrl)
+        self.player.playFromBeginning()
     }
     
     // MARK: UIGestureRecognizer

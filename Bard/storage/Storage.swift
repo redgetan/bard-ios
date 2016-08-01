@@ -19,6 +19,7 @@ class Storage {
     
     static func createMissingDirectories() {
         createStorageDirectory(getRepositoryStorageDirectory())
+        createStorageDirectory(getSegmentsStorageDirectory())
     }
     
     static func createStorageDirectory(directoryPath: String) {
@@ -37,6 +38,12 @@ class Storage {
     static func getRepositoryStorageDirectory() -> String {
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
         let directoryPath = (documentDirectory as NSString).stringByAppendingPathComponent("repositories")
+        return directoryPath
+    }
+    
+    static func getSegmentsStorageDirectory() -> String {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+        let directoryPath = (documentDirectory as NSString).stringByAppendingPathComponent("segments")
         return directoryPath
     }
     
@@ -128,7 +135,7 @@ class Storage {
          let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
         
         let url = NSURL(string: urlString)!
-        return "\(documentDirectory)/\(url.pathComponents!.last!)"
+        return "\(documentDirectory)/segments/\(url.pathComponents!.last!)"
     }
 
     

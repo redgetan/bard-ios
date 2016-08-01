@@ -22,10 +22,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var player: Player!
     var isKeyboardShown: Bool = false
     var activityIndicator: UIActivityIndicatorView? = nil
+    var repositoryId: Int? = nil
     
     @IBOutlet weak var inputTextField: UITextField!
     @IBOutlet weak var wordTagCollectionView: UICollectionView!
     @IBOutlet weak var controlButton: UIButton!
+    @IBOutlet weak var shareButton: UIBarButtonItem!
     
     let cellIdentifier = "wordTagCollectionViewCell"
     let words = ["this","is","sparta","300","everyone","speaks","english","funny","spadina","bathurst","station","is","coming"]
@@ -119,6 +121,13 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         wordTagCollectionView.registerClass(WordTagCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
     }
     
+    @IBAction func shareRepository(sender: UIBarButtonItem) {
+        let repository = Repository.find(repositoryId!)
+
+        let objectsToShare = [repository.getFileUrl()]
+        let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+    }
     
     // MARK: UICollectionViewDataSource protocol
     
@@ -184,8 +193,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             self.activityIndicator = addActivityIndicator(self.player.view)
         }
         
-        print("starting to animate")
-        
         // http://stackoverflow.com/questions/10781291/center-uiactivityindicatorview-in-a-uiimageview
         // http://stackoverflow.com/questions/17530659/uiactivityindicatorview-animation-delayed
         self.activityIndicator?.startAnimating()
@@ -197,10 +204,14 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         fetchSegments(segmentUrls, completion: { filePaths in
             VideoMerger.mergeMultipleVideos(filePaths, finished: { outputURL, localIdentifier in
-                Repository.create(wordTagStrings, fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier, characterToken: self.characterToken, sceneToken: self.sceneToken)
-                print("stop animate")
-                self.activityIndicator?.stopAnimating()
-                self.playVideo(outputURL)
+                Repository.create(wordTagStrings, fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier, characterToken: self.characterToken, sceneToken: self.sceneToken, repoCreated: { repoId in
+                    
+                    self.activityIndicator?.stopAnimating()
+                    self.repositoryId = repoId
+                    self.playVideo(outputURL)
+                    self.shareButton.enabled = true
+                })
+                
             })
         })
 
@@ -351,6 +362,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func playVideo(fileUrl: NSURL) {
         self.player.setUrl(fileUrl)
+        self.player.playFromBeginning()
     }
     
     // MARK: UIGestureRecognizer
