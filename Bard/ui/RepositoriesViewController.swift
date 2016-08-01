@@ -43,7 +43,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        return self.repositories!.count;
+        return self.repositories!.count
     }
     
     func tableView(tableView: UITableView,
