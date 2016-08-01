@@ -32,6 +32,12 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
 
     }
     
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        repositoriesTableView.reloadData()
+    }
+    
     func initRepositories() {
         self.repositories = try! Realm().objects(Repository.self).sorted("createdAt", ascending: false)
     }
