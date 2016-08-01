@@ -71,7 +71,7 @@
 
 [ ] profile tab
   [ ] set avatar
-  [ ] username/email row
+  [x] username/email row
   [ ] About row (link to bard.co)
     [ ] bard.co should be mobile-friendly
   [ ] feedback row (instabug)

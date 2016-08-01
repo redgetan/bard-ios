@@ -99,7 +99,13 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Library" id="pMx-11-fOW"/>
+                    <navigationItem key="navigationItem" title="Library" id="pMx-11-fOW">
+                        <barButtonItem key="rightBarButtonItem" systemItem="compose" id="VhR-F6-8lc">
+                            <connections>
+                                <segue destination="SR5-dA-g1g" kind="presentation" id="RDZ-Ax-TJ3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="repositoriesTableView" destination="IW4-1x-dYi" id="7HK-pe-HQ2"/>
                         <outlet property="upperPanel" destination="zWz-du-qNz" id="0rV-Ij-dN6"/>
@@ -549,4 +555,7 @@
         <image name="icon_profile_filled" width="25" height="25"/>
         <image name="sample_thumb" width="60" height="45"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="i7S-vC-FmE"/>
+    </inferredMetricsTieBreakers>
 </document>
