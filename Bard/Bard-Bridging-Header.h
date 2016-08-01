@@ -10,5 +10,7 @@
 #define Bard_Bridging_Header_h
 
 #import <Instabug/Instabug.h>
+#import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
+
 
 #endif /* Bard_Bridging_Header_h */

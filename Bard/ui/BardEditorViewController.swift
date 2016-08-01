@@ -16,7 +16,7 @@ import SwiftyDrop
 class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     let cdnPath = "https://d22z4oll34c07f.cloudfront.net"
     var characterToken = ""
-    var sceneToken = ""
+    var sceneToken: String? = nil
     var wordTagMap: [String: [String]] = [String: [String]]()
     var wordTagStringList: [String] = [String]()
     var player: Player!
@@ -197,7 +197,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         fetchSegments(segmentUrls, completion: { filePaths in
             VideoMerger.mergeMultipleVideos(filePaths, finished: { outputURL, localIdentifier in
-                Repository.create(wordTagStrings, fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier)
+                Repository.create(wordTagStrings, fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier, characterToken: self.characterToken, sceneToken: self.sceneToken)
                 print("stop animate")
                 self.activityIndicator?.stopAnimating()
                 self.playVideo(outputURL)
@@ -276,7 +276,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
     
     func getScenes() -> Results<Scene> {
-        if !sceneToken.isEmpty {
+        if sceneToken != nil {
             return try! Realm().objects(Scene.self).filter("token = '\(sceneToken)'")
         } else {
             return try! Realm().objects(Scene.self).filter("characterToken = '\(characterToken)'")

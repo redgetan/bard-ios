@@ -8,8 +8,9 @@
 
 import UIKit
 import RealmSwift
+import DZNEmptyDataSet
 
-class RepositoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class RepositoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
     @IBOutlet weak var upperPanel: UIView!
     @IBOutlet weak var repositoriesTableView: UITableView!
@@ -20,20 +21,34 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        Helper.addBorder(upperPanel, edges: [.Bottom], colour: UIColor(hex: "#CCCCCC"))
-
-        // http://stackoverflow.com/a/25107317/803865
-        upperPanel.backgroundColor = UIColor(patternImage: UIImage(named: "ancient_pattern")!)
-        
-//        repositoriesTableView.contentInset=UIEdgeInsetsMake(10.0,0.0,10.0,0.0)
-        
         initRepositories()
+        initUpperPanel()
+        
         repositoriesTableView.delegate = self
         repositoriesTableView.dataSource = self
+        repositoriesTableView.emptyDataSetSource = self
+        repositoriesTableView.emptyDataSetDelegate = self
+       
+        // A little trick for removing the cell separators
+        repositoriesTableView.tableFooterView = UIView()
+
     }
     
     func initRepositories() {
         self.repositories = try! Realm().objects(Repository.self).sorted("createdAt", ascending: false)
+    }
+    
+    func initUpperPanel() {
+        Helper.addBorder(upperPanel, edges: [.Bottom], colour: UIColor(hex: "#CCCCCC"))
+        
+        // http://stackoverflow.com/a/25107317/803865
+        upperPanel.backgroundColor = UIColor(patternImage: UIImage(named: "ancient_pattern")!)
+        
+        if self.repositories!.count == 0 {
+            upperPanel.hidden = true
+            upperPanel.frame = CGRectMake(0, 0, 0, 0)
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,6 +85,30 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
         }
     }
     
+    
+    // MARK: DZNEmptyDataSetSource
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
+        let text = "Please Allow Photo Access"
+        let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
+                          NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+    
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
+        let text = "This allows you to share photos from your library and save photos to your camera roll."
+    
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        paragraph.alignment = .Center
+        
+        let attributes = [NSFontAttributeName: UIFont.systemFontOfSize(14.0),
+                          NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+                          NSParagraphStyleAttributeName: paragraph]
+        
+        return NSAttributedString(string: text, attributes: attributes)
+    }
 
 
 }

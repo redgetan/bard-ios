@@ -97,6 +97,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             Instabug.invoke()
             break
         case .TellFriend:
+            let textToShare = "This app converts your text into a video of an actor saying them"
+            
+            if let url = NSURL(string: "http://bard.co/") {
+                let objectsToShare = [textToShare, url]
+                let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+                self.presentViewController(activityViewController, animated: true, completion: nil)
+            }
             break
         case .Logout:
             break

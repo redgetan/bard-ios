@@ -17,14 +17,19 @@ class Repository: Object {
     dynamic var localIdentifier: String? = ""
     dynamic var isPublished: Bool = false
     dynamic var wordList: String = ""
+    dynamic var characterToken: String = ""
+    dynamic var sceneToken: String? = nil
     dynamic var createdAt: NSDate = NSDate()
     
-    static func create(wordTagStrings: [String], fileName: String, localIdentifier: String?, repoCreated: (Void -> Void)? = nil) {
+    static func create(wordTagStrings: [String], fileName: String, localIdentifier: String?, characterToken: String, sceneToken: String? = nil, repoCreated: (Void -> Void)? = nil) {
         let repository = Repository()
         repository.wordList = wordTagStrings.joinWithSeparator(",")
         repository.fileName = fileName
         repository.localIdentifier = localIdentifier
+        repository.characterToken = characterToken
+        repository.sceneToken = sceneToken
         repository.createdAt = NSDate()
+        
         
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             let realm = try! Realm()

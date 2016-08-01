@@ -31,7 +31,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <segue destination="JTi-mz-fgM" kind="push" identifier="repositoryToPlayer" id="iPo-an-TUG"/>
+                                            <segue destination="JTi-mz-fgM" kind="show" identifier="repositoryToPlayer" id="iPo-an-TUG"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -389,14 +389,14 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JMq-sg-8ny">
                                 <rect key="frame" x="0.0" y="64" width="600" height="186"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibG-SN-seG">
-                                        <rect key="frame" x="262" y="115" width="76" height="21"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="username" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ibG-SN-seG">
+                                        <rect key="frame" x="270" y="115" width="60" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="email address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TiG-Ng-t4t">
-                                        <rect key="frame" x="258" y="141" width="84" height="16"/>
+                                        <rect key="frame" x="258" y="136" width="84" height="16"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -424,7 +424,7 @@
                                     <constraint firstAttribute="height" constant="186" id="R6x-uh-IMD"/>
                                     <constraint firstItem="Vt1-RD-2aH" firstAttribute="centerX" secondItem="JMq-sg-8ny" secondAttribute="centerX" id="keG-Tb-Ohv"/>
                                     <constraint firstItem="TiG-Ng-t4t" firstAttribute="centerX" secondItem="JMq-sg-8ny" secondAttribute="centerX" id="luC-Ra-EN9"/>
-                                    <constraint firstItem="TiG-Ng-t4t" firstAttribute="top" secondItem="ibG-SN-seG" secondAttribute="bottom" constant="10" id="rc1-Dv-QQO"/>
+                                    <constraint firstItem="TiG-Ng-t4t" firstAttribute="top" secondItem="ibG-SN-seG" secondAttribute="bottom" constant="5" id="rc1-Dv-QQO"/>
                                     <constraint firstItem="Vt1-RD-2aH" firstAttribute="top" secondItem="JMq-sg-8ny" secondAttribute="top" constant="20" id="sjY-6y-V3h"/>
                                     <constraint firstItem="Vt1-RD-2aH" firstAttribute="top" secondItem="JMq-sg-8ny" secondAttribute="top" constant="-34" id="yL8-O1-r5u"/>
                                 </constraints>
@@ -532,8 +532,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1PD-1r-EDz">
-                                <rect key="frame" x="0.0" y="94" width="600" height="457"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1PD-1r-EDz">
+                                <rect key="frame" x="0.0" y="64" width="600" height="487"/>
                                 <connections>
                                     <segue destination="Rcx-cD-D4k" kind="embed" id="x5X-92-sq6"/>
                                 </connections>
@@ -601,7 +601,7 @@
             <objects>
                 <viewController id="Rcx-cD-D4k" customClass="Player" customModule="Player" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MsB-NP-p0O">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="457"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

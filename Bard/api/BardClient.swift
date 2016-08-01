@@ -20,7 +20,7 @@ class BardClient {
         return "\(Configuration.bardAccountBaseURL)/bundles/\(characterToken)/scenes"
     }
 
-    static func getSceneWordListUrl(characterToken: String, sceneToken: String) -> String  {
+    static func getSceneWordListUrl(characterToken: String, sceneToken: String?) -> String  {
         return "\(Configuration.bardAccountBaseURL)/bundles/\(characterToken)/scenes/\(sceneToken)/word_list"
     }
     
@@ -54,7 +54,7 @@ class BardClient {
         bardApiRequest(.GET, url: getSceneListUrl(characterToken), success: success, failure: failure)
     }
     
-    static func getSceneWordList(characterToken: String, sceneToken: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
+    static func getSceneWordList(characterToken: String, sceneToken: String?, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
         bardApiRequest(.GET, url: getSceneWordListUrl(characterToken, sceneToken: sceneToken), success: success, failure: failure)
     }
     

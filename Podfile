@@ -12,6 +12,7 @@ target 'Bard' do
   pod 'KeychainAccess'
   pod 'HanekeSwift'
   pod 'KTCenterFlowLayout'
+  pod 'DZNEmptyDataSet'
 
   # crash reporting
   pod 'Fabric'

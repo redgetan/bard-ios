@@ -2,6 +2,7 @@ PODS:
   - Alamofire (3.4.1)
   - Crashlytics (3.7.2):
     - Fabric (~> 1.6.3)
+  - DZNEmptyDataSet (1.8.1)
   - Fabric (1.6.7)
   - Firebase (3.3.0):
     - Firebase/Core (= 3.3.0)
@@ -38,6 +39,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire (~> 3.4)
   - Crashlytics
+  - DZNEmptyDataSet
   - Fabric
   - Firebase
   - HanekeSwift
@@ -52,6 +54,7 @@ DEPENDENCIES:
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   Crashlytics: 130ab943f8c78cda7a814b434f270b2e2c8a3cba
+  DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   Firebase: 6250071f0e2440a5c4c67b8cb6b868f868237ac3
   FirebaseAnalytics: 0fd6532cb2c3d03cd5cf26ad295ccb091efd3104
@@ -69,6 +72,6 @@ SPEC CHECKSUMS:
   RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
   SwiftyDrop: 54a30c4edd51be9863429c3ad2ad4108eb7b7814
 
-PODFILE CHECKSUM: c98ea2f223cb52117869e0412ae1d2f633f364ae
+PODFILE CHECKSUM: 90ad7ac8836a1198b1fd8d3a65c5d5ce86fe5559
 
 COCOAPODS: 1.0.1
