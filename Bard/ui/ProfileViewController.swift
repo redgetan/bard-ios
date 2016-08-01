@@ -94,6 +94,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             UIApplication.sharedApplication().openURL(NSURL(string: "http://bard.co")!)
             break
         case .Feedback:
+            Instabug.invoke()
             break
         case .TellFriend:
             break
