@@ -36,8 +36,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     func initProfileHeader() {
         self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
         self.profileImageView.clipsToBounds = true
-        self.profileImageView.layer.borderWidth = 2.0
-        self.profileImageView.layer.borderColor = UIColor.whiteColor().CGColor
+//        self.profileImageView.layer.borderWidth = 2.0
+//        self.profileImageView.layer.borderColor = UIColor.whiteColor().CGColor
         self.usernameLabel.text = UserConfig.getUsername()
         self.emailLabel.text = UserConfig.getEmail()
     }
@@ -81,6 +81,30 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         
         return cell;
     }
+    
+    // MARK: UITableViewDelegate
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        guard let row = Row(rawValue: indexPath.row) else {
+            fatalError()
+        }
+        
+        switch row {
+        case .About:
+            UIApplication.sharedApplication().openURL(NSURL(string: "http://bard.co")!)
+            break
+        case .Feedback:
+            break
+        case .TellFriend:
+            break
+        case .Logout:
+            break
+        default:
+            break
+        }
+        
+    }
+    
 
 
 }
