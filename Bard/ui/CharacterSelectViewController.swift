@@ -9,8 +9,10 @@
 import UIKit
 import RealmSwift
 import SwiftyDrop
+import DZNEmptyDataSet
 
-class CharacterSelectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CharacterSelectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,
+                                     DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
     @IBOutlet weak var charactersTableView: UITableView!
     var characters: Results<Character>? = nil
@@ -22,7 +24,9 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
         initCharacters()
         charactersTableView.delegate = self
         charactersTableView.dataSource = self
-        
+        self.charactersTableView.emptyDataSetSource = self
+        self.charactersTableView.emptyDataSetDelegate = self
+
         syncRemoteData()
     }
     
@@ -39,7 +43,9 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
             self.charactersTableView.reloadData()
         }, failure: { errorMessage in
             if self.characters?.count == 0 {
-                Drop.down("Failed to list characters from the network", state: .Error, duration: 3)
+//                Drop.down("Failed to list characters from the network", state: .Error, duration: 3)
+//                self.charactersTableView.emptyDataSetSource = self
+//                self.charactersTableView.emptyDataSetDelegate = self
             }
         })
     }
@@ -76,5 +82,30 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
             viewController.characterToken = character.token
         }
     }
+    
+    // MARK: DZNEmptyDataSetSource
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
+        let text = "Unable to fetch data"
+        let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
+                          NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
+        let text = "Please make sure that you are connected to the internet."
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        paragraph.alignment = .Center
+        
+        let attributes = [NSFontAttributeName: UIFont.systemFontOfSize(14.0),
+                          NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+                          NSParagraphStyleAttributeName: paragraph]
+        
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+
 
 }

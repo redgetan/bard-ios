@@ -21,7 +21,12 @@ class BardClient {
     }
 
     static func getSceneWordListUrl(characterToken: String, sceneToken: String?) -> String  {
-        return "\(Configuration.bardAccountBaseURL)/bundles/\(characterToken)/scenes/\(sceneToken)/word_list"
+        if let token = sceneToken {
+            return "\(Configuration.bardAccountBaseURL)/bundles/\(characterToken)/scenes/\(token)/word_list"
+        } else {
+            return "\(Configuration.bardAccountBaseURL)/bundles/\(characterToken)/word_list"
+        }
+        
     }
     
     

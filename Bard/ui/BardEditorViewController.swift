@@ -276,8 +276,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
     
     func getScenes() -> Results<Scene> {
-        if sceneToken != nil {
-            return try! Realm().objects(Scene.self).filter("token = '\(sceneToken)'")
+        if let token = sceneToken  {
+            return try! Realm().objects(Scene.self).filter("token = '\(token)'")
         } else {
             return try! Realm().objects(Scene.self).filter("characterToken = '\(characterToken)'")
         }

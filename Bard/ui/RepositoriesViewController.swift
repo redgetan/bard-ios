@@ -89,7 +89,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     // MARK: DZNEmptyDataSetSource
     
     func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
-        let text = "Please Allow Photo Access"
+        let text = "Create your first Bard"
         let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
                           NSForegroundColorAttributeName: UIColor.darkGrayColor()]
     
@@ -97,7 +97,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
-        let text = "This allows you to share photos from your library and save photos to your camera roll."
+        let text = "To start using the text-to-video app, click the button on upper-right corner."
     
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping
