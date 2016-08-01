@@ -20,7 +20,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="IW4-1x-dYi">
-                                <rect key="frame" x="0.0" y="212" width="600" height="319"/>
+                                <rect key="frame" x="0.0" y="74" width="600" height="457"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RepositoryTableViewCell" id="93Q-kw-mHP">
@@ -36,69 +36,18 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zWz-du-qNz">
-                                <rect key="frame" x="0.0" y="64" width="600" height="128"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3E3-DV-Qxa" customClass="BorderedButton" customModule="Bard" customModuleProvider="target">
-                                        <rect key="frame" x="247" y="45" width="105" height="39"/>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="105" id="8e2-fa-jkw"/>
-                                            <constraint firstAttribute="height" constant="39" id="J3S-hJ-yaE"/>
-                                        </constraints>
-                                        <state key="normal" title="Create">
-                                            <color key="titleColor" red="0.43921568630000002" green="0.30196078430000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="6"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.43921568630000002" green="0.30196078430000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <segue destination="SR5-dA-g1g" kind="presentation" id="i7S-vC-FmE"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="3E3-DV-Qxa" firstAttribute="centerY" secondItem="zWz-du-qNz" secondAttribute="centerY" constant="-31.5" id="3Wz-mi-TCc"/>
-                                    <constraint firstItem="3E3-DV-Qxa" firstAttribute="centerY" secondItem="zWz-du-qNz" secondAttribute="centerY" id="B5H-W9-Y24"/>
-                                    <constraint firstItem="3E3-DV-Qxa" firstAttribute="centerX" secondItem="zWz-du-qNz" secondAttribute="centerX" id="dqj-RO-iPE"/>
-                                </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="3Wz-mi-TCc"/>
-                                    </mask>
-                                </variation>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="IW4-1x-dYi" firstAttribute="height" secondItem="tsR-hK-woN" secondAttribute="height" multiplier="0.6" constant="-21" id="17U-7q-Iwe"/>
-                            <constraint firstItem="zWz-du-qNz" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="CbI-mW-tb4"/>
-                            <constraint firstItem="IW4-1x-dYi" firstAttribute="top" secondItem="zWz-du-qNz" secondAttribute="bottom" id="E5y-SH-q3h"/>
-                            <constraint firstItem="zWz-du-qNz" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="64" id="EiK-5i-Jn0"/>
-                            <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="zWz-du-qNz" secondAttribute="bottom" constant="359" id="I4Q-L8-HKN"/>
-                            <constraint firstItem="zWz-du-qNz" firstAttribute="height" secondItem="tsR-hK-woN" secondAttribute="height" multiplier="0.4" id="LHz-gd-HDO"/>
+                            <constraint firstItem="IW4-1x-dYi" firstAttribute="top" secondItem="Ia1-K6-d13" secondAttribute="bottom" constant="10" id="S96-fa-Iem"/>
                             <constraint firstItem="4ug-Mw-9AY" firstAttribute="top" secondItem="IW4-1x-dYi" secondAttribute="bottom" constant="20" id="W8y-O8-sJs"/>
                             <constraint firstItem="IW4-1x-dYi" firstAttribute="leading" secondItem="tsR-hK-woN" secondAttribute="leading" id="Wt2-IR-d0x"/>
-                            <constraint firstAttribute="trailing" secondItem="zWz-du-qNz" secondAttribute="trailing" id="gA4-jX-sIy"/>
                             <constraint firstAttribute="trailing" secondItem="IW4-1x-dYi" secondAttribute="trailing" id="ox4-px-g6s"/>
-                            <constraint firstItem="IW4-1x-dYi" firstAttribute="top" secondItem="zWz-du-qNz" secondAttribute="bottom" constant="20" id="yeT-fW-yhQ"/>
-                            <constraint firstItem="zWz-du-qNz" firstAttribute="height" secondItem="tsR-hK-woN" secondAttribute="height" multiplier="0.32" constant="-64" id="zAQ-zi-ajl"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="LHz-gd-HDO"/>
                                 <exclude reference="17U-7q-Iwe"/>
-                                <exclude reference="E5y-SH-q3h"/>
-                                <exclude reference="I4Q-L8-HKN"/>
                             </mask>
                         </variation>
                     </view>
@@ -111,7 +60,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="repositoriesTableView" destination="IW4-1x-dYi" id="7HK-pe-HQ2"/>
-                        <outlet property="upperPanel" destination="zWz-du-qNz" id="0rV-Ij-dN6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
@@ -617,7 +565,4 @@
         <image name="icon_profile" width="25" height="25"/>
         <image name="icon_profile_filled" width="25" height="25"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="i7S-vC-FmE"/>
-    </inferredMetricsTieBreakers>
 </document>

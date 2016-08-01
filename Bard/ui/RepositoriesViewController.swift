@@ -12,7 +12,6 @@ import DZNEmptyDataSet
 
 class RepositoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
-    @IBOutlet weak var upperPanel: UIView!
     @IBOutlet weak var repositoriesTableView: UITableView!
     var repositories: Results<Repository>? = nil
     let cellIdentifier = "RepositoryTableViewCell"
@@ -22,7 +21,6 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
         super.viewDidLoad()
         
         initRepositories()
-        initUpperPanel()
         
         repositoriesTableView.delegate = self
         repositoriesTableView.dataSource = self
@@ -38,19 +36,6 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
         self.repositories = try! Realm().objects(Repository.self).sorted("createdAt", ascending: false)
     }
     
-    func initUpperPanel() {
-        Helper.addBorder(upperPanel, edges: [.Bottom], colour: UIColor(hex: "#CCCCCC"))
-        
-        // http://stackoverflow.com/a/25107317/803865
-        upperPanel.backgroundColor = UIColor(patternImage: UIImage(named: "ancient_pattern")!)
-        
-        if self.repositories!.count == 0 {
-            upperPanel.hidden = true
-            upperPanel.frame = CGRectMake(0, 0, 0, 0)
-        }
-        
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
