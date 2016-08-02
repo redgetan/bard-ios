@@ -20,6 +20,7 @@
 		898CC11E1D4E5129006D56E4 /* UIColor+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898CC11D1D4E5129006D56E4 /* UIColor+Helper.swift */; };
 		899145C11D4A873C00C99369 /* SceneTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 899145C01D4A873C00C99369 /* SceneTableViewCell.swift */; };
 		89C2EEBF1D4FC8E0005BB3C2 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EEBE1D4FC8E0005BB3C2 /* VideoPlayerViewController.swift */; };
+		89C2EEC11D5134F7005BB3C2 /* Analytics.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C2EEC01D5134F7005BB3C2 /* Analytics.swift */; };
 		89C9860F1D45BA720056E687 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C9860E1D45BA720056E687 /* AppDelegate.swift */; };
 		89C986131D45BA800056E687 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C986101D45BA800056E687 /* LaunchScreen.storyboard */; };
 		89C986141D45BA800056E687 /* Login.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 89C986111D45BA800056E687 /* Login.storyboard */; };
@@ -58,6 +59,7 @@
 		898CC11D1D4E5129006D56E4 /* UIColor+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIColor+Helper.swift"; path = "extensions/UIColor+Helper.swift"; sourceTree = "<group>"; };
 		899145C01D4A873C00C99369 /* SceneTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneTableViewCell.swift; path = ui/views/SceneTableViewCell.swift; sourceTree = "<group>"; };
 		89C2EEBE1D4FC8E0005BB3C2 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoPlayerViewController.swift; path = ui/VideoPlayerViewController.swift; sourceTree = "<group>"; };
+		89C2EEC01D5134F7005BB3C2 /* Analytics.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Analytics.swift; path = util/Analytics.swift; sourceTree = "<group>"; };
 		89C9860E1D45BA720056E687 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		89C986101D45BA800056E687 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = features/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C986111D45BA800056E687 /* Login.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Login.storyboard; path = features/Login.storyboard; sourceTree = "<group>"; };
@@ -228,6 +230,7 @@
 			isa = PBXGroup;
 			children = (
 				89C986361D46E3430056E687 /* Helper.swift */,
+				89C2EEC01D5134F7005BB3C2 /* Analytics.swift */,
 			);
 			name = util;
 			sourceTree = "<group>";
@@ -396,6 +399,7 @@
 				890D3E651D493E8E008F96DF /* SceneSelectViewController.swift in Sources */,
 				89C2EEBF1D4FC8E0005BB3C2 /* VideoPlayerViewController.swift in Sources */,
 				89C986391D46EE040056E687 /* WelcomeViewController.swift in Sources */,
+				89C2EEC11D5134F7005BB3C2 /* Analytics.swift in Sources */,
 				89C9862F1D46A56F0056E687 /* BardClient.swift in Sources */,
 				898CC1191D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift in Sources */,
 				89C9860F1D45BA720056E687 /* AppDelegate.swift in Sources */,

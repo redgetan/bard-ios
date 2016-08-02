@@ -21,6 +21,7 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Analytics.track("compose", properties: nil)
         initCharacters()
         charactersTableView.delegate = self
         charactersTableView.dataSource = self

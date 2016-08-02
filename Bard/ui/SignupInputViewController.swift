@@ -33,6 +33,7 @@ class SignupInputViewController: UIViewController {
                             password: self.passwordTextField.text!, success: { value in
             Drop.down("Account successfully created", state: .Success, duration: 2)
             UserConfig.storeCredentials(value)
+            Analytics.identify(createdAt: NSDate())
             Helper.openStoryboard(sourceViewController: self, storyboardName: "Main", viewControllerName: "TabBarViewController")
 
         }, failure: { errorMessage in

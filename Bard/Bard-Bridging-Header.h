@@ -10,6 +10,7 @@
 #define Bard_Bridging_Header_h
 
 #import <Instabug/Instabug.h>
+#import "Mixpanel/Mixpanel.h"
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 
 

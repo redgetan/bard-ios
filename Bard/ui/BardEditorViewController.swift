@@ -202,6 +202,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             segmentUrlFromWordTag(wordTagString)
             }.flatMap { $0 }
         
+        Analytics.track("generateBardVideo", properties: ["wordTags" : wordTagStrings])
+        
         fetchSegments(segmentUrls, completion: { filePaths in
             VideoMerger.mergeMultipleVideos(filePaths, finished: { outputURL, localIdentifier in
                 Repository.create(wordTagStrings, username: UserConfig.getUsername(), fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier, characterToken: self.characterToken, sceneToken: self.sceneToken, repoCreated: { repoId in

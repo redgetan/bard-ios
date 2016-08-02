@@ -27,6 +27,7 @@ class LoginInputViewController: UIViewController {
         BardClient.login(usernameOrEmail: usernameOrEmailTextField.text!,
                          password: passwordTextField.text!, success: { value in
             UserConfig.storeCredentials(value)
+            Analytics.identify()
             Helper.openStoryboard(sourceViewController: self, storyboardName: "Main", viewControllerName: "TabBarViewController")
             }, failure: { errorMessage in
             Drop.down(errorMessage, state: .Error, duration: 3)
