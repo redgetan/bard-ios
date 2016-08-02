@@ -91,7 +91,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         
         switch row {
         case .About:
-            UIApplication.sharedApplication().openURL(NSURL(string: "http://bard.co")!)
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://bard.co")!)
             break
         case .Feedback:
             Instabug.invoke()
@@ -99,7 +99,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         case .TellFriend:
             let textToShare = "This app converts your text into a video of an actor saying them"
             
-            if let url = NSURL(string: "http://bard.co/") {
+            if let url = NSURL(string: "https://bard.co/") {
                 let objectsToShare = [textToShare, url]
                 let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
                 self.presentViewController(activityViewController, animated: true, completion: nil)

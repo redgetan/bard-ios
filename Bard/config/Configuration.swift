@@ -19,7 +19,7 @@ class Configuration {
     
     #else
     
-    static let bardAccountBaseURL = "http://bard.zrqp9xghrt.us-west-2.elasticbeanstalk.com"
+    static let bardAccountBaseURL = "https://bard.co"
     static let keychainService    = "co.bard.auth-token"
     
     
