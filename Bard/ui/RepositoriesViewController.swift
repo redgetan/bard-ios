@@ -20,6 +20,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Storage.setup()
         initRepositories()
         
         repositoriesTableView.delegate = self

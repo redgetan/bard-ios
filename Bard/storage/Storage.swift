@@ -37,13 +37,13 @@ class Storage {
     
     static func getRepositoryStorageDirectory() -> String {
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        let directoryPath = (documentDirectory as NSString).stringByAppendingPathComponent("repositories")
+        let directoryPath = "\(documentDirectory)/\(UserConfig.getUsername())/repositories"
         return directoryPath
     }
     
     static func getSegmentsStorageDirectory() -> String {
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        let directoryPath = (documentDirectory as NSString).stringByAppendingPathComponent("segments")
+        let directoryPath = "\(documentDirectory)/\(UserConfig.getUsername())/segments"
         return directoryPath
     }
     
@@ -124,18 +124,18 @@ class Storage {
             return nil
         }
         
-        let filePath = getDownloadFilePathFromUrl(urlString)
+        let filePath = getSegmentFilePathFromUrl(urlString)
         urlData.writeToFile(filePath, atomically: true)
         print("finished writing - \(url.path)")
         
         return filePath
     }
     
-    static func getDownloadFilePathFromUrl(urlString: String) -> String {
-         let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+    static func getSegmentFilePathFromUrl(urlString: String) -> String {
+         let segmentsDirectory = getSegmentsStorageDirectory()
         
         let url = NSURL(string: urlString)!
-        return "\(documentDirectory)/segments/\(url.pathComponents!.last!)"
+        return "\(segmentsDirectory)/\(url.pathComponents!.last!)"
     }
 
     

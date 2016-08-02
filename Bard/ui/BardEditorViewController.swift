@@ -232,7 +232,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             var filePaths = [String]()
             
             for segmentUrl in segmentUrls {
-                let filePath = Storage.getDownloadFilePathFromUrl(segmentUrl)
+                let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
                 if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
                     filePaths.append(filePath)
                 }
