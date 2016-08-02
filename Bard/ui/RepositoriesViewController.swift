@@ -40,7 +40,9 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func initRepositories() {
-        self.repositories = try! Realm().objects(Repository.self).sorted("createdAt", ascending: false)
+        self.repositories = try! Realm().objects(Repository.self)
+                                        .filter("username = '\(UserConfig.getUsername())'")
+                                        .sorted("createdAt", ascending: false)
     }
     
     override func didReceiveMemoryWarning() {

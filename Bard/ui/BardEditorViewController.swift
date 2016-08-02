@@ -204,7 +204,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         fetchSegments(segmentUrls, completion: { filePaths in
             VideoMerger.mergeMultipleVideos(filePaths, finished: { outputURL, localIdentifier in
-                Repository.create(wordTagStrings, fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier, characterToken: self.characterToken, sceneToken: self.sceneToken, repoCreated: { repoId in
+                Repository.create(wordTagStrings, username: UserConfig.getUsername(), fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier, characterToken: self.characterToken, sceneToken: self.sceneToken, repoCreated: { repoId in
                     
                     self.activityIndicator?.stopAnimating()
                     self.repositoryId = repoId

@@ -28,7 +28,7 @@ class Storage {
         }
         
         do {
-            try NSFileManager.defaultManager().createDirectoryAtPath(directoryPath, withIntermediateDirectories: false, attributes: nil)
+            try NSFileManager.defaultManager().createDirectoryAtPath(directoryPath, withIntermediateDirectories: true, attributes: nil)
         } catch let error as NSError {
             print(error.localizedDescription);
         }

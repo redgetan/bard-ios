@@ -13,6 +13,7 @@ import AVFoundation
 class Repository: Object {
     dynamic var id: Int = 0
     dynamic var token: String = ""
+    dynamic var username: String = ""
     dynamic var url: String = ""
     dynamic var fileName: String = ""
     dynamic var localIdentifier: String? = ""
@@ -31,12 +32,13 @@ class Repository: Object {
         return repo
     }
     
-    static func create(wordTagStrings: [String], fileName: String, localIdentifier: String?, characterToken: String, sceneToken: String? = nil, repoCreated: (Int -> Void)? = nil) {
+    static func create(wordTagStrings: [String], username: String, fileName: String, localIdentifier: String?, characterToken: String, sceneToken: String? = nil, repoCreated: (Int -> Void)? = nil) {
 
         let repository = Repository()
         repository.id = getNextId()
         repository.wordList = wordTagStrings.joinWithSeparator(",")
         repository.fileName = fileName
+        repository.username = username
         repository.localIdentifier = localIdentifier
         repository.characterToken = characterToken
         repository.sceneToken = sceneToken
