@@ -32,6 +32,16 @@ class UserConfig {
         keychain["authentication_token"] = authToken
     }
     
+    static func clearCredentials() {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.removeObjectForKey("is_user_logined")
+        defaults.removeObjectForKey("username")
+        defaults.removeObjectForKey("email")
+        defaults.synchronize()
+
+        keychain["authentication_token"] = nil
+    }
+    
     static func getUsername() -> String {
         let defaults = NSUserDefaults.standardUserDefaults()
         return defaults.stringForKey("username")!

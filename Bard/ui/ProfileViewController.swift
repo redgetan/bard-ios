@@ -106,6 +106,10 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             }
             break
         case .Logout:
+            UserConfig.clearCredentials()
+            Helper.openStoryboard(sourceViewController: self,
+                                  storyboardName: "Login",
+                                  viewControllerName: "LoginNavigationController")
             break
         default:
             break
