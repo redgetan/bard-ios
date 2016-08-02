@@ -189,6 +189,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             return
         }
         
+        Analytics.timeEvent("generateBardVideo")
+        
         if self.activityIndicator == nil {
             self.activityIndicator = addActivityIndicator(self.player.view)
         }
@@ -202,14 +204,13 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             segmentUrlFromWordTag(wordTagString)
             }.flatMap { $0 }
         
-        Analytics.track("generateBardVideo", properties: ["wordTags" : wordTagStrings])
-        
         fetchSegments(segmentUrls, completion: { filePaths in
             VideoMerger.mergeMultipleVideos(filePaths, finished: { outputURL, localIdentifier in
                 Repository.create(wordTagStrings, username: UserConfig.getUsername(), fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier, characterToken: self.characterToken, sceneToken: self.sceneToken, repoCreated: { repoId in
                     
                     self.activityIndicator?.stopAnimating()
                     self.repositoryId = repoId
+                    Analytics.track("generateBardVideo", properties: ["wordTags" : wordTagStrings])
                     self.playVideo(outputURL)
                     self.shareButton.enabled = true
                 })

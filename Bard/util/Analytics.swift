@@ -19,6 +19,10 @@ class Analytics {
         }
     }
     
+    static func timeEvent(event: String) {
+        Mixpanel.sharedInstance().timeEvent(event)
+    }
+    
     static func track(event: String, properties: [NSObject : AnyObject]?) {
         let mixpanel = Mixpanel.sharedInstance()
 
