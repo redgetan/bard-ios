@@ -21,6 +21,9 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let backButton = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = backButton
+        
         Analytics.track("compose", properties: nil)
         initCharacters()
         charactersTableView.delegate = self
@@ -80,7 +83,7 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
             let indexPath = charactersTableView.indexPathForCell(sender as! UITableViewCell)!
             let character = self.characters![indexPath.row]
             let viewController = segue.destinationViewController as! SceneSelectViewController;
-            viewController.characterToken = character.token
+            viewController.character = character
         }
     }
     

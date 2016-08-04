@@ -15,8 +15,8 @@ import SwiftyDrop
 
 class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
     let cdnPath = "https://d22z4oll34c07f.cloudfront.net"
-    var characterToken = ""
-    var sceneToken: String? = nil
+    var character: Character!
+    var scene: Scene? = nil
     var wordTagMap: [String: [String]] = [String: [String]]()
     var wordTagStringList: [String] = [String]()
     var player: Player!
@@ -36,6 +36,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.title = scene?.name ?? character.name
         initPlayer()
         initDictionary()
         initCollectionView()
@@ -206,11 +207,16 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         fetchSegments(segmentUrls, completion: { filePaths in
             VideoMerger.mergeMultipleVideos(filePaths, finished: { outputURL, localIdentifier in
-                Repository.create(wordTagStrings, username: UserConfig.getUsername(), fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier, characterToken: self.characterToken, sceneToken: self.sceneToken, repoCreated: { repoId in
+                Repository.create(wordTagStrings, username: UserConfig.getUsername(), fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier, characterToken: self.character.token, sceneToken: self.scene?.token, repoCreated: { repoId in
                     
                     self.activityIndicator?.stopAnimating()
                     self.repositoryId = repoId
-                    Analytics.track("generateBardVideo", properties: ["wordTags" : wordTagStrings])
+                    Analytics.track("generateBardVideo",
+                                    properties: ["wordTags" : wordTagStrings,
+                                                 "characterToken" : self.character.token,
+                                                 "sceneToken" : self.scene?.token ?? "",
+                                                 "character" : self.character.name,
+                                                 "scene": self.scene?.name ?? ""])
                     self.playVideo(outputURL)
                     self.shareButton.enabled = true
                 })
@@ -290,10 +296,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
     
     func getScenes() -> Results<Scene> {
-        if let token = sceneToken  {
+        if let token = scene?.token  {
             return try! Realm().objects(Scene.self).filter("token = '\(token)'")
         } else {
-            return try! Realm().objects(Scene.self).filter("characterToken = '\(characterToken)'")
+            return try! Realm().objects(Scene.self).filter("characterToken = '\(character.token)'")
         }
     }
     
@@ -302,7 +308,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             if let wordList = scene.wordList {
                 addWordListToDictionary(wordList)
             } else {
-                BardClient.getSceneWordList(characterToken, sceneToken: sceneToken, success: { value in
+                BardClient.getSceneWordList(character.token, sceneToken: self.scene?.token, success: { value in
                     if let sceneWordList = value["wordList"] as? String {
                         let realm = try! Realm()
                         try! realm.write {

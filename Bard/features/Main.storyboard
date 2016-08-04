@@ -182,7 +182,9 @@
                             <constraint firstItem="JIF-4J-oO8" firstAttribute="leading" secondItem="NIk-Gb-uNB" secondAttribute="leading" id="U3Q-OR-Muo"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Choose Scene" id="fNn-fg-K9Z"/>
+                    <navigationItem key="navigationItem" title="Choose Scene" id="fNn-fg-K9Z">
+                        <barButtonItem key="backBarButtonItem" title=" " id="h2H-53-Yu6"/>
+                    </navigationItem>
                     <connections>
                         <outlet property="scenesTableView" destination="JIF-4J-oO8" id="5OS-1D-kQ3"/>
                     </connections>
@@ -559,6 +561,10 @@
         <scene sceneID="9Mk-gk-1fN">
             <objects>
                 <viewController id="Rcx-cD-D4k" customClass="Player" customModule="Player" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="BO3-tJ-uyC"/>
+                        <viewControllerLayoutGuide type="bottom" id="OPo-P5-6Mm"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="MsB-NP-p0O">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="487"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

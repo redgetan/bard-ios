@@ -17,10 +17,13 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     
     var scenes: Results<Scene>? = nil
     let cellIdentifier = "SceneTableViewCell"
-    var characterToken = ""
+    var character: Character!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let backButton = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
+        self.navigationItem.backBarButtonItem = backButton
         
         initScenes()
         scenesTableView.delegate = self
@@ -31,12 +34,12 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     
     func initScenes() {
         self.scenes = try! Realm().objects(Scene.self)
-            .filter("characterToken = '\(characterToken)'")
+            .filter("characterToken = '\(character.token)'")
             .sorted("createdAt", ascending: false)
     }
     
     func syncRemoteData() {
-        BardClient.getSceneList(characterToken, success: { value in
+        BardClient.getSceneList(character.token, success: { value in
             for values in (value as? NSArray)! {
                 Scene.create(values)
             }
@@ -81,8 +84,8 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
             let indexPath = scenesTableView.indexPathForCell(sender as! UITableViewCell)!
             let scene = self.scenes![indexPath.row]
             let viewController = segue.destinationViewController as! BardEditorViewController;
-            viewController.characterToken = scene.characterToken
-            viewController.sceneToken     = scene.token
+            viewController.character = character
+            viewController.scene     = scene
 
         }
     }

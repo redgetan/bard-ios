@@ -11,17 +11,27 @@
 [ ] testing
   [ ] testflight
 
+[x] remove (back - choose character/scene)
+[x] set title of bardeditor
+[ ] left aligned wordtag layout
+  [ ] lighter colored border (same color as text)
+[ ] replace show/hide keyboard button
+[ ] privacy policy row in profile
+[ ] filename of video should be friendlier (as opposed to mergedVideo123142234.34.mp4)
+
 [ ] analytics
   [x] crashlytics
   [x] instabug
   [x] google analytics / firebase
-  [ ] mixpanel
+  [x] mixpanel
     [ ] track events
       [ ] signup
       [ ] login
       [ ] view repo
-      [ ] go to editor (character/scene)
-      [ ] play (text/character/scene/duration)
+      [x] go to editor (character/scene)
+      [ ] play
+        [x] wordtaglist/duration
+        [ ] character/scene
       [ ] share
 
 [x] application
@@ -39,12 +49,12 @@
       [x] fetch scene list from server
       [x] if there's missing scene on realm (add it)
   [x] show list of repo
-  [ ] click on item should display the video
+  [x] click on item should display the video
   [ ] let user delete
-  [ ] VideoPlayerViewController
-    [ ] should allow people to share
+  [x] VideoPlayerViewController
+    [x] should allow people to share
 
-[ ] TextToVideoEditor
+[x] TextToVideoEditor
   [x] player
   [x] textfield
   [x] show sticky error (invalid word)
@@ -67,20 +77,16 @@
       [ ] https://github.com/mokagio/UICollectionViewLeftAlignedLayout
       [ ] https://codentrick.com/create-a-tag-flow-layout-with-uicollectionview/
       [ ] http://stackoverflow.com/questions/16544186/how-can-i-center-rows-in-uicollectionview
-  [ ] play goes to VideoPlayerViewController
+  [x] play goes to VideoPlayerViewController
 
-[ ] profile tab
+[x] profile tab
   [ ] set avatar
   [x] username/email row
-  [ ] About row (link to bard.co)
-    [ ] bard.co should be mobile-friendly
-  [ ] Feedback row (instabug)
-  [ ] Tell a friend (i.e whats app - mail/message/twitter/facebook)
+  [x] About row (link to bard.co)
+  [x] Feedback row (instabug)
+  [x] Tell a friend (i.e whats app - mail/message/twitter/facebook)
+  [x] Logout
   [ ] Rate on appstore
-  [ ] Logout
-    [ ] should clear authToken
-    [ ] should unset is_user_logedin from nsuserdefaults
-    [ ] should unset email/username from nsuserdefaults
 
 [ ] api limiting
   [ ] send authentication_token for api request (i.e. via http header)
