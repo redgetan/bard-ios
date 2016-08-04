@@ -11,7 +11,7 @@ import AVFoundation
 
 
 class VideoMerger {
-    static func mergeMultipleVideos(filePaths: [String], finished: ((NSURL, String?) -> Void)) {
+    static func mergeMultipleVideos(destinationPath destinationPath: String, filePaths: [String], finished: ((NSURL, String?) -> Void)) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
             
             let mixComposition = AVMutableComposition()
@@ -25,7 +25,7 @@ class VideoMerger {
                 insertionTime = appendAsset(asset, composition: mixComposition, atTime: insertionTime)
             }
             
-            exportAsset(mixComposition, completion: { outputURL in
+            exportAsset(mixComposition, destinationPath: destinationPath, completion: { outputURL in
                 Storage.copyFileToAlbum(localFileUrl: outputURL,
                     handler: { localIdentifier in
                         dispatch_async(dispatch_get_main_queue()) {
@@ -131,10 +131,10 @@ class VideoMerger {
         }
     }
     
-    static func exportAsset(mixComposition: AVMutableComposition, completion: (NSURL -> Void) ) {
+    static func exportAsset(mixComposition: AVMutableComposition, destinationPath: String, completion: (NSURL -> Void) ) {
         // 5 - Create Exporter
         guard let exporter = AVAssetExportSession(asset: mixComposition, presetName: AVAssetExportPresetHighestQuality) else { return }
-        exporter.outputURL = NSURL(fileURLWithPath: Storage.getMergeVideoFilePath())
+        exporter.outputURL = NSURL(fileURLWithPath: destinationPath)
         exporter.outputFileType = AVFileTypeQuickTimeMovie // AVFileTypeMPEG4
         exporter.shouldOptimizeForNetworkUse = true
         

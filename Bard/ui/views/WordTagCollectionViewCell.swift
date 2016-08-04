@@ -15,12 +15,12 @@ class WordTagCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.contentView.layer.borderColor = UIColor.grayColor().CGColor
+        self.contentView.layer.borderColor = UIColor.lightGrayColor().CGColor
         self.contentView.layer.borderWidth = 1
         
         self.textLabel = UILabelWithPadding()
         self.textLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.textLabel.font = UIFont.systemFontOfSize(14)
+        self.textLabel.font = UIFont.systemFontOfSize(18)
             self.textLabel.textColor = UIColor.grayColor()
         self.contentView.addSubview(self.textLabel)
 

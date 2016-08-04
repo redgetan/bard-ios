@@ -11,8 +11,8 @@ target 'Bard' do
   pod 'SwiftyDrop', '~>2.0'
   pod 'KeychainAccess'
   pod 'HanekeSwift'
-  pod 'KTCenterFlowLayout'
   pod 'DZNEmptyDataSet'
+  pod 'UICollectionViewLeftAlignedLayout'
 
   # crash reporting
   pod 'Fabric'

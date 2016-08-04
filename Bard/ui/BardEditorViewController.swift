@@ -118,7 +118,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func initCollectionView() {
         // http://stackoverflow.com/a/16570399/803865
-        wordTagCollectionView.contentInset=UIEdgeInsetsMake(20.0,20.0,20.0,20.0)
+        wordTagCollectionView.contentInset=UIEdgeInsetsMake(20.0,20.0,20.0,50.0)
         wordTagCollectionView.delegate = self
         wordTagCollectionView.dataSource = self
         wordTagCollectionView.registerClass(WordTagCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
@@ -207,8 +207,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             segmentUrlFromWordTag(wordTagString)
             }.flatMap { $0 }
         
+        let destinationPath = Storage.getMergeVideoFilePath(character.name, text: text)
+        
         fetchSegments(segmentUrls, completion: { filePaths in
-            VideoMerger.mergeMultipleVideos(filePaths, finished: { outputURL, localIdentifier in
+            VideoMerger.mergeMultipleVideos(destinationPath: destinationPath,
+                                            filePaths: filePaths,
+                                            finished: { outputURL, localIdentifier in
                 Repository.create(wordTagStrings, username: UserConfig.getUsername(), fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier, characterToken: self.character.token, sceneToken: self.scene?.token, repoCreated: { repoId in
                     
                     self.activityIndicator?.stopAnimating()
