@@ -101,10 +101,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func keyboardWillAppear(notification: NSNotification){
+        controlButton.setImage(UIImage(named: "icon_plus"), forState: UIControlState.Normal)
         isKeyboardShown = true
     }
     
     func keyboardWillDisappear(notification: NSNotification){
+        controlButton.setImage(UIImage(named: "icon_keyboard"), forState: UIControlState.Normal)
         isKeyboardShown = false
     }
     
