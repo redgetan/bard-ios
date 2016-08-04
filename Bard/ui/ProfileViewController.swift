@@ -18,9 +18,12 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     let cellIdentifier = "ProfileTableViewCell"
     
     enum Row: Int {
-        case About
         case Feedback
         case TellFriend
+        case FollowFacebook
+        case FollowTwitter
+        case About
+        case Privacy
         case Logout
         case RowCount
     }
@@ -63,14 +66,23 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         let cell = profilesTableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         
         switch row {
-        case .About:
-            cell.textLabel?.text = "About"
-            break
         case .Feedback:
             cell.textLabel?.text = "Feedback"
             break
         case .TellFriend:
             cell.textLabel?.text = "Tell a Friend"
+            break
+        case .FollowFacebook:
+            cell.textLabel?.text = "Follow us on Facebook"
+            break
+        case .FollowTwitter:
+            cell.textLabel?.text = "Follow us on Twitter"
+            break
+        case .About:
+            cell.textLabel?.text = "About"
+            break
+        case .Privacy:
+            cell.textLabel?.text = "Privacy Policy"
             break
         case .Logout:
             cell.textLabel?.text = "Logout"
@@ -90,9 +102,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         }
         
         switch row {
-        case .About:
-            UIApplication.sharedApplication().openURL(NSURL(string: "https://bard.co")!)
-            break
         case .Feedback:
             Instabug.invoke()
             break
@@ -104,6 +113,18 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
                 let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
                 self.presentViewController(activityViewController, animated: true, completion: nil)
             }
+            break
+        case .FollowFacebook:
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://facebook.com/letsbard")!)
+            break
+        case .FollowTwitter:
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://twitter.com/letsbard")!)
+            break
+        case .About:
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://bard.co")!)
+            break
+        case .Privacy:
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://bard.co/privacy")!)
             break
         case .Logout:
             UserConfig.clearCredentials()

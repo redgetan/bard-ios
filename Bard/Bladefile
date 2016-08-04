@@ -15,6 +15,10 @@ blades:
     mount: Assets.xcassets/icon_profile.imageset
   - source: images/icon_keyboard_75.png
     mount: Assets.xcassets/icon_keyboard.imageset
+  - source: images/icon_facebook_75.png
+    mount: Assets.xcassets/icon_facebook.imageset
+  - source: images/icon_twitter_75.png
+    mount: Assets.xcassets/icon_twitter.imageset
   - source: images/icon_plus_75.png
     mount: Assets.xcassets/icon_plus.imageset
   - source: images/avatar_placeholder.png

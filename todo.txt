@@ -13,10 +13,11 @@
 
 [x] remove (back - choose character/scene)
 [x] set title of bardeditor
+[x] replace show/hide keyboard button
 [ ] left aligned wordtag layout
   [ ] lighter colored border (same color as text)
-[ ] replace show/hide keyboard button
 [ ] privacy policy row in profile
+[ ] follow us row in profile
 [ ] filename of video should be friendlier (as opposed to mergedVideo123142234.34.mp4)
 
 [ ] analytics
