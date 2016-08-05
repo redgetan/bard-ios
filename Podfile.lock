@@ -3,6 +3,7 @@ PODS:
   - Crashlytics (3.7.2):
     - Fabric (~> 1.6.3)
   - DZNEmptyDataSet (1.8.1)
+  - EZLoadingActivity (0.8)
   - Fabric (1.6.7)
   - Firebase (3.3.0):
     - Firebase/Core (= 3.3.0)
@@ -40,6 +41,7 @@ DEPENDENCIES:
   - Alamofire (~> 3.4)
   - Crashlytics
   - DZNEmptyDataSet
+  - EZLoadingActivity
   - Fabric
   - Firebase
   - HanekeSwift
@@ -55,6 +57,7 @@ SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
   Crashlytics: 130ab943f8c78cda7a814b434f270b2e2c8a3cba
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  EZLoadingActivity: 6fd75a05765a4085f4b6fef6f62edf9f144b3139
   Fabric: caf7580c725e64db144f610ac65cd60956911dc7
   Firebase: 6250071f0e2440a5c4c67b8cb6b868f868237ac3
   FirebaseAnalytics: 0fd6532cb2c3d03cd5cf26ad295ccb091efd3104
@@ -72,6 +75,6 @@ SPEC CHECKSUMS:
   SwiftyDrop: 54a30c4edd51be9863429c3ad2ad4108eb7b7814
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
 
-PODFILE CHECKSUM: b00ab8262c3d6da5eaf487fc25c8b652373958aa
+PODFILE CHECKSUM: 8524dae4c991495453195d5d1fbe97576cb5a554
 
 COCOAPODS: 1.0.1

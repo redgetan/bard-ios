@@ -11,14 +11,16 @@
 [ ] testing
   [ ] testflight
 
+[x] add all (character/no scene)
+
 [x] remove (back - choose character/scene)
 [x] set title of bardeditor
 [x] replace show/hide keyboard button
-[ ] left aligned wordtag layout
-  [ ] lighter colored border (same color as text)
-[ ] privacy policy row in profile
-[ ] follow us row in profile
-[ ] filename of video should be friendlier (as opposed to mergedVideo123142234.34.mp4)
+[x] left aligned wordtag layout
+  [x] lighter colored border (same color as text)
+[x] privacy policy row in profile
+[x] follow us row in profile
+[x] filename of video should be friendlier (as opposed to mergedVideo123142234.34.mp4)
 
 [x] analytics
   [x] crashlytics

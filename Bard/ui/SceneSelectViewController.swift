@@ -10,6 +10,7 @@ import UIKit
 import RealmSwift
 import SwiftyDrop
 import Haneke
+import EZLoadingActivity
 
 class SceneSelectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
@@ -61,19 +62,29 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        return self.scenes!.count;
+        let allRowCount = 1
+        return self.scenes!.count + allRowCount;
         
     }
     
     func tableView(tableView: UITableView,
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let scene = self.scenes![indexPath.row]
         
         let cell = scenesTableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SceneTableViewCell
-        cell.sceneNameLabel?.text = scene.name
         
-        if let url = NSURL(string: scene.thumbnailUrl) {
-            cell.sceneImageView.hnk_setImageFromURL(url)
+        
+        if indexPath.row == 0 {
+            // for first row, show "All"
+            cell.sceneNameLabel?.text = "All"
+        } else {
+            // since first row is reserved for "All", indexPath becomes 1-indexed instead of 0-indexed
+            let sceneIndex = indexPath.row - 1
+            let scene = self.scenes![sceneIndex]
+            
+            cell.sceneNameLabel?.text = scene.name
+            if let url = NSURL(string: scene.thumbnailUrl) {
+                cell.sceneImageView.hnk_setImageFromURL(url)
+            }
         }
 
         return cell;
@@ -81,11 +92,17 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
  
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "sceneToEditor") {
-            let indexPath = scenesTableView.indexPathForCell(sender as! UITableViewCell)!
-            let scene = self.scenes![indexPath.row]
             let viewController = segue.destinationViewController as! BardEditorViewController;
             viewController.character = character
-            viewController.scene     = scene
+
+            let indexPath = scenesTableView.indexPathForCell(sender as! UITableViewCell)!
+
+            if indexPath.row != 0 {
+                let sceneIndex = indexPath.row - 1
+                let scene = self.scenes![sceneIndex]
+                viewController.scene     = scene
+            }
+            
 
         }
     }

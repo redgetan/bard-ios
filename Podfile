@@ -1,6 +1,6 @@
 # Uncomment this line to define a global platform for your project
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
+platform :ios, '8.0'
 
 target 'Bard' do
   use_frameworks!
@@ -13,6 +13,7 @@ target 'Bard' do
   pod 'HanekeSwift'
   pod 'DZNEmptyDataSet'
   pod 'UICollectionViewLeftAlignedLayout'
+  pod 'EZLoadingActivity'
 
   # crash reporting
   pod 'Fabric'

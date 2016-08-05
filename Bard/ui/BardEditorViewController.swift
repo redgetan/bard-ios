@@ -11,6 +11,7 @@ import RealmSwift
 import Player
 import Photos
 import SwiftyDrop
+import EZLoadingActivity
 
 
 class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
@@ -299,34 +300,66 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
 
     
-    func getScenes() -> Results<Scene> {
-        if let token = scene?.token  {
-            return try! Realm().objects(Scene.self).filter("token = '\(token)'")
+    func initDictionary() {
+        if let selectedScene = self.scene {
+            initSceneWordList(selectedScene)
         } else {
-            return try! Realm().objects(Scene.self).filter("characterToken = '\(character.token)'")
+            initCharacterWordList()
+        }
+        
+    }
+    
+    func initSceneWordList(selectedScene: Scene) {
+        if selectedScene.wordList.isEmpty {
+            BardClient.getSceneWordList(character.token, sceneToken: selectedScene.token, success: { value in
+                if let sceneWordList = value["wordList"] as? String {
+                    let realm = try! Realm()
+                    try! realm.write {
+                        selectedScene.wordList = sceneWordList
+                    }
+                    
+                    self.addWordListToDictionary(sceneWordList)
+                    self.wordTagCollectionView.reloadData()
+                }
+                
+                }, failure: { errorMessage in
+                    Drop.down("Failed to load word list", state: .Error, duration: 3)
+            })
+        } else {
+            addWordListToDictionary(selectedScene.wordList)
         }
     }
     
-    func initDictionary() {
-        for scene in getScenes() {
-            if let wordList = scene.wordList {
-                addWordListToDictionary(wordList)
-            } else {
-                BardClient.getSceneWordList(character.token, sceneToken: self.scene?.token, success: { value in
-                    if let sceneWordList = value["wordList"] as? String {
-                        let realm = try! Realm()
-                        try! realm.write {
-                            scene.wordList = sceneWordList
-                        }
-                        
-                        self.addWordListToDictionary(sceneWordList)
-                        self.wordTagCollectionView.reloadData()
-                    }
-
-                }, failure: { errorMessage in
-                    Drop.down("Failed to load word list", state: .Error, duration: 3)
-                })
+    func initCharacterWordList() {
+        if self.character.isBundleDownloaded {
+            let scenes = Scene.forCharacterToken(self.character.token)
+            
+            for scene in scenes {
+                addWordListToDictionary(scene.wordList)
             }
+        } else {
+            EZLoadingActivity.show("Downloading Word List...", disableUI: true)
+            BardClient.getCharacterWordList(self.character.token, success: { value in
+                for (sceneToken, wordList) in value as! NSDictionary {
+                    let scene = Scene.forToken(sceneToken as! String)!
+                    let realm = try! Realm()
+                    try! realm.write {
+                        scene.wordList = wordList as! String
+                    }
+                    self.addWordListToDictionary(wordList as! String)
+                }
+                
+                let realm = try! Realm()
+                try! realm.write {
+                    self.character.isBundleDownloaded = true
+                }
+                
+                EZLoadingActivity.hide()
+                self.wordTagCollectionView.reloadData()
+                
+                }, failure: { errorMessage in
+                    EZLoadingActivity.hide(success: false, animated: true)
+            })
         }
     }
     

@@ -11,6 +11,7 @@ import Fabric
 import Crashlytics
 import Firebase
 import Mixpanel
+import EZLoadingActivity
 
 
 @UIApplicationMain

@@ -13,6 +13,7 @@ class Character: Object {
     dynamic var token: String = ""
     dynamic var name: String = ""
     dynamic var details: String? = ""
+    dynamic var isBundleDownloaded: Bool = false
     dynamic var createdAt: NSDate = NSDate()
     
     static var count: Int {

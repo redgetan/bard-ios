@@ -13,7 +13,7 @@ class Scene: Object {
     dynamic var name: String = ""
     dynamic var token: String = ""
     dynamic var characterToken: String = ""
-    dynamic var wordList: String? = ""
+    dynamic var wordList: String = ""
     dynamic var thumbnailUrl: String = ""
     dynamic var createdAt: NSDate = NSDate()
     
@@ -30,7 +30,7 @@ class Scene: Object {
         scene.token = obj["videoToken"] as! String
         scene.characterToken = obj["bundleToken"] as! String
         scene.thumbnailUrl = obj["thumbnailUrl"] as! String
-        scene.wordList = obj["wordList"] as? String
+        scene.wordList = obj["wordList"] as? String ?? ""
         
         let realm = try! Realm()
         
@@ -41,6 +41,14 @@ class Scene: Object {
         try! realm.write {
             realm.add(scene)
         }
+    }
+    
+    static func forToken(token: String) -> Scene? {
+        return try! Realm().objects(Scene.self).filter("token = '\(token)'").first
+    }
+    
+    static func forCharacterToken(characterToken: String) -> Results<Scene> {
+        return try! Realm().objects(Scene.self).filter("characterToken = '\(characterToken)'")
     }
     
     override static func primaryKey() -> String? {
