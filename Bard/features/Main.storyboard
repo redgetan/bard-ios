@@ -217,51 +217,50 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8tI-Jw-5hX">
                                 <rect key="frame" x="0.0" y="402" width="600" height="50"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NoN-5I-6DY">
-                                        <rect key="frame" x="0.0" y="0.0" width="600" height="50"/>
-                                        <subviews>
-                                            <button opaque="NO" alpha="0.55000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A5R-yX-rXv">
-                                                <rect key="frame" x="8" y="8" width="50" height="34"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="50" id="EfY-xD-YDW"/>
-                                                </constraints>
-                                                <state key="normal" image="icon_keyboard"/>
-                                                <connections>
-                                                    <action selector="controlButtonClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="lPX-cc-arX"/>
-                                                </connections>
-                                            </button>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Say something" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ELG-Wc-1WQ">
-                                                <rect key="frame" x="66" y="8" width="448" height="34"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Odk-Ph-xDP">
-                                                <rect key="frame" x="522" y="8" width="70" height="34"/>
-                                                <color key="backgroundColor" red="0.43921568630000002" green="0.30196078430000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="70" id="Qi0-OM-zRU"/>
-                                                </constraints>
-                                                <state key="normal" title="Play">
-                                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                </state>
-                                                <connections>
-                                                    <action selector="onPlayBtnClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="rPe-Ao-Q53"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4N-pn-kaL">
+                                        <rect key="frame" x="8" y="10" width="50" height="30"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="7Ji-mi-cnf"/>
+                                            <constraint firstAttribute="width" constant="50" id="HrI-Lp-Rw2"/>
                                         </constraints>
-                                        <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
-                                    </stackView>
+                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        <state key="normal" image="icon_keyboard"/>
+                                        <connections>
+                                            <action selector="onControlButtonClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="qm8-zB-peS"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5zv-Jr-KJs">
+                                        <rect key="frame" x="520" y="10" width="70" height="30"/>
+                                        <color key="backgroundColor" red="0.43921568630000002" green="0.30196078430000001" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="70" id="IH5-PI-fCd"/>
+                                        </constraints>
+                                        <state key="normal" title="Play">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onPlayButtonClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="8ym-dt-zMx"/>
+                                        </connections>
+                                    </button>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type something" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wqt-Td-WgB">
+                                        <rect key="frame" x="68" y="10" width="442" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                    </textField>
                                 </subviews>
                                 <color key="backgroundColor" red="0.88759156989999999" green="0.93725490199999995" blue="0.88907707430000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="NoN-5I-6DY" firstAttribute="leading" secondItem="8tI-Jw-5hX" secondAttribute="leading" id="1M7-Lj-BTo"/>
-                                    <constraint firstItem="NoN-5I-6DY" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="top" id="AOS-Yz-s2R"/>
+                                    <constraint firstAttribute="trailing" secondItem="5zv-Jr-KJs" secondAttribute="trailing" constant="10" id="1vP-lv-kWs"/>
+                                    <constraint firstAttribute="bottom" secondItem="M4N-pn-kaL" secondAttribute="bottom" constant="10" id="6v3-a4-smk"/>
+                                    <constraint firstItem="M4N-pn-kaL" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="top" constant="10" id="BQx-Ae-YHW"/>
+                                    <constraint firstItem="Wqt-Td-WgB" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="top" constant="10" id="C3r-tc-Hcs"/>
                                     <constraint firstAttribute="height" constant="50" id="JFg-eV-bR2"/>
-                                    <constraint firstAttribute="trailing" secondItem="NoN-5I-6DY" secondAttribute="trailing" id="dnx-7c-9VJ"/>
+                                    <constraint firstItem="5zv-Jr-KJs" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="top" constant="10" id="R9z-lV-aIn"/>
+                                    <constraint firstItem="5zv-Jr-KJs" firstAttribute="leading" secondItem="Wqt-Td-WgB" secondAttribute="trailing" constant="10" id="o4F-qA-bC7"/>
+                                    <constraint firstAttribute="bottom" secondItem="5zv-Jr-KJs" secondAttribute="bottom" constant="10" id="qJD-io-tXF"/>
+                                    <constraint firstAttribute="bottom" secondItem="Wqt-Td-WgB" secondAttribute="bottom" constant="10" id="u3g-LS-RPi"/>
+                                    <constraint firstItem="M4N-pn-kaL" firstAttribute="leading" secondItem="8tI-Jw-5hX" secondAttribute="leading" constant="8" id="uOb-de-7ew"/>
+                                    <constraint firstItem="Wqt-Td-WgB" firstAttribute="leading" secondItem="M4N-pn-kaL" secondAttribute="trailing" constant="10" id="y6S-Ve-dhO"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qL0-xj-jDG">
@@ -303,8 +302,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="controlButton" destination="A5R-yX-rXv" id="TIS-gv-iF8"/>
-                        <outlet property="inputTextField" destination="ELG-Wc-1WQ" id="ly0-xx-3zP"/>
+                        <outlet property="controlButton" destination="M4N-pn-kaL" id="WMf-1D-MqH"/>
+                        <outlet property="inputTextField" destination="Wqt-Td-WgB" id="XAo-UP-pfT"/>
                         <outlet property="shareButton" destination="zrL-b0-yfN" id="bHb-M1-lYT"/>
                         <outlet property="wordTagCollectionView" destination="qL0-xj-jDG" id="DGR-25-biz"/>
                     </connections>

@@ -20,20 +20,18 @@ class WordTagCollectionViewCell: UICollectionViewCell {
         
         self.textLabel = UILabelWithPadding()
         self.textLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.textLabel.font = UIFont.systemFontOfSize(18)
+        self.textLabel.font = UIFont.systemFontOfSize(16)
             self.textLabel.textColor = UIColor.grayColor()
         self.contentView.addSubview(self.textLabel)
 
-        // http://stackoverflow.com/a/36263784/803865
+        // http://stackoverflow.com/a/26181982
         
-//        let margins = self.contentView.layoutMarginsGuide
-//        self.textLabel.leadingAnchor.constraintEqualToAnchor(margins.leadingAnchor, constant: 5).active = true
-//        self.textLabel.trailingAnchor.constraintEqualToAnchor(margins.trailingAnchor, constant: 5).active = true
-//        self.textLabel.topAnchor.constraintEqualToAnchor(margins.topAnchor, constant: 5).active = true
-//        self.textLabel.bottomAnchor.constraintEqualToAnchor(margins.bottomAnchor, constant: 5).active = true
-        self.textLabel.centerXAnchor.constraintEqualToAnchor(self.contentView.centerXAnchor).active = true
-        self.textLabel.centerYAnchor.constraintEqualToAnchor(self.contentView.centerYAnchor).active = true
+        let horizontalConstraint = NSLayoutConstraint(item: self.textLabel, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.contentView, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0)
+        
+        let verticalConstraint = NSLayoutConstraint(item: self.textLabel, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.contentView, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0)
 
+        self.contentView.addConstraint(horizontalConstraint)
+        self.contentView.addConstraint(verticalConstraint)
 
     }
     

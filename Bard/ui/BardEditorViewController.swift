@@ -25,12 +25,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var repositoryId: Int? = nil
     
     @IBOutlet weak var inputTextField: UITextField!
-    @IBOutlet weak var wordTagCollectionView: UICollectionView!
     @IBOutlet weak var controlButton: UIButton!
+    @IBOutlet weak var wordTagCollectionView: UICollectionView!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
     let cellIdentifier = "wordTagCollectionViewCell"
-    let words = ["this","is","sparta","300","everyone","speaks","english","funny","spadina","bathurst","station","is","coming"]
     let sizingCell: WordTagCollectionViewCell = WordTagCollectionViewCell()
     
     override func viewDidLoad() {
@@ -42,11 +41,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         initCollectionView()
     }
     
-    @IBAction func controlButtonClick(sender: UIButton) {
+    @IBAction func onControlButtonClick(sender: UIButton) {
         if isKeyboardShown {
             inputTextField.resignFirstResponder()
         } else {
-//            inputTextField.endEditing(true)
+            //            inputTextField.endEditing(true)
             inputTextField.becomeFirstResponder()
         }
     }
@@ -181,8 +180,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         return self.sizingCell.intrinsicContentSize()
     }
 
-    
-    @IBAction func onPlayBtnClick(sender: UIButton) {
+    @IBAction func onPlayButtonClick(sender: UIButton) {
         generateBardVideo()
     }
     

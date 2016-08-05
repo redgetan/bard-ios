@@ -20,7 +20,7 @@
 [ ] follow us row in profile
 [ ] filename of video should be friendlier (as opposed to mergedVideo123142234.34.mp4)
 
-[ ] analytics
+[x] analytics
   [x] crashlytics
   [x] instabug
   [x] google analytics / firebase
