@@ -121,7 +121,7 @@
                                     <constraint firstAttribute="height" constant="50" id="2c6-PU-0OZ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLine" value="YES"/>
                                     <userDefinedRuntimeAttribute type="color" keyPath="linesColor">
@@ -135,7 +135,7 @@
                                     <constraint firstAttribute="height" constant="50" id="BqX-eR-cRm"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLine" value="YES"/>
                                     <userDefinedRuntimeAttribute type="color" keyPath="linesColor">
@@ -209,7 +209,7 @@
                                     <constraint firstAttribute="height" constant="50" id="Ohd-ut-Cn0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLine" value="YES"/>
                                 </userDefinedRuntimeAttributes>
@@ -220,7 +220,7 @@
                                     <constraint firstAttribute="height" constant="50" id="aQq-V7-nN0"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLine" value="YES"/>
                                 </userDefinedRuntimeAttributes>
@@ -231,7 +231,7 @@
                                     <constraint firstAttribute="height" constant="50" id="1x4-QJ-Fxv"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLine" value="YES"/>
                                 </userDefinedRuntimeAttributes>
