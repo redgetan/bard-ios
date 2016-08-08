@@ -27,8 +27,8 @@ class Scene: Object {
     static func create(obj: AnyObject) {
         let scene = Scene()
         scene.name = obj["name"] as! String
-        scene.token = obj["videoToken"] as! String
-        scene.characterToken = obj["bundleToken"] as! String
+        scene.token = obj["token"] as! String
+        scene.characterToken = obj["characterToken"] as! String
         scene.thumbnailUrl = obj["thumbnailUrl"] as! String
         scene.wordList = obj["wordList"] as? String ?? ""
         

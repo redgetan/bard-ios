@@ -1,3 +1,9 @@
+[ ] video merge quality
+  [ ] flickr problem
+    - elon musk (work twice as hard)
+      (advice most given)
+  [ ] a/v sync problem
+
 [x] authentication
   [x] should process to main.storyboard if already loggedin
   [x] signup
@@ -8,8 +14,8 @@
     [x] should navigate to main.storyboard
     [x] should store authToken
 
-[ ] testing
-  [ ] testflight
+[x] testing
+  [x] testflight
 
 [x] add all (character/no scene)
 
