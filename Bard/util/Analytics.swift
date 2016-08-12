@@ -13,9 +13,10 @@ class Analytics {
     static func identify(createdAt createdAt: NSDate? = nil) {
         let mixpanel = Mixpanel.sharedInstance()
         mixpanel.identify(UserConfig.getUsername())
-        mixpanel.people.set("email", to: UserConfig.getEmail())
+        mixpanel.people.set("$name", to: UserConfig.getUsername())
+        mixpanel.people.set("$email", to: UserConfig.getEmail())
         if let signupDate = createdAt {
-            mixpanel.people.set("createdAt", to: signupDate)
+            mixpanel.people.set("$created", to: signupDate)
         }
     }
     
