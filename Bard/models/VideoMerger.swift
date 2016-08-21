@@ -9,6 +9,7 @@
 import Foundation
 import AVFoundation
 
+// REFERENCE: https://github.com/rFlex/SCRecorder/blob/aadcb8ce2a183b90a731cdbba7efe4f51b9bf759/Library/Sources/SCRecordSession.m
 
 class VideoMerger {
     static func mergeMultipleVideos(destinationPath destinationPath: String, filePaths: [String], finished: ((NSURL, String?) -> Void)) {
@@ -64,11 +65,9 @@ class VideoMerger {
                                          toCompositionTrack: audioTrack,
                                          atTime: audioTime,
                                          withBounds: maxBounds)
-            maxBounds = audioTime
-            
         }
         
-        return videoTime
+        return composition.duration
         
     }
     
