@@ -209,24 +209,42 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let destinationPath = Storage.getMergeVideoFilePath(character.name, text: text)
         
         fetchSegments(segmentUrls, completion: { filePaths in
-            VideoMerger.mergeMultipleVideos(destinationPath: destinationPath,
-                                            filePaths: filePaths,
-                                            finished: { outputURL, localIdentifier in
-                Repository.create(wordTagStrings, username: UserConfig.getUsername(), fileName: outputURL.pathComponents!.last!, localIdentifier: localIdentifier, characterToken: self.character.token, sceneToken: self.scene?.token, repoCreated: { repoId in
-                    
-                    self.activityIndicator?.stopAnimating()
-                    self.repositoryId = repoId
-                    Analytics.track("generateBardVideo",
-                                    properties: ["wordTags" : wordTagStrings,
-                                                 "characterToken" : self.character.token,
-                                                 "sceneToken" : self.scene?.token ?? "",
-                                                 "character" : self.character.name,
-                                                 "scene": self.scene?.name ?? ""])
-                    self.playVideo(outputURL)
-                    self.shareButton.enabled = true
-                })
-                
+            VideoMergeManager.mergeMultipleVideos(destinationPath: destinationPath,
+                filePaths: filePaths,
+                finished: { (error: NSError?, outputURL: NSURL?) in
+                    if error != nil {
+                        print(error)
+                    }
+                    else {
+                        print("done")
+                        if outputURL != nil {
+                            Storage.copyFileToAlbum(localFileUrl: outputURL!,
+                                handler: { localIdentifier in
+                                    Repository.create(wordTagStrings,
+                                        username: UserConfig.getUsername(),
+                                        fileName: outputURL!.pathComponents!.last!,
+                                        localIdentifier: localIdentifier,
+                                        characterToken: self.character.token,
+                                        sceneToken: self.scene?.token, repoCreated: { repoId in
+                                        
+                                        self.activityIndicator?.stopAnimating()
+                                        self.repositoryId = repoId
+                                        Analytics.track("generateBardVideo",
+                                            properties: ["wordTags" : wordTagStrings,
+                                                "characterToken" : self.character.token,
+                                                "sceneToken" : self.scene?.token ?? "",
+                                                "character" : self.character.name,
+                                                "scene": self.scene?.name ?? ""])
+                                        self.playVideo(outputURL!)
+                                        self.shareButton.enabled = true
+                                    })
+                                    
+                            })
+                        }
+                    }
             })
+
+            
         })
 
     }
