@@ -42,6 +42,21 @@ class UserConfig {
         keychain["authentication_token"] = nil
     }
     
+    static func setAllowPhotoAccess(value: Bool) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setBool(value, forKey: "is_photo_access_allowed")
+    }
+    
+    static func getAllowPhotoAccess() -> Bool {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.boolForKey("is_photo_access_allowed")
+    }
+    
+    static func isAllowPhotoAccessPreferenceSet() -> Bool {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.objectForKey("is_photo_access_allowed") != nil
+    }
+    
     static func getUsername() -> String {
         let defaults = NSUserDefaults.standardUserDefaults()
         return defaults.stringForKey("username")!

@@ -87,6 +87,24 @@ class Storage {
         
     }
     
+    static func requestPhotoAccess() {
+        if (UserConfig.isAllowPhotoAccessPreferenceSet()) {
+            return
+        }
+        
+        PHPhotoLibrary.requestAuthorization { status in
+            switch status {
+            case .Authorized:
+                UserConfig.setAllowPhotoAccess(true)
+            case .Denied:
+                UserConfig.setAllowPhotoAccess(false)
+            default:
+                break
+            }
+        }
+        
+    }
+    
     static func copyFileToAlbum(localFileUrl filePathUrl: NSURL, handler: (String? -> Void)? = nil ) {
         var assetPlaceholder: PHObjectPlaceholder = PHObjectPlaceholder()
     

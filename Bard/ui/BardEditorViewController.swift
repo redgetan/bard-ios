@@ -40,6 +40,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         initPlayer()
         initDictionary()
         initCollectionView()
+        Storage.requestPhotoAccess()
     }
     
     @IBAction func onControlButtonClick(sender: UIButton) {
@@ -215,17 +216,18 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                     if error != nil {
                         print(error)
                     }
+                    else if outputURL == nil {
+                        print("failed to merge videos")
+                    }
                     else {
-                        print("done")
-                        if outputURL != nil {
-                            Storage.copyFileToAlbum(localFileUrl: outputURL!,
-                                handler: { localIdentifier in
-                                    Repository.create(wordTagStrings,
-                                        username: UserConfig.getUsername(),
-                                        fileName: outputURL!.pathComponents!.last!,
-                                        localIdentifier: localIdentifier,
-                                        characterToken: self.character.token,
-                                        sceneToken: self.scene?.token, repoCreated: { repoId in
+                        Storage.copyFileToAlbum(localFileUrl: outputURL!, handler: { localIdentifier in
+                            dispatch_async(dispatch_get_main_queue()) {
+                                Repository.create(wordTagStrings,
+                                    username: UserConfig.getUsername(),
+                                    fileName: outputURL!.pathComponents!.last!,
+                                    localIdentifier: localIdentifier,
+                                    characterToken: self.character.token,
+                                    sceneToken: self.scene?.token, repoCreated: { repoId in
                                         
                                         self.activityIndicator?.stopAnimating()
                                         self.repositoryId = repoId
@@ -237,10 +239,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                                                 "scene": self.scene?.name ?? ""])
                                         self.playVideo(outputURL!)
                                         self.shareButton.enabled = true
-                                    })
-                                    
-                            })
-                        }
+                                })
+                            }
+                            
+                                
+                        })
+                    
                     }
             })
 
