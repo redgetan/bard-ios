@@ -35,6 +35,7 @@ PODS:
   - RealmSwift (1.0.2):
     - Realm (= 1.0.2)
   - SwiftyDrop (2.4.1)
+  - TTTAttributedLabel (2.0.0)
   - UICollectionViewLeftAlignedLayout (1.0.2)
 
 DEPENDENCIES:
@@ -51,6 +52,7 @@ DEPENDENCIES:
   - Player
   - RealmSwift
   - SwiftyDrop (~> 2.0)
+  - TTTAttributedLabel
   - UICollectionViewLeftAlignedLayout
 
 SPEC CHECKSUMS:
@@ -73,8 +75,9 @@ SPEC CHECKSUMS:
   Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
   RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
   SwiftyDrop: 54a30c4edd51be9863429c3ad2ad4108eb7b7814
+  TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
 
-PODFILE CHECKSUM: 8524dae4c991495453195d5d1fbe97576cb5a554
+PODFILE CHECKSUM: dccd1e298eb7aca8f58a7fb01a66b3a522b61b8b
 
 COCOAPODS: 1.0.1

@@ -23,6 +23,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         case FollowFacebook
         case FollowTwitter
         case About
+        case Terms
         case Privacy
         case Logout
         case RowCount
@@ -81,6 +82,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         case .About:
             cell.textLabel?.text = "About"
             break
+        case .Terms:
+            cell.textLabel?.text = "Terms of Use"
+            break
         case .Privacy:
             cell.textLabel?.text = "Privacy Policy"
             break
@@ -122,6 +126,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             break
         case .About:
             UIApplication.sharedApplication().openURL(NSURL(string: "https://bard.co")!)
+            break
+        case .Terms:
+            UIApplication.sharedApplication().openURL(NSURL(string: "https://bard.co/terms")!)
             break
         case .Privacy:
             UIApplication.sharedApplication().openURL(NSURL(string: "https://bard.co/privacy")!)

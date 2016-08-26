@@ -14,6 +14,7 @@ target 'Bard' do
   pod 'DZNEmptyDataSet'
   pod 'UICollectionViewLeftAlignedLayout'
   pod 'EZLoadingActivity'
+  pod 'TTTAttributedLabel'
 
   # crash reporting
   pod 'Fabric'

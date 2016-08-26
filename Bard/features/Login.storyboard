@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Home-->
@@ -262,6 +263,20 @@
                                     <action selector="doSignUp:" destination="iwg-8y-8tL" eventType="touchUpInside" id="cVb-6G-xAC"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="By signing up, you agree to the Terms of Use and Privacy Policy" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzr-Mo-F5y" customClass="TTTAttributedLabel">
+                                <rect key="frame" x="50" y="314" width="500" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="400" id="Kj2-o3-HUX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Kj2-o3-HUX"/>
+                                    </mask>
+                                </variation>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -269,22 +284,36 @@
                             <constraint firstItem="GN9-5c-4lE" firstAttribute="leading" secondItem="BJa-dW-T6c" secondAttribute="leading" id="4gE-tc-X6y"/>
                             <constraint firstAttribute="trailing" secondItem="O4H-Il-f47" secondAttribute="trailing" id="H0U-uH-HcZ"/>
                             <constraint firstItem="uCc-Jk-Luh" firstAttribute="top" secondItem="GN9-5c-4lE" secondAttribute="bottom" id="ILB-83-Nz1"/>
+                            <constraint firstAttribute="trailing" secondItem="nzr-Mo-F5y" secondAttribute="trailing" constant="50" id="NzP-jd-slQ"/>
                             <constraint firstAttribute="trailing" secondItem="uCc-Jk-Luh" secondAttribute="trailing" id="PGx-m3-6Mp"/>
+                            <constraint firstItem="nzr-Mo-F5y" firstAttribute="leading" secondItem="BJa-dW-T6c" secondAttribute="leadingMargin" constant="50" id="Qia-ez-qfH"/>
+                            <constraint firstItem="nzr-Mo-F5y" firstAttribute="centerX" secondItem="BJa-dW-T6c" secondAttribute="centerX" id="Wm9-Y4-XOi"/>
                             <constraint firstItem="uCc-Jk-Luh" firstAttribute="leading" secondItem="BJa-dW-T6c" secondAttribute="leading" id="Zoj-Q6-Y85"/>
                             <constraint firstAttribute="trailing" secondItem="O4H-Il-f47" secondAttribute="trailing" id="cos-kJ-gFG"/>
                             <constraint firstItem="O4H-Il-f47" firstAttribute="leading" secondItem="BJa-dW-T6c" secondAttribute="leading" id="k1I-RS-Lzt"/>
                             <constraint firstItem="KW6-4y-Oni" firstAttribute="top" secondItem="uCc-Jk-Luh" secondAttribute="bottom" constant="40" id="ktq-1k-zTw"/>
                             <constraint firstItem="GN9-5c-4lE" firstAttribute="top" secondItem="O4H-Il-f47" secondAttribute="bottom" id="mE7-q7-Qql"/>
+                            <constraint firstItem="nzr-Mo-F5y" firstAttribute="top" secondItem="KW6-4y-Oni" secondAttribute="bottom" constant="20" id="oDi-WN-cNw"/>
                             <constraint firstItem="O4H-Il-f47" firstAttribute="top" secondItem="kxE-HF-tjb" secondAttribute="bottom" id="osv-2F-Qgw"/>
                             <constraint firstItem="O4H-Il-f47" firstAttribute="leading" secondItem="BJa-dW-T6c" secondAttribute="leading" id="pVb-qR-VbO"/>
                             <constraint firstAttribute="trailing" secondItem="GN9-5c-4lE" secondAttribute="trailing" id="rvr-oR-ROo"/>
                             <constraint firstItem="O4H-Il-f47" firstAttribute="top" secondItem="kxE-HF-tjb" secondAttribute="bottom" id="sac-8H-Wyz"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="nzr-Mo-F5y" secondAttribute="trailing" constant="50" id="yHi-cd-9Id"/>
+                            <constraint firstItem="nzr-Mo-F5y" firstAttribute="leading" secondItem="BJa-dW-T6c" secondAttribute="leading" constant="50" id="zBA-So-gIB"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="Qia-ez-qfH"/>
+                                <exclude reference="Wm9-Y4-XOi"/>
+                                <exclude reference="yHi-cd-9Id"/>
+                            </mask>
+                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Sign Up" id="pK0-Yc-EHN"/>
                     <connections>
                         <outlet property="emailTextField" destination="GN9-5c-4lE" id="UKC-ny-xqa"/>
                         <outlet property="passwordTextField" destination="uCc-Jk-Luh" id="JKJ-wp-7BS"/>
+                        <outlet property="termsAndPrivacyLabel" destination="nzr-Mo-F5y" id="lmR-1r-NsA"/>
                         <outlet property="usernameTextField" destination="O4H-Il-f47" id="C7D-TU-JXA"/>
                     </connections>
                 </viewController>
