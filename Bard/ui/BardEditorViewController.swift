@@ -24,8 +24,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var isKeyboardShown: Bool = false
     var activityIndicator: UIActivityIndicatorView? = nil
     var repositoryId: Int? = nil
+
+    @IBOutlet weak var playerContainer: UIView!
     
-    @IBOutlet weak var inputTextField: UITextField!
+    @IBOutlet weak var playerAspectRatioConstraint: NSLayoutConstraint!
+    @IBOutlet weak var controlsContainer: UIView!
+    @IBOutlet weak var inputTextField: UITextView!
     @IBOutlet weak var controlButton: UIButton!
     @IBOutlet weak var wordTagCollectionView: UICollectionView!
     @IBOutlet weak var shareButton: UIBarButtonItem!
@@ -61,7 +65,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         NSNotificationCenter.defaultCenter().addObserver(
             self,
             selector: #selector(BardEditorViewController.textFieldTextChanged(_:)),
-            name: UITextFieldTextDidChangeNotification,
+            name: UITextViewTextDidChangeNotification,
             object: inputTextField
         )
         
@@ -104,6 +108,19 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func keyboardWillAppear(notification: NSNotification){
         controlButton.setImage(UIImage(named: "icon_plus"), forState: UIControlState.Normal)
         isKeyboardShown = true
+        
+        let info : NSDictionary = notification.userInfo!
+        let keyboardHeight = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue().size.height
+        let windowHeight = UIScreen.mainScreen().applicationFrame.size.height
+        let newVideoPlayerHeight = windowHeight - keyboardHeight!
+                                                - controlsContainer.frame.size.height
+                                                - self.navigationController!.navigationBar.frame.height
+        
+        if keyboardHeight > wordTagCollectionView.frame.size.height {
+            playerAspectRatioConstraint.setMultiplier(self.playerContainer.frame.size.width / newVideoPlayerHeight)
+            self.view.layoutIfNeeded()
+        }
+        
     }
     
     func keyboardWillDisappear(notification: NSNotification){
@@ -170,6 +187,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             inputTextField.text = "\(inputTextField.text!) \(word)"
         }
         
+        let bottom = NSMakeRange(inputTextField.text.characters.count - 1, 1)
+        inputTextField.scrollRangeToVisible(bottom)
     }
     
     

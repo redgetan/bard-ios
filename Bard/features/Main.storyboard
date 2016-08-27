@@ -242,25 +242,26 @@
                                             <action selector="onPlayButtonClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="8ym-dt-zMx"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Type something" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Wqt-Td-WgB">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zjY-KL-2j8">
                                         <rect key="frame" x="68" y="10" width="442" height="30"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
-                                    </textField>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
+                                    </textView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.88759156989999999" green="0.93725490199999995" blue="0.88907707430000005" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="5zv-Jr-KJs" secondAttribute="trailing" constant="10" id="1vP-lv-kWs"/>
+                                    <constraint firstItem="5zv-Jr-KJs" firstAttribute="leading" secondItem="zjY-KL-2j8" secondAttribute="trailing" constant="10" id="4o0-ZF-rSB"/>
                                     <constraint firstAttribute="bottom" secondItem="M4N-pn-kaL" secondAttribute="bottom" constant="10" id="6v3-a4-smk"/>
                                     <constraint firstItem="M4N-pn-kaL" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="top" constant="10" id="BQx-Ae-YHW"/>
-                                    <constraint firstItem="Wqt-Td-WgB" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="top" constant="10" id="C3r-tc-Hcs"/>
+                                    <constraint firstItem="zjY-KL-2j8" firstAttribute="leading" secondItem="M4N-pn-kaL" secondAttribute="trailing" constant="10" id="Fbg-7U-QG4"/>
                                     <constraint firstAttribute="height" constant="50" id="JFg-eV-bR2"/>
                                     <constraint firstItem="5zv-Jr-KJs" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="top" constant="10" id="R9z-lV-aIn"/>
-                                    <constraint firstItem="5zv-Jr-KJs" firstAttribute="leading" secondItem="Wqt-Td-WgB" secondAttribute="trailing" constant="10" id="o4F-qA-bC7"/>
                                     <constraint firstAttribute="bottom" secondItem="5zv-Jr-KJs" secondAttribute="bottom" constant="10" id="qJD-io-tXF"/>
-                                    <constraint firstAttribute="bottom" secondItem="Wqt-Td-WgB" secondAttribute="bottom" constant="10" id="u3g-LS-RPi"/>
                                     <constraint firstItem="M4N-pn-kaL" firstAttribute="leading" secondItem="8tI-Jw-5hX" secondAttribute="leading" constant="8" id="uOb-de-7ew"/>
-                                    <constraint firstItem="Wqt-Td-WgB" firstAttribute="leading" secondItem="M4N-pn-kaL" secondAttribute="trailing" constant="10" id="y6S-Ve-dhO"/>
+                                    <constraint firstItem="zjY-KL-2j8" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="top" constant="10" id="uhq-OW-Zi2"/>
+                                    <constraint firstAttribute="bottom" secondItem="zjY-KL-2j8" secondAttribute="bottom" constant="10" id="xvG-o0-nLf"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qL0-xj-jDG">
@@ -303,7 +304,10 @@
                     </navigationItem>
                     <connections>
                         <outlet property="controlButton" destination="M4N-pn-kaL" id="WMf-1D-MqH"/>
-                        <outlet property="inputTextField" destination="Wqt-Td-WgB" id="XAo-UP-pfT"/>
+                        <outlet property="controlsContainer" destination="8tI-Jw-5hX" id="ra8-ow-HvX"/>
+                        <outlet property="inputTextField" destination="zjY-KL-2j8" id="zXe-VG-ZRc"/>
+                        <outlet property="playerAspectRatioConstraint" destination="O3E-ds-ZFj" id="4Cb-O1-nvK"/>
+                        <outlet property="playerContainer" destination="cbC-Tr-7su" id="sqo-V4-zdA"/>
                         <outlet property="shareButton" destination="zrL-b0-yfN" id="bHb-M1-lYT"/>
                         <outlet property="wordTagCollectionView" destination="qL0-xj-jDG" id="DGR-25-biz"/>
                     </connections>
