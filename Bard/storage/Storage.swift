@@ -88,19 +88,17 @@ class Storage {
     }
     
     static func requestPhotoAccess() {
-        if (UserConfig.isAllowPhotoAccessPreferenceSet()) {
+        if (PHPhotoLibrary.authorizationStatus() != .NotDetermined) {
             return
         }
         
         PHPhotoLibrary.requestAuthorization { status in
-            switch status {
-            case .Authorized:
-                UserConfig.setAllowPhotoAccess(true)
-            case .Denied:
-                UserConfig.setAllowPhotoAccess(false)
-            default:
-                break
-            }
+//            switch status {
+//            case .Authorized:
+//            case .Denied:
+//            default:
+//                break
+//            }
         }
         
     }
