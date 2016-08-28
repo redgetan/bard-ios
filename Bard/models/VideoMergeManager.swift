@@ -11,7 +11,7 @@ import AVFoundation
 
 public let VideoMergeManagerVerbose: Bool = false // TODO: implement
 public let VideoMergeManagerPrintPts: Bool = false
-public let VideoMergeManagerDomain: String = "co.bard"
+public let VideoMergeManagerDomain: String = "videoMergeManager"
 
 public enum VideoMergeManagerErrorCode: Int {
     case WrongInputParameters = -10000
@@ -19,8 +19,6 @@ public enum VideoMergeManagerErrorCode: Int {
     case CannotCreateAssetVideoWriter = -10002
     case CannotCreateVideoInput = -10003
 }
-
-private let kVideoMergeManagerOutFps = 30
 
 class VideoMergeManager
 {
@@ -54,10 +52,6 @@ class VideoMergeManager
             
             let videoFormatHint: CMFormatDescriptionRef = formatDescriptionTuple.videoFormatHint!
             let audioFormatHint: CMFormatDescriptionRef? = formatDescriptionTuple.audioFormatHint
-            
-            let audioStreamBasicDescription  = CMAudioFormatDescriptionGetStreamBasicDescription(audioFormatHint!).memory
-            let sampleRate = audioStreamBasicDescription.mSampleRate
-            let framesPerPacket = audioStreamBasicDescription.mFramesPerPacket
             
             // Prepare asset writer
             var assetWriter: AVAssetWriter
@@ -114,6 +108,7 @@ class VideoMergeManager
             var videoBasePts: CMTime = kCMTimeZero
             var lastAudioPts: CMTime = kCMTimeZero
             var lastVideoPts: CMTime = kCMTimeZero
+            var lastAudioDuration: CMTime = kCMTimeZero
             
             //
             for filePath in filePaths
@@ -178,7 +173,7 @@ class VideoMergeManager
                         lastVideoPts = CMSampleBufferGetPresentationTimeStamp(videoSampleBuffer)
                         
                         if VideoMergeManagerPrintPts {
-                            print("v: \(String(format: "%.4f", Double(lastVideoPts.value)/Double(lastVideoPts.timescale)))")
+                            print("v: \(String(format: "%.4f", CMTimeGetSeconds(lastVideoPts)))")
                         }
                     }
                     else {
@@ -209,20 +204,20 @@ class VideoMergeManager
                         
                         let currentPts = CMSampleBufferGetPresentationTimeStamp(audioSampleBuffer)
                         let duration = CMSampleBufferGetDuration(audioSampleBuffer)
-                        if !isLastFilePath && CMTIME_IS_VALID(currentPts) && duration.value > 0 {
-                            audioInput!.appendSampleBuffer(audioSampleBuffer)
-                            lastAudioPts = currentPts
+                        
+                        if CMTIME_IS_VALID(currentPts) && duration.value > 0 {
                             
-                            if VideoMergeManagerPrintPts {
-                                print("a: \(String(format: "%.4f", Double(lastAudioPts.value)/Double(lastAudioPts.timescale)))")
+                            if index > 0 {
+                                // TODO: Probably in different audio tracks need to select attachments for deletion
+                                CMRemoveAllAttachments(audioSampleBuffer)
                             }
-                        }
-                        else {
+                            
                             audioInput!.appendSampleBuffer(audioSampleBuffer)
                             lastAudioPts = currentPts
+                            lastAudioDuration = duration
                             
                             if VideoMergeManagerPrintPts {
-                                print("a: \(String(format: "%.4f", Double(lastAudioPts.value)/Double(lastAudioPts.timescale)))")
+                                print("a: \(String(format: "%.4f", CMTimeGetSeconds(lastAudioPts)))")
                             }
                         }
                     }
@@ -237,12 +232,25 @@ class VideoMergeManager
                         print("--")
                     }
                     
-                    videoBasePts = CMTimeAdd(lastVideoPts, CMTimeMake(1, Int32(kVideoMergeManagerOutFps)))
-                    audioBasePts = CMTimeAdd(lastAudioPts, CMTimeMake(Int64(framesPerPacket), Int32(sampleRate)))
+                    let url = NSURL.fileURLWithPath(filePath)
+                    let asset = AVAsset(URL: url)
+                    let videoTrack = asset.tracksWithMediaType(AVMediaTypeVideo).first!
+                    let fps = videoTrack.nominalFrameRate
+                    
+                    audioBasePts = CMTimeAdd(lastAudioPts, lastAudioDuration)
+                    videoBasePts = CMTimeAdd(lastVideoPts, CMTimeMake(100, Int32(fps * 100))) // If fps like a 29.xx
+                    
+                    let compareResult = CMTimeCompare(audioBasePts, videoBasePts)
+                    if compareResult >= 0 {
+                        videoBasePts = audioBasePts
+                    }
+                    else {
+                        audioBasePts = videoBasePts
+                    }
                     
                     if VideoMergeManagerPrintPts {
-                        print("vb: \(String(format: "%.4f", Double(videoBasePts.value)/Double(videoBasePts.timescale)))")
-                        print("ab: \(String(format: "%.4f", Double(audioBasePts.value)/Double(audioBasePts.timescale)))")
+                        print("vb: \(String(format: "%.4f", CMTimeGetSeconds(videoBasePts)))")
+                        print("ab: \(String(format: "%.4f", CMTimeGetSeconds(audioBasePts)))")
                         print("")
                     }
                 }
