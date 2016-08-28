@@ -14,12 +14,27 @@ import SwiftyDrop
 import EZLoadingActivity
 
 
-class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate {
+class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate {
     let cdnPath = "https://d22z4oll34c07f.cloudfront.net"
     var character: Character!
     var scene: Scene? = nil
+    var isBackspacePressed: Bool = false
+    var lastTokenCount: Int = 0
+    var skipAddToWordTag: Bool = false
+    
+    // word -> array of wordtagstrings 
+    // useful for knowing whether a word is in the bard dictionary (valid or not)
+    // (i.e wordTagMap["hello"] == ["hello:11342","hello:kj8s3n"])
     var wordTagMap: [String: [String]] = [String: [String]]()
+    
+    // list of wordtag strings to be used for collectionview, rendering word tags that user can click on
     var wordTagStringList: [String] = [String]()
+    
+    // the actual array of word tags that have been inputed by the user
+    // it can contain either word (hello) or a wordtag (hello:45k8sn)
+    // on generateBardVideo, all words would be searched for matching wordtag
+    var wordTagList: [String] = [String]()
+    
     var player: Player!
     var isKeyboardShown: Bool = false
     var activityIndicator: UIActivityIndicatorView? = nil
@@ -39,7 +54,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        inputTextField.delegate = self
         self.title = scene?.name ?? character.name
         initPlayer()
         initDictionary()
@@ -71,10 +87,121 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
     }
     
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        if (text == ""){
+            isBackspacePressed = true
+        }
+        return true
+    }
+    
     func textFieldTextChanged(sender : AnyObject) {
-        // iterate through every words, see if it exists in wordTagMap
+        // add word to wordTagList
+        addWordToWordTagList()
+
+        // validate words
         NSObject.cancelPreviousPerformRequestsWithTarget(self, selector: #selector(displayInvalidWords), object: nil)
         performSelector(#selector(displayInvalidWords), withObject: nil, afterDelay: 1)
+    }
+    
+    func addWordToWordTagList() {
+        if skipAddToWordTag {
+            return
+        }
+        
+        let tokenCount = getInputTokenCount()
+        let tokenIndex = getInputTokenIndex()
+        let addedCharacter = getAddedCharacter()
+        
+        while tokenCount < lastTokenCount {
+            wordTagList.removeAtIndex(tokenIndex)
+            lastTokenCount = lastTokenCount - 1
+        }
+        
+        if isBackspacePressed == true {
+            isBackspacePressed = false
+
+            
+            if tokenIndex < wordTagList.count {
+                let wordAtInputField = getWordAtTokenIndex(tokenIndex)
+                let wordAtWordTagList = wordTagList[tokenIndex].componentsSeparatedByString(":")[0]
+                if !wordAtInputField.isEmpty && wordAtWordTagList != wordAtInputField {
+                    wordTagList[tokenIndex] = wordAtInputField
+                }
+            }
+            
+        } else if addedCharacter == " " {
+            if tokenCount != lastTokenCount {
+                let wordAtInputField = getWordAtTokenIndex(tokenIndex)
+                let prevWordAtInputField = getWordAtTokenIndex(tokenIndex - 1)
+
+                if !wordAtInputField.isEmpty {
+                    wordTagList.insert(wordAtInputField, atIndex: tokenIndex)
+                    wordTagList[tokenIndex - 1] = prevWordAtInputField
+                }
+            }
+        } else if !addedCharacter.isEmpty {
+            let wordAtInputField = getWordAtTokenIndex(tokenIndex)
+
+            if tokenCount != lastTokenCount {
+                wordTagList.insert(wordAtInputField, atIndex: tokenIndex)
+            } else {
+                wordTagList[tokenIndex] = wordAtInputField
+            }
+        }
+        
+        lastTokenCount = tokenCount
+    }
+    
+    func getWordAtTokenIndex(tokenIndex: Int) -> String {
+        let words = inputTextField.text.characters.split{$0 == " "}.map(String.init)
+        if tokenIndex < words.count {
+            return words[tokenIndex]
+        } else {
+            return ""
+        }
+    }
+    
+    func getAddedCharacter() -> String {
+        let cursorPosition = getCursorPosition()
+        
+        if cursorPosition == 0 {
+            return ""
+        }
+        
+        let indexUntilCursor  = inputTextField.text.startIndex.advancedBy(cursorPosition    )
+        let indexBeforeCursor = inputTextField.text.startIndex.advancedBy(cursorPosition - 1)
+        let range = indexBeforeCursor..<indexUntilCursor
+        
+        return inputTextField.text.substringWithRange(range)
+    }
+    
+    func getInputTokenIndex() -> Int {
+        let indexStartOfText = inputTextField.text.startIndex.advancedBy(getCursorPosition())
+        let textUntilCursor  = inputTextField.text.substringToIndex(indexStartOfText)
+        let spaceSeparators = Helper.matchesForRegexInText("\\s+", text: textUntilCursor)
+        
+        let spaceRanges = Helper.matchesForRegexInRange("\\s+", text: textUntilCursor)
+        
+        let isSpacePresentInTextBeginning = !spaceRanges.isEmpty && spaceRanges.first?.location == 0
+        if isSpacePresentInTextBeginning {
+            return spaceSeparators.count - 1
+        } else {
+            return spaceSeparators.count
+        }
+
+        
+    }
+    
+    func getInputTokenCount() -> Int {
+        return inputTextField.text.characters.split{$0 == " "}.count
+    }
+    
+    func getCursorPosition() -> Int {
+        let selectedRange = inputTextField.selectedTextRange!
+            
+        let cursorPosition = inputTextField.offsetFromPosition(inputTextField.beginningOfDocument, toPosition: selectedRange.start)
+        
+        return cursorPosition
     }
     
     func displayInvalidWords() {
@@ -181,12 +308,20 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let wordTagString = self.wordTagStringList[indexPath.row]
         let word = wordTagString.componentsSeparatedByString(":")[0]
         
+        // insert wordtagstring into tokeindex
+        wordTagList.insert(wordTagString, atIndex: getInputTokenIndex())
+        
+        // insert word in uitextview
+        skipAddToWordTag = true
         if let selectedTextRange = inputTextField.selectedTextRange {
             inputTextField.replaceRange(selectedTextRange, withText: " \(word) ")
         } else {
             inputTextField.text = "\(inputTextField.text!) \(word)"
         }
+        lastTokenCount = getInputTokenCount()
+        skipAddToWordTag = false
         
+        // scroll cursor in uitextview to bottom
         let bottom = NSMakeRange(inputTextField.text.characters.count - 1, 1)
         inputTextField.scrollRangeToVisible(bottom)
     }
@@ -302,14 +437,21 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func getWordTagStrings(text: String) -> [String] {
         var wordTagStrings = [String]()
+        var word: String
         
-        for word in text.componentsSeparatedByString(" ") {
-            guard let wordTagString = randomWordTagFromWord(word) else {
-                print("missing word \(word)")
-                continue
+        for wordTagString in wordTagList {
+            if wordTagString.characters.contains(":") {
+                wordTagStrings.append(wordTagString)
+            } else {
+                word = wordTagString
+                guard let wordTagString = randomWordTagFromWord(word) else {
+                    print("missing word \(word)")
+                    continue
+                }
+                
+                wordTagStrings.append(wordTagString)
             }
             
-            wordTagStrings.append(wordTagString)
         }
         
         return wordTagStrings
