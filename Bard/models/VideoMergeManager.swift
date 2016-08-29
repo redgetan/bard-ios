@@ -327,9 +327,14 @@ class VideoMergeManager
         
         // Video input
         let videoDimensions: CMVideoDimensions = CMVideoFormatDescriptionGetDimensions(videoFormatHint as CMVideoFormatDescription)
+        
+        let compressionSettings: [String : String] =
+            [AVVideoProfileLevelKey: AVVideoProfileLevelH264Baseline30]
+        
         let videoSettings: [String : AnyObject] = [AVVideoCodecKey: AVVideoCodecH264,
                                                    AVVideoWidthKey: Int(videoDimensions.width),
-                                                   AVVideoHeightKey: Int(videoDimensions.height)]
+                                                   AVVideoHeightKey: Int(videoDimensions.height),
+                                                   AVVideoCompressionPropertiesKey: compressionSettings]
         let videoInput: AVAssetWriterInput? = AVAssetWriterInput(mediaType: AVMediaTypeVideo,
                                                                  outputSettings: videoSettings)
         videoInput?.expectsMediaDataInRealTime = true
