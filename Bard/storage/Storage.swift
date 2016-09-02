@@ -13,7 +13,7 @@ import Photos
 class Storage {
     
     static func setup() {
-        createAlbumIfNotPresent()
+//        createAlbumIfNotPresent()
         createMissingDirectories()
     }
     

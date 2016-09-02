@@ -154,7 +154,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func getWordAtTokenIndex(tokenIndex: Int) -> String {
         let words = inputTextField.text.characters.split{$0 == " "}.map(String.init)
         if tokenIndex < words.count {
-            return words[tokenIndex]
+            return words[tokenIndex].lowercaseString
         } else {
             return ""
         }
@@ -340,12 +340,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func generateBardVideo() {
-        let text = inputTextField.text.lowercaseString
-        if text.isEmpty {
-            print("text is blank. type something")
-            return
-        }
-        
         Analytics.timeEvent("generateBardVideo")
         
         if self.activityIndicator == nil {
@@ -356,12 +350,19 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         // http://stackoverflow.com/questions/17530659/uiactivityindicatorview-animation-delayed
         self.activityIndicator?.startAnimating()
         
-        let wordTagStrings = getWordTagStrings(text)
+        let wordTagStrings = getWordTagStrings()
         let segmentUrls = wordTagStrings.map { wordTagString in
             segmentUrlFromWordTag(wordTagString)
             }.flatMap { $0 }
         
-        let destinationPath = Storage.getMergeVideoFilePath(character.name, text: text)
+        let phrase = wordTagStrings.map { wordTagString in wordTagString.componentsSeparatedByString(":")[0]}.joinWithSeparator(" ")
+        
+        if phrase.isEmpty {
+            print("text is blank. type something")
+            return
+        }
+        
+        let destinationPath = Storage.getMergeVideoFilePath(character.name, text: phrase)
         
         fetchSegments(segmentUrls, completion: { filePaths in
             VideoMergeManager.mergeMultipleVideos(destinationPath: destinationPath,
@@ -429,7 +430,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     
-    func getWordTagStrings(text: String) -> [String] {
+    func getWordTagStrings() -> [String] {
         var wordTagStrings = [String]()
         var word: String
         
@@ -570,6 +571,13 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    func initControls() {
+        if self.scene != nil {
+            inputTextField.hidden = true
+            controlButton.hidden  = true
+        }
     }
     
     // https://coderwall.com/p/6onn0g/adding-progress-icon-programmatically-to-a-new-uiview
