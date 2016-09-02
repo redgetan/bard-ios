@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         Mixpanel.sharedInstanceWithToken("46b3c885b8bb3f753d9f8aa378eca667")
-        Instabug.startWithToken("b95aeb23d36646812b25000303399919", invocationEvent: IBGInvocationEvent.Shake)
+        Instabug.startWithToken("b95aeb23d36646812b25000303399919", invocationEvent: IBGInvocationEvent.None)
         Fabric.with([Crashlytics.self])
         
         setupNavigationBarColor()
