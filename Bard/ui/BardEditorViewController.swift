@@ -340,7 +340,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func generateBardVideo() {
-        guard let text = inputTextField.text.lowercaseString else {
+        let text = inputTextField.text.lowercaseString
+        if text.isEmpty {
             print("text is blank. type something")
             return
         }
@@ -376,6 +377,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                         Repository.create(wordTagStrings,
                             username: UserConfig.getUsername(),
                             fileName: outputURL!.pathComponents!.last!,
+                            localIdentifier: nil,
                             characterToken: self.character.token,
                             sceneToken: self.scene?.token, repoCreated: { repoId in
                                 

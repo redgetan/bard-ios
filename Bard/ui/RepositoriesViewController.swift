@@ -91,7 +91,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
-        let text = "To start using the text-to-video app, click the button on upper-right corner."
+        let text = "To start, click the button on upper-right corner."
     
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping
