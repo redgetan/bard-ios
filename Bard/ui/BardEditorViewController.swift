@@ -340,7 +340,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func generateBardVideo() {
-        guard let text = inputTextField.text else {
+        guard let text = inputTextField.text.lowercaseString else {
             print("text is blank. type something")
             return
         }
