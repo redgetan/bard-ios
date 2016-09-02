@@ -87,21 +87,6 @@ class Storage {
         
     }
     
-    static func requestPhotoAccess() {
-        if (PHPhotoLibrary.authorizationStatus() != .NotDetermined) {
-            return
-        }
-        
-        PHPhotoLibrary.requestAuthorization { status in
-//            switch status {
-//            case .Authorized:
-//            case .Denied:
-//            default:
-//                break
-//            }
-        }
-        
-    }
     
     static func copyFileToAlbum(localFileUrl filePathUrl: NSURL, handler: (String? -> Void)? = nil ) {
         var assetPlaceholder: PHObjectPlaceholder = PHObjectPlaceholder()

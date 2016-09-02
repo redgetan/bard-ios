@@ -60,7 +60,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         initPlayer()
         initDictionary()
         initCollectionView()
-        Storage.requestPhotoAccess()
     }
     
     @IBAction func onControlButtonClick(sender: UIButton) {
@@ -374,29 +373,22 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                         print("failed to merge videos")
                     }
                     else {
-                        Storage.copyFileToAlbum(localFileUrl: outputURL!, handler: { localIdentifier in
-                            dispatch_async(dispatch_get_main_queue()) {
-                                Repository.create(wordTagStrings,
-                                    username: UserConfig.getUsername(),
-                                    fileName: outputURL!.pathComponents!.last!,
-                                    localIdentifier: localIdentifier,
-                                    characterToken: self.character.token,
-                                    sceneToken: self.scene?.token, repoCreated: { repoId in
-                                        
-                                        self.activityIndicator?.stopAnimating()
-                                        self.repositoryId = repoId
-                                        Analytics.track("generateBardVideo",
-                                            properties: ["wordTags" : wordTagStrings,
-                                                "characterToken" : self.character.token,
-                                                "sceneToken" : self.scene?.token ?? "",
-                                                "character" : self.character.name,
-                                                "scene": self.scene?.name ?? ""])
-                                        self.playVideo(outputURL!)
-                                        self.shareButton.enabled = true
-                                })
-                            }
-                            
+                        Repository.create(wordTagStrings,
+                            username: UserConfig.getUsername(),
+                            fileName: outputURL!.pathComponents!.last!,
+                            characterToken: self.character.token,
+                            sceneToken: self.scene?.token, repoCreated: { repoId in
                                 
+                                self.activityIndicator?.stopAnimating()
+                                self.repositoryId = repoId
+                                Analytics.track("generateBardVideo",
+                                    properties: ["wordTags" : wordTagStrings,
+                                        "characterToken" : self.character.token,
+                                        "sceneToken" : self.scene?.token ?? "",
+                                        "character" : self.character.name,
+                                        "scene": self.scene?.name ?? ""])
+                                self.playVideo(outputURL!)
+                                self.shareButton.enabled = true
                         })
                     
                     }
