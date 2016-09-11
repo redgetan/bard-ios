@@ -21,7 +21,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var isBackspacePressed: Bool = false
     var lastTokenCount: Int = 0
     var skipAddToWordTag: Bool = false
-    
+    var previousSelectedTokenIndex = [Int]()
     // word -> array of wordtagstrings 
     // useful for knowing whether a word is in the bard dictionary (valid or not)
     // (i.e wordTagMap["hello"] == ["hello:11342","hello:kj8s3n"])
@@ -97,6 +97,19 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         }
         return true
     }
+    
+    func textViewDidChangeSelection(textView: UITextView) {
+        let wordRanges = textView.text.wordRanges()
+        var index = 0
+        
+        for range in wordRanges {
+            if NSIntersectionRange(textView.selectedRange,range).length != 0 {
+                previousSelectedTokenIndex.append(index)
+            }
+            index = index + 1
+        }
+    }
+    
     
     func textFieldTextChanged(sender : AnyObject) {
         // add word to wordTagList

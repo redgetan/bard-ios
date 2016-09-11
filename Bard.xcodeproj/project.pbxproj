@@ -38,6 +38,7 @@
 		89C986341D46D8350056E687 /* LoginInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986331D46D8350056E687 /* LoginInputViewController.swift */; };
 		89C986371D46E3430056E687 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986361D46E3430056E687 /* Helper.swift */; };
 		89C986391D46EE040056E687 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986381D46EE040056E687 /* WelcomeViewController.swift */; };
+		89CE80CF1D859F170009796D /* String+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CE80CE1D859F170009796D /* String+Helper.swift */; };
 		89E3BBE71D47D72300963EEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */; };
 		89E3BBE91D47F48600963EEE /* CharacterSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */; };
 		89FCDA2F1D4EA09F00326588 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FCDA2E1D4EA09F00326588 /* TabBarViewController.swift */; };
@@ -79,6 +80,7 @@
 		89C986331D46D8350056E687 /* LoginInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LoginInputViewController.swift; path = ui/LoginInputViewController.swift; sourceTree = "<group>"; };
 		89C986361D46E3430056E687 /* Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Helper.swift; path = util/Helper.swift; sourceTree = "<group>"; };
 		89C986381D46EE040056E687 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeViewController.swift; path = ui/WelcomeViewController.swift; sourceTree = "<group>"; };
+		89CE80CE1D859F170009796D /* String+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Helper.swift"; path = "extensions/String+Helper.swift"; sourceTree = "<group>"; };
 		89E3BBE51D47A9A000963EEE /* Bard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bard-Bridging-Header.h"; sourceTree = "<group>"; };
 		89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterSelectViewController.swift; path = ui/CharacterSelectViewController.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 			children = (
 				898CC11D1D4E5129006D56E4 /* UIColor+Helper.swift */,
 				896074871D72495C0072C022 /* NSLayoutConstraint+Helper.swift */,
+				89CE80CE1D859F170009796D /* String+Helper.swift */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -397,6 +400,7 @@
 				89C9861D1D45BA990056E687 /* RepositoriesViewController.swift in Sources */,
 				890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */,
 				890D3E671D49420C008F96DF /* BardEditorViewController.swift in Sources */,
+				89CE80CF1D859F170009796D /* String+Helper.swift in Sources */,
 				89C986201D4660290056E687 /* BorderedButton.swift in Sources */,
 				896074881D72495C0072C022 /* NSLayoutConstraint+Helper.swift in Sources */,
 				890D3E5F1D493A20008F96DF /* Repository.swift in Sources */,
