@@ -1,0 +1,192 @@
+wordTagList -> in memory array of WordTag
+words       -> space tokenized words from inputtextview
+
+class WordTag
+  def initialize(word)
+    self.word, self.tag = word.split(":")
+  end
+end
+
+(listener - textViewDidChangeSelection)
+        get "start" and "end" of selection
+          selectionStart = textView.selectedRange.location
+          selectionEnd   = textView.selectedRange.length + selectionStart
+        get "start" and "end" of each space-tokenized word
+        based on 2 information above, set selectedWordIndex
+          previousSelectedTokenIndex = [] (could be empty, 1 value or more)
+        # check if this gets triggered if i replace selection with character/backspace/space
+        # if it does, then we can simply deleted wordTagList items at selectedWordIndex
+
+(listener - textViewDidChange)
+rule 1: as i type new characters, it'll look at textfield, tokenize into words, and look at wordTagList to see which needed insertion
+
+        === RUN DELETION ALGORITHM
+
+        current_token_count = getCurrentWordTokenCount (6)
+        if (current_token_count < previous_token_count && previousSelectedTokenIndex.length > 0)
+          previous_token_count -= previousSelectedTokenIndex.length            # this is needed for calculating allowed_insertions
+                                                                               # (bef: "i am insanely happy", "c happy"),
+                                                                               # previous_token_count needs to become 1, in order for c to be
+                                                                               # added due to (current_token_count of 2 - 1 == 1)
+          previousSelectedTokenIndex.each { |index| wordTagList.remove(index) }
+
+
+        === RUN ADDITION/UPDATE ALGORITHM
+
+        allowed_insertions = current_token_count - previous_token_count
+
+        each_word_with_index (word, index, word_start_pos, word_end_pos)
+          if wordTagList[index].word == word
+            if wordTagList[index].tag == ""
+              tag = find_tag(word)
+              if tag
+                wordTagList[index].tag = tag   (3) assign tag to word if word at index didnt change,
+                                                   it has no tag yet, and there's a valid tag found for the word
+              else
+                                               (4) dont do anything if word at index didnt change, it has no tag yet,
+                                                   but there's no valid tag found for the word,
+              end
+            else
+              dont do anything                 (1) dont change wordtag if word at index didnt change, and its already tagged
+          else if wordTagList[index].word != word
+            if allowed_insertions > 0
+              wordTag = new WordTag(word)
+              wordTagList[index].insert(wordTag)  (5) insert word and clear tag if word at index changed and insertion needed due to token increase
+              allowed_insertions -= 1
+            else
+              wordTagList[index].word = word     (2) change word and clear tag if word at index changed
+              wordTagList[index].tag  = ""
+
+         each_wordtaglist_with_index (wordtag, index)
+            index >= words.count
+
+
+
+case 1: one character + one word
+inputTextView -> "i"
+wordTagList   -> before []
+                 after  ["i"]
+rule          -> 5
+
+
+case 2: multiple characters + one word
+inputTextView -> "im"
+wordTagList   -> before ["i"]
+                 after  ["im"]
+rule          -> 2
+
+case 3: spacebar + word invalid
+inputTextView -> "im "
+wordTagList   -> before ["im"]
+                 after  ["im"]
+rule          -> 4
+
+case 4: spacebar + word valid
+inputTextView -> "im "
+wordTagList   -> before ["im"]
+                 after  ["im:174123"]
+rule          -> 3
+
+case 5: backspace
+inputTextView -> "im"
+wordTagList   -> before ["im:174123"]
+                 after  ["im:174123"]
+rule          -> 1
+
+case 6: backspace
+inputTextView -> "i"
+wordTagList   -> before ["im:174123"]
+                 after  ["i"]
+rule          -> 1
+
+case 7: spacebar
+inputTextView -> "i "
+wordTagList   -> before ["i"]
+                 after  ["i:228125"]
+rule          -> 3
+
+case 8: character
+inputTextView -> "i a"
+wordTagList   -> before ["i:228125"]
+                 after  ["i:228125","a"]
+rule          -> [4,5]
+
+case 8: character
+inputTextView -> "i am"
+wordTagList   -> before ["i:228125","a"]
+                 after  ["i:228125","am"]
+rule          -> [4,2]
+
+case 8: character
+inputTextView -> "i am "
+wordTagList   -> before ["i:228125","am"]
+                 after  ["i:228125","am:81923"]
+rule          -> [4,3]
+
+case 8: remove space between words
+inputTextView -> "iam "
+wordTagList   -> before ["i:228125","am:81923"]
+                 after  ["iam"]
+rule          -> ????
+
+
+case 9: inserting words in between
+
+inputTextView -> "i r am"
+wordTagList   -> before ["i:228125","am:81923"]
+                 after  ["i:228125","r","am:81923"]
+rule          -> 5
+
+
+
+
+=== invalid characters (i.e. #!@#$&(!*#!$)!$:::< """\\,.,.,~`")
+
+
+case 8: remove multiple words at sametime using backspace key
+inputTextView -> "i funny"
+wordTagList   -> before ["i:228125", "am:81923", "really:2883", "funny:109123"]
+                 after (1st) ["i:228125", "funny", "really:2883", "funny:109123"]
+                 getDeletedIndexes (see if we can determine this info from callback)
+                 after (2nd) ["i:228125", "funny", "really:2883", "funny:109123"]   --> delete array at deletedIndexes (maybe apply this first)
+rule          ->
+
+case 9: replace multiple words at sametime with character key (careful, if [am,really] replaced with 'c', it might become [i,funny] first, c should be inserted in between [i,funny] instead of replacing funny)
+inputTextView -> "i funny"
+wordTagList   -> before ["i:228125", "am:81923", "really:2883", "funny:109123"]
+
+rule          ->
+
+case 10: replace multiple words at sametime with wordtagclick
+inputTextView -> "i funny"
+wordTagList   -> before ["i:228125", "am:81923", "really:2883", "funny:109123"]
+rule          ->
+
+
+
+
+***** RULES for wordTagList *********
+3 types of things could happen (results) and applied in sequence
+
+1. wordTag is deleted
+  previousSelectedTokenIndex = [3,4,5]
+  rule 6 (NEW RULE: simple. on textViewDidChangeSelection, store previousSelected, )
+    current_token_count = getCurrentWordTokenCount
+    if (current_token_count < previous_token_count && previousSelectedTokenIndex.length > 0)
+      previousSelectedTokenIndex.each { |index| wordTagList.remove(index) }
+
+  a. multiple words deleted
+    bef: "i am happy:2342", aft: "happy:2342"              (2 diff words, non tagged)
+    bef: "we we happy:2342", aft: "happy:2342"             (2 same words, non tagged)
+    bef: "i:9453 am:19823 happy:2342", aft: "happy:2342"   (2 diff words, tagged)
+    bef: "we:9453 we:19823 happy:2342", aft: "happy:2342"  (2 same words, tagged)
+  b. one word deleted
+    bef: "i am happy:2342", aft: "i happy:2342"
+    bef: "we:9453 happy:2342 we:9453", aft: "we:9453 happy:2342"  (word is repeated in other places, same tagged)
+    bef: "we:9453 happy:2342 we:9453", aft: "happy:2342 we:9453"  (word is repeated in other places, same tagged)
+  - tokenCount decreased
+2. wordTag is added
+  - tokenCount increased
+3. wordTag is updated
+  3.a word is changed and tag is cleared
+  3.b word is same    and tag is assigned
