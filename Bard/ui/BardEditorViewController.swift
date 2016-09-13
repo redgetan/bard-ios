@@ -40,6 +40,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var activityIndicator: UIActivityIndicatorView? = nil
     var repositoryId: Int? = nil
 
+    @IBOutlet weak var previewTimelineCollectionView: UICollectionView!
     @IBOutlet weak var playerContainer: UIView!
     
     @IBOutlet weak var playerAspectRatioConstraint: NSLayoutConstraint!
@@ -59,6 +60,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         updateTitle()
         initPlayer()
         initDictionary()
+        initPreviewTimeline()
         initCollectionView()
     }
     
@@ -285,6 +287,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 
+    func initPreviewTimeline() {
+        previewTimelineCollectionView.contentInset = UIEdgeInsetsMake(0.0,20.0,0.0,20.0)
+        previewTimelineCollectionView.delegate = self
+        previewTimelineCollectionView.dataSource = self
+    }
     
     func initCollectionView() {
         // http://stackoverflow.com/a/16570399/803865
@@ -306,7 +313,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func collectionView(collectionView: UICollectionView,
                                  numberOfItemsInSection section: Int) -> Int {
-        return self.wordTagStringList.count
+        if collectionView == self.previewTimelineCollectionView {
+            return self.wordTagList.count
+        } else {
+            return self.wordTagStringList.count
+        }
+        
     }
     
     // MARK: UICollectionViewDelegate protocol
@@ -314,15 +326,35 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func collectionView(collectionView: UICollectionView,
                                  cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
+        if collectionView == previewTimelineCollectionView {
+            return initPreviewTimelineCollectionViewCell(collectionView, indexPath: indexPath)
+        } else {
+            return initWordTagCollectionViewCell(collectionView, indexPath: indexPath)
+        }
+        
+    }
+    
+    func initPreviewTimelineCollectionViewCell(collectionView: UICollectionView, indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier,
-        forIndexPath: indexPath) as! WordTagCollectionViewCell
-
+                                                                         forIndexPath: indexPath) as! UICollectionViewCell
+        
+        let wordTag = self.wordTagList[indexPath.row]
+        
+        cell.imageView.image = UIImage()
+        
+        return cell
+    }
+    
+    func initWordTagCollectionViewCell(collectionView: UICollectionView, indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier,
+                                                                         forIndexPath: indexPath) as! WordTagCollectionViewCell
+        
         let wordTagString = self.wordTagStringList[indexPath.row]
         let word = wordTagString.componentsSeparatedByString(":")[0]
-
+        
         cell.textLabel.text = word
         cell.wordTagString = wordTagString
-
+        
         return cell
     }
     
