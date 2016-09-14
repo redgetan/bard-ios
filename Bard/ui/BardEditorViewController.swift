@@ -104,7 +104,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "editorToScene") {
-            let viewController = segue.destinationViewController as! SceneSelectViewController;
+            let nav = segue.destinationViewController as! UINavigationController
+            let viewController = nav.topViewController as! SceneSelectViewController
             viewController.character = self.character
         }
     }

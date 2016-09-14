@@ -168,7 +168,7 @@
                                         <connections>
                                             <outlet property="sceneImageView" destination="mV8-H5-0EG" id="AWU-x3-duo"/>
                                             <outlet property="sceneNameLabel" destination="P7p-42-8Fa" id="kGs-Kw-FHe"/>
-                                            <segue destination="N16-hv-JbI" kind="unwind" unwindAction="unwindToEditor:" id="IWu-In-7Qb"/>
+                                            <segue destination="N16-hv-JbI" kind="unwind" identifier="sceneToEditor" unwindAction="unwindToEditor:" id="IWu-In-7Qb"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
