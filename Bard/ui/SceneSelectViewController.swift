@@ -17,6 +17,7 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var scenesTableView: UITableView!
     
     var scenes: Results<Scene>? = nil
+    var selectedScene: Scene? = nil
     let cellIdentifier = "SceneTableViewCell"
     var character: Character!
     
@@ -55,10 +56,7 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
-    @IBAction func cancel(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
-    }
+
     
     func tableView(tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
@@ -87,25 +85,28 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
             }
         }
 
-        return cell;
+        return cell
     }
  
+    
+    @IBAction func cancel(sender: UIBarButtonItem) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "sceneToEditor") {
-            let viewController = segue.destinationViewController as! BardEditorViewController;
-            viewController.character = character
-
             let indexPath = scenesTableView.indexPathForCell(sender as! UITableViewCell)!
 
             if indexPath.row != 0 {
                 let sceneIndex = indexPath.row - 1
                 let scene = self.scenes![sceneIndex]
-                viewController.scene     = scene
+                self.selectedScene = scene
             }
             
 
         }
     }
+  
     
     
 }

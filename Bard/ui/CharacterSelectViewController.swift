@@ -79,10 +79,10 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
     }
  
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if (segue.identifier == "characterToScene") {
+        if (segue.identifier == "characterToEditor") {
             let indexPath = charactersTableView.indexPathForCell(sender as! UITableViewCell)!
             let character = self.characters![indexPath.row]
-            let viewController = segue.destinationViewController as! SceneSelectViewController;
+            let viewController = segue.destinationViewController as! BardEditorViewController;
             viewController.character = character
         }
     }

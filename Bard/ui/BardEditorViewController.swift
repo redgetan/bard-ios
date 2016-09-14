@@ -102,6 +102,13 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         performSelector(#selector(displayInvalidWords), withObject: nil, afterDelay: 1)
     }
     
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "editorToScene") {
+            let viewController = segue.destinationViewController as! SceneSelectViewController;
+            viewController.character = self.character
+        }
+    }
+    
     func addWordToWordTagList() {
         if skipAddToWordTag {
             return
@@ -519,12 +526,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             EZLoadingActivity.show("Downloading Word List...", disableUI: true)
             BardClient.getCharacterWordList(self.character.token, success: { value in
                 for (sceneToken, wordList) in value as! NSDictionary {
-                    let scene = Scene.forToken(sceneToken as! String)!
-                    let realm = try! Realm()
-                    try! realm.write {
-                        scene.wordList = wordList as! String
+                    if Scene.forToken(sceneToken as! String) == nil {
+                        Scene.createWithTokenAndWordList(sceneToken as! String, characterToken: self.character.token, wordList: wordList as! String)
+                        self.addWordListToDictionary(wordList as! String)
                     }
-                    self.addWordListToDictionary(wordList as! String)
                 }
                 
                 let realm = try! Realm()
@@ -541,10 +546,28 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
+    
+    @IBAction func unwindToEditor(sender: UIStoryboardSegue) {
+        if let sourceViewController = sender.sourceViewController as? SceneSelectViewController {
+            
+            // reset dictionary
+            self.wordTagMap.removeAll()
+
+            // set scene
+            self.scene = sourceViewController.selectedScene
+            
+            initDictionary()
+        }
+    }
+    
     func addWordListToDictionary(wordList: String) {
         var word: String
 
         for wordTagString in wordList.componentsSeparatedByString(",") {
+            if wordTagString.isEmpty {
+                continue
+            }
+            
             wordTagStringList.append(wordTagString)
             word = wordTagString.componentsSeparatedByString(":")[0]
             

@@ -43,6 +43,23 @@ class Scene: Object {
         }
     }
     
+    static func createWithTokenAndWordList(sceneToken: String, characterToken: String, wordList: String) {
+        let scene = Scene()
+        scene.token = sceneToken
+        scene.characterToken = characterToken
+        scene.wordList = wordList
+        
+        let realm = try! Realm()
+        
+        if realm.objects(Scene.self).filter("token = '\(scene.token)'").first != nil {
+            return
+        }
+        
+        try! realm.write {
+            realm.add(scene)
+        }
+    }
+    
     static func forToken(token: String) -> Scene? {
         return try! Realm().objects(Scene.self).filter("token = '\(token)'").first
     }
