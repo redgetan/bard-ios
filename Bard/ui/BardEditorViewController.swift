@@ -339,8 +339,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                                                                          forIndexPath: indexPath) as! UICollectionViewCell
         
         let wordTag = self.wordTagList[indexPath.row]
-        
-        cell.imageView.image = UIImage()
+//        
+//        cell.imageView.image = UIImage()
         
         return cell
     }
