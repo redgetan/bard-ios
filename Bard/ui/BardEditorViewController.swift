@@ -56,11 +56,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         super.viewDidLoad()
 
         inputTextField.delegate = self
-        self.title = scene?.name ?? character.name
+        updateTitle()
         initPlayer()
         initDictionary()
         initCollectionView()
     }
+    
     
     @IBAction func onControlButtonClick(sender: UIButton) {
         if isKeyboardShown {
@@ -84,6 +85,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             object: inputTextField
         )
         
+    }
+    
+    func updateTitle() {
+      self.title = scene?.name ?? character.name
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -513,6 +518,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             })
         } else {
             addWordListToDictionary(selectedScene.wordList)
+            self.wordTagCollectionView.reloadData()
         }
     }
     
@@ -523,6 +529,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             for scene in scenes {
                 addWordListToDictionary(scene.wordList)
             }
+            
+            self.wordTagCollectionView.reloadData()
         } else {
             EZLoadingActivity.show("Downloading Word List...", disableUI: true)
             BardClient.getCharacterWordList(self.character.token, success: { value in
@@ -552,11 +560,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         if let sourceViewController = sender.sourceViewController as? SceneSelectViewController {
             
             // reset dictionary
-            self.wordTagMap.removeAll()
+            self.wordTagStringList.removeAll()
 
             // set scene
             self.scene = sourceViewController.selectedScene
             
+            updateTitle()
             initDictionary()
         }
     }
@@ -570,14 +579,19 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             }
             
             wordTagStringList.append(wordTagString)
-            word = wordTagString.componentsSeparatedByString(":")[0]
             
+            word = wordTagString.componentsSeparatedByString(":")[0]
+        
             if wordTagMap[word] != nil {
-                wordTagMap[word]!.append(wordTagString)
+                if !wordTagMap[word]!.contains(wordTagString) {
+                    wordTagMap[word]!.append(wordTagString)
+                }
             } else {
                 wordTagMap[word] = [String]()
                 wordTagMap[word]!.append(wordTagString)
             }
+            
+            
         }
 
     }

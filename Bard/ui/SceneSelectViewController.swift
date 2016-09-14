@@ -41,9 +41,20 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
     func syncRemoteData() {
+        var sceneToken: String = ""
+        var thumbnailUrl: String = ""
+        var sceneName: String = ""
+        
         BardClient.getSceneList(character.token, success: { value in
-            for values in (value as? NSArray)! {
-                Scene.create(values)
+            for obj in (value as? NSArray)! {
+                sceneToken = obj["token"] as! String
+                thumbnailUrl = obj["thumbnailUrl"] as! String
+                sceneName = obj["name"] as! String
+                if let scene = Scene.forToken(sceneToken) {
+                    if scene.thumbnailUrl.isEmpty {
+                        scene.setNameAndThumbnail(sceneName, thumbnailUrl: thumbnailUrl)
+                    }
+                }
             }
             self.scenesTableView.reloadData()
             }, failure: { errorMessage in

@@ -43,6 +43,15 @@ class Scene: Object {
         }
     }
     
+    func setNameAndThumbnail(name: String, thumbnailUrl: String) {
+        let realm = try! Realm()
+        
+        try! realm.write {
+            self.name = name
+            self.thumbnailUrl = thumbnailUrl
+        }
+    }
+    
     static func createWithTokenAndWordList(sceneToken: String, characterToken: String, wordList: String) {
         let scene = Scene()
         scene.token = sceneToken
