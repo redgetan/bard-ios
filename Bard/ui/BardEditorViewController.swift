@@ -334,12 +334,15 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
     }
     
+    // previewTimeline will look at previewThumbnails (an array of thumbnailUrls)
+    // previewThumbnails
+    
     func initPreviewTimelineCollectionViewCell(collectionView: UICollectionView, indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier,
                                                                          forIndexPath: indexPath) as! UICollectionViewCell
         
         let wordTag = self.wordTagList[indexPath.row]
-//        
+        // determine
 //        cell.imageView.image = UIImage()
         
         return cell
