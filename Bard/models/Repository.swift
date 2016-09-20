@@ -61,6 +61,14 @@ class Repository: Object {
         
     }
     
+    func delete() {
+        let realm = try! Realm()
+        
+        try! realm.write {
+            realm.delete(self)
+        }
+    }
+    
     static func getNextId() -> Int {
         let realm = try! Realm()
         if let maxId: Int = realm.objects(Repository.self).max("id") {

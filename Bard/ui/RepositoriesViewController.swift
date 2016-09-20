@@ -43,6 +43,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
         self.repositories = try! Realm().objects(Repository.self)
                                         .filter("username = '\(UserConfig.getUsername())'")
                                         .sorted("createdAt", ascending: false)
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -68,6 +69,18 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
         }
         
         return cell;
+    }
+    
+    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        if editingStyle == .Delete {
+            let repository = self.repositories![indexPath.row]
+            repository.delete()
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+        }
     }
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
