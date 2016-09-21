@@ -40,6 +40,7 @@
 		89C986391D46EE040056E687 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C986381D46EE040056E687 /* WelcomeViewController.swift */; };
 		89CE80CF1D859F170009796D /* String+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CE80CE1D859F170009796D /* String+Helper.swift */; };
 		89CE80D11D860EA70009796D /* PreviewTimelineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CE80D01D860EA70009796D /* PreviewTimelineCollectionViewCell.swift */; };
+		89DB08281D9331C1009241FD /* UIImage+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DB08271D9331C1009241FD /* UIImage+Helper.swift */; };
 		89E3BBE71D47D72300963EEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */; };
 		89E3BBE91D47F48600963EEE /* CharacterSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */; };
 		89FCDA2F1D4EA09F00326588 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FCDA2E1D4EA09F00326588 /* TabBarViewController.swift */; };
@@ -83,6 +84,7 @@
 		89C986381D46EE040056E687 /* WelcomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WelcomeViewController.swift; path = ui/WelcomeViewController.swift; sourceTree = "<group>"; };
 		89CE80CE1D859F170009796D /* String+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "String+Helper.swift"; path = "extensions/String+Helper.swift"; sourceTree = "<group>"; };
 		89CE80D01D860EA70009796D /* PreviewTimelineCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreviewTimelineCollectionViewCell.swift; path = ui/views/PreviewTimelineCollectionViewCell.swift; sourceTree = "<group>"; };
+		89DB08271D9331C1009241FD /* UIImage+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Helper.swift"; path = "extensions/UIImage+Helper.swift"; sourceTree = "<group>"; };
 		89E3BBE51D47A9A000963EEE /* Bard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bard-Bridging-Header.h"; sourceTree = "<group>"; };
 		89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterSelectViewController.swift; path = ui/CharacterSelectViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +158,7 @@
 				898CC11D1D4E5129006D56E4 /* UIColor+Helper.swift */,
 				896074871D72495C0072C022 /* NSLayoutConstraint+Helper.swift */,
 				89CE80CE1D859F170009796D /* String+Helper.swift */,
+				89DB08271D9331C1009241FD /* UIImage+Helper.swift */,
 			);
 			name = extensions;
 			sourceTree = "<group>";
@@ -268,7 +271,6 @@
 				89114E121D45A29E0078205C /* Resources */,
 				E46759F306270173631FC45D /* [CP] Embed Pods Frameworks */,
 				767A0489858A44FCB227562E /* [CP] Copy Pods Resources */,
-				89C9863A1D46F4460056E687 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -364,19 +366,6 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Bard/Pods-Bard-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		89C9863A1D46F4460056E687 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Fabric/run\" bf06d741fa30b7cb5be2fe488dfe67d7f1952540 b860b36d5b7ad36fc97e3cc219718d0769ca260c30346b2da95e5e9d06f732b9";
-		};
 		E46759F306270173631FC45D /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -426,6 +415,7 @@
 				89C986341D46D8350056E687 /* LoginInputViewController.swift in Sources */,
 				890D3E611D493A8C008F96DF /* Storage.swift in Sources */,
 				8974AF971D6F8F870022C0B0 /* VideoMergeManager.swift in Sources */,
+				89DB08281D9331C1009241FD /* UIImage+Helper.swift in Sources */,
 				89C986371D46E3430056E687 /* Helper.swift in Sources */,
 				890D3E631D493B98008F96DF /* Character.swift in Sources */,
 				89C9862C1D4691D90056E687 /* BorderedTextField.swift in Sources */,

@@ -51,6 +51,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
     let cellIdentifier = "wordTagCollectionViewCell"
+    let previewTimelineCellIdentifier = "previewTimelineCollectionViewCell"
+
     let sizingCell: WordTagCollectionViewCell = WordTagCollectionViewCell()
     
     override func viewDidLoad() {
@@ -101,15 +103,15 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func textViewDidChangeSelection(textView: UITextView) {
-        let wordRanges = textView.text.wordRanges()
-        var index = 0
-        
-        for range in wordRanges {
-            if NSIntersectionRange(textView.selectedRange,range).length != 0 {
-                previousSelectedTokenIndex.append(index)
-            }
-            index = index + 1
-        }
+//        let wordRanges = textView.text.wordRanges()
+//        var index = 0
+//        
+//        for range in wordRanges {
+//            if NSIntersectionRange(textView.selectedRange,range).length != 0 {
+//                previousSelectedTokenIndex.append(index)
+//            }
+//            index = index + 1
+//        }
     }
     
     
@@ -338,14 +340,33 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     // previewThumbnails
     
     func initPreviewTimelineCollectionViewCell(collectionView: UICollectionView, indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier,
-                                                                         forIndexPath: indexPath) as! UICollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(previewTimelineCellIdentifier,
+                                                                         forIndexPath: indexPath) as!PreviewTimelineCollectionViewCell
         
-        let wordTag = self.wordTagList[indexPath.row]
+        let wordTagString = self.wordTagList[indexPath.row]
         // determine
 //        cell.imageView.image = UIImage()
         
+        if wordTagString.containsString(":") {
+            let url = getThumbnailUrlFromWordTag(wordTagString)
+            if !url.isEmpty {
+                cell.imageView.image = UIImage(color: .redColor())
+                // cell.imageView.hnk_setImageFromURL(NSURL(string: url)!)
+            }
+        }
+        
         return cell
+    }
+    
+    func getThumbnailUrlFromWordTag(wordTagString: String) -> String {
+        guard let scene = getSceneFromWordTag(wordTagString) else {
+            return ""
+        }
+        
+        let tag = wordTagString.componentsSeparatedByString(":")[1]
+
+        return "https://d22z4oll34c07f.cloudfront.net/segments/F6nNlIbgWTU/thumbnail/8435.png"
+//        return "\(cdnPath)/segments/\(scene.token)/thumbnails/\(tag).png"
     }
     
     func initWordTagCollectionViewCell(collectionView: UICollectionView, indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -384,6 +405,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         // scroll cursor in uitextview to bottom
         let bottom = NSMakeRange(inputTextField.text.characters.count - 1, 1)
         inputTextField.scrollRangeToVisible(bottom)
+        
+        previewTimelineCollectionView.reloadData()
     }
     
     
