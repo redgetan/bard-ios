@@ -78,6 +78,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let repository = self.repositories![indexPath.row]
+            Storage.removeFile(repository.getFilePath())
             repository.delete()
             tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
         }

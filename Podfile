@@ -17,8 +17,6 @@ target 'Bard' do
   pod 'TTTAttributedLabel'
 
   # crash reporting
-  pod 'Fabric'
-  pod 'Crashlytics'
   pod 'Instabug'
 
   # analytics

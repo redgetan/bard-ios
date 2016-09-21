@@ -117,6 +117,18 @@ class Storage {
         
     }
     
+    static func removeFile(path: String) {
+        let fileManager = NSFileManager.defaultManager()
+        
+        do {
+            try fileManager.removeItemAtPath(path)
+        }
+        catch let error as NSError {
+            print("Ooops! Something went wrong: \(error)")
+        }
+    }
+    
+    
     // MARK: remote video persistence
     
     static func saveRemoteVideo(urlString: String) -> String? {
