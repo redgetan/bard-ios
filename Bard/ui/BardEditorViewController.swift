@@ -403,6 +403,17 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func didSelectPreviewTimeline(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let wordTagString = self.wordTagList[indexPath.row]
+        
+        if wordTagString.containsString(":") {
+             let segmentUrl = segmentUrlFromWordTag(wordTagString)
+             let filePath   = Storage.getSegmentFilePathFromUrl(segmentUrl!)
+             let segmentFileUrl = NSURL(fileURLWithPath: filePath)
+             playVideo(segmentFileUrl)
+
+        }
+
+        
 //        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(previewTimelineCellIdentifier,
 //                                                                         forIndexPath: indexPath) as!PreviewTimelineCollectionViewCell
 //        cell.imageView.layer.borderWidth = 2
