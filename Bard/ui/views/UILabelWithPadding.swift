@@ -12,10 +12,18 @@ import UIKit
 
 class UILabelWithPadding: UILabel {
 
-    let topInset = CGFloat(5.0)
-    let bottomInset = CGFloat(5.0)
-    let leftInset = CGFloat(10.0)
-    let rightInset = CGFloat(10.0)
+    var topInset = CGFloat(5.0)
+    var bottomInset = CGFloat(5.0)
+    var leftInset = CGFloat(10.0)
+    var rightInset = CGFloat(10.0)
+    
+    convenience init(topInset: CGFloat, leftInset: CGFloat, bottomInset: CGFloat, rightInset: CGFloat) {
+        self.init()
+        self.topInset = topInset
+        self.leftInset = leftInset
+        self.bottomInset = bottomInset
+        self.rightInset = rightInset
+    }
     
     override func drawTextInRect(rect: CGRect) {
         let insets: UIEdgeInsets = UIEdgeInsets(top: topInset, left: leftInset, bottom: bottomInset, right: rightInset)

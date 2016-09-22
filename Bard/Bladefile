@@ -25,4 +25,8 @@ blades:
     mount: Assets.xcassets/avatar_placeholder.imageset
   - source: images/avatar_placeholder.png
     mount: Assets.xcassets/avatar_placeholder.imageset
+  - source: images/icon_forward_75.png
+    mount: Assets.xcassets/icon_forward.imageset
+  - source: images/icon_back_75.png
+    mount: Assets.xcassets/icon_back.imageset
 

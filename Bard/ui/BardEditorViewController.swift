@@ -737,7 +737,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func drawPagination(wordTagString: String) {
         let word =  wordTagString.componentsSeparatedByString(":")[0]
         
-        if let wordTagVariants = wordTagMap[word] != nil {
+        if let wordTagVariants = wordTagMap[word] {
             if let index = wordTagVariants.indexOf(wordTagString) {
                 print("\(word) - \(index + 1) of \(wordTagVariants.count)")
             }
@@ -758,6 +758,64 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
+        
+        addWordTagPaginator()
+    }
+    
+    func addWordTagPaginator() {
+        // label
+        let label = UILabelWithPadding()
+        label.text = "1 of 100"
+        label.textColor = UIColor.whiteColor()
+        label.backgroundColor = UIColor.grayColor()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = UIFont.systemFontOfSize(16)
+
+        
+        self.player.view.addSubview(label)
+        
+        NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.BottomMargin, multiplier: 1.0, constant: -10.0).active = true
+
+        // back
+        
+        var button = UIButton()
+        var image = UIImage(named: "icon_back")?.imageWithRenderingMode(.AlwaysTemplate)
+        button.setImage(image, forState: .Normal)
+        button.tintColor = UIColor.whiteColor()
+        button.addTarget(self, action: #selector(onPrevBtnClick), forControlEvents: .TouchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.player.view.addSubview(button)
+
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.LeadingMargin, multiplier: 1.0, constant: -20.0).active = true
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.TopMargin, multiplier: 1.0, constant: 0.0).active = true
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.BottomMargin, multiplier: 1.0, constant: 0.0).active = true
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 50).active = true
+        
+        // forward
+        
+        button = UIButton()
+        image = UIImage(named: "icon_forward")?.imageWithRenderingMode(.AlwaysTemplate)
+        button.setImage(image, forState: .Normal)
+        button.tintColor = UIColor.whiteColor()
+        button.addTarget(self, action: #selector(onNextBtnClick), forControlEvents: .TouchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        
+        self.player.view.addSubview(button)
+        
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.TrailingMargin, multiplier: 1.0, constant: 20.0).active = true
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.TopMargin, multiplier: 1.0, constant: 0.0).active = true
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.BottomMargin, multiplier: 1.0, constant: 0.0).active = true
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 50).active = true
+    }
+    
+    func onPrevBtnClick() {
+        
+    }
+    
+    func onNextBtnClick() {
+        
     }
     
     func initControls() {
