@@ -457,11 +457,14 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             return
         }
         
+        onWordTagChanged(wordTagString)
+        
         Storage.saveRemoteVideo(segmentUrl)
         let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
         let segmentFileUrl = NSURL(fileURLWithPath: filePath)
         playVideo(segmentFileUrl)
 
+  
         previewTimelineCollectionView.reloadData()
     }
     
@@ -723,6 +726,21 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             }
             
             
+        }
+
+    }
+    
+    func onWordTagChanged(wordTagString: String) {
+        drawPagination(wordTagString)
+    }
+    
+    func drawPagination(wordTagString: String) {
+        let word =  wordTagString.componentsSeparatedByString(":")[0]
+        
+        if let wordTagVariants = wordTagMap[word] != nil {
+            if let index = wordTagVariants.indexOf(wordTagString) {
+                print("\(word) - \(index + 1) of \(wordTagVariants.count)")
+            }
         }
 
     }
