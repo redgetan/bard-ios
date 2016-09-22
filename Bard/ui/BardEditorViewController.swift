@@ -39,7 +39,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var isKeyboardShown: Bool = false
     var activityIndicator: UIActivityIndicatorView? = nil
     var repositoryId: Int? = nil
-
+    var previousSelectedPreviewThumbnail: PreviewTimelineCollectionViewCell? = nil
+    
     @IBOutlet weak var previewTimelineCollectionView: UICollectionView!
     @IBOutlet weak var playerContainer: UIView!
     
@@ -348,24 +349,32 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 //        cell.imageView.image = UIImage()
         
         if wordTagString.containsString(":") {
-            let url = getThumbnailUrlFromWordTag(wordTagString)
-            if !url.isEmpty {
-                cell.imageView.image = UIImage(color: .redColor())
-                // cell.imageView.hnk_setImageFromURL(NSURL(string: url)!)
+            if let thumbnail = getThumbnailUrlFromWordTag(wordTagString) {
+                cell.imageView.image = thumbnail
             }
+            
+//                cell.imageView.image = UIImage(named: "preview_image_test")
+//                cell.imageView.image = UIImage(color: .redColor())
+//                 cell.imageView.hnk_setImageFromURL(NSURL(string: url)!)
         }
         
         return cell
     }
     
-    func getThumbnailUrlFromWordTag(wordTagString: String) -> String {
-        guard let scene = getSceneFromWordTag(wordTagString) else {
-            return ""
+    func getThumbnailUrlFromWordTag(wordTagString: String) -> UIImage? {
+        guard let segmentUrl = segmentUrlFromWordTag(wordTagString) else {
+            return nil
         }
         
-        let tag = wordTagString.componentsSeparatedByString(":")[1]
-
-        return "https://d22z4oll34c07f.cloudfront.net/segments/F6nNlIbgWTU/thumbnail/8435.png"
+        let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
+        
+        let asset = AVURLAsset(URL: NSURL(fileURLWithPath: filePath))
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        let time = CMTimeMake(1, 1)
+        let imageRef = try! imageGenerator.copyCGImageAtTime(time, actualTime: nil)
+        return UIImage(CGImage: imageRef)
+        
+//        return "https://d22z4oll34c07f.cloudfront.net/segments/F6nNlIbgWTU/thumbnail/8435.png"
 //        return "\(cdnPath)/segments/\(scene.token)/thumbnails/\(tag).png"
     }
     
@@ -386,6 +395,33 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     // http://stackoverflow.com/a/22675450/803865
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        if collectionView == previewTimelineCollectionView {
+            didSelectPreviewTimeline(collectionView, didSelectItemAtIndexPath: indexPath)
+        } else {
+            didSelectWordTag(collectionView, didSelectItemAtIndexPath: indexPath)
+        }
+    }
+    
+    func didSelectPreviewTimeline(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(previewTimelineCellIdentifier,
+//                                                                         forIndexPath: indexPath) as!PreviewTimelineCollectionViewCell
+//        cell.imageView.layer.borderWidth = 2
+//
+//        cell.imageView.layer.borderColor = UIColor.yellowColor().CGColor
+//        cell.imageView.layer.masksToBounds = true
+//        cell.imageView.layer.cornerRadius = 2.0
+//        cell.imageView.contentMode = .Redraw
+//        cell.imageView.layer.setNeedsDisplay()
+//        cell.imageView.layer.displayIfNeeded()
+//
+//        
+//        if previousSelectedPreviewThumbnail != nil {
+//            previousSelectedPreviewThumbnail?.layer.borderWidth = 0
+//        }
+//        previousSelectedPreviewThumbnail = cell
+    }
+    
+    func didSelectWordTag(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let wordTagString = self.wordTagStringList[indexPath.row]
         let word = wordTagString.componentsSeparatedByString(":")[0]
         
@@ -406,6 +442,15 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let bottom = NSMakeRange(inputTextField.text.characters.count - 1, 1)
         inputTextField.scrollRangeToVisible(bottom)
         
+        guard let segmentUrl = segmentUrlFromWordTag(wordTagString) else {
+            return
+        }
+        
+        Storage.saveRemoteVideo(segmentUrl)
+        let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
+        let segmentFileUrl = NSURL(fileURLWithPath: filePath)
+        playVideo(segmentFileUrl)
+
         previewTimelineCollectionView.reloadData()
     }
     
@@ -413,10 +458,14 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     // MARK: UICollectionViewDelegateFlowLayout
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        let wordTagString = self.wordTagStringList[indexPath.row]
-        let word = wordTagString.componentsSeparatedByString(":")[0]
-        self.sizingCell.textLabel.text = word;
-        return self.sizingCell.intrinsicContentSize()
+        if collectionView == previewTimelineCollectionView {
+            return CGSizeMake(50, 50)
+        } else {
+            let wordTagString = self.wordTagStringList[indexPath.row]
+            let word = wordTagString.componentsSeparatedByString(":")[0]
+            self.sizingCell.textLabel.text = word;
+            return self.sizingCell.intrinsicContentSize()
+        }
     }
 
     @IBAction func onPlayButtonClick(sender: UIButton) {

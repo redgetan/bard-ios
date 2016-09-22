@@ -304,11 +304,11 @@
                             </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ye1-Wl-AX8">
                                 <rect key="frame" x="0.0" y="64" width="600" height="50"/>
-                                <color key="backgroundColor" red="1" green="0.44982328004147509" blue="0.05183788165884351" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.015967438789182074" green="0.82767506544502623" blue="0.15445350614473141" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="ZgF-Wr-diR"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="2" id="nHc-sy-uPi">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="nHc-sy-uPi">
                                     <size key="itemSize" width="50" height="50"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -323,22 +323,42 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3RN-E8-2zr">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                                    <rect key="frame" x="2" y="2" width="46" height="46"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="Sd9-31-tOs"/>
+                                                        <constraint firstAttribute="height" constant="46" id="eXY-8e-Rvz"/>
+                                                        <constraint firstAttribute="width" constant="46" id="gao-h5-Pn2"/>
                                                         <constraint firstAttribute="width" constant="50" id="qdU-r3-CQi"/>
                                                     </constraints>
+                                                    <variation key="default">
+                                                        <mask key="constraints">
+                                                            <exclude reference="Sd9-31-tOs"/>
+                                                            <exclude reference="qdU-r3-CQi"/>
+                                                        </mask>
+                                                    </variation>
                                                 </imageView>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <constraints>
                                             <constraint firstItem="3RN-E8-2zr" firstAttribute="leading" secondItem="p4g-ek-w9S" secondAttribute="leading" id="653-TE-54Y"/>
+                                            <constraint firstAttribute="bottom" secondItem="3RN-E8-2zr" secondAttribute="bottom" constant="2" id="HEk-CM-a8d"/>
+                                            <constraint firstItem="3RN-E8-2zr" firstAttribute="leading" secondItem="p4g-ek-w9S" secondAttribute="leading" constant="2" id="KtZ-aN-WYu"/>
                                             <constraint firstAttribute="trailing" secondItem="3RN-E8-2zr" secondAttribute="trailing" id="Omp-Zn-Fte"/>
                                             <constraint firstAttribute="bottom" secondItem="3RN-E8-2zr" secondAttribute="bottom" id="Us1-Gh-TP0"/>
+                                            <constraint firstAttribute="trailing" secondItem="3RN-E8-2zr" secondAttribute="trailing" constant="2" id="iPE-9d-Iqp"/>
+                                            <constraint firstItem="3RN-E8-2zr" firstAttribute="top" secondItem="p4g-ek-w9S" secondAttribute="top" constant="2" id="ijX-JR-HmU"/>
                                             <constraint firstItem="3RN-E8-2zr" firstAttribute="top" secondItem="p4g-ek-w9S" secondAttribute="top" id="jzr-2D-Utv"/>
                                         </constraints>
                                         <edgeInsets key="layoutMargins" top="0.0" left="0.0" bottom="0.0" right="0.0"/>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="653-TE-54Y"/>
+                                                <exclude reference="Omp-Zn-Fte"/>
+                                                <exclude reference="Us1-Gh-TP0"/>
+                                                <exclude reference="jzr-2D-Utv"/>
+                                            </mask>
+                                        </variation>
                                         <connections>
                                             <outlet property="imageView" destination="3RN-E8-2zr" id="qa6-Ai-VcE"/>
                                         </connections>

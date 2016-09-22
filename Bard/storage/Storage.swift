@@ -132,13 +132,20 @@ class Storage {
     // MARK: remote video persistence
     
     static func saveRemoteVideo(urlString: String) -> String? {
+
+        // get download path and check if already downloaded
+        let filePath = getSegmentFilePathFromUrl(urlString)
+        if NSFileManager.defaultManager().fileExistsAtPath(filePath) {
+            return nil
+        }
+
+        
         let url = NSURL(string: urlString)!
         print("saving - \(url.path)")
         guard let urlData = NSData(contentsOfURL: url) else {
             return nil
         }
         
-        let filePath = getSegmentFilePathFromUrl(urlString)
         urlData.writeToFile(filePath, atomically: true)
         print("finished writing - \(url.path)")
         
