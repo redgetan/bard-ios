@@ -5,7 +5,7 @@ platform :ios, '8.0'
 target 'Bard' do
   use_frameworks!
 
-  pod 'Player'
+  pod 'Player', :git => "https://github.com/redgetan/Player", :branch => "layer_background"
   pod 'RealmSwift'
   pod 'Alamofire', '~> 3.4'
   pod 'SwiftyDrop', '~>2.0'

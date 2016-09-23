@@ -410,26 +410,19 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
              let filePath   = Storage.getSegmentFilePathFromUrl(segmentUrl!)
              let segmentFileUrl = NSURL(fileURLWithPath: filePath)
              playVideo(segmentFileUrl)
-
         }
 
         
-//        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(previewTimelineCellIdentifier,
-//                                                                         forIndexPath: indexPath) as!PreviewTimelineCollectionViewCell
-//        cell.imageView.layer.borderWidth = 2
-//
-//        cell.imageView.layer.borderColor = UIColor.yellowColor().CGColor
-//        cell.imageView.layer.masksToBounds = true
-//        cell.imageView.layer.cornerRadius = 2.0
-//        cell.imageView.contentMode = .Redraw
-//        cell.imageView.layer.setNeedsDisplay()
-//        cell.imageView.layer.displayIfNeeded()
-//
-//        
-//        if previousSelectedPreviewThumbnail != nil {
-//            previousSelectedPreviewThumbnail?.layer.borderWidth = 0
-//        }
-//        previousSelectedPreviewThumbnail = cell
+        let cell = collectionView.cellForItemAtIndexPath(indexPath) as!PreviewTimelineCollectionViewCell
+        cell.imageView.layer.borderWidth = 2
+
+        cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+
+        
+        if previousSelectedPreviewThumbnail != nil {
+            previousSelectedPreviewThumbnail?.imageView.layer.borderWidth = 0
+        }
+        previousSelectedPreviewThumbnail = cell
     }
     
     func didSelectWordTag(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -759,6 +752,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
         
+        self.player.layerBackgroundColor = UIColor.blackColor()
         addWordTagPaginator()
     }
     
