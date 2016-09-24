@@ -29,4 +29,6 @@ blades:
     mount: Assets.xcassets/icon_forward.imageset
   - source: images/icon_back_75.png
     mount: Assets.xcassets/icon_back.imageset
+  - source: images/icon_close_75.png
+    mount: Assets.xcassets/icon_close.imageset
 

@@ -66,6 +66,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        self.automaticallyAdjustsScrollViewInsets = false
+        
         inputTextField.delegate = self
         updateTitle()
         initPlayer()
@@ -350,12 +353,13 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
         NSNotificationCenter.defaultCenter().removeObserver(self)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidChangeNotification, object: inputTextField)
     }
 
     func initPreviewTimeline() {
-        previewTimelineCollectionView.contentInset = UIEdgeInsetsMake(0.0,20.0,0.0,20.0)
+        previewTimelineCollectionView.contentInset = UIEdgeInsetsMake(0.0,0.0,0.0,0.0)
         previewTimelineCollectionView.delegate = self
         previewTimelineCollectionView.dataSource = self
     }
@@ -366,6 +370,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         wordTagCollectionView.delegate = self
         wordTagCollectionView.dataSource = self
         wordTagCollectionView.registerClass(WordTagCollectionViewCell.self, forCellWithReuseIdentifier: cellIdentifier)
+    }
+    
+    
+    @IBAction func cancel(sender: UIButton) {
+        dismissViewControllerAnimated(true, completion: nil)
     }
     
     @IBAction func shareRepository(sender: UIBarButtonItem) {
@@ -475,11 +484,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             onWordTagChanged(wordTagString)
         } else if wordTagString.characters.contains(":") {
             self.player.playFromBeginning()
+            // highlight thumbnail even if same wordtagstring (to account for change in indexPath.row)
+            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PreviewTimelineCollectionViewCell
+            highlightImageView(cell)
         }
         
-//        // highlight thumbnail
-//        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PreviewTimelineCollectionViewCell
-//        highlightImageView(cell)
         
         // highlight word
         highlightWordAtTokenIndex(indexPath.row)
@@ -517,7 +526,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         // unhighlight previous
         if previousSelectedPreviewThumbnail != nil && previousSelectedPreviewThumbnail != cell {
-            previousSelectedPreviewThumbnail!.imageView.layer.borderWidth = 0
+            previousSelectedPreviewThumbnail!.imageView.layer.borderColor = UIColor.blackColor().CGColor
         }
         
         previousSelectedPreviewThumbnail = cell
