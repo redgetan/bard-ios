@@ -42,6 +42,8 @@
 		89CE80D11D860EA70009796D /* PreviewTimelineCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89CE80D01D860EA70009796D /* PreviewTimelineCollectionViewCell.swift */; };
 		89DB08281D9331C1009241FD /* UIImage+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DB08271D9331C1009241FD /* UIImage+Helper.swift */; };
 		89DB082A1D95E3EE009241FD /* WordTagSelector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DB08291D95E3EE009241FD /* WordTagSelector.swift */; };
+		89DB082E1D973172009241FD /* SegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DB082D1D973172009241FD /* SegueFromRight.swift */; };
+		89DB08301D97321D009241FD /* UnwindSegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DB082F1D97321D009241FD /* UnwindSegueFromRight.swift */; };
 		89E3BBE71D47D72300963EEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */; };
 		89E3BBE91D47F48600963EEE /* CharacterSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */; };
 		89FCDA2F1D4EA09F00326588 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FCDA2E1D4EA09F00326588 /* TabBarViewController.swift */; };
@@ -87,6 +89,8 @@
 		89CE80D01D860EA70009796D /* PreviewTimelineCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PreviewTimelineCollectionViewCell.swift; path = ui/views/PreviewTimelineCollectionViewCell.swift; sourceTree = "<group>"; };
 		89DB08271D9331C1009241FD /* UIImage+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Helper.swift"; path = "extensions/UIImage+Helper.swift"; sourceTree = "<group>"; };
 		89DB08291D95E3EE009241FD /* WordTagSelector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WordTagSelector.swift; path = models/WordTagSelector.swift; sourceTree = "<group>"; };
+		89DB082D1D973172009241FD /* SegueFromRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegueFromRight.swift; path = ui/views/SegueFromRight.swift; sourceTree = "<group>"; };
+		89DB082F1D97321D009241FD /* UnwindSegueFromRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnwindSegueFromRight.swift; path = ui/views/UnwindSegueFromRight.swift; sourceTree = "<group>"; };
 		89E3BBE51D47A9A000963EEE /* Bard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bard-Bridging-Header.h"; sourceTree = "<group>"; };
 		89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterSelectViewController.swift; path = ui/CharacterSelectViewController.swift; sourceTree = "<group>"; };
@@ -224,6 +228,8 @@
 				898CC1181D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift */,
 				898CC11A1D4D3843006D56E4 /* UILabelWithPadding.swift */,
 				89CE80D01D860EA70009796D /* PreviewTimelineCollectionViewCell.swift */,
+				89DB082D1D973172009241FD /* SegueFromRight.swift */,
+				89DB082F1D97321D009241FD /* UnwindSegueFromRight.swift */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -413,6 +419,7 @@
 				89C986391D46EE040056E687 /* WelcomeViewController.swift in Sources */,
 				89C2EEC11D5134F7005BB3C2 /* Analytics.swift in Sources */,
 				89C9862F1D46A56F0056E687 /* BardClient.swift in Sources */,
+				89DB08301D97321D009241FD /* UnwindSegueFromRight.swift in Sources */,
 				898CC1191D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift in Sources */,
 				89C9860F1D45BA720056E687 /* AppDelegate.swift in Sources */,
 				89DB082A1D95E3EE009241FD /* WordTagSelector.swift in Sources */,
@@ -423,6 +430,7 @@
 				89C986371D46E3430056E687 /* Helper.swift in Sources */,
 				890D3E631D493B98008F96DF /* Character.swift in Sources */,
 				89C9862C1D4691D90056E687 /* BorderedTextField.swift in Sources */,
+				89DB082E1D973172009241FD /* SegueFromRight.swift in Sources */,
 				898CC11E1D4E5129006D56E4 /* UIColor+Helper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
