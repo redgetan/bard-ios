@@ -20,10 +20,11 @@ public class WordTagSelector {
         self.wordTagMap = wordTagMap
     }
     
-    func setWordTag(wordTagString: String) -> Bool {
-        if !wordTagString.characters.contains(":") || wordTagString == getCurrentWordTagString() {
+    func setWordTag(wordTagString: String, force: Bool? = false) -> Bool {
+        if !force! && (!wordTagString.characters.contains(":") || wordTagString == getCurrentWordTagString()) {
             return false
         }
+        
         
         let word = wordTagString.componentsSeparatedByString(":")[0]
         if let wordTagList = self.wordTagMap[word] {
@@ -63,11 +64,19 @@ public class WordTagSelector {
         return findWordTag(self.currentWord, direction: PREV_DIRECTION)
     }
     
+    func getWordTagVariantCount() -> Int {
+        if let wordTagList = self.wordTagMap[self.currentWord] {
+            return wordTagList.count
+        } else {
+            return 0
+        }
+    }
+    
     func findWordTag(word: String, direction: String) -> String? {
         if isWordNotInDatabase(word) {
             return nil
         }
-        
+
         self.currentWord = word
         
         if isWordChanged(word) {
