@@ -231,7 +231,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             // adding untagged word/character
             let wordAtInputField = getWordAtTokenIndex(tokenIndex)
 
-            if tokenCount != lastTokenCount {
+            if tokenCount != lastTokenCount || wordTagList.isEmpty {
                 wordTagList.insert(wordAtInputField, atIndex: tokenIndex)
             } else {
                 wordTagList[tokenIndex] = wordAtInputField
