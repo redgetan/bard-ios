@@ -791,11 +791,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         drawPagination(wordTagString)
 
-        let indexPath = NSIndexPath(forRow: currentWordTagListIndex, inSection: 0)
-        if let thumbnail = previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell {
-            highlightImageView(thumbnail.imageView)
-        }
-        
+        // download video if not cached to disk yet
         Storage.saveRemoteVideo(segmentUrl)
         let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
         let segmentFileUrl = NSURL(fileURLWithPath: filePath)
@@ -804,6 +800,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         // let previewTimeline draw thumbnails once mp4 has been downloaded
         previewTimelineCollectionView.reloadData()
         previewTimelineCollectionView.layoutIfNeeded()
+        
+        // once thumbnails are drawn, we can highlight/select them
+        let indexPath = NSIndexPath(forRow: currentWordTagListIndex, inSection: 0)
+        if let thumbnail = previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell {
+            highlightImageView(thumbnail.imageView)
+        }
     }
     
     func drawPagination(wordTagString: String) {
