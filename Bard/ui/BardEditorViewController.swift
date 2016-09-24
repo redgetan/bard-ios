@@ -21,6 +21,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var isBackspacePressed: Bool = false
     var lastTokenCount: Int = 0
     var skipAddToWordTag: Bool = false
+    var skipTextSelectionChange: Bool = false
     var previousSelectedTokenIndex = [Int]()
     var wordTagSelector: WordTagSelector!
     var wordTagPaginationLabel: UILabel!
@@ -45,7 +46,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var isKeyboardShown: Bool = false
     var activityIndicator: UIActivityIndicatorView? = nil
     var repositoryId: Int? = nil
-    var previousSelectedPreviewThumbnail: UIImageView? = nil
+    var previousSelectedPreviewThumbnail: PreviewTimelineCollectionViewCell? = nil
     
     @IBOutlet weak var previewTimelineCollectionView: UICollectionView!
     @IBOutlet weak var playerContainer: UIView!
@@ -112,7 +113,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func textViewDidChangeSelection(textView: UITextView) {
         
         // if selection is result of clicking on wordTag, dont need to set word tag again
-        if skipAddToWordTag == false {
+        if skipTextSelectionChange == false {
             self.currentWordTagListIndex = getInputTokenIndex()
             if self.wordTagList.count > self.currentWordTagListIndex {
                 let wordTagString = self.wordTagList[self.currentWordTagListIndex]
@@ -467,6 +468,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func didSelectPreviewTimeline(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        self.currentWordTagListIndex = indexPath.row
         let wordTagString = self.wordTagList[indexPath.row]
         
         if self.wordTagSelector.setWordTag(wordTagString) {
@@ -475,23 +477,50 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             self.player.playFromBeginning()
         }
         
-        // highlight
-        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PreviewTimelineCollectionViewCell
-        highlightImageView(cell.imageView)
+//        // highlight thumbnail
+//        let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PreviewTimelineCollectionViewCell
+//        highlightImageView(cell)
+        
+        // highlight word
+        highlightWordAtTokenIndex(indexPath.row)
     }
     
-    func highlightImageView(imageView: UIImageView) {
+    func highlightWordAtTokenIndex(tokenIndex: Int) {
+        let (startPosition, endPosition) = getWordPositionFromTokenIndex(tokenIndex)
+        if startPosition != nil && endPosition != nil {
+            inputTextField.becomeFirstResponder()
+            skipTextSelectionChange = true
+            inputTextField.selectedTextRange = inputTextField.textRangeFromPosition(startPosition!, toPosition: endPosition!)
+            skipTextSelectionChange = false
+        }
+    }
+    
+    func getWordPositionFromTokenIndex(tokenIndex: Int) -> (UITextPosition?, UITextPosition?) {
+        let wordPositions = inputTextField.text.wordPositions()
+        let (start, end) = wordPositions[tokenIndex]
+
+        if wordPositions.count > tokenIndex {
+            let startPosition = inputTextField.positionFromPosition(inputTextField.beginningOfDocument, inDirection: UITextLayoutDirection.Right, offset: start)
+            let endPosition = inputTextField.positionFromPosition(inputTextField.beginningOfDocument, inDirection: UITextLayoutDirection.Right, offset: end)
+            return (startPosition, endPosition)
+        } else {
+            return (nil, nil)
+        }
+        
+    }
+    
+    func highlightImageView(cell: PreviewTimelineCollectionViewCell) {
         // highlight current
-        imageView.layer.borderWidth = 2
-        imageView.layer.borderColor = UIColor.blueColor().CGColor
+        cell.imageView.layer.borderWidth = 2
+        cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
         
         
         // unhighlight previous
-        if previousSelectedPreviewThumbnail != nil && previousSelectedPreviewThumbnail != imageView {
-            previousSelectedPreviewThumbnail!.layer.borderWidth = 0
+        if previousSelectedPreviewThumbnail != nil && previousSelectedPreviewThumbnail != cell {
+            previousSelectedPreviewThumbnail!.imageView.layer.borderWidth = 0
         }
         
-        previousSelectedPreviewThumbnail = imageView
+        previousSelectedPreviewThumbnail = cell
     }
     
     func didSelectWordTag(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -500,6 +529,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
         // insert word in uitextview
         skipAddToWordTag = true
+        skipTextSelectionChange = true
         if let selectedTextRange = inputTextField.selectedTextRange {
             inputTextField.replaceRange(selectedTextRange, withText: " \(word) ")
         } else {
@@ -507,6 +537,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         }
         lastTokenCount = getInputTokenCount()
         skipAddToWordTag = false
+        skipTextSelectionChange = false
         
         // scroll cursor in uitextview to bottom
         let bottom = NSMakeRange(inputTextField.text.characters.count - 1, 1)
@@ -804,7 +835,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         // once thumbnails are drawn, we can highlight/select them
         let indexPath = NSIndexPath(forRow: currentWordTagListIndex, inSection: 0)
         if let thumbnail = previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell {
-            highlightImageView(thumbnail.imageView)
+            highlightImageView(thumbnail)
         }
     }
     

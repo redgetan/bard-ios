@@ -22,4 +22,19 @@ extension String {
         
         return ranges
     }
+    
+    func wordPositions() -> [(Int, Int)] {
+        
+        let range = Range<String.Index>(self.startIndex..<self.endIndex)
+        var ranges = [(Int, Int)]()
+        let textStartIndex = self.startIndex
+        
+        self.enumerateSubstringsInRange(range, options: NSStringEnumerationOptions.ByWords) { (substring, substringRange, enclosingRange, _) -> () in
+            let wordLocation      = textStartIndex.distanceTo(substringRange.startIndex)
+            let wordEndLocation   = textStartIndex.distanceTo(substringRange.endIndex)
+            ranges.append((wordLocation, wordEndLocation))
+        }
+        
+        return ranges
+    }
 }
