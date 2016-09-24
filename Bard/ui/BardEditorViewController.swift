@@ -23,6 +23,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var skipAddToWordTag: Bool = false
     var previousSelectedTokenIndex = [Int]()
     var wordTagSelector: WordTagSelector!
+    var wordTagPaginationLabel: UILabel!
     
     // word -> array of wordtagstrings 
     // useful for knowing whether a word is in the bard dictionary (valid or not)
@@ -36,6 +37,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     // it can contain either word (hello) or a wordtag (hello:45k8sn)
     // on generateBardVideo, all words would be searched for matching wordtag
     var wordTagList: [String] = [String]()
+
+    // the active index of wordTagList
+    var currentWordTagListIndex: Int = 0
     
     var player: Player!
     var isKeyboardShown: Bool = false
@@ -106,10 +110,19 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func textViewDidChangeSelection(textView: UITextView) {
-        let wordTagString = self.wordTagList[getInputTokenIndex()]
-        if self.wordTagSelector.setWordTag(wordTagString) {
-            onWordTagChanged(wordTagString)
+        
+        // if selection is result of clicking on wordTag, dont need to set word tag again
+        if skipAddToWordTag == false {
+            self.currentWordTagListIndex = getInputTokenIndex()
+            if self.wordTagList.count > self.currentWordTagListIndex {
+                let wordTagString = self.wordTagList[self.currentWordTagListIndex]
+                if self.wordTagSelector.setWordTag(wordTagString) {
+                    onWordTagChanged(wordTagString)
+                }
+            }
+  
         }
+        
         
         
         
@@ -143,6 +156,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func addWordToWordTagList() {
+        print("ontextchange: \(currentWordTagListIndex), isBackspacePressed: \(isBackspacePressed)")
+        
         if skipAddToWordTag {
             return
         }
@@ -244,9 +259,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func getInputTokenIndex() -> Int {
         let indexStartOfText = inputTextField.text.startIndex.advancedBy(getCursorPosition())
         let textUntilCursor  = inputTextField.text.substringToIndex(indexStartOfText)
-        let spaceSeparators = Helper.matchesForRegexInText("\\s+", text: textUntilCursor)
+        let trimmedText      = textUntilCursor.stringByTrimmingCharactersInSet(
+            NSCharacterSet.whitespaceAndNewlineCharacterSet()
+        )
+        let spaceSeparators = Helper.matchesForRegexInText("\\s+", text: trimmedText)
         
-        let spaceRanges = Helper.matchesForRegexInRange("\\s+", text: textUntilCursor)
+        let spaceRanges = Helper.matchesForRegexInRange("\\s+", text: trimmedText)
         
         let isSpacePresentInTextBeginning = !spaceRanges.isEmpty && spaceRanges.first?.location == 0
         if isSpacePresentInTextBeginning {
@@ -290,7 +308,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         var missingWordList = [String]()
         
         for word in (inputTextField.text?.componentsSeparatedByString(" "))! {
-            if !word.isEmpty && wordTagMap[word] == nil {
+            if !word.isEmpty && wordTagMap[word.lowercaseString] == nil {
                 missingWordList.append(word)
             }
         }
@@ -324,6 +342,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
+        NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidChangeNotification, object: inputTextField)
     }
 
     func initPreviewTimeline() {
@@ -452,8 +471,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         highlightImageView(cell.imageView)
 
         // unhighlight
-        if let thumbnail = previousSelectedPreviewThumbnail {
-            unhighlightImageView(thumbnail.imageView)
+        if previousSelectedPreviewThumbnail != nil && previousSelectedPreviewThumbnail != cell {
+            unhighlightImageView(previousSelectedPreviewThumbnail!.imageView)
         }
         
         previousSelectedPreviewThumbnail = cell
@@ -471,9 +490,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func didSelectWordTag(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let wordTagString = self.wordTagStringList[indexPath.row]
         let word = wordTagString.componentsSeparatedByString(":")[0]
-        
-        // insert wordtagstring into tokeindex
-        wordTagList.insert(wordTagString, atIndex: getInputTokenIndex())
+    
+        self.currentWordTagListIndex = getInputTokenIndex()
         
         // insert word in uitextview
         skipAddToWordTag = true
@@ -488,12 +506,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         // scroll cursor in uitextview to bottom
         let bottom = NSMakeRange(inputTextField.text.characters.count - 1, 1)
         inputTextField.scrollRangeToVisible(bottom)
+    
+        if self.wordTagSelector.setWordTag(wordTagString) {
+            wordTagList.insert(wordTagString, atIndex: self.currentWordTagListIndex)
+            onWordTagChanged(wordTagString)
+        }
         
-        self.wordTagSelector.setWordTag(wordTagString)
-        onWordTagChanged(wordTagString)
-        
-        // let previewTimeline draw thumbnails if user inserts wordTag to list
-        previewTimelineCollectionView.reloadData()
     }
     
     
@@ -766,6 +784,14 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         drawPagination(wordTagString)
 
+        // let previewTimeline draw thumbnails if user inserts wordTag to list
+        previewTimelineCollectionView.reloadData()
+
+        
+        let indexPath = NSIndexPath(forRow: currentWordTagListIndex, inSection: 0)
+        if let thumbnail = previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell {
+            highlightImageView(thumbnail.imageView)
+        }
         
         Storage.saveRemoteVideo(segmentUrl)
         let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
@@ -779,7 +805,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         if let wordTagVariants = wordTagMap[word] {
             if let index = wordTagVariants.indexOf(wordTagString) {
-                print("\(word) - \(index + 1) of \(wordTagVariants.count)")
+                wordTagPaginationLabel.text = "\(index + 1) of \(wordTagVariants.count)"
             }
         }
 
@@ -805,18 +831,17 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func addWordTagPaginator() {
         // label
-        let label = UILabelWithPadding()
-        label.text = "1 of 100"
-        label.textColor = UIColor.whiteColor()
-        label.backgroundColor = UIColor.grayColor()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFontOfSize(16)
+        wordTagPaginationLabel = UILabelWithPadding()
+        wordTagPaginationLabel.textColor = UIColor.whiteColor()
+        wordTagPaginationLabel.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
+        wordTagPaginationLabel.translatesAutoresizingMaskIntoConstraints = false
+        wordTagPaginationLabel.font = UIFont.systemFontOfSize(16)
 
         
-        self.player.view.addSubview(label)
+        self.player.view.addSubview(wordTagPaginationLabel)
         
-        NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0).active = true
-        NSLayoutConstraint(item: label, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.BottomMargin, multiplier: 1.0, constant: -10.0).active = true
+        NSLayoutConstraint(item: wordTagPaginationLabel, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: wordTagPaginationLabel, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.BottomMargin, multiplier: 1.0, constant: -10.0).active = true
 
         // back
         
@@ -853,12 +878,14 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func onPrevBtnClick() {
         if let wordTagString = self.wordTagSelector.findPrevWordTag() {
+            self.wordTagList[self.currentWordTagListIndex] = wordTagString
             onWordTagChanged(wordTagString)
         }
     }
     
     func onNextBtnClick() {
         if let wordTagString = self.wordTagSelector.findNextWordTag() {
+            self.wordTagList[self.currentWordTagListIndex] = wordTagString
             onWordTagChanged(wordTagString)
         }
     }

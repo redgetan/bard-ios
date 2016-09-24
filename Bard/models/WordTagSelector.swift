@@ -21,12 +21,12 @@ public class WordTagSelector {
     }
     
     func setWordTag(wordTagString: String) -> Bool {
-        if wordTagString.characters.contains(":") || wordTagString == getCurrentWordTagString() {
+        if !wordTagString.characters.contains(":") || wordTagString == getCurrentWordTagString() {
             return false
         }
         
         let word = wordTagString.componentsSeparatedByString(":")[0]
-        if let wordTagList = self.wordTagMap[self.currentWord] {
+        if let wordTagList = self.wordTagMap[word] {
             self.currentWord = word
             self.currentWordTagIndex = wordTagList.indexOf(wordTagString)!
         }
