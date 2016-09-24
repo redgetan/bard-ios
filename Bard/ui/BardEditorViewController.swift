@@ -22,6 +22,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var lastTokenCount: Int = 0
     var skipAddToWordTag: Bool = false
     var previousSelectedTokenIndex = [Int]()
+    var wordTagSelector: WordTagSelector!
     
     // word -> array of wordtagstrings 
     // useful for knowing whether a word is in the bard dictionary (valid or not)
@@ -105,6 +106,13 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func textViewDidChangeSelection(textView: UITextView) {
+        let wordTagString = self.wordTagList[getInputTokenIndex()]
+        if self.wordTagSelector.setWordTag(wordTagString) {
+            onWordTagChanged(wordTagString)
+        }
+        
+        
+        
 //        let wordRanges = textView.text.wordRanges()
 //        var index = 0
 //        
@@ -142,6 +150,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let tokenCount = getInputTokenCount()
         let tokenIndex = getInputTokenIndex()
         let addedCharacter = getAddedCharacter()
+        let isLeaderPressed = addedCharacter == " "
         
         while tokenCount < lastTokenCount {
             wordTagList.removeAtIndex(tokenIndex)
@@ -149,6 +158,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         }
         
         if isBackspacePressed == true {
+            // deleting wordTag from list
             isBackspacePressed = false
 
             
@@ -160,17 +170,42 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                 }
             }
             
-        } else if addedCharacter == " " {
+        } else if isLeaderPressed {
+            // 1 word split into 2 words (assign wordTag to both)
             if tokenCount != lastTokenCount {
                 let wordAtInputField = getWordAtTokenIndex(tokenIndex)
                 let prevWordAtInputField = getWordAtTokenIndex(tokenIndex - 1)
 
                 if !wordAtInputField.isEmpty {
-                    wordTagList.insert(wordAtInputField, atIndex: tokenIndex)
-                    wordTagList[tokenIndex - 1] = prevWordAtInputField
+                    // assign tag for latter half of split-word
+                    if let wordTagString = self.wordTagSelector.findRandomWordTag(wordAtInputField) {
+                        wordTagList.insert(wordTagString, atIndex: tokenIndex)
+                    } else {
+                        wordTagList.insert(wordAtInputField, atIndex: tokenIndex)
+                    }
+                    
+                    // assign tag for former half of split-word
+                    if let wordTagString = self.wordTagSelector.findRandomWordTag(wordAtInputField) {
+                        wordTagList[tokenIndex - 1] = wordTagString
+                        onWordTagChanged(wordTagString)
+                    } else {
+                        wordTagList[tokenIndex - 1] = prevWordAtInputField
+                    }
+                }
+            } else {
+                // assign wordTag to last
+                let wordAtInputField = getWordAtTokenIndex(tokenIndex)
+                if !wordAtInputField.isEmpty {
+                    if let wordTagString = self.wordTagSelector.findRandomWordTag(wordAtInputField) {
+                        wordTagList[tokenIndex] = wordTagString
+                        onWordTagChanged(wordTagString)
+                    } else {
+                        wordTagList[tokenIndex] = wordAtInputField
+                    }
                 }
             }
         } else if !addedCharacter.isEmpty {
+            // adding untagged word/character
             let wordAtInputField = getWordAtTokenIndex(tokenIndex)
 
             if tokenCount != lastTokenCount {
@@ -406,24 +441,31 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func didSelectPreviewTimeline(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let wordTagString = self.wordTagList[indexPath.row]
         
-        if wordTagString.containsString(":") {
-             let segmentUrl = segmentUrlFromWordTag(wordTagString)
-             let filePath   = Storage.getSegmentFilePathFromUrl(segmentUrl!)
-             let segmentFileUrl = NSURL(fileURLWithPath: filePath)
-             playVideo(segmentFileUrl)
+        if self.wordTagSelector.setWordTag(wordTagString) {
+            onWordTagChanged(wordTagString)
+        } else if wordTagString.characters.contains(":") {
+            self.player.playFromBeginning()
         }
-
         
+        // highlight
         let cell = collectionView.cellForItemAtIndexPath(indexPath) as!PreviewTimelineCollectionViewCell
-        cell.imageView.layer.borderWidth = 2
+        highlightImageView(cell.imageView)
 
-        cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
-
-        
-        if previousSelectedPreviewThumbnail != nil {
-            previousSelectedPreviewThumbnail?.imageView.layer.borderWidth = 0
+        // unhighlight
+        if let thumbnail = previousSelectedPreviewThumbnail {
+            unhighlightImageView(thumbnail.imageView)
         }
+        
         previousSelectedPreviewThumbnail = cell
+    }
+    
+    func highlightImageView(imageView: UIImageView) {
+        imageView.layer.borderWidth = 2
+        imageView.layer.borderColor = UIColor.blueColor().CGColor
+    }
+    
+    func unhighlightImageView(imageView: UIImageView) {
+        imageView.layer.borderWidth = 0
     }
     
     func didSelectWordTag(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -447,18 +489,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let bottom = NSMakeRange(inputTextField.text.characters.count - 1, 1)
         inputTextField.scrollRangeToVisible(bottom)
         
-        guard let segmentUrl = segmentUrlFromWordTag(wordTagString) else {
-            return
-        }
-        
+        self.wordTagSelector.setWordTag(wordTagString)
         onWordTagChanged(wordTagString)
         
-        Storage.saveRemoteVideo(segmentUrl)
-        let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
-        let segmentFileUrl = NSURL(fileURLWithPath: filePath)
-        playVideo(segmentFileUrl)
-
-  
+        // let previewTimeline draw thumbnails if user inserts wordTag to list
         previewTimelineCollectionView.reloadData()
     }
     
@@ -721,11 +755,23 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             
             
         }
-
+        
+        self.wordTagSelector = WordTagSelector(wordTagMap: wordTagMap)
     }
     
     func onWordTagChanged(wordTagString: String) {
+        guard let segmentUrl = segmentUrlFromWordTag(wordTagString) else {
+            return
+        }
+        
         drawPagination(wordTagString)
+
+        
+        Storage.saveRemoteVideo(segmentUrl)
+        let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
+        let segmentFileUrl = NSURL(fileURLWithPath: filePath)
+        playVideo(segmentFileUrl)
+        
     }
     
     func drawPagination(wordTagString: String) {
@@ -806,11 +852,15 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func onPrevBtnClick() {
-        
+        if let wordTagString = self.wordTagSelector.findPrevWordTag() {
+            onWordTagChanged(wordTagString)
+        }
     }
     
     func onNextBtnClick() {
-        
+        if let wordTagString = self.wordTagSelector.findNextWordTag() {
+            onWordTagChanged(wordTagString)
+        }
     }
     
     func initControls() {

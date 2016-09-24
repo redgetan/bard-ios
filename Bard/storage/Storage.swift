@@ -131,7 +131,7 @@ class Storage {
     
     // MARK: remote video persistence
     
-    static func saveRemoteVideo(urlString: String) -> String? {
+    public static func saveRemoteVideo(urlString: String) -> String? {
 
         // get download path and check if already downloaded
         let filePath = getSegmentFilePathFromUrl(urlString)

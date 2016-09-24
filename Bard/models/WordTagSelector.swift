@@ -8,27 +8,38 @@
 
 import Foundation
 
-class WordTagSelector {
+public class WordTagSelector {
     var wordTagMap: [String: [String]] = [String: [String]]()
     var currentWord: String = ""
     var currentWordTagIndex: Int = 0
     
-    static let NEXT_DIRECTION = "next";
-    static let PREV_DIRECTION = "prev";
+    let NEXT_DIRECTION = "next";
+    let PREV_DIRECTION = "prev";
     
     init(wordTagMap: [String: [String]]) {
         self.wordTagMap = wordTagMap
     }
     
     func setWordTag(wordTagString: String) -> Bool {
-        if wordTagString.contains(":") {
+        if wordTagString.characters.contains(":") || wordTagString == getCurrentWordTagString() {
             return false
         }
         
-        self.currentWord = wordTagString.componentsSeparatedByString(":")[0]
-        self.currentWordTagIndex = self.wordTagMap[word].indexOf(wordTagString)
+        let word = wordTagString.componentsSeparatedByString(":")[0]
+        if let wordTagList = self.wordTagMap[self.currentWord] {
+            self.currentWord = word
+            self.currentWordTagIndex = wordTagList.indexOf(wordTagString)!
+        }
         
         return true
+    }
+    
+    func getCurrentWordTagString() -> String {
+        if currentWord.isEmpty {
+            return ""
+        } else {
+            return self.wordTagMap[self.currentWord]![self.currentWordTagIndex]
+        }
     }
     
     func findRandomWordTag(word: String) -> String? {
@@ -44,12 +55,12 @@ class WordTagSelector {
         return wordTagList[randomIndex]
     }
     
-    func findNextWordTag() -> String {
-        return findWordTag(self.currentWord, NEXT_DIRECTION)
+    func findNextWordTag() -> String? {
+        return findWordTag(self.currentWord, direction: NEXT_DIRECTION)
     }
     
-    func findPrevWordTag() -> String {
-        return findWordTag(self.currentWord, PREV_DIRECTION)
+    func findPrevWordTag() -> String? {
+        return findWordTag(self.currentWord, direction: PREV_DIRECTION)
     }
     
     func findWordTag(word: String, direction: String) -> String? {
@@ -62,10 +73,10 @@ class WordTagSelector {
         if isWordChanged(word) {
             resetWordTagIndex()
         } else {
-            updateWordTagIndex(word, direction)
+            updateWordTagIndex(word, direction: direction)
         }
         
-        let wordTagString = self.wordTagMap[word][self.currentWordTagIndex]
+        let wordTagString = self.wordTagMap[word]![self.currentWordTagIndex]
         return wordTagString
     }
     
@@ -81,8 +92,8 @@ class WordTagSelector {
         }
         
         if currentWordTagIndex < 0 {
-            self.currentWordTagIndex = wordTagMap[word].count - 1
-        } else if currentWordTagIndex > wordTagMap[word].count - 1 {
+            self.currentWordTagIndex = wordTagMap[word]!.count - 1
+        } else if currentWordTagIndex > wordTagMap[word]!.count - 1 {
             self.currentWordTagIndex = 0
         }
     }
@@ -92,7 +103,7 @@ class WordTagSelector {
     }
     
     func isWordNotInDatabase(word: String) -> Bool {
-        return !self.wordTagMap.contains(word)
+        return self.wordTagMap[word] == nil
     }
     
 }
