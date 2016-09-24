@@ -519,17 +519,23 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func highlightImageView(cell: PreviewTimelineCollectionViewCell) {
+        // unhighlight previous
+        unHighlightPreviousImageView()
+        
+        print("highlighting \(cell.wordTagString)")
+
         // highlight current
         cell.imageView.layer.borderWidth = 2
         cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
         
-        
-        // unhighlight previous
-        if previousSelectedPreviewThumbnail != nil && previousSelectedPreviewThumbnail != cell {
-            previousSelectedPreviewThumbnail!.imageView.layer.borderColor = UIColor.blackColor().CGColor
-        }
-        
         previousSelectedPreviewThumbnail = cell
+    }
+    
+ 
+    func unHighlightPreviousImageView() {
+        for visible in previewTimelineCollectionView.visibleCells() as! [PreviewTimelineCollectionViewCell] {
+            visible.imageView.layer.borderColor = UIColor.blackColor().CGColor
+        }
     }
     
     func didSelectWordTag(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
@@ -843,9 +849,29 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         // once thumbnails are drawn, we can highlight/select them
         let indexPath = NSIndexPath(forRow: currentWordTagListIndex, inSection: 0)
-        if let thumbnail = previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell {
-            highlightImageView(thumbnail)
+        
+        var thumbnail = previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell
+        
+        // if at first try thumbnail is nil, it means the cell item is currently not visible
+        // try to scroll to that position to make it visibe, then re-attempt to fetch the thumbnail again
+        if thumbnail == nil {
+            // before we scroll some of previous cells outside of view, unhighlight them first
+            unHighlightPreviousImageView()
+            
+            UIView.animateWithDuration(0.3, animations: {
+                self.previewTimelineCollectionView.scrollToItemAtIndexPath(indexPath,
+                    atScrollPosition: .CenteredHorizontally,
+                    animated: false)
+            }, completion: { (finished: Bool) -> Void in
+                thumbnail = self.previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell
+                self.highlightImageView(thumbnail!)
+            })
+            
+            
+        } else {
+            highlightImageView(thumbnail!)
         }
+        
     }
     
     func drawPagination(wordTagString: String) {
