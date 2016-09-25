@@ -80,7 +80,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        UIApplication.sharedApplication().statusBarStyle = .LightContent
         self.automaticallyAdjustsScrollViewInsets = false
         
         inputTextField.delegate = self
@@ -201,7 +200,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func addWordToWordTagList() {
-        print("ontextchange: \(currentWordTagListIndex), isBackspacePressed: \(isBackspacePressed), wordTagList: \(wordTagList)")
         
         if skipAddToWordTag {
             return
@@ -211,6 +209,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let tokenIndex = getInputTokenIndex()
         let addedCharacter = getAddedCharacter()
         let isLeaderPressed = addedCharacter == " "
+        
+        print("ontextchange: \(currentWordTagListIndex), addedCharacter: \(addedCharacter),isBackspacePressed: \(isBackspacePressed), wordTagList: \(wordTagList)")
+
         
         while tokenCount < lastTokenCount {
             // at this point, 3rd word is already deleted, 
@@ -228,7 +229,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             previewTimelineCollectionView.layoutIfNeeded()
         }
         
-        if isBackspacePressed == true {
+        // possibly due to race condition or just bug in my code, sometimes isBackspacePressed would be true even if
+        // addedCharacter contains character. Add another condition to check for presence of character
+        if isBackspacePressed == true && addedCharacter.isEmpty {
             // deleting wordTag from list
             isBackspacePressed = false
 
@@ -292,6 +295,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             }
         }
         
+        print("ontextchange [post] wordTagList: \(wordTagList)")
         drawGenerateButton()
 
         lastTokenCount = tokenCount
@@ -404,7 +408,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
         NSNotificationCenter.defaultCenter().removeObserver(self)
         NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidChangeNotification, object: inputTextField)
     }
@@ -588,7 +591,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func didSelectWordTag(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let wordTagString = self.wordTagStringList[indexPath.row]
         let word = wordTagString.componentsSeparatedByString(":")[0]
-    
+        let tokenCountBeforeWordTagClick = getInputTokenCount()
+        
         // insert word in uitextview
         skipAddToWordTag = true
         skipTextSelectionChange = true
@@ -608,7 +612,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         self.currentWordTagListIndex = getInputTokenIndex()
         
         if self.wordTagSelector.setWordTag(wordTagString, force: true) {
-            wordTagList.insert(wordTagString, atIndex: self.currentWordTagListIndex)
+            if lastTokenCount > tokenCountBeforeWordTagClick {
+                wordTagList.insert(wordTagString, atIndex: self.currentWordTagListIndex)
+            } else {
+                wordTagList[self.currentWordTagListIndex] = wordTagString
+            }
+            print("wordTagClick - wordTagList is \(wordTagList)")
             onWordTagChanged(wordTagString)
         }
         
