@@ -37,6 +37,14 @@ class ShareEditorViewController: UIViewController {
         self.player.playFromBeginning()
     }
     
+    @IBAction func shareRepo(sender: UIButton) {
+        
+        let objectsToShare = [outputURL]
+        let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+    }
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.

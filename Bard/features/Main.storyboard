@@ -512,14 +512,27 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUn-Re-a6W">
+                                        <rect key="frame" x="570" y="29" width="20" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="Kkj-cD-I1d"/>
+                                            <constraint firstAttribute="height" constant="25" id="V9y-cX-t4D"/>
+                                        </constraints>
+                                        <state key="normal" image="icon_share"/>
+                                        <connections>
+                                            <action selector="shareRepo:" destination="oF3-uX-Rob" eventType="touchUpInside" id="qD1-o0-C9q"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="OnQ-Cp-X9K" firstAttribute="leading" secondItem="2Hx-5Z-6sq" secondAttribute="leading" constant="5" id="4R7-88-ews"/>
                                     <constraint firstAttribute="bottom" secondItem="OnQ-Cp-X9K" secondAttribute="bottom" constant="10" id="7Iw-6m-pSz"/>
+                                    <constraint firstAttribute="bottom" secondItem="LUn-Re-a6W" secondAttribute="bottom" constant="10" id="9B3-sz-206"/>
                                     <constraint firstAttribute="height" constant="64" id="W4h-hr-80s"/>
                                     <constraint firstItem="0DV-er-xe5" firstAttribute="centerX" secondItem="2Hx-5Z-6sq" secondAttribute="centerX" id="aqb-0p-5Gu"/>
                                     <constraint firstAttribute="bottom" secondItem="0DV-er-xe5" secondAttribute="bottom" constant="10" id="bzU-iP-dao"/>
+                                    <constraint firstAttribute="trailing" secondItem="LUn-Re-a6W" secondAttribute="trailing" constant="10" id="vEK-qs-awn"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -866,5 +879,6 @@
         <image name="icon_keyboard" width="25" height="25"/>
         <image name="icon_profile" width="25" height="25"/>
         <image name="icon_profile_filled" width="25" height="25"/>
+        <image name="icon_share" width="48" height="66"/>
     </resources>
 </document>

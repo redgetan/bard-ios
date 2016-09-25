@@ -60,7 +60,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var inputTextField: UITextView!
     @IBOutlet weak var controlButton: UIButton!
     @IBOutlet weak var wordTagCollectionView: UICollectionView!
-    @IBOutlet weak var shareButton: UIBarButtonItem!
     
     let cellIdentifier = "wordTagCollectionViewCell"
     let previewTimelineCellIdentifier = "previewTimelineCollectionViewCell"
@@ -404,14 +403,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func shareRepository(sender: UIBarButtonItem) {
-        let repository = Repository.find(repositoryId!)
-
-        let objectsToShare = [repository.getFileUrl()]
-        let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-        self.presentViewController(activityViewController, animated: true, completion: nil)
-    }
-    
     // MARK: UICollectionViewDataSource protocol
     
     func collectionView(collectionView: UICollectionView,
@@ -697,7 +688,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 //                                self.repositoryId = repoId
 //                               
 //                                self.playVideo(outputURL!)
-////                                self.shareButton.enabled = true
 //                        })
                     
                     }
