@@ -979,7 +979,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         // back
         
         var button = UIButton()
-        var image = UIImage(named: "icon_back")?.imageWithRenderingMode(.AlwaysTemplate)
+        var image = UIImage(named: "icon_back_android")?.imageWithRenderingMode(.AlwaysTemplate)
         button.setImage(image, forState: .Normal)
         button.tintColor = UIColor.whiteColor()
         button.addTarget(self, action: #selector(onPrevBtnClick), forControlEvents: .TouchUpInside)
@@ -995,7 +995,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         // forward
         
         button = UIButton()
-        image = UIImage(named: "icon_forward")?.imageWithRenderingMode(.AlwaysTemplate)
+        image = UIImage(named: "icon_forward_android")?.imageWithRenderingMode(.AlwaysTemplate)
         button.setImage(image, forState: .Normal)
         button.tintColor = UIColor.whiteColor()
         button.addTarget(self, action: #selector(onNextBtnClick), forControlEvents: .TouchUpInside)
