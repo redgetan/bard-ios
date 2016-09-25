@@ -25,7 +25,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var previousSelectedTokenIndex = [Int]()
     var wordTagSelector: WordTagSelector!
     var wordTagPaginationLabel: UILabel!
-    
+    var outputURL: NSURL!
     // word -> array of wordtagstrings 
     // useful for knowing whether a word is in the bard dictionary (valid or not)
     // (i.e wordTagMap["hello"] == ["hello:11342","hello:kj8s3n"])
@@ -151,11 +151,22 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         performSelector(#selector(displayInvalidWords), withObject: nil, afterDelay: 1)
     }
     
+    override func shouldPerformSegueWithIdentifier(identifier: String, sender: AnyObject?) -> Bool {
+        if (identifier == "editorToShare") {
+            return false
+        } else {
+            return true
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "editorToScene") {
             let nav = segue.destinationViewController as! UINavigationController
             let viewController = nav.topViewController as! SceneSelectViewController
             viewController.character = self.character
+        } else if (segue.identifier == "editorToShare") {
+            let viewController = segue.destinationViewController as! ShareEditorViewController
+            viewController.outputURL = self.outputURL
         }
     }
     
@@ -581,7 +592,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
 
-    @IBAction func onPlayButtonClick(sender: UIButton) {
+    
+    @IBAction func onGenerateButtonClick(sender: UIButton) {
         generateBardVideo()
     }
     
@@ -614,6 +626,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             VideoMergeManager.mergeMultipleVideos(destinationPath: destinationPath,
                 filePaths: filePaths,
                 finished: { (error: NSError?, outputURL: NSURL?) in
+                    self.activityIndicator?.stopAnimating()
+
                     if error != nil {
                         print(error)
                     }
@@ -621,24 +635,29 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                         print("failed to merge videos")
                     }
                     else {
-                        Repository.create(wordTagStrings,
-                            username: UserConfig.getUsername(),
-                            fileName: outputURL!.pathComponents!.last!,
-                            localIdentifier: nil,
-                            characterToken: self.character.token,
-                            sceneToken: self.scene?.token, repoCreated: { repoId in
-                                
-                                self.activityIndicator?.stopAnimating()
-                                self.repositoryId = repoId
-                                Analytics.track("generateBardVideo",
+                        Analytics.track("generateBardVideo",
                                     properties: ["wordTags" : wordTagStrings,
                                         "characterToken" : self.character.token,
                                         "sceneToken" : self.scene?.token ?? "",
                                         "character" : self.character.name,
                                         "scene": self.scene?.name ?? ""])
-                                self.playVideo(outputURL!)
-                                self.shareButton.enabled = true
-                        })
+
+                        self.outputURL = outputURL!
+                        self.performSegueWithIdentifier("editorToShare", sender: nil)
+
+//                        Repository.create(wordTagStrings,
+//                            username: UserConfig.getUsername(),
+//                            fileName: outputURL!.pathComponents!.last!,
+//                            localIdentifier: nil,
+//                            characterToken: self.character.token,
+//                            sceneToken: self.scene?.token, repoCreated: { repoId in
+//                                
+//                                self.activityIndicator?.stopAnimating()
+//                                self.repositoryId = repoId
+//                               
+//                                self.playVideo(outputURL!)
+////                                self.shareButton.enabled = true
+//                        })
                     
                     }
             })

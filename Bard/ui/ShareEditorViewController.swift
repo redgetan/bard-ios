@@ -14,6 +14,7 @@ class ShareEditorViewController: UIViewController {
     
     @IBOutlet weak var header: UIView!
     
+    var outputURL: NSURL!
     var player: Player!
     
     override func viewDidLoad() {
@@ -27,7 +28,8 @@ class ShareEditorViewController: UIViewController {
         gradient.colors = [UIColor.clearColor().CGColor,UIColor.blackColor().CGColor]
         header.layer.mask = gradient
 
-        playVideo(NSURL(string: "https://d22z4oll34c07f.cloudfront.net/segments/F6nNlIbgWTU/8435.mp4")!)
+//        playVideo(NSURL(string: "https://d22z4oll34c07f.cloudfront.net/segments/F6nNlIbgWTU/8435.mp4")!)
+        playVideo(outputURL)
     }
 
     func playVideo(fileUrl: NSURL) {
