@@ -449,6 +449,7 @@
                     <connections>
                         <outlet property="controlButton" destination="M4N-pn-kaL" id="WMf-1D-MqH"/>
                         <outlet property="controlsContainer" destination="8tI-Jw-5hX" id="ra8-ow-HvX"/>
+                        <outlet property="generateButton" destination="97r-O3-2Yt" id="Ezi-Xr-NkZ"/>
                         <outlet property="inputTextField" destination="zjY-KL-2j8" id="zXe-VG-ZRc"/>
                         <outlet property="playerAspectRatioConstraint" destination="O3E-ds-ZFj" id="4Cb-O1-nvK"/>
                         <outlet property="playerContainer" destination="cbC-Tr-7su" id="sqo-V4-zdA"/>

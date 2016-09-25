@@ -48,6 +48,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var repositoryId: Int? = nil
     var previousSelectedPreviewThumbnail: PreviewTimelineCollectionViewCell? = nil
     
+    @IBOutlet weak var generateButton: UIButton!
     @IBOutlet weak var previewTimelineCollectionView: UICollectionView!
     @IBOutlet weak var playerContainer: UIView!
     
@@ -253,6 +254,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             }
         }
         
+        drawGenerateButton()
+
         lastTokenCount = tokenCount
     }
     
@@ -373,6 +376,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         previewTimelineCollectionView.contentInset = UIEdgeInsetsMake(0.0,0.0,0.0,0.0)
         previewTimelineCollectionView.delegate = self
         previewTimelineCollectionView.dataSource = self
+        
+        generateButton.hidden = true
     }
     
     func initCollectionView() {
@@ -576,6 +581,27 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             onWordTagChanged(wordTagString)
         }
         
+        drawGenerateButton()
+    }
+    
+    func drawGenerateButton() {
+        if getTagCountInWordTagList() > 1 {
+            generateButton.hidden = false
+        } else {
+            generateButton.hidden = true
+        }
+    }
+    
+    func getTagCountInWordTagList() -> Int {
+        var i = 0
+        
+        for wordTagString in wordTagList {
+            if wordTagString.characters.contains(":") {
+                i += 1
+            }
+        }
+        
+        return i
     }
     
     
@@ -594,6 +620,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
     
     @IBAction func onGenerateButtonClick(sender: UIButton) {
+        self.generateButton.enabled = false
         generateBardVideo()
     }
     
@@ -627,6 +654,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                 filePaths: filePaths,
                 finished: { (error: NSError?, outputURL: NSURL?) in
                     self.activityIndicator?.stopAnimating()
+                    self.generateButton.enabled = true
 
                     if error != nil {
                         print(error)

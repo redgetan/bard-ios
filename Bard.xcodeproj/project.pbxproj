@@ -12,9 +12,9 @@
 		890D3E611D493A8C008F96DF /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E601D493A8C008F96DF /* Storage.swift */; };
 		890D3E631D493B98008F96DF /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E621D493B98008F96DF /* Character.swift */; };
 		890D3E651D493E8E008F96DF /* SceneSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E641D493E8E008F96DF /* SceneSelectViewController.swift */; };
-		890D3E671D49420C008F96DF /* BardEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E661D49420C008F96DF /* BardEditorViewController.swift */; };
 		890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E681D494A5D008F96DF /* VideoMerger.swift */; };
 		89114E211D45A29E0078205C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89114E201D45A29E0078205C /* Assets.xcassets */; };
+		8942C7611D976D8D009F70A0 /* BardEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */; };
 		896074881D72495C0072C022 /* NSLayoutConstraint+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896074871D72495C0072C022 /* NSLayoutConstraint+Helper.swift */; };
 		8974AF971D6F8F870022C0B0 /* VideoMergeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8974AF961D6F8F870022C0B0 /* VideoMergeManager.swift */; };
 		898CC1191D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898CC1181D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift */; };
@@ -58,11 +58,11 @@
 		890D3E601D493A8C008F96DF /* Storage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Storage.swift; path = storage/Storage.swift; sourceTree = "<group>"; };
 		890D3E621D493B98008F96DF /* Character.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Character.swift; path = models/Character.swift; sourceTree = "<group>"; };
 		890D3E641D493E8E008F96DF /* SceneSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SceneSelectViewController.swift; path = ui/SceneSelectViewController.swift; sourceTree = "<group>"; };
-		890D3E661D49420C008F96DF /* BardEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BardEditorViewController.swift; path = ui/BardEditorViewController.swift; sourceTree = "<group>"; };
 		890D3E681D494A5D008F96DF /* VideoMerger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoMerger.swift; path = models/VideoMerger.swift; sourceTree = "<group>"; };
 		89114E141D45A29E0078205C /* Bard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89114E201D45A29E0078205C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89114E251D45A29E0078205C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BardEditorViewController.swift; path = ui/BardEditorViewController.swift; sourceTree = "<group>"; };
 		896074871D72495C0072C022 /* NSLayoutConstraint+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSLayoutConstraint+Helper.swift"; path = "extensions/NSLayoutConstraint+Helper.swift"; sourceTree = "<group>"; };
 		8974AF961D6F8F870022C0B0 /* VideoMergeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoMergeManager.swift; path = models/VideoMergeManager.swift; sourceTree = "<group>"; };
 		898CC1181D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WordTagCollectionViewCell.swift; path = ui/views/WordTagCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -192,8 +192,8 @@
 				89C986381D46EE040056E687 /* WelcomeViewController.swift */,
 				89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */,
 				890D3E641D493E8E008F96DF /* SceneSelectViewController.swift */,
-				890D3E661D49420C008F96DF /* BardEditorViewController.swift */,
 				89FCDA2E1D4EA09F00326588 /* TabBarViewController.swift */,
+				8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */,
 				89C2EEBE1D4FC8E0005BB3C2 /* VideoPlayerViewController.swift */,
 				89DB08351D97346C009241FD /* ShareEditorViewController.swift */,
 			);
@@ -403,7 +403,6 @@
 				899145C11D4A873C00C99369 /* SceneTableViewCell.swift in Sources */,
 				89C9861D1D45BA990056E687 /* RepositoriesViewController.swift in Sources */,
 				890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */,
-				890D3E671D49420C008F96DF /* BardEditorViewController.swift in Sources */,
 				89CE80CF1D859F170009796D /* String+Helper.swift in Sources */,
 				89CE80D11D860EA70009796D /* PreviewTimelineCollectionViewCell.swift in Sources */,
 				89C986201D4660290056E687 /* BorderedButton.swift in Sources */,
@@ -433,6 +432,7 @@
 				89C986371D46E3430056E687 /* Helper.swift in Sources */,
 				89DB08361D97346C009241FD /* ShareEditorViewController.swift in Sources */,
 				890D3E631D493B98008F96DF /* Character.swift in Sources */,
+				8942C7611D976D8D009F70A0 /* BardEditorViewController.swift in Sources */,
 				89C9862C1D4691D90056E687 /* BorderedTextField.swift in Sources */,
 				89DB082E1D973172009241FD /* SegueFromRight.swift in Sources */,
 				898CC11E1D4E5129006D56E4 /* UIColor+Helper.swift in Sources */,
