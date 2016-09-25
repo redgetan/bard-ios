@@ -26,9 +26,13 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var wordTagSelector: WordTagSelector!
     var wordTagPaginationLabel: UILabel!
     var outputURL: NSURL!
+    
     // word -> array of wordtagstrings 
     // useful for knowing whether a word is in the bard dictionary (valid or not)
     // (i.e wordTagMap["hello"] == ["hello:11342","hello:kj8s3n"])
+    
+    // this is used in fetching wordtags for charactereditor (all scenes)
+    // it is also used for checking whether word is valid (in dictionary), regardless of whether its charactereditor or sceneeditor
     var wordTagMap: [String: [String]] = [String: [String]]()
     
     // list of wordtag strings to be used for collectionview, rendering word tags that user can click on
@@ -216,7 +220,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             // only exception is if we're deleting last item in wordTagList (index 0, size 1)
             if tokenIndex + 1 == wordTagList.count {
                 wordTagList.removeAtIndex(tokenIndex)
-            } else {
+            } else if tokenIndex + 1 < wordTagList.count {
                 wordTagList.removeAtIndex(tokenIndex + 1)
             }
             lastTokenCount = lastTokenCount - 1
@@ -807,7 +811,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                         selectedScene.wordList = sceneWordList
                     }
                     
-                    self.addWordListToDictionary(sceneWordList)
+                    self.addWordListToSceneDictionary(sceneWordList)
                     self.wordTagCollectionView.reloadData()
                 }
                 
@@ -815,7 +819,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                     Drop.down("Failed to load word list", state: .Error, duration: 3)
             })
         } else {
-            addWordListToDictionary(selectedScene.wordList)
+            addWordListToSceneDictionary(selectedScene.wordList)
             self.wordTagCollectionView.reloadData()
         }
     }
@@ -860,7 +864,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             
             // reset dictionary
             self.wordTagStringList.removeAll()
-            self.wordTagMap = [String: [String]]()
             
             // set scene
             self.scene = sourceViewController.selectedScene
@@ -883,19 +886,47 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             
             word = wordTagString.componentsSeparatedByString(":")[0]
         
-            if wordTagMap[word] != nil {
-                if !wordTagMap[word]!.contains(wordTagString) {
-                    wordTagMap[word]!.append(wordTagString)
+            if self.wordTagMap[word] != nil {
+                if !self.wordTagMap[word]!.contains(wordTagString) {
+                    self.wordTagMap[word]!.append(wordTagString)
                 }
             } else {
-                wordTagMap[word] = [String]()
-                wordTagMap[word]!.append(wordTagString)
+                self.wordTagMap[word] = [String]()
+                self.wordTagMap[word]!.append(wordTagString)
             }
             
             
         }
         
-        self.wordTagSelector = WordTagSelector(wordTagMap: wordTagMap)
+        self.wordTagSelector = WordTagSelector(wordTagMap: self.wordTagMap)
+    }
+    
+    func addWordListToSceneDictionary(wordList: String) {
+        var word: String
+        var sceneWordTagMap: [String: [String]] = [String: [String]]()
+        
+        for wordTagString in wordList.componentsSeparatedByString(",") {
+            if wordTagString.isEmpty {
+                continue
+            }
+            
+            wordTagStringList.append(wordTagString)
+            
+            word = wordTagString.componentsSeparatedByString(":")[0]
+        
+            if sceneWordTagMap[word] != nil {
+                if !sceneWordTagMap[word]!.contains(wordTagString) {
+                    sceneWordTagMap[word]!.append(wordTagString)
+                }
+            } else {
+                sceneWordTagMap[word] = [String]()
+                sceneWordTagMap[word]!.append(wordTagString)
+            }
+            
+            
+        }
+        
+        self.wordTagSelector.setSceneWordTagMap(sceneWordTagMap)
     }
     
     func onWordTagChanged(wordTagString: String) {
@@ -947,7 +978,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func drawPagination(wordTagString: String) {
         let word =  wordTagString.componentsSeparatedByString(":")[0]
         
-        if let wordTagVariants = wordTagMap[word] {
+        if let wordTagVariants = self.wordTagMap[word] {
             if let index = wordTagVariants.indexOf(wordTagString) {
                 wordTagPaginationLabel.text = "\(index + 1) of \(wordTagVariants.count)"
             }

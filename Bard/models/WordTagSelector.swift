@@ -10,6 +10,11 @@ import Foundation
 
 public class WordTagSelector {
     var wordTagMap: [String: [String]] = [String: [String]]()
+    
+    // similar map as wordTagMap but filtered to specific scene
+    // when using sceneeditor (user selected specific scene), this is used to fetch wordtags
+    var sceneWordTagMap: [String: [String]] = [String: [String]]()
+
     var currentWord: String = ""
     var currentWordTagIndex: Int = 0
     
@@ -43,17 +48,36 @@ public class WordTagSelector {
         }
     }
     
+    func setSceneWordTagMap(sceneWordTagMap: [String: [String]]) {
+        self.sceneWordTagMap = sceneWordTagMap
+    }
+    
     func findRandomWordTag(word: String) -> String? {
+        var randomIndex: Int
+        
+        // get global word variants of word
         guard let wordTagList = self.wordTagMap[word] else {
             return nil
         }
         
-        let randomIndex = Int(arc4random_uniform(UInt32(wordTagList.count)))
+        if self.sceneWordTagMap.count > 0 {
+            // get scene specific word variants of word
+            guard let sceneWordTagList = self.sceneWordTagMap[word] else {
+                return nil
+            }
+            
+            randomIndex = Int(arc4random_uniform(UInt32(sceneWordTagList.count)))
+        } else {
+            randomIndex = Int(arc4random_uniform(UInt32(wordTagList.count)))
+        }
+        
+        let wordTagString = wordTagList[randomIndex]
+        
         
         self.currentWord = word
-        self.currentWordTagIndex = randomIndex
+        self.currentWordTagIndex = wordTagList.indexOf(wordTagString)!
         
-        return wordTagList[randomIndex]
+        return wordTagString
     }
     
     func findNextWordTag() -> String? {
