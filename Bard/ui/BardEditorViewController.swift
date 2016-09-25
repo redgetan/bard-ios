@@ -55,6 +55,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var activityIndicator: UIActivityIndicatorView? = nil
     var previousSelectedPreviewThumbnail: PreviewTimelineCollectionViewCell? = nil
     
+    @IBOutlet weak var sceneSelectButton: UIButton!
     @IBOutlet weak var generateButton: UIButton!
     @IBOutlet weak var previewTimelineCollectionView: UICollectionView!
     @IBOutlet weak var playerContainer: UIView!
@@ -69,6 +70,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     let previewTimelineCellIdentifier = "previewTimelineCollectionViewCell"
 
     let sizingCell: WordTagCollectionViewCell = WordTagCollectionViewCell()
+    var originatingViewController: UIViewController? = nil
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -107,6 +110,19 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             object: inputTextField
         )
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        if (originatingViewController as? SceneSelectViewController) != nil {
+            originatingViewController = nil
+            
+            if let selectedScene = self.scene {
+                sceneSelectButton.hnk_setImageFromURL(NSURL(string: selectedScene.thumbnailUrl)!)
+            } else {
+                sceneSelectButton.setImage(UIImage(named: "icon_bookmark"), forState: UIControlState.Normal)
+            }
+
+        }
     }
     
     func updateTitle() {
@@ -840,15 +856,18 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     @IBAction func unwindToEditor(sender: UIStoryboardSegue) {
         if let sourceViewController = sender.sourceViewController as? SceneSelectViewController {
+            self.originatingViewController = sourceViewController
             
             // reset dictionary
             self.wordTagStringList.removeAll()
-
+            self.wordTagMap = [String: [String]]()
+            
             // set scene
             self.scene = sourceViewController.selectedScene
             
             updateTitle()
             initDictionary()
+            
         }
     }
     
@@ -913,7 +932,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                     animated: false)
             }, completion: { (finished: Bool) -> Void in
                 thumbnail = self.previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell
-                self.highlightImageView(thumbnail!)
+                if thumbnail != nil {
+                    self.highlightImageView(thumbnail!)
+                }
             })
             
             

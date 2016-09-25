@@ -454,6 +454,7 @@
                         <outlet property="playerAspectRatioConstraint" destination="O3E-ds-ZFj" id="4Cb-O1-nvK"/>
                         <outlet property="playerContainer" destination="cbC-Tr-7su" id="sqo-V4-zdA"/>
                         <outlet property="previewTimelineCollectionView" destination="Ye1-Wl-AX8" id="Xet-qd-LfC"/>
+                        <outlet property="sceneSelectButton" destination="IGy-TZ-iwu" id="2Y0-uu-Q6O"/>
                         <outlet property="wordTagCollectionView" destination="qL0-xj-jDG" id="DGR-25-biz"/>
                     </connections>
                 </viewController>
