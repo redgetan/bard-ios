@@ -938,13 +938,22 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         self.wordTagSelector.setSceneWordTagMap(sceneWordTagMap)
     }
     
-    func onWordTagChanged(wordTagString: String) {
+    func onWordTagChanged(wordTagString: String, withDelay: NSTimeInterval? = nil) {
         guard let segmentUrl = segmentUrlFromWordTag(wordTagString) else {
             return
         }
         
         drawPagination(wordTagString)
 
+        if let delay = withDelay {
+            NSObject.cancelPreviousPerformRequestsWithTarget(self)
+            performSelector(#selector(downloadSegmentPlayVideoAndHighlightThumbnail), withObject: segmentUrl, afterDelay: delay)
+        } else {
+            downloadSegmentPlayVideoAndHighlightThumbnail(segmentUrl)
+        }
+    }
+    
+    func downloadSegmentPlayVideoAndHighlightThumbnail(segmentUrl: String) {
         // download video if not cached to disk yet
         Storage.saveRemoteVideo(segmentUrl)
         let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
@@ -981,7 +990,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         } else {
             highlightImageView(thumbnail!)
         }
-        
+
     }
     
     func drawPagination(wordTagString: String) {
@@ -1080,7 +1089,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             self.player.playFromBeginning()
         } else if let wordTagString = self.wordTagSelector.findPrevWordTag() {
             self.wordTagList[self.currentWordTagListIndex] = wordTagString
-            onWordTagChanged(wordTagString)
+            onWordTagChanged(wordTagString, withDelay: 0.5)
         }
     }
     
@@ -1089,7 +1098,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             self.player.playFromBeginning()
         } else if let wordTagString = self.wordTagSelector.findNextWordTag() {
             self.wordTagList[self.currentWordTagListIndex] = wordTagString
-            onWordTagChanged(wordTagString)
+            onWordTagChanged(wordTagString, withDelay: 0.5)
         }
     }
     
