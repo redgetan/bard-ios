@@ -17,6 +17,7 @@ class WordTagCollectionViewCell: UICollectionViewCell {
         
         self.contentView.layer.borderColor = UIColor.lightGrayColor().CGColor
         self.contentView.layer.borderWidth = 1
+        self.contentView.layer.backgroundColor = UIColor.whiteColor().CGColor
         
         self.textLabel = UILabelWithPadding()
         self.textLabel.translatesAutoresizingMaskIntoConstraints = false
