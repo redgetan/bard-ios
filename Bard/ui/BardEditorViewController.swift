@@ -553,8 +553,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         // unhighlight previous
         unHighlightPreviousImageView()
         
-        print("highlighting \(cell.wordTagString)")
-
         // highlight current
         cell.imageView.layer.borderWidth = 2
         cell.imageView.layer.borderColor = UIColor(hex: "#03A9F4").CGColor
