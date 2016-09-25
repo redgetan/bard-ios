@@ -65,6 +65,7 @@ class ShareEditorViewController: UIViewController {
             characterToken: self.character.token,
             repoCreated: { repoId in
                 self.saveButton.setTitle("Saved", forState: .Normal)
+                self.view.window!.rootViewController!.dismissViewControllerAnimated(true, completion: {})
         })
     }
     
