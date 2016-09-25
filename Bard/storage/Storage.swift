@@ -47,7 +47,14 @@ class Storage {
         return directoryPath
     }
     
-    static func getMergeVideoFilePath(characterName: String, text: String) -> String {
+    static func getMergeVideoFilePath() -> String {
+        let directoryPath = getRepositoryStorageDirectory()
+        let fileName = "result.mp4"
+        let path = (directoryPath as NSString).stringByAppendingPathComponent(fileName)
+        return path
+    }
+    
+    static func getRepositorySaveFilePath(characterName: String, text: String) -> String {
         let directoryPath = getRepositoryStorageDirectory()
         let date =  lround(NSDate().timeIntervalSince1970)
         let fileName = "\(characterName) says - \(text) [Bard] \(date).mp4"

@@ -13,8 +13,12 @@ class ShareEditorViewController: UIViewController {
 
     
     @IBOutlet weak var header: UIView!
+    @IBOutlet weak var saveButton: UIButton!
     
     var outputURL: NSURL!
+    var outputWordTagStrings: [String] = [String]()
+    var outputPhrase: String = ""
+    var character: Character!
     var player: Player!
     
     override func viewDidLoad() {
@@ -44,6 +48,25 @@ class ShareEditorViewController: UIViewController {
         self.presentViewController(activityViewController, animated: true, completion: nil)
     }
     
+    @IBAction func saveRepo(sender: UIButton) {
+        let repoFilePath = Storage.getRepositorySaveFilePath(self.character.name, text: outputPhrase)
+        let fileManager = NSFileManager.defaultManager()
+        do {
+            try fileManager.copyItemAtPath(self.outputURL.path!, toPath: repoFilePath)
+        }
+        catch let error as NSError {
+            print("Ooops! Something went wrong: \(error)")
+        }
+        
+        Repository.create(self.outputWordTagStrings,
+            username: UserConfig.getUsername(),
+            fileName: NSURL(fileURLWithPath: repoFilePath).pathComponents!.last!,
+            localIdentifier: nil,
+            characterToken: self.character.token,
+            repoCreated: { repoId in
+                self.saveButton.setTitle("Saved", forState: .Normal)
+        })
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -535,19 +535,36 @@
                                     <constraint firstAttribute="trailing" secondItem="LUn-Re-a6W" secondAttribute="trailing" constant="10" id="vEK-qs-awn"/>
                                 </constraints>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8gf-ul-InN">
+                                <rect key="frame" x="222" y="510" width="156" height="40"/>
+                                <color key="backgroundColor" red="0.13774272801103402" green="0.72243735055544989" blue="0.78217032068062831" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="OXs-Py-BvL"/>
+                                </constraints>
+                                <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                <state key="normal" title="Save to Phone">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="saveRepo:" destination="oF3-uX-Rob" eventType="touchUpInside" id="GPl-eY-JGq"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="2Hx-5Z-6sq" firstAttribute="leading" secondItem="5Uf-kc-xec" secondAttribute="leading" id="AMK-YP-HYH"/>
                             <constraint firstItem="2Hx-5Z-6sq" firstAttribute="top" secondItem="5Uf-kc-xec" secondAttribute="top" id="D0f-sR-uMy"/>
                             <constraint firstAttribute="trailing" secondItem="2Hx-5Z-6sq" secondAttribute="trailing" id="bwB-ui-4lQ"/>
+                            <constraint firstItem="8gf-ul-InN" firstAttribute="centerX" secondItem="5Uf-kc-xec" secondAttribute="centerX" id="rQi-aJ-Ri3"/>
                             <constraint firstAttribute="trailing" secondItem="6xb-Bq-EDY" secondAttribute="trailing" id="sTQ-Q5-HLj"/>
                             <constraint firstItem="6xb-Bq-EDY" firstAttribute="leading" secondItem="5Uf-kc-xec" secondAttribute="leading" id="v7I-8j-Scl"/>
                             <constraint firstItem="6xb-Bq-EDY" firstAttribute="top" secondItem="5Uf-kc-xec" secondAttribute="top" constant="64" id="vmS-7v-ccv"/>
+                            <constraint firstItem="qEt-tT-8Tu" firstAttribute="top" secondItem="8gf-ul-InN" secondAttribute="bottom" constant="50" id="w0u-uR-3Nj"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="header" destination="2Hx-5Z-6sq" id="M0P-lD-Cq3"/>
+                        <outlet property="saveButton" destination="8gf-ul-InN" id="5qW-L6-PIX"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cdz-TQ-iwh" userLabel="First Responder" sceneMemberID="firstResponder"/>

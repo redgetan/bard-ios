@@ -39,6 +39,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     // on generateBardVideo, all words would be searched for matching wordtag
     var wordTagList: [String] = [String]()
 
+    
+    var outputWordTagStrings: [String] = [String]()
+    var outputPhrase: String = ""
+
+    
     // the active index of wordTagList
     var currentWordTagListIndex: Int = 0
     
@@ -48,7 +53,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var player: Player!
     var isKeyboardShown: Bool = false
     var activityIndicator: UIActivityIndicatorView? = nil
-    var repositoryId: Int? = nil
     var previousSelectedPreviewThumbnail: PreviewTimelineCollectionViewCell? = nil
     
     @IBOutlet weak var generateButton: UIButton!
@@ -169,7 +173,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             viewController.character = self.character
         } else if (segue.identifier == "editorToShare") {
             let viewController = segue.destinationViewController as! ShareEditorViewController
+            viewController.character = self.character
             viewController.outputURL = self.outputURL
+            viewController.outputPhrase = self.outputPhrase
+            viewController.outputWordTagStrings = self.outputWordTagStrings
         }
     }
     
@@ -639,19 +646,19 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         // http://stackoverflow.com/questions/17530659/uiactivityindicatorview-animation-delayed
         self.activityIndicator?.startAnimating()
         
-        let wordTagStrings = getWordTagStrings()
-        let segmentUrls = wordTagStrings.map { wordTagString in
+        self.outputWordTagStrings = getWordTagStrings()
+        let segmentUrls = self.outputWordTagStrings.map { wordTagString in
             segmentUrlFromWordTag(wordTagString)
             }.flatMap { $0 }
         
-        let phrase = wordTagStrings.map { wordTagString in wordTagString.componentsSeparatedByString(":")[0]}.joinWithSeparator(" ")
+        self.outputPhrase = self.outputWordTagStrings.map { wordTagString in wordTagString.componentsSeparatedByString(":")[0]}.joinWithSeparator(" ")
         
-        if phrase.isEmpty {
+        if self.outputPhrase.isEmpty {
             print("text is blank. type something")
             return
         }
         
-        let destinationPath = Storage.getMergeVideoFilePath(character.name, text: phrase)
+        let destinationPath = Storage.getMergeVideoFilePath()
         
         fetchSegments(segmentUrls, completion: { filePaths in
             VideoMergeManager.mergeMultipleVideos(destinationPath: destinationPath,
@@ -668,7 +675,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                     }
                     else {
                         Analytics.track("generateBardVideo",
-                                    properties: ["wordTags" : wordTagStrings,
+                                    properties: ["wordTags" : self.outputWordTagStrings,
                                         "characterToken" : self.character.token,
                                         "sceneToken" : self.scene?.token ?? "",
                                         "character" : self.character.name,
@@ -676,19 +683,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
                         self.outputURL = outputURL!
                         self.performSegueWithIdentifier("editorToShare", sender: nil)
-
-//                        Repository.create(wordTagStrings,
-//                            username: UserConfig.getUsername(),
-//                            fileName: outputURL!.pathComponents!.last!,
-//                            localIdentifier: nil,
-//                            characterToken: self.character.token,
-//                            sceneToken: self.scene?.token, repoCreated: { repoId in
-//                                
-//                                self.activityIndicator?.stopAnimating()
-//                                self.repositoryId = repoId
-//                               
-//                                self.playVideo(outputURL!)
-//                        })
                     
                     }
             })
