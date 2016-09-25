@@ -42,6 +42,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     // the active index of wordTagList
     var currentWordTagListIndex: Int = 0
     
+    var findPrevButton: UIButton!
+    var findNextButton: UIButton!
+
     var player: Player!
     var isKeyboardShown: Bool = false
     var activityIndicator: UIActivityIndicatorView? = nil
@@ -554,7 +557,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
         // highlight current
         cell.imageView.layer.borderWidth = 2
-        cell.imageView.layer.borderColor = UIColor.blueColor().CGColor
+        cell.imageView.layer.borderColor = UIColor(hex: "#03A9F4").CGColor
         
         previousSelectedPreviewThumbnail = cell
     }
@@ -940,6 +943,17 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             if let index = wordTagVariants.indexOf(wordTagString) {
                 wordTagPaginationLabel.text = "\(index + 1) of \(wordTagVariants.count)"
             }
+            
+            self.findPrevButton.hidden = false
+            self.findNextButton.hidden = false
+            
+            if wordTagVariants.count == 1 {
+                self.findPrevButton.tintColor = UIColor.whiteColor()
+                self.findNextButton.tintColor = UIColor.whiteColor()
+            } else {
+                self.findPrevButton.tintColor = UIColor(hex: "#03A9F4")
+                self.findNextButton.tintColor = UIColor(hex: "#03A9F4")
+            }
         }
 
     }
@@ -984,7 +998,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         button.tintColor = UIColor.whiteColor()
         button.addTarget(self, action: #selector(onPrevBtnClick), forControlEvents: .TouchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.hidden = true
         
+        self.findPrevButton = button
         self.player.view.addSubview(button)
 
         NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Leading, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.LeadingMargin, multiplier: 1.0, constant: -20.0).active = true
@@ -1000,7 +1016,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         button.tintColor = UIColor.whiteColor()
         button.addTarget(self, action: #selector(onNextBtnClick), forControlEvents: .TouchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.hidden = true
         
+        self.findNextButton = button
         self.player.view.addSubview(button)
         
         NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Trailing, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.TrailingMargin, multiplier: 1.0, constant: 20.0).active = true
