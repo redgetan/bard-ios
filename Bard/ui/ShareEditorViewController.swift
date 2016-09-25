@@ -23,10 +23,10 @@ class ShareEditorViewController: UIViewController {
         self.initPlayer()
         
 //        let view: UIView = UIView(frame: CGRectMake(0.0, 0.0, 320.0, 50.0))
-        let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.frame = header.bounds
-        gradient.colors = [UIColor.clearColor().CGColor,UIColor.blackColor().CGColor]
-        header.layer.mask = gradient
+//        let gradient: CAGradientLayer = CAGradientLayer()
+//        gradient.frame = header.bounds
+//        gradient.colors = [UIColor.clearColor().CGColor,UIColor.blackColor().CGColor]
+//        header.layer.mask = gradient
 
 //        playVideo(NSURL(string: "https://d22z4oll34c07f.cloudfront.net/segments/F6nNlIbgWTU/8435.mp4")!)
         playVideo(outputURL)
