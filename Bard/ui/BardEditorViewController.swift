@@ -632,6 +632,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     @IBAction func onGenerateButtonClick(sender: UIButton) {
         self.generateButton.enabled = false
+        self.generateButton.backgroundColor = UIColor.blackColor()
         generateBardVideo()
     }
     
@@ -659,6 +660,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         }
         
         let destinationPath = Storage.getMergeVideoFilePath()
+        if NSFileManager.defaultManager().fileExistsAtPath(destinationPath) {
+            Storage.removeFile(destinationPath)
+        }
         
         fetchSegments(segmentUrls, completion: { filePaths in
             VideoMergeManager.mergeMultipleVideos(destinationPath: destinationPath,
@@ -666,6 +670,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                 finished: { (error: NSError?, outputURL: NSURL?) in
                     self.activityIndicator?.stopAnimating()
                     self.generateButton.enabled = true
+                    self.generateButton.backgroundColor = UIColor(hex: "#2a9f47")
 
                     if error != nil {
                         print(error)

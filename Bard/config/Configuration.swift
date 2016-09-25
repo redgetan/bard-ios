@@ -12,7 +12,7 @@ class Configuration {
     
     #if DEBUG
     
-    static let bardAccountBaseURL = "http://localhost:3000"
+    static let bardAccountBaseURL = "https://bard.co"
     static let keychainService    = "co.bard.auth-token-debug"
     
 
