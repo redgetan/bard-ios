@@ -471,7 +471,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             let asset = AVURLAsset(URL: NSURL(fileURLWithPath: filePath))
             let imageGenerator = AVAssetImageGenerator(asset: asset)
             let time = CMTimeMake(1, 1)
-            let imageRef = try! imageGenerator.copyCGImageAtTime(time, actualTime: nil)
+            let imageRef = try imageGenerator.copyCGImageAtTime(time, actualTime: nil)
             return UIImage(CGImage: imageRef)
         } catch {
             return UIImage()

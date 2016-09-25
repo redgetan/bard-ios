@@ -65,8 +65,13 @@ class ShareEditorViewController: UIViewController {
             characterToken: self.character.token,
             repoCreated: { repoId in
                 self.saveButton.setTitle("Saved", forState: .Normal)
-                self.view.window!.rootViewController!.dismissViewControllerAnimated(true, completion: {})
+                self.saveButton.enabled = false
+                self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
         })
+    }
+    
+    func goToRootViewController() {
+        self.view.window!.rootViewController!.dismissViewControllerAnimated(true, completion: {})
     }
     
     override func didReceiveMemoryWarning() {
