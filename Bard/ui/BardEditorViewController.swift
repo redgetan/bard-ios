@@ -184,7 +184,16 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let isLeaderPressed = addedCharacter == " "
         
         while tokenCount < lastTokenCount {
-            wordTagList.removeAtIndex(tokenIndex)
+            // at this point, 3rd word is already deleted, 
+            // tokenIndex points to 2nd word, so in order to delete 3rd word from the in-memory wordTagList,
+            // use tokenIndex + 1
+            
+            // only exception is if we're deleting last item in wordTagList (index 0, size 1)
+            if tokenIndex + 1 == wordTagList.count {
+                wordTagList.removeAtIndex(tokenIndex)
+            } else {
+                wordTagList.removeAtIndex(tokenIndex + 1)
+            }
             lastTokenCount = lastTokenCount - 1
             previewTimelineCollectionView.reloadData()
             previewTimelineCollectionView.layoutIfNeeded()
@@ -351,7 +360,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let windowHeight = UIScreen.mainScreen().applicationFrame.size.height
         let newVideoPlayerHeight = windowHeight - keyboardHeight!
                                                 - controlsContainer.frame.size.height
-                                                - self.navigationController!.navigationBar.frame.height
         
         if keyboardHeight > wordTagCollectionView.frame.size.height {
             playerAspectRatioConstraint.setMultiplier(self.playerContainer.frame.size.width / newVideoPlayerHeight)
@@ -456,13 +464,17 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             return nil
         }
         
-        let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
+        do {
+            let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
         
-        let asset = AVURLAsset(URL: NSURL(fileURLWithPath: filePath))
-        let imageGenerator = AVAssetImageGenerator(asset: asset)
-        let time = CMTimeMake(1, 1)
-        let imageRef = try! imageGenerator.copyCGImageAtTime(time, actualTime: nil)
-        return UIImage(CGImage: imageRef)
+            let asset = AVURLAsset(URL: NSURL(fileURLWithPath: filePath))
+            let imageGenerator = AVAssetImageGenerator(asset: asset)
+            let time = CMTimeMake(1, 1)
+            let imageRef = try! imageGenerator.copyCGImageAtTime(time, actualTime: nil)
+            return UIImage(CGImage: imageRef)
+        } catch {
+            return UIImage()
+        }
         
 //        return "https://d22z4oll34c07f.cloudfront.net/segments/F6nNlIbgWTU/thumbnail/8435.png"
 //        return "\(cdnPath)/segments/\(scene.token)/thumbnails/\(tag).png"
