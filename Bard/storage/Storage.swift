@@ -22,6 +22,23 @@ class Storage {
         createStorageDirectory(getSegmentsStorageDirectory())
     }
     
+    static func requestPhotoAccess() {
+        if (PHPhotoLibrary.authorizationStatus() != .NotDetermined) {
+            return
+        }
+        
+        PHPhotoLibrary.requestAuthorization { status in
+            //            switch status {
+            //            case .Authorized:
+            //            case .Denied:
+            //            default:
+            //                break
+            //            }
+        }
+        
+    }
+
+    
     static func createStorageDirectory(directoryPath: String) {
         if NSFileManager.defaultManager().fileExistsAtPath(directoryPath) {
             return

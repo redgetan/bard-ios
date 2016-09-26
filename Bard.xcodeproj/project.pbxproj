@@ -16,6 +16,11 @@
 		89114E211D45A29E0078205C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89114E201D45A29E0078205C /* Assets.xcassets */; };
 		8942C7611D976D8D009F70A0 /* BardEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */; };
 		8942C7631D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8942C7621D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift */; };
+		8942C7651D996F23009F70A0 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8942C7641D996F23009F70A0 /* FBSDKCoreKit.framework */; };
+		8942C7671D996F44009F70A0 /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8942C7661D996F44009F70A0 /* FBSDKLoginKit.framework */; };
+		8942C7691D996F81009F70A0 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8942C7681D996F81009F70A0 /* FBSDKShareKit.framework */; };
+		8942C76B1D996FA0009F70A0 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8942C76A1D996FA0009F70A0 /* FBSDKMessengerShareKit.framework */; };
+		8942C76D1D9972D2009F70A0 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8942C76C1D9972D2009F70A0 /* Bolts.framework */; };
 		896074881D72495C0072C022 /* NSLayoutConstraint+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896074871D72495C0072C022 /* NSLayoutConstraint+Helper.swift */; };
 		8974AF971D6F8F870022C0B0 /* VideoMergeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8974AF961D6F8F870022C0B0 /* VideoMergeManager.swift */; };
 		898CC1191D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898CC1181D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift */; };
@@ -65,6 +70,11 @@
 		89114E251D45A29E0078205C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BardEditorViewController.swift; path = ui/BardEditorViewController.swift; sourceTree = "<group>"; };
 		8942C7621D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialShareCollectionViewCell.swift; path = ui/views/SocialShareCollectionViewCell.swift; sourceTree = "<group>"; };
+		8942C7641D996F23009F70A0 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		8942C7661D996F44009F70A0 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		8942C7681D996F81009F70A0 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
+		8942C76A1D996FA0009F70A0 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
+		8942C76C1D9972D2009F70A0 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		896074871D72495C0072C022 /* NSLayoutConstraint+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSLayoutConstraint+Helper.swift"; path = "extensions/NSLayoutConstraint+Helper.swift"; sourceTree = "<group>"; };
 		8974AF961D6F8F870022C0B0 /* VideoMergeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoMergeManager.swift; path = models/VideoMergeManager.swift; sourceTree = "<group>"; };
 		898CC1181D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WordTagCollectionViewCell.swift; path = ui/views/WordTagCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -108,7 +118,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8942C7691D996F81009F70A0 /* FBSDKShareKit.framework in Frameworks */,
 				FD17554C7E51AFA7656D7139 /* Pods_Bard.framework in Frameworks */,
+				8942C76B1D996FA0009F70A0 /* FBSDKMessengerShareKit.framework in Frameworks */,
+				8942C76D1D9972D2009F70A0 /* Bolts.framework in Frameworks */,
+				8942C7651D996F23009F70A0 /* FBSDKCoreKit.framework in Frameworks */,
+				8942C7671D996F44009F70A0 /* FBSDKLoginKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +283,11 @@
 		A41798276B171025AEF27ED2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8942C76C1D9972D2009F70A0 /* Bolts.framework */,
+				8942C76A1D996FA0009F70A0 /* FBSDKMessengerShareKit.framework */,
+				8942C7681D996F81009F70A0 /* FBSDKShareKit.framework */,
+				8942C7661D996F44009F70A0 /* FBSDKLoginKit.framework */,
+				8942C7641D996F23009F70A0 /* FBSDKCoreKit.framework */,
 				977A13353D1C37465D0C5F9D /* Pods_Bard.framework */,
 			);
 			name = Frameworks;
@@ -539,6 +559,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Bard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -561,6 +585,10 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = Bard/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

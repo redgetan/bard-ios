@@ -13,5 +13,9 @@
 #import "Mixpanel/Mixpanel.h"
 #import <DZNEmptyDataSet/UIScrollView+EmptyDataSet.h>
 #import "TTTAttributedLabel/TTTAttributedLabel.h"
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FBSDKShareKit/FBSDKShareKit.h>
+
+
 
 #endif /* Bard_Bridging_Header_h */

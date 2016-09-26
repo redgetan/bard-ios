@@ -9,9 +9,10 @@
 import UIKit
 import Social
 import Player
+import Photos
 
 
-class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FBSDKSharingDelegate {
 
     
     @IBOutlet weak var header: UIView!
@@ -199,13 +200,91 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
         let socialShare = self.socialShares[indexPath.row]
         if socialShare[0] == "facebook" {
-            let objectsToShare = [outputURL]
-            let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: [UIActivity()])
-            self.presentViewController(activityViewController, animated: true, completion: nil)
+            Storage.copyFileToAlbum(localFileUrl: outputURL, handler: { localIdentifier in
+                if localIdentifier != nil {
+                    // http://stackoverflow.com/a/34788748
+                    
+                    let assetID = localIdentifier!.stringByReplacingOccurrencesOfString(
+                        "/.*", withString: "",
+                        options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
+                    let ext = "mp4"
+                    let assetURLStr =
+                        "assets-library://asset/asset.\(ext)?id=\(assetID)&ext=\(ext)"
+                    
+                    let localVideoUrl = NSURL(string: assetURLStr)!
+                    let video   = FBSDKShareVideo()
+                    video.videoURL = localVideoUrl
+                    
+                    let content = FBSDKShareVideoContent()
+                    content.video = video
+                    dispatch_async(dispatch_get_main_queue()) {
+                        FBSDKShareDialog.showFromViewController(self, withContent: content, delegate: self)
+                    }
+                }
+            
+            })
+     
+        } else if socialShare[0] == "messenger" {
+//            let localVideoUrl = outputURL
+//            let video   = FBSDKShareVideo()
+//            video.videoURL = localVideoUrl
+//            
+//            let content = FBSDKShareVideoContent()
+//            content.video = video
+            
+            Storage.copyFileToAlbum(localFileUrl: outputURL, handler: { localIdentifier in
+                if localIdentifier != nil {
+                    // http://stackoverflow.com/a/34788748
+                    
+                    let assetID = localIdentifier!.stringByReplacingOccurrencesOfString(
+                        "/.*", withString: "",
+                        options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
+                    let ext = "mp4"
+                    let assetURLStr =
+                        "assets-library://asset/asset.\(ext)?id=\(assetID)&ext=\(ext)"
+                    
+                    let localVideoUrl = NSURL(string: assetURLStr)!
+                    let video   = FBSDKShareVideo()
+                    video.videoURL = localVideoUrl
+                    
+                    let content = FBSDKShareVideoContent()
+                    content.video = video
+                    dispatch_async(dispatch_get_main_queue()) {
+                        FBSDKMessageDialog.showWithContent(content, delegate: self)
+                    }
+                }
+                
+            })
+            
+        } else {
+            Storage.createAlbumIfNotPresent()
+            Storage.requestPhotoAccess()
         }
     }
+    
+    func sharer(sharer: FBSDKSharing!, didCompleteWithResults results: [NSObject : AnyObject]!) {
+        print("success ")
+
+    }
+    
+    /*!
+     @abstract Sent to the delegate when the sharer encounters an error.
+     @param sharer The FBSDKSharing that completed.
+     @param error The error.
+     */
+    func sharer(sharer: FBSDKSharing!, didFailWithError error: NSError!) {
+        print("error \(error)")
+    
+    }
+    
+    func sharerDidCancel(sharer: FBSDKSharing!) {
+        print("cancel ")
+
+    }
+
     
     // MARK: UICollectionViewDelegateFlowLayout protocol
     
