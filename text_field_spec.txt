@@ -1,3 +1,6 @@
+[ ] "space"/leader dont retag if word is already tagged
+[ ] adding word immediately before another tagged work and pressing space should work
+
 wordTagList -> in memory array of WordTag
 words       -> space tokenized words from inputtextview
 

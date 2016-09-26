@@ -207,10 +207,14 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         let tokenCount = getInputTokenCount()
         let tokenIndex = getInputTokenIndex()
-        let addedCharacter = getAddedCharacter()
-        let isLeaderPressed = addedCharacter == " "
         
-        print("ontextchange: \(currentWordTagListIndex), addedCharacter: \(addedCharacter),isBackspacePressed: \(isBackspacePressed), wordTagList: \(wordTagList)")
+        if isBackspacePressed {
+            
+}
+        let characterBeforeCursor = getCharacterBeforeCursor()
+        let isLeaderPressed = characterBeforeCursor == " " && !isBackspacePressed
+        
+        print("ontextchange: \(currentWordTagListIndex), characterBeforeCursor: \(characterBeforeCursor),isBackspacePressed: \(isBackspacePressed), wordTagList: \(wordTagList)")
 
         
         while tokenCount < lastTokenCount {
@@ -230,11 +234,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         }
         
         // possibly due to race condition or just bug in my code, sometimes isBackspacePressed would be true even if
-        // addedCharacter contains character. Add another condition to check for presence of character
-        if isBackspacePressed == true && addedCharacter.isEmpty {
+        // characterBeforeCursor contains character. Add another condition to check for presence of character
+        if isBackspacePressed == true && characterBeforeCursor.isEmpty {
             // deleting wordTag from list
-            isBackspacePressed = false
-
             
             if tokenIndex < wordTagList.count {
                 let wordAtInputField = getWordAtTokenIndex(tokenIndex)
@@ -253,29 +255,30 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         } else if isLeaderPressed {
             // 1 word split into 2 words (assign wordTag to both)
             if tokenCount != lastTokenCount {
-                let wordAtInputField = getWordAtTokenIndex(tokenIndex)
-                let prevWordAtInputField = getWordAtTokenIndex(tokenIndex - 1)
+                let upperHalfWord = getWordAtTokenIndex(tokenIndex + 1)
+                let lowerHalfWord = getWordAtTokenIndex(tokenIndex)
 
-                if !wordAtInputField.isEmpty {
+                if !upperHalfWord.isEmpty {
                     // assign tag for latter half of split-word
-                    if let wordTagString = self.wordTagSelector.findRandomWordTag(wordAtInputField) {
-                        wordTagList.insert(wordTagString, atIndex: tokenIndex)
+                    if let wordTagString = self.wordTagSelector.findRandomWordTag(upperHalfWord) {
+                        wordTagList.insert(wordTagString, atIndex: tokenIndex + 1)
+                        onWordTagChanged(wordTagString)
                     } else {
-                        wordTagList.insert(wordAtInputField, atIndex: tokenIndex)
+                        wordTagList.insert(upperHalfWord, atIndex: tokenIndex + 1)
                     }
                     
                     // assign tag for former half of split-word
-                    if let wordTagString = self.wordTagSelector.findRandomWordTag(wordAtInputField) {
-                        wordTagList[tokenIndex - 1] = wordTagString
+                    if let wordTagString = self.wordTagSelector.findRandomWordTag(lowerHalfWord) {
+                        wordTagList[tokenIndex] = wordTagString
                         onWordTagChanged(wordTagString)
                     } else {
-                        wordTagList[tokenIndex - 1] = prevWordAtInputField
+                        wordTagList[tokenIndex] = lowerHalfWord
                     }
                 }
             } else {
                 // assign wordTag to last
                 let wordAtInputField = getWordAtTokenIndex(tokenIndex)
-                if !wordAtInputField.isEmpty {
+                if !wordAtInputField.isEmpty && !wordTagList[tokenIndex].characters.contains(":") {
                     if let wordTagString = self.wordTagSelector.findRandomWordTag(wordAtInputField) {
                         wordTagList[tokenIndex] = wordTagString
                         onWordTagChanged(wordTagString)
@@ -284,7 +287,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                     }
                 }
             }
-        } else if !addedCharacter.isEmpty {
+        } else if !isBackspacePressed && !characterBeforeCursor.isEmpty {
             // adding untagged word/character
             let wordAtInputField = getWordAtTokenIndex(tokenIndex)
 
@@ -299,6 +302,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         drawGenerateButton()
 
         lastTokenCount = tokenCount
+
+        // always reset isBackspacePressed
+        isBackspacePressed = false
     }
     
     func getWordAtTokenIndex(tokenIndex: Int) -> String {
@@ -310,7 +316,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
-    func getAddedCharacter() -> String {
+    func getCharacterBeforeCursor() -> String {
         let cursorPosition = getCursorPosition()
         
         if cursorPosition == 0 {
