@@ -10,7 +10,7 @@ import UIKit
 import Social
 import Player
 import Photos
-
+import SwiftyDrop
 
 class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FBSDKSharingDelegate {
 
@@ -201,43 +201,55 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        
-        let socialShare = self.socialShares[indexPath.row]
-        if socialShare[0] == "facebook" {
-            Storage.copyFileToAlbum(localFileUrl: outputURL, handler: { localIdentifier in
-                if localIdentifier != nil {
-                    // http://stackoverflow.com/a/34788748
-                    
-                    let assetID = localIdentifier!.stringByReplacingOccurrencesOfString(
-                        "/.*", withString: "",
-                        options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
-                    let ext = "mp4"
-                    let assetURLStr =
-                        "assets-library://asset/asset.\(ext)?id=\(assetID)&ext=\(ext)"
-                    
-                    let localVideoUrl = NSURL(string: assetURLStr)!
-                    let video   = FBSDKShareVideo()
-                    video.videoURL = localVideoUrl
-                    
-                    let content = FBSDKShareVideoContent()
-                    content.video = video
-                    dispatch_async(dispatch_get_main_queue()) {
-                        FBSDKShareDialog.showFromViewController(self, withContent: content, delegate: self)
-                    }
-                }
-            
-            })
-     
-        } else if socialShare[0] == "messenger" {
-            
-            let videoData = NSData(contentsOfFile: outputURL.path!)
-            FBSDKMessengerSharer.shareVideo(videoData, withOptions:nil)
-
-            
-        } else {
+        let status = PHPhotoLibrary.authorizationStatus()
+        if status == .NotDetermined {
             Storage.createAlbumIfNotPresent()
             Storage.requestPhotoAccess()
+        } else if status == .Authorized {
+            onSocialShareClick(indexPath.row)
+        } else {
+            Drop.down("Please allow Photo Access to enable Facebook share", state: .Error, duration: 4)
         }
+        
+    }
+    
+    func onSocialShareClick(index: Int) {
+        let socialShare = self.socialShares[index]
+        
+        if socialShare[0] == "facebook" {
+            facebookDirectShare()
+        } else if socialShare[0] == "messenger" {
+            let videoData = NSData(contentsOfFile: outputURL.path!)
+            FBSDKMessengerSharer.shareVideo(videoData, withOptions:nil)
+        } else {
+        
+        }
+    }
+
+
+    func facebookDirectShare() {
+        Storage.copyFileToAlbum(localFileUrl: outputURL, handler: { localIdentifier in
+            if localIdentifier != nil {
+                // http://stackoverflow.com/a/34788748
+                
+                let assetID = localIdentifier!.stringByReplacingOccurrencesOfString(
+                    "/.*", withString: "",
+                    options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
+                let ext = "mp4"
+                let assetURLStr =
+                    "assets-library://asset/asset.\(ext)?id=\(assetID)&ext=\(ext)"
+                
+                let localVideoUrl = NSURL(string: assetURLStr)!
+                let video   = FBSDKShareVideo()
+                video.videoURL = localVideoUrl
+                
+                let content = FBSDKShareVideoContent()
+                content.video = video
+                dispatch_async(dispatch_get_main_queue()) {
+                    FBSDKShareDialog.showFromViewController(self, withContent: content, delegate: self)
+                }
+            }
+        })
     }
     
     func sharer(sharer: FBSDKSharing!, didCompleteWithResults results: [NSObject : AnyObject]!) {
