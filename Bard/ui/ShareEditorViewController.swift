@@ -195,6 +195,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
 
         cell.imageView?.image = UIImage(named: socialShare[1])
         cell.label?.text = socialShare[0]
+        
         return cell
         
     }
@@ -228,36 +229,10 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
             })
      
         } else if socialShare[0] == "messenger" {
-//            let localVideoUrl = outputURL
-//            let video   = FBSDKShareVideo()
-//            video.videoURL = localVideoUrl
-//            
-//            let content = FBSDKShareVideoContent()
-//            content.video = video
             
-            Storage.copyFileToAlbum(localFileUrl: outputURL, handler: { localIdentifier in
-                if localIdentifier != nil {
-                    // http://stackoverflow.com/a/34788748
-                    
-                    let assetID = localIdentifier!.stringByReplacingOccurrencesOfString(
-                        "/.*", withString: "",
-                        options: NSStringCompareOptions.RegularExpressionSearch, range: nil)
-                    let ext = "mp4"
-                    let assetURLStr =
-                        "assets-library://asset/asset.\(ext)?id=\(assetID)&ext=\(ext)"
-                    
-                    let localVideoUrl = NSURL(string: assetURLStr)!
-                    let video   = FBSDKShareVideo()
-                    video.videoURL = localVideoUrl
-                    
-                    let content = FBSDKShareVideoContent()
-                    content.video = video
-                    dispatch_async(dispatch_get_main_queue()) {
-                        FBSDKMessageDialog.showWithContent(content, delegate: self)
-                    }
-                }
-                
-            })
+            let videoData = NSData(contentsOfFile: outputURL.path!)
+            FBSDKMessengerSharer.shareVideo(videoData, withOptions:nil)
+
             
         } else {
             Storage.createAlbumIfNotPresent()

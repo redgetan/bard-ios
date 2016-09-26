@@ -15,7 +15,7 @@
 #import "TTTAttributedLabel/TTTAttributedLabel.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
 #import <FBSDKShareKit/FBSDKShareKit.h>
-
+#import <FBSDKMessengerShareKit/FBSDKMessengerShareKit.h>
 
 
 #endif /* Bard_Bridging_Header_h */
