@@ -7,7 +7,9 @@
 //
 
 import UIKit
+import Social
 import Player
+
 
 class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
@@ -195,6 +197,17 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         return cell
         
     }
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        let socialShare = self.socialShares[indexPath.row]
+        if socialShare[0] == "facebook" {
+            let objectsToShare = [outputURL]
+            let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: [UIActivity()])
+            self.presentViewController(activityViewController, animated: true, completion: nil)
+        }
+    }
+    
+    // MARK: UICollectionViewDelegateFlowLayout protocol
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
         return UIEdgeInsetsZero
