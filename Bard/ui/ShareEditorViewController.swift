@@ -90,7 +90,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
             ["tumblr", "icon_tumblr"],
         ]
         
-        socialShareCollectionView.contentInset = UIEdgeInsetsMake(0.0,0.0,0.0,0.0)
+        socialShareCollectionView.contentInset = UIEdgeInsetsMake(30.0,40.0,0.0,40.0)
         socialShareCollectionView.delegate = self
         socialShareCollectionView.dataSource = self
     }
@@ -215,9 +215,12 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         
         let screenRect = UIScreen.mainScreen().bounds
         let screenWidth = screenRect.size.width
-        let totalWidth = screenWidth / 3.0
         
-        return CGSizeMake(totalWidth, totalWidth)
+        // 100 represents the padding we added to socialShareCollectionView
+        let totalWidth = (screenWidth - 80) / 3.0
+        let totalHeight = CGFloat(80.0)
+        
+        return CGSizeMake(totalWidth, totalHeight)
     }
 
     
