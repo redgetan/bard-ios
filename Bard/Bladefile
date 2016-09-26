@@ -35,4 +35,8 @@ blades:
     mount: Assets.xcassets/icon_back_android.imageset
   - source: images/icon_forward_android_75.png
     mount: Assets.xcassets/icon_forward_android.imageset
+  - source: images/icon_play_75.png
+    mount: Assets.xcassets/icon_play.imageset
+  - source: images/icon_play_android_120.png
+    mount: Assets.xcassets/icon_play_android.imageset
 

@@ -9,7 +9,7 @@
 import UIKit
 import Player
 
-class ShareEditorViewController: UIViewController {
+class ShareEditorViewController: UIViewController, PlayerDelegate {
 
     
     @IBOutlet weak var header: UIView!
@@ -20,23 +20,20 @@ class ShareEditorViewController: UIViewController {
     var outputPhrase: String = ""
     var character: Character!
     var player: Player!
+    var playButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+//        UIApplication.sharedApplication().statusBarStyle = .LightContent
         self.initPlayer()
         
-//        let view: UIView = UIView(frame: CGRectMake(0.0, 0.0, 320.0, 50.0))
-//        let gradient: CAGradientLayer = CAGradientLayer()
-//        gradient.frame = header.bounds
-//        gradient.colors = [UIColor.clearColor().CGColor,UIColor.blackColor().CGColor]
-//        header.layer.mask = gradient
-
-//        playVideo(NSURL(string: "https://d22z4oll34c07f.cloudfront.net/segments/F6nNlIbgWTU/8435.mp4")!)
         playVideo(outputURL)
     }
 
     func playVideo(fileUrl: NSURL) {
+        self.playButton.hidden = true
+
         self.player.setUrl(fileUrl)
         self.player.playFromBeginning()
     }
@@ -81,11 +78,35 @@ class ShareEditorViewController: UIViewController {
     
     func initPlayer() {
         self.player = self.childViewControllers.last as! Player
+        self.player.delegate = self
         self.player.view.layer.hidden = false
         self.player.view.backgroundColor = UIColor.blackColor()
         let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
+        
+        // play button
+        let button = UIButton()
+        let image = UIImage(named: "icon_play_android")?.imageWithRenderingMode(.AlwaysTemplate)
+        button.setImage(image, forState: .Normal)
+        button.tintColor = UIColor.whiteColor()
+        button.addTarget(self, action: #selector(onPlayBtnClick), forControlEvents: .TouchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.hidden = true
+        self.playButton = button
+
+        self.player.view.addSubview(button)
+
+        
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Width, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 100).active = true
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.Height, relatedBy: NSLayoutRelation.Equal, toItem: nil, attribute: NSLayoutAttribute.NotAnAttribute, multiplier: 1, constant: 100).active = true
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: button, attribute: NSLayoutAttribute.CenterY, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.CenterY, multiplier: 1, constant: 0).active = true
+
+    }
+    
+    func onPlayBtnClick() {
+        playVideo(outputURL)
     }
     
     // MARK: UIGestureRecognizer
@@ -93,6 +114,7 @@ class ShareEditorViewController: UIViewController {
     func handleTapGestureRecognizer(gestureRecognizer: UITapGestureRecognizer) {
         switch (self.player.playbackState.rawValue) {
         case PlaybackState.Stopped.rawValue:
+            self.playButton.hidden = true
             self.player.playFromBeginning()
         case PlaybackState.Paused.rawValue:
             self.player.playFromCurrentTime()
@@ -103,6 +125,12 @@ class ShareEditorViewController: UIViewController {
         default:
             self.player.pause()
         }
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+//        UIApplication.sharedApplication().statusBarStyle = UIStatusBarStyle.Default
     }
     
     // MARK: PlayerDelegate
@@ -120,6 +148,7 @@ class ShareEditorViewController: UIViewController {
     }
     
     func playerPlaybackDidEnd(player: Player) {
+        self.playButton.hidden = false
     }
     
     func playerCurrentTimeDidChange(player: Player) {
