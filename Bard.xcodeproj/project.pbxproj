@@ -15,6 +15,7 @@
 		890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E681D494A5D008F96DF /* VideoMerger.swift */; };
 		89114E211D45A29E0078205C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89114E201D45A29E0078205C /* Assets.xcassets */; };
 		8942C7611D976D8D009F70A0 /* BardEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */; };
+		8942C7631D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8942C7621D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift */; };
 		896074881D72495C0072C022 /* NSLayoutConstraint+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896074871D72495C0072C022 /* NSLayoutConstraint+Helper.swift */; };
 		8974AF971D6F8F870022C0B0 /* VideoMergeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8974AF961D6F8F870022C0B0 /* VideoMergeManager.swift */; };
 		898CC1191D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 898CC1181D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift */; };
@@ -63,6 +64,7 @@
 		89114E201D45A29E0078205C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89114E251D45A29E0078205C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BardEditorViewController.swift; path = ui/BardEditorViewController.swift; sourceTree = "<group>"; };
+		8942C7621D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialShareCollectionViewCell.swift; path = ui/views/SocialShareCollectionViewCell.swift; sourceTree = "<group>"; };
 		896074871D72495C0072C022 /* NSLayoutConstraint+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSLayoutConstraint+Helper.swift"; path = "extensions/NSLayoutConstraint+Helper.swift"; sourceTree = "<group>"; };
 		8974AF961D6F8F870022C0B0 /* VideoMergeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoMergeManager.swift; path = models/VideoMergeManager.swift; sourceTree = "<group>"; };
 		898CC1181D4D1FEA006D56E4 /* WordTagCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = WordTagCollectionViewCell.swift; path = ui/views/WordTagCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -233,6 +235,7 @@
 				89CE80D01D860EA70009796D /* PreviewTimelineCollectionViewCell.swift */,
 				89DB082D1D973172009241FD /* SegueFromRight.swift */,
 				89DB082F1D97321D009241FD /* UnwindSegueFromRight.swift */,
+				8942C7621D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -404,6 +407,7 @@
 				89C9861D1D45BA990056E687 /* RepositoriesViewController.swift in Sources */,
 				890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */,
 				89CE80CF1D859F170009796D /* String+Helper.swift in Sources */,
+				8942C7631D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift in Sources */,
 				89CE80D11D860EA70009796D /* PreviewTimelineCollectionViewCell.swift in Sources */,
 				89C986201D4660290056E687 /* BorderedButton.swift in Sources */,
 				896074881D72495C0072C022 /* NSLayoutConstraint+Helper.swift in Sources */,

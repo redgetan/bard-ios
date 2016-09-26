@@ -9,11 +9,13 @@
 import UIKit
 import Player
 
-class ShareEditorViewController: UIViewController, PlayerDelegate {
+class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
     
     @IBOutlet weak var header: UIView!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var socialShareCollectionView: UICollectionView!
+    let cellIdentifier = "socialShareCollectionViewCell"
     
     var outputURL: NSURL!
     var outputWordTagStrings: [String] = [String]()
@@ -21,12 +23,14 @@ class ShareEditorViewController: UIViewController, PlayerDelegate {
     var character: Character!
     var player: Player!
     var playButton: UIButton!
+    var socialShares: [[String]] = [[String]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        UIApplication.sharedApplication().statusBarStyle = .LightContent
         self.initPlayer()
+        self.initSocialShare()
         
         playVideo(outputURL)
     }
@@ -74,6 +78,21 @@ class ShareEditorViewController: UIViewController, PlayerDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func initSocialShare() {
+        self.socialShares = [
+            ["messenger","icon_messenger"],
+            ["whatsapp", "icon_whatsapp"],
+            ["kik", "icon_kik"],
+            ["facebook", "icon_facebook"],
+            ["twitter", "icon_twitter"],
+            ["tumblr", "icon_tumblr"],
+        ]
+        
+        socialShareCollectionView.contentInset = UIEdgeInsetsMake(0.0,0.0,0.0,0.0)
+        socialShareCollectionView.delegate = self
+        socialShareCollectionView.dataSource = self
     }
     
     func initPlayer() {
@@ -155,6 +174,51 @@ class ShareEditorViewController: UIViewController, PlayerDelegate {
     }
     
 
+    // MARK: UICollectionViewDataSource protocol
+    
+    func collectionView(collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return 6
+        
+    }
+    
+    // MARK: UICollectionViewDelegate protocol
+    
+    func collectionView(collectionView: UICollectionView,
+                        cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let socialShare = self.socialShares[indexPath.row]
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellIdentifier,
+                                                                         forIndexPath: indexPath) as!SocialShareCollectionViewCell
+
+        cell.imageView?.image = UIImage(named: socialShare[1])
+        cell.label?.text = socialShare[0]
+        return cell
+        
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+        return UIEdgeInsetsZero
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        
+//        let totalHeight: CGFloat = (self.view.frame.width / 3)
+//        let totalWidth: CGFloat = (self.view.frame.width / 3)
+        
+        let screenRect = UIScreen.mainScreen().bounds
+        let screenWidth = screenRect.size.width
+        let totalWidth = screenWidth / 3.0
+        
+        return CGSizeMake(totalWidth, totalWidth)
+    }
 
     
 
