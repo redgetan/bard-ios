@@ -54,6 +54,7 @@ public class WordTagSelector {
     
     func findRandomWordTag(word: String) -> String? {
         var randomIndex: Int
+        var wordTagString: String
         
         // get global word variants of word
         guard let wordTagList = self.wordTagMap[word] else {
@@ -62,17 +63,18 @@ public class WordTagSelector {
         
         if self.sceneWordTagMap.count > 0 {
             // get scene specific word variants of word
-            guard let sceneWordTagList = self.sceneWordTagMap[word] else {
-                return nil
+            if let sceneWordTagList = self.sceneWordTagMap[word] {
+                randomIndex = Int(arc4random_uniform(UInt32(sceneWordTagList.count)))
+                wordTagString = sceneWordTagList[randomIndex]
+            } else {
+                // if sceneWordTagMap fails to find appropriate word, fall back to general wordTagMap
+                randomIndex = Int(arc4random_uniform(UInt32(wordTagList.count)))
+                wordTagString = wordTagList[randomIndex]
             }
-            
-            randomIndex = Int(arc4random_uniform(UInt32(sceneWordTagList.count)))
         } else {
             randomIndex = Int(arc4random_uniform(UInt32(wordTagList.count)))
+            wordTagString = wordTagList[randomIndex]
         }
-        
-        let wordTagString = wordTagList[randomIndex]
-        
         
         self.currentWord = word
         self.currentWordTagIndex = wordTagList.indexOf(wordTagString)!
