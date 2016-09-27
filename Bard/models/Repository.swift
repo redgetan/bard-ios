@@ -32,7 +32,7 @@ class Repository: Object {
         return repo
     }
     
-    static func create(wordTagStrings: [String], url: String, username: String, fileName: String, localIdentifier: String?, characterToken: String, sceneToken: String? = nil, repoCreated: (Int -> Void)? = nil) {
+    static func create(token: String, wordTagStrings: [String], url: String, username: String, fileName: String, localIdentifier: String?, characterToken: String, sceneToken: String? = nil, repoCreated: (Int -> Void)? = nil) {
 
         let repository = Repository()
         repository.id = getNextId()
@@ -41,6 +41,7 @@ class Repository: Object {
         repository.fileName = fileName
         repository.username = username
         repository.localIdentifier = localIdentifier
+        repository.token = token
         repository.characterToken = characterToken
         repository.sceneToken = sceneToken
         repository.createdAt = NSDate()
@@ -97,6 +98,10 @@ class Repository: Object {
     
     func getFileUrl() -> NSURL {
         return NSURL(fileURLWithPath: getFilePath())
+    }
+    
+    func getToken() -> String {
+        return token
     }
     
     func getUIImage() -> UIImage? {

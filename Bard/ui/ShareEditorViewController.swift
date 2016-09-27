@@ -80,7 +80,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
      
     }
     
-    func saveRepoWithRemoteUrl(url: String, finished: (Int -> Void)? = nil) {
+    func saveRepoWithRemoteUrl(url: String, token: String, finished: (Int -> Void)? = nil) {
         let repoFilePath = Storage.getRepositorySaveFilePath(self.character.name, text: outputPhrase)
         let fileManager = NSFileManager.defaultManager()
         do {
@@ -90,7 +90,8 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
             print("Ooops! Something went wrong: \(error)")
         }
         
-        Repository.create(self.outputWordTagStrings,
+        Repository.create(token,
+                          wordTagStrings: self.outputWordTagStrings,
                           url: url,
                           username: UserConfig.getUsername(),
                           fileName: NSURL(fileURLWithPath: repoFilePath).pathComponents!.last!,
@@ -287,7 +288,8 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
                         let dict = (result as! [String:AnyObject])
 
                         if let remoteUrl = dict["url"] as? String {
-                            self.saveRepoWithRemoteUrl(remoteUrl, finished: { repoId in
+                            let token = dict["token"] as! String
+                            self.saveRepoWithRemoteUrl(remoteUrl, token: token, finished: { repoId in
                                 handler?(remoteUrl)
                             })
                         }
@@ -313,7 +315,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     func uploadFileToS3(handler: (String? -> Void)? = nil ) {
         // check if File is Uploaded
         if self.uuid != nil {
-            return
+            handler?(self.uuid)
         }
         
         let uuid = NSUUID().UUIDString.lowercaseString

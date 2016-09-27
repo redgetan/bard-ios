@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import DZNEmptyDataSet
+import SwiftyDrop
 
 class RepositoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
@@ -78,9 +79,14 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
         if editingStyle == .Delete {
             let repository = self.repositories![indexPath.row]
-            Storage.removeFile(repository.getFilePath())
-            repository.delete()
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            BardClient.deleteRepo(repository.getToken(), success: { result in
+                Storage.removeFile(repository.getFilePath())
+                repository.delete()
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+            }, failure: { error in
+                Drop.down(error, state: .Error, duration: 2)
+                print("unable to delete remote repo")
+            })
         }
     }
 

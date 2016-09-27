@@ -32,6 +32,10 @@ class BardClient {
         return "\(Configuration.bardAccountBaseURL)/repos"
     }
     
+    static func deleteRepoUrl(token: String) -> String {
+        return "\(Configuration.bardAccountBaseURL)/repos/\(token)/delete"
+    }
+    
     
     static func login(usernameOrEmail usernameOrEmail: String, password: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
         
@@ -77,6 +81,13 @@ class BardClient {
             "word_list" : wordList
         ]
         bardApiRequest(.POST, url: postRepoUrl(), parameters: params, success: success, failure: failure)
+    }
+    
+    static func deleteRepo(token: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
+        let params : [String : String] = [
+            "token": token
+        ]
+        bardApiRequest(.POST, url: deleteRepoUrl(token), parameters: params, success: success, failure: failure)
     }
     
     static func bardApiRequest(method: Alamofire.Method, url: String, parameters: [String : AnyObject]? = nil, headers: [String : String]? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
