@@ -25,14 +25,18 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     var outputWordTagStrings: [String] = [String]()
     var outputPhrase: String = ""
     var character: Character!
+    var characterToken: String!
     var player: Player!
     var playButton: UIButton!
     var socialShares: [[String]] = [[String]]()
+    var uuid: String? = nil
+    var url: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
 //        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        self.characterToken = character.token
         self.initPlayer()
         self.initSocialShare()
         
@@ -54,6 +58,22 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     }
     
     @IBAction func saveRepo(sender: UIButton) {
+        if self.url != nil {
+            // already saved
+            self.saveButton.setTitle("Saved", forState: .Normal)
+            self.saveButton.enabled = false
+            self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
+        } else {
+            uploadAndSaveToDisk({ url in
+                self.saveButton.setTitle("Saved", forState: .Normal)
+                self.saveButton.enabled = false
+                self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
+            })
+        }
+     
+    }
+    
+    func saveRepoWithRemoteUrl(url: String, finished: (Int -> Void)? = nil) {
         let repoFilePath = Storage.getRepositorySaveFilePath(self.character.name, text: outputPhrase)
         let fileManager = NSFileManager.defaultManager()
         do {
@@ -64,14 +84,13 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         }
         
         Repository.create(self.outputWordTagStrings,
-            username: UserConfig.getUsername(),
-            fileName: NSURL(fileURLWithPath: repoFilePath).pathComponents!.last!,
-            localIdentifier: nil,
-            characterToken: self.character.token,
-            repoCreated: { repoId in
-                self.saveButton.setTitle("Saved", forState: .Normal)
-                self.saveButton.enabled = false
-                self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
+                          url: url,
+                          username: UserConfig.getUsername(),
+                          fileName: NSURL(fileURLWithPath: repoFilePath).pathComponents!.last!,
+                          localIdentifier: nil,
+                          characterToken: self.characterToken,
+                          repoCreated: { repoId in
+                            finished?(repoId)
         })
     }
     
@@ -223,11 +242,67 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
             let videoData = NSData(contentsOfFile: outputURL.path!)
             FBSDKMessengerSharer.shareVideo(videoData, withOptions:nil)
         } else if socialShare[0] == "twitter" {
-            uploadFileToS3()
+            if self.url != nil {
+                // already uploaded this repo to bard with generated url
+                self.doTwitterShare(self.url!)
+            } else {
+                uploadAndSaveToDisk({ url in
+                    if url != nil {
+                        self.url = url
+                        self.doTwitterShare(url!)
+                    }
+                })
+            }
+            
         }
     }
     
-    func uploadFileToS3() {
+    func uploadAndSaveToDisk(handler: (String? -> Void)? = nil) {
+        uploadFileToS3({ uuid in
+            if uuid == nil {
+                // error upload
+                Drop.down("Unable to upload video", state: .Error, duration: 3)
+            } else {
+                // success upload
+                
+                // create Repository both locally and remotely, get link of repo
+                BardClient.postRepo(uuid!,
+                    characterToken: self.characterToken,
+                    wordList: self.outputWordTagStrings.joinWithSeparator(","),
+                    success: { result in
+                        let dict = (result as! [String:AnyObject])
+
+                        if let remoteUrl = dict["url"] as? String {
+                            self.saveRepoWithRemoteUrl(remoteUrl, finished: { repoId in
+                                handler?(remoteUrl)
+                            })
+                        }
+                    }, failure: { error in
+                        Drop.down("Unable to sync video to servers", state: .Error, duration: 3)
+                        handler?(nil)
+                })
+                
+            }
+        })
+
+    }
+    
+    func doTwitterShare(url: String) {
+        if let vc = SLComposeViewController(forServiceType: SLServiceTypeTwitter) {
+            vc.setInitialText("I made \(character.name) say \(url) via @letsbard")
+            presentViewController(vc, animated: true, completion: {})
+        }
+    }
+    
+    func uploadFileToS3(handler: (String? -> Void)? = nil ) {
+        // check if File is Uploaded
+        if self.uuid != nil {
+            return
+        }
+        
+        let uuid = NSUUID().UUIDString.lowercaseString
+        let s3Key = Storage.getRepositoryS3Key(self.character.name, uuid: uuid)
+       
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
         let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("temp")
         let uploadRequest1 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
@@ -235,15 +310,18 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         let data = NSData(contentsOfFile: outputURL.path!)!
         data.writeToURL(testFileURL1, atomically: true)
         uploadRequest1.bucket = "roplabs-bard-users"
-        uploadRequest1.key =  Storage.getRepositoryS3Key(self.character.name)
+        uploadRequest1.key = s3Key
         uploadRequest1.body = testFileURL1
         
         let task = transferManager.upload(uploadRequest1)
         task.continueWithBlock { task in
             if task.error != nil {
                 print("Error: \(task.error)")
+                handler?(nil)
             } else {
+                self.uuid = uuid
                 print("Upload successful")
+                handler?(uuid)
             }
             return nil
         }

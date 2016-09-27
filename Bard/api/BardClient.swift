@@ -28,6 +28,10 @@ class BardClient {
         return "\(Configuration.bardAccountBaseURL)/bundles/\(characterToken)/word_list"
     }
     
+    static func postRepoUrl() -> String {
+        return "\(Configuration.bardAccountBaseURL)/repos"
+    }
+    
     
     static func login(usernameOrEmail usernameOrEmail: String, password: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
         
@@ -66,10 +70,20 @@ class BardClient {
         bardApiRequest(.GET, url: getCharacterWordListUrl(characterToken), success: success, failure: failure)
     }
     
+    static func postRepo(uuid: String, characterToken: String, wordList: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
+        let params : [String : String] = [
+            "uuid": uuid,
+            "character_token" : characterToken,
+            "word_list" : wordList
+        ]
+        bardApiRequest(.POST, url: postRepoUrl(), parameters: params, success: success, failure: failure)
+    }
+    
     static func bardApiRequest(method: Alamofire.Method, url: String, parameters: [String : AnyObject]? = nil, headers: [String : String]? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
 
         var customHeaders = headers ?? [String : String]()
         customHeaders["Accept"] = "application/json"
+        customHeaders["Authorization"] = "Token \(UserConfig.getAuthenticationToken())"
         
         apiRequest(method, url: url, parameters: parameters, headers: customHeaders, success: success, failure: failure)
     }

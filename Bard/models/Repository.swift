@@ -32,19 +32,19 @@ class Repository: Object {
         return repo
     }
     
-    static func create(wordTagStrings: [String], username: String, fileName: String, localIdentifier: String?, characterToken: String, sceneToken: String? = nil, repoCreated: (Int -> Void)? = nil) {
+    static func create(wordTagStrings: [String], url: String, username: String, fileName: String, localIdentifier: String?, characterToken: String, sceneToken: String? = nil, repoCreated: (Int -> Void)? = nil) {
 
         let repository = Repository()
         repository.id = getNextId()
         repository.wordList = wordTagStrings.joinWithSeparator(",")
+        repository.url = url
         repository.fileName = fileName
         repository.username = username
         repository.localIdentifier = localIdentifier
         repository.characterToken = characterToken
         repository.sceneToken = sceneToken
         repository.createdAt = NSDate()
-        
-        
+                
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
             let realm = try! Realm()
            

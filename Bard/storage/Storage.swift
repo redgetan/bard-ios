@@ -79,14 +79,9 @@ class Storage {
         return path
     }
     
-    static func getRepositoryS3Key(characterName: String) -> String {
+    static func getRepositoryS3Key(characterName: String, uuid: String) -> String {
         let directoryPath = "repositories/\(UserConfig.getUsername())"
-        let date =  lround(NSDate().timeIntervalSince1970)
-        let unsafeChars = NSCharacterSet.alphanumericCharacterSet().invertedSet
-        let uuid = NSUUID().UUIDString.lowercaseString
-        let fileName = "\(characterName)_\(uuid)_\(date)".componentsSeparatedByCharactersInSet(unsafeChars)
-            .joinWithSeparator("").lowercaseString
-        let path = "\(directoryPath)/\(fileName).mp4"
+        let path = "\(directoryPath)/\(uuid).mp4"
         return path
     }
     
