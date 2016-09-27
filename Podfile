@@ -7,10 +7,10 @@ target 'Bard' do
 
   pod 'Player', :git => "https://github.com/redgetan/Player", :branch => "layer_background"
   pod 'RealmSwift'
-  pod 'Alamofire', '~> 3.4'
-  pod 'SwiftyDrop', '~>2.0'
+  pod 'Alamofire', '~> 3.5'
+  pod 'SwiftyDrop', '~>2.5'
   pod 'KeychainAccess'
-  pod 'HanekeSwift'
+  pod 'HanekeSwift', :git => 'https://github.com/cannyboy/HanekeSwift.git'
   pod 'DZNEmptyDataSet'
   pod 'UICollectionViewLeftAlignedLayout'
   pod 'EZLoadingActivity'
