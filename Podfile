@@ -24,7 +24,9 @@ target 'Bard' do
   pod 'Mixpanel'
 
 
-  # social
+  # services
+  pod 'AWSS3'
+  pod 'AWSCognito'
 
 
 end

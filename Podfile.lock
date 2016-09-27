@@ -1,5 +1,10 @@
 PODS:
   - Alamofire (3.4.1)
+  - AWSCognito (2.4.9):
+    - AWSCore (= 2.4.9)
+  - AWSCore (2.4.9)
+  - AWSS3 (2.4.9):
+    - AWSCore (= 2.4.9)
   - DZNEmptyDataSet (1.8.1)
   - EZLoadingActivity (0.8)
   - Firebase (3.3.0):
@@ -37,6 +42,8 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire (~> 3.4)
+  - AWSCognito
+  - AWSS3
   - DZNEmptyDataSet
   - EZLoadingActivity
   - Firebase
@@ -62,6 +69,9 @@ CHECKOUT OPTIONS:
 
 SPEC CHECKSUMS:
   Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  AWSCognito: 4fa9fefcadae1d8425b01cbde27d564c21e3fd35
+  AWSCore: 175208358b95492e0ebe0337df2ab415300bddac
+  AWSS3: e4959b48db48d5f3dcd5cdf9e24a07f60a313611
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   EZLoadingActivity: 6fd75a05765a4085f4b6fef6f62edf9f144b3139
   Firebase: 6250071f0e2440a5c4c67b8cb6b868f868237ac3
@@ -81,6 +91,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
 
-PODFILE CHECKSUM: d072dc74074c713aacc0e669c8a3e2ce1cd7b892
+PODFILE CHECKSUM: 8b3c48bb653797ab64e8dfd9ce5ecfb6343496a3
 
 COCOAPODS: 1.0.1

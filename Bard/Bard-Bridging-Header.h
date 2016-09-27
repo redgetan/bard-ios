@@ -17,5 +17,7 @@
 #import <FBSDKShareKit/FBSDKShareKit.h>
 #import <FBSDKMessengerShareKit/FBSDKMessengerShareKit.h>
 
+#import <AWSCore/AWSCore.h>
+#import <AWSCognito/AWSCognito.h>
 
 #endif /* Bard_Bridging_Header_h */

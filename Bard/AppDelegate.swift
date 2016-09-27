@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import Mixpanel
 import EZLoadingActivity
+import AWSCore
 
 
 @UIApplicationMain
@@ -22,11 +23,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FIRApp.configure()
         Mixpanel.sharedInstanceWithToken("46b3c885b8bb3f753d9f8aa378eca667")
         Instabug.startWithToken("b95aeb23d36646812b25000303399919", invocationEvent: IBGInvocationEvent.None)
-        
         FBSDKApplicationDelegate.sharedInstance().application(application,
             didFinishLaunchingWithOptions: launchOptions)
 
+        let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2,
+                                                                identityPoolId:"us-west-2:a42a156a-30f6-4fb7-a2ea-78599fa4d180")
         
+        let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
+        
+        AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
         
         setupNavigationBarColor()
         

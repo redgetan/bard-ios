@@ -11,6 +11,7 @@ import Social
 import Player
 import Photos
 import SwiftyDrop
+import AWSS3
 
 class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FBSDKSharingDelegate {
 
@@ -221,8 +222,30 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         } else if socialShare[0] == "messenger" {
             let videoData = NSData(contentsOfFile: outputURL.path!)
             FBSDKMessengerSharer.shareVideo(videoData, withOptions:nil)
-        } else {
+        } else if socialShare[0] == "twitter" {
+            
+        }
+    }
+    
+    func uploadFileToS3() {
+        let transferManager = AWSS3TransferManager.defaultS3TransferManager()
+        let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
+        let uploadRequest1 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
         
+        let data = UIImageJPEGRepresentation(image, 0.5)
+        data.writeToURL(testFileURL1!, atomically: true)
+        uploadRequest1.bucket = "shrikar-picbucket"
+        uploadRequest1.key =  "bingo"
+        uploadRequest1.body = testFileURL1
+        
+        let task = transferManager.upload(uploadRequest1)
+        task.continueWithBlock { task in
+            if task.error != nil {
+                println("Error: \(task.error)")
+            } else {
+                println("Upload successful")
+            }
+            return nil
         }
     }
 
