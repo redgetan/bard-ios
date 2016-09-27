@@ -311,7 +311,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         
         let data = NSData(contentsOfFile: outputURL.path!)!
         data.writeToURL(testFileURL1, atomically: true)
-        uploadRequest1.bucket = "roplabs-bard-users"
+        uploadRequest1.bucket = Configuration.s3UserBucket
         uploadRequest1.key = s3Key
         uploadRequest1.body = testFileURL1
         

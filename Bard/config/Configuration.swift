@@ -14,6 +14,7 @@ class Configuration {
     
     static let bardAccountBaseURL = "http://localhost:3000"
     static let keychainService    = "co.bard.auth-token-debug"
+    static let s3UserBucket       = "roplabs-bard-users-staging"
     
 
     
@@ -21,6 +22,7 @@ class Configuration {
     
     static let bardAccountBaseURL = "https://bard.co"
     static let keychainService    = "co.bard.auth-token"
+    static let s3UserBucket       = "roplabs-bard-users"
     
     
     #endif
