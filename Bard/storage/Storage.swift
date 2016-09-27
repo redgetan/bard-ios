@@ -126,16 +126,6 @@ class Storage {
             let createAssetRequest = PHAssetChangeRequest.creationRequestForAssetFromVideoAtFileURL(filePathUrl)
             assetPlaceholder = createAssetRequest!.placeholderForCreatedAsset!
             
-            // album
-            let albumResult = getAlbumResult(ALBUM_NAME)
-            let albumAssetCollection = albumResult.firstObject as! PHAssetCollection
-            
-            // add asset to album
-            let albumChangeRequest = PHAssetCollectionChangeRequest(
-                forAssetCollection: albumAssetCollection,
-                assets: albumResult)
-            albumChangeRequest!.addAssets([assetPlaceholder])
-            
         }) { completed, error in
             if completed {
                 print("File copied to album")

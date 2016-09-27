@@ -37,7 +37,6 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         super.viewDidLoad()
         
 //        UIApplication.sharedApplication().statusBarStyle = .LightContent
-        Storage.createAlbumIfNotPresent()
 
         self.characterToken = character.token
         self.initPlayer()
