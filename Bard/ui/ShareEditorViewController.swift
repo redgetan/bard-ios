@@ -346,6 +346,11 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
 
 
     func facebookDirectShare() {
+        if !UIApplication.sharedApplication().canOpenURL(NSURL(string: "fbauth2://")!) {
+            Drop.down("You must install Facebook first", state: .Error, duration: 2)
+            return
+        }
+        
         Storage.copyFileToAlbum(localFileUrl: outputURL, handler: { localIdentifier in
             if localIdentifier != nil {
                 // http://stackoverflow.com/a/34788748
