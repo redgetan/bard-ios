@@ -16,6 +16,10 @@ class LoginInputViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if UserConfig.isLogined() {
+            Helper.openStoryboard(sourceViewController: self, storyboardName: "Main", viewControllerName: "TabBarViewController")
+        }
     }
 
     override func didReceiveMemoryWarning() {
