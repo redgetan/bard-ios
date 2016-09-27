@@ -18,9 +18,10 @@ class UserConfig {
     }
     
     static func storeCredentials(userDetails: AnyObject) {
-        let username  = userDetails["username"] as? String
-        let email     = userDetails["email"] as? String
-        let authToken = userDetails["authenticationToken"] as? String
+        let dict = (userDetails as! [String:AnyObject])
+        let username  = dict["username"] as? String
+        let email     = dict["email"] as? String
+        let authToken = dict["authenticationToken"] as? String
 
         
         let defaults = NSUserDefaults.standardUserDefaults()

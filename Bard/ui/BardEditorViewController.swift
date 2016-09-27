@@ -820,7 +820,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func initSceneWordList(selectedScene: Scene) {
         if selectedScene.wordList.isEmpty {
             BardClient.getSceneWordList(character.token, sceneToken: selectedScene.token, success: { value in
-                if let sceneWordList = value["wordList"] as? String {
+                let dict = (value as! [String:AnyObject])
+
+                if let sceneWordList = dict["wordList"] as? String {
                     let realm = try! Realm()
                     try! realm.write {
                         selectedScene.wordList = sceneWordList

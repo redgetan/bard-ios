@@ -223,27 +223,27 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
             let videoData = NSData(contentsOfFile: outputURL.path!)
             FBSDKMessengerSharer.shareVideo(videoData, withOptions:nil)
         } else if socialShare[0] == "twitter" {
-            
+            uploadFileToS3()
         }
     }
     
     func uploadFileToS3() {
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
-        let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory().stringByAppendingPathComponent("temp"))
+        let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("temp")
         let uploadRequest1 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
         
-        let data = UIImageJPEGRepresentation(image, 0.5)
-        data.writeToURL(testFileURL1!, atomically: true)
-        uploadRequest1.bucket = "shrikar-picbucket"
-        uploadRequest1.key =  "bingo"
+        let data = NSData(contentsOfFile: outputURL.path!)!
+        data.writeToURL(testFileURL1, atomically: true)
+        uploadRequest1.bucket = "roplabs-bard-users"
+        uploadRequest1.key =  Storage.getRepositoryS3Key(self.character.name)
         uploadRequest1.body = testFileURL1
         
         let task = transferManager.upload(uploadRequest1)
         task.continueWithBlock { task in
             if task.error != nil {
-                println("Error: \(task.error)")
+                print("Error: \(task.error)")
             } else {
-                println("Upload successful")
+                print("Upload successful")
             }
             return nil
         }

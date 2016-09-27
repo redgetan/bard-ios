@@ -46,10 +46,12 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         var sceneName: String = ""
         
         BardClient.getSceneList(character.token, success: { value in
-            for obj in (value as? NSArray)! {
-                sceneToken = obj["token"] as! String
-                thumbnailUrl = obj["thumbnailUrl"] as! String
-                sceneName = obj["name"] as! String
+            for obj in (value as! NSArray) {
+                let dict = (obj as! [String:AnyObject])
+
+                sceneToken = dict["token"] as! String
+                thumbnailUrl = dict["thumbnailUrl"] as! String
+                sceneName = dict["name"] as! String
                 if let scene = Scene.forToken(sceneToken) {
                     if scene.thumbnailUrl.isEmpty {
                         scene.setNameAndThumbnail(sceneName, thumbnailUrl: thumbnailUrl)

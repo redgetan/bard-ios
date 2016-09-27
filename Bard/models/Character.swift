@@ -25,10 +25,10 @@ class Character: Object {
     
     static func create(obj: AnyObject) -> Void {
         let character = Character()
-        
-        character.name = obj["name"] as! String
-        character.token = obj["token"] as! String
-        character.details = obj["description"] as? String
+        let dict = (obj as! [String:AnyObject])
+        character.name = dict["name"] as! String
+        character.token = dict["token"] as! String
+        character.details = dict["description"] as? String
         
         let realm = try! Realm()
 

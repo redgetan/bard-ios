@@ -26,11 +26,13 @@ class Scene: Object {
 
     static func create(obj: AnyObject) {
         let scene = Scene()
-        scene.name = obj["name"] as! String
-        scene.token = obj["token"] as! String
-        scene.characterToken = obj["characterToken"] as! String
-        scene.thumbnailUrl = obj["thumbnailUrl"] as! String
-        scene.wordList = obj["wordList"] as? String ?? ""
+        let dict = (obj as! [String:AnyObject])
+
+        scene.name = dict["name"] as! String
+        scene.token = dict["token"] as! String
+        scene.characterToken = dict["characterToken"] as! String
+        scene.thumbnailUrl = dict["thumbnailUrl"] as! String
+        scene.wordList = dict["wordList"] as? String ?? ""
         
         let realm = try! Realm()
         
