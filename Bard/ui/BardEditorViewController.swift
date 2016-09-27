@@ -17,6 +17,7 @@ import EZLoadingActivity
 class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate {
     let cdnPath = "https://d22z4oll34c07f.cloudfront.net"
     var character: Character!
+    var characterToken: String!
     var scene: Scene? = nil
     var isBackspacePressed: Bool = false
     var lastTokenCount: Int = 0
@@ -83,6 +84,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         self.automaticallyAdjustsScrollViewInsets = false
         
         inputTextField.delegate = self
+        characterToken = self.character.token
         updateTitle()
         initPlayer()
         initDictionary()
@@ -843,13 +845,22 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func initCharacterWordList() {
         if self.character.isBundleDownloaded {
-            let scenes = Scene.forCharacterToken(self.character.token)
+            EZLoadingActivity.show("Initializing...", disableUI: true)
             
-            for scene in scenes {
-                addWordListToDictionary(scene.wordList)
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
+                let scenes = Scene.forCharacterToken(self.characterToken)
+                
+                for scene in scenes {
+                    self.addWordListToDictionary(scene.wordList)
+                }
+                
+                dispatch_async(dispatch_get_main_queue()) {
+                    self.wordTagCollectionView.reloadData()
+                    EZLoadingActivity.hide()
+                }
             }
-            
-            self.wordTagCollectionView.reloadData()
+        
+
         } else {
             EZLoadingActivity.show("Downloading Word List...", disableUI: true)
             BardClient.getCharacterWordList(self.character.token, success: { value in

@@ -97,13 +97,10 @@ class BardClient {
             .responseJSON { response in
                 if let httpError = response.result.error {
                     failure?(httpError.localizedDescription)
-                } else if let JSON = (response.result.value  as? [String:AnyObject]) {
-                    if let appError = JSON["error"] as? String {
-                        print(appError)
-                        failure?(appError)
-                    } else {
-                        success?(JSON)
-                    }
+                } else if let JSON = response.result.value {
+                    success?(JSON)
+                } else {
+                    failure?("something went wrong")
                 }
         }
     }
