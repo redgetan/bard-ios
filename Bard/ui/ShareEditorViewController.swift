@@ -254,6 +254,8 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
                 })
             }
             
+        } else {
+            shareRepo(UIButton())
         }
     }
     
