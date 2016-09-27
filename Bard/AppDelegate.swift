@@ -27,7 +27,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             didFinishLaunchingWithOptions: launchOptions)
 
         let credentialsProvider = AWSCognitoCredentialsProvider(regionType:.USWest2,
-                                                                identityPoolId:"us-west-2:a42a156a-30f6-4fb7-a2ea-78599fa4d180")
+                                                                identityPoolId: Configuration.awsCognitoPoolId)
         
         let configuration = AWSServiceConfiguration(region:.USWest2, credentialsProvider:credentialsProvider)
         

@@ -273,7 +273,9 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         uploadFileToS3({ uuid in
             if uuid == nil {
                 // error upload
-                Drop.down("Unable to upload video", state: .Error, duration: 3)
+                dispatch_async(dispatch_get_main_queue()) {
+                    Drop.down("Unable to upload video", state: .Error, duration: 3)
+                }
                 handler?(nil)
             } else {
                 // success upload
@@ -291,7 +293,9 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
                             })
                         }
                     }, failure: { error in
-                        Drop.down("Unable to sync video to servers", state: .Error, duration: 3)
+                        dispatch_async(dispatch_get_main_queue()) {
+                            Drop.down("Unable to sync video to servers", state: .Error, duration: 3)
+                        }
                         handler?(nil)
                 })
                 
