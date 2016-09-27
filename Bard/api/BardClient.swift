@@ -83,7 +83,10 @@ class BardClient {
 
         var customHeaders = headers ?? [String : String]()
         customHeaders["Accept"] = "application/json"
-        customHeaders["Authorization"] = "Token \(UserConfig.getAuthenticationToken())"
+        
+        if let authenticationToken = UserConfig.getAuthenticationToken() {
+            customHeaders["Authorization"] = "Token \(authenticationToken)"
+        }
         
         apiRequest(method, url: url, parameters: parameters, headers: customHeaders, success: success, failure: failure)
     }

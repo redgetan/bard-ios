@@ -53,8 +53,8 @@ class UserConfig {
         return defaults.stringForKey("email")!
     }
     
-    static func getAuthenticationToken() -> String {
-        return keychain["authentication_token"]!
+    static func getAuthenticationToken() -> String? {
+        return keychain["authentication_token"]
     }
     
 }
