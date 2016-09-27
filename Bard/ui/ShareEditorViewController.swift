@@ -36,6 +36,8 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         super.viewDidLoad()
         
 //        UIApplication.sharedApplication().statusBarStyle = .LightContent
+        Storage.createAlbumIfNotPresent()
+
         self.characterToken = character.token
         self.initPlayer()
         self.initSocialShare()
@@ -223,7 +225,6 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let status = PHPhotoLibrary.authorizationStatus()
         if status == .NotDetermined {
-            Storage.createAlbumIfNotPresent()
             Storage.requestPhotoAccess()
         } else if status == .Authorized {
             onSocialShareClick(indexPath.row)
