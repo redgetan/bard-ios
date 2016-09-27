@@ -1,5 +1,5 @@
 PODS:
-  - Alamofire (3.4.1)
+  - Alamofire (3.5.0)
   - AWSCognito (2.4.9):
     - AWSCore (= 2.4.9)
   - AWSCore (2.4.9)
@@ -26,49 +26,60 @@ PODS:
     - GoogleSymbolUtilities (~> 1.0)
   - HanekeSwift (0.10.1)
   - Instabug (5.3.1)
-  - KeychainAccess (2.3.6)
+  - KeychainAccess (2.4.0)
   - Mixpanel (3.0.0):
     - Mixpanel/Mixpanel (= 3.0.0)
   - Mixpanel/Mixpanel (3.0.0)
   - Player (0.1.3)
-  - Realm (1.0.2):
-    - Realm/Headers (= 1.0.2)
-  - Realm/Headers (1.0.2)
-  - RealmSwift (1.0.2):
-    - Realm (= 1.0.2)
-  - SwiftyDrop (2.4.1)
+  - Realm (1.1.0):
+    - Realm/Headers (= 1.1.0)
+  - Realm/Headers (1.1.0)
+  - RealmSwift (1.1.0):
+    - Realm (= 1.1.0)
+  - SwiftyDrop (2.5.0)
   - TTTAttributedLabel (2.0.0)
   - UICollectionViewLeftAlignedLayout (1.0.2)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.4)
+  - Alamofire (~> 3.5)
   - AWSCognito
   - AWSS3
   - DZNEmptyDataSet
-  - EZLoadingActivity
+  - EZLoadingActivity (from `https://github.com/redgetan/EZLoadingActivity.git`, branch `swift_2_3`)
   - Firebase
-  - HanekeSwift
+  - HanekeSwift (from `https://github.com/cannyboy/HanekeSwift.git`)
   - Instabug
-  - KeychainAccess
+  - KeychainAccess (~> 2.4.0)
   - Mixpanel
   - Player (from `https://github.com/redgetan/Player`, branch `layer_background`)
-  - RealmSwift
-  - SwiftyDrop (~> 2.0)
+  - RealmSwift (~> 1.1.0)
+  - SwiftyDrop (~> 2.5)
   - TTTAttributedLabel
   - UICollectionViewLeftAlignedLayout
 
 EXTERNAL SOURCES:
+  EZLoadingActivity:
+    :branch: swift_2_3
+    :git: https://github.com/redgetan/EZLoadingActivity.git
+  HanekeSwift:
+    :git: https://github.com/cannyboy/HanekeSwift.git
   Player:
     :branch: layer_background
     :git: https://github.com/redgetan/Player
 
 CHECKOUT OPTIONS:
+  EZLoadingActivity:
+    :commit: 37d1a7d788600e0c563001313b1c3e516403f0b2
+    :git: https://github.com/redgetan/EZLoadingActivity.git
+  HanekeSwift:
+    :commit: 6d269cf310c62e17b321af4d43fa7d675d00caf7
+    :git: https://github.com/cannyboy/HanekeSwift.git
   Player:
     :commit: 5e1fdedd1526ed2a9259b6954450fcd48e94145d
     :git: https://github.com/redgetan/Player
 
 SPEC CHECKSUMS:
-  Alamofire: 01a82e2f6c0f860ade35534c8dd88be61bdef40c
+  Alamofire: b70a7352335f8ea5babd0a923eb7e8eacc67b877
   AWSCognito: 4fa9fefcadae1d8425b01cbde27d564c21e3fd35
   AWSCore: 175208358b95492e0ebe0337df2ab415300bddac
   AWSS3: e4959b48db48d5f3dcd5cdf9e24a07f60a313611
@@ -80,17 +91,17 @@ SPEC CHECKSUMS:
   GoogleInterchangeUtilities: def8415a862effc67d549d5b5b0b9c7a2f97d4de
   GoogleSymbolUtilities: 33117db1b5f290c6fbf259585e4885b4c84b98d7
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
-  HanekeSwift: 08e47d3d0f2899ec58e5d257beba0de619aca9e8
+  HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
   Instabug: b77626dcf1baf66534521a400d0680a2e914b241
-  KeychainAccess: 7f10e2ef998ddf954a64d5d608be08677774684d
+  KeychainAccess: c2a71459af5bddf720a51806046a598500976c04
   Mixpanel: ac92056ee35a961362513ba11049e67cffcaa1f1
   Player: 40e06506c0dac14a29657be25723314a62ccaf76
-  Realm: 9d5c46a4d7d27958530a8dfc58f63a99e5c2cba3
-  RealmSwift: 82f3ac5e24530143dddfde2033acc0d308f27d96
-  SwiftyDrop: 54a30c4edd51be9863429c3ad2ad4108eb7b7814
+  Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
+  RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
+  SwiftyDrop: 66c2609a09ca830232f7a2b02e46aa97a6fb908e
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
 
-PODFILE CHECKSUM: 8b3c48bb653797ab64e8dfd9ce5ecfb6343496a3
+PODFILE CHECKSUM: 63d81feeddc6a73326644646084d5bac9231b9e5
 
 COCOAPODS: 1.0.1

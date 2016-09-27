@@ -6,14 +6,14 @@ target 'Bard' do
   use_frameworks!
 
   pod 'Player', :git => "https://github.com/redgetan/Player", :branch => "layer_background"
-  pod 'RealmSwift'
+  pod 'RealmSwift', "~> 1.1.0"
   pod 'Alamofire', '~> 3.5'
-  pod 'SwiftyDrop', '~>2.5'
-  pod 'KeychainAccess'
+  pod 'SwiftyDrop', '~> 2.5'
+  pod 'KeychainAccess', "~> 2.4.0"
   pod 'HanekeSwift', :git => 'https://github.com/cannyboy/HanekeSwift.git'
   pod 'DZNEmptyDataSet'
   pod 'UICollectionViewLeftAlignedLayout'
-  pod 'EZLoadingActivity'
+  pod 'EZLoadingActivity', :git => "https://github.com/redgetan/EZLoadingActivity.git", :branch => "swift_2_3"
   pod 'TTTAttributedLabel'
 
   # crash reporting
@@ -29,4 +29,12 @@ target 'Bard' do
   pod 'AWSCognito'
 
 
+end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    target.build_configurations.each do |config|
+      config.build_settings['SWIFT_VERSION'] = '2.3'
+    end
+  end
 end
