@@ -18,10 +18,17 @@ class UserConfig {
     }
     
     static func storeCredentials(userDetails: AnyObject) {
-        let dict = (userDetails as! [String:AnyObject])
-        let username  = dict["username"] as? String
-        let email     = dict["email"] as? String
-        let authToken = dict["authenticationToken"] as? String
+        let dict = userDetails as! [String: String]
+        let username  = dict["username"]!
+        let email     = dict["email"]!
+        let authToken = dict["authenticationToken"]!
+        print(authToken)
+
+        do {
+            try keychain.set(authToken,key: "authentication_token")
+        } catch let error {
+            print(error)
+        }
 
         
         let defaults = NSUserDefaults.standardUserDefaults()
@@ -30,7 +37,6 @@ class UserConfig {
         defaults.setObject(email, forKey: "email")
         defaults.synchronize()
         
-        keychain["authentication_token"] = authToken
     }
     
     static func clearCredentials() {
@@ -54,7 +60,8 @@ class UserConfig {
     }
     
     static func getAuthenticationToken() -> String? {
-        return keychain["authentication_token"]
+        let token = keychain[string: "authentication_token"]
+        return token
     }
     
 }
