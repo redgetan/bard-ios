@@ -4,6 +4,8 @@
 <dict>
     <key>NSPhotoLibraryUsageDescription</key>
     <string>$(PRODUCT_NAME) uses photos to enable facebook sharing</string>
+    <key>NSMicrophoneUsageDescription</key>
+    <string>Instabug uses microphone for getting user feedback</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
