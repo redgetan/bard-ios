@@ -15,7 +15,7 @@ import EZLoadingActivity
 
 
 class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate {
-    let cdnPath = "https://d22z4oll34c07f.cloudfront.net"
+    let cdnPath = "https://segments.bard.co"
     var character: Character!
     var characterToken: String!
     var scene: Scene? = nil
@@ -508,8 +508,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             return UIImage()
         }
         
-//        return "https://d22z4oll34c07f.cloudfront.net/segments/F6nNlIbgWTU/thumbnail/8435.png"
-//        return "\(cdnPath)/segments/\(scene.token)/thumbnails/\(tag).png"
     }
     
     func initWordTagCollectionViewCell(collectionView: UICollectionView, indexPath: NSIndexPath) -> UICollectionViewCell {
