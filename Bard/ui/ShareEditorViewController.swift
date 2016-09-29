@@ -103,7 +103,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     }
     
     func goToRootViewController() {
-        self.view.window!.rootViewController!.dismissViewControllerAnimated(true, completion: {})
+       self.view.window!.rootViewController!.dismissViewControllerAnimated(false, completion: {})
     }
     
     override func didReceiveMemoryWarning() {
