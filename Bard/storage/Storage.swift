@@ -54,14 +54,21 @@ class Storage {
     
     static func getRepositoryStorageDirectory() -> String {
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        let directoryPath = "\(documentDirectory)/\(UserConfig.getUsername())/repositories"
-        return directoryPath
+        if let username = UserConfig.getUsername() {
+            return "\(documentDirectory)/\(username)/repositories"
+        } else {
+            return "\(documentDirectory)/anonymous/repositories"
+        }
     }
     
     static func getSegmentsStorageDirectory() -> String {
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        let directoryPath = "\(documentDirectory)/\(UserConfig.getUsername())/segments"
-        return directoryPath
+        
+        if let username = UserConfig.getUsername() {
+            return "\(documentDirectory)/\(username)/segments"
+        } else {
+            return "\(documentDirectory)/anonymous/segments"
+        }
     }
     
     static func getMergeVideoFilePath() -> String {
@@ -80,9 +87,11 @@ class Storage {
     }
     
     static func getRepositoryS3Key(characterName: String, uuid: String) -> String {
-        let directoryPath = "repositories/\(UserConfig.getUsername())"
-        let path = "\(directoryPath)/\(uuid).mp4"
-        return path
+        if let username = UserConfig.getUsername() {
+            return "repositories/\(username))/\(uuid).mp4"
+        } else {
+            return "repositories/anonymous/\(uuid).mp4"
+        }
     }
     
     // MARK: Album Helpers

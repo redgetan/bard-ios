@@ -42,8 +42,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         self.profileImageView.clipsToBounds = true
 //        self.profileImageView.layer.borderWidth = 2.0
 //        self.profileImageView.layer.borderColor = UIColor.whiteColor().CGColor
-        self.usernameLabel.text = UserConfig.getUsername()
-        self.emailLabel.text = UserConfig.getEmail()
+        self.usernameLabel.text = UserConfig.getUsername() != nil ? UserConfig.getUsername() : "Click to Login"
+        self.emailLabel.text = UserConfig.getEmail() != nil ? UserConfig.getEmail() : ""
     }
 
     override func didReceiveMemoryWarning() {

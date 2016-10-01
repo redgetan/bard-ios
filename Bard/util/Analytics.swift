@@ -12,12 +12,15 @@ import Mixpanel
 class Analytics {
     static func identify(createdAt createdAt: NSDate? = nil) {
         let mixpanel = Mixpanel.sharedInstance()
-        mixpanel.identify(UserConfig.getUsername())
-        mixpanel.people.set("$name", to: UserConfig.getUsername())
-        mixpanel.people.set("$email", to: UserConfig.getEmail())
-        if let signupDate = createdAt {
-            mixpanel.people.set("$created", to: signupDate)
+        if let username = UserConfig.getUsername() {
+            mixpanel.identify(username)
+            mixpanel.people.set("$name", to: username)
+            mixpanel.people.set("$email", to: UserConfig.getEmail()!)
+            if let signupDate = createdAt {
+                mixpanel.people.set("$created", to: signupDate)
+            }
         }
+        
     }
     
     static func timeEvent(event: String) {

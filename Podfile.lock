@@ -36,6 +36,8 @@ PODS:
   - Realm/Headers (1.1.0)
   - RealmSwift (1.1.0):
     - Realm (= 1.1.0)
+  - SCLAlertView (0.6.0)
+  - STPopup (1.8.0)
   - SwiftyDrop (2.5.0)
   - TTTAttributedLabel (2.0.0)
   - UICollectionViewLeftAlignedLayout (1.0.2)
@@ -53,6 +55,8 @@ DEPENDENCIES:
   - Mixpanel
   - Player (from `https://github.com/redgetan/Player`, branch `layer_background`)
   - RealmSwift (~> 1.1.0)
+  - SCLAlertView
+  - STPopup
   - SwiftyDrop (~> 2.5)
   - TTTAttributedLabel
   - UICollectionViewLeftAlignedLayout
@@ -98,10 +102,12 @@ SPEC CHECKSUMS:
   Player: 40e06506c0dac14a29657be25723314a62ccaf76
   Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
   RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
+  SCLAlertView: 0f6b3c23a48b4993564ff1dd3c065782e4b2b687
+  STPopup: af630a85628e4226ffcbda5caaead0d99aed13a8
   SwiftyDrop: 66c2609a09ca830232f7a2b02e46aa97a6fb908e
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
 
-PODFILE CHECKSUM: 63d81feeddc6a73326644646084d5bac9231b9e5
+PODFILE CHECKSUM: 947a144ba337e4b65f0ec8f3a6f9fadd221f2ebb
 
 COCOAPODS: 1.0.1

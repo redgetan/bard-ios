@@ -398,7 +398,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         let info : NSDictionary = notification.userInfo!
         let keyboardHeight = (info[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.CGRectValue().size.height
-        let windowHeight = UIScreen.mainScreen().applicationFrame.size.height
+        let windowHeight = UIScreen.mainScreen().bounds.size.height
         let newVideoPlayerHeight = windowHeight - keyboardHeight!
                                                 - controlsContainer.frame.size.height
         

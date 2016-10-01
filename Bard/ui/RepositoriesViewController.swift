@@ -10,13 +10,15 @@ import UIKit
 import RealmSwift
 import DZNEmptyDataSet
 import SwiftyDrop
+import STPopup
+import SCLAlertView
+
 
 class RepositoriesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
 
     @IBOutlet weak var repositoriesTableView: UITableView!
     var repositories: Results<Repository>? = nil
     let cellIdentifier = "RepositoryTableViewCell"
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,9 +43,14 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func initRepositories() {
-        self.repositories = try! Realm().objects(Repository.self)
-                                        .filter("username = '\(UserConfig.getUsername())'")
-                                        .sorted("createdAt", ascending: false)
+        if let username = UserConfig.getUsername() {
+            self.repositories = try! Realm().objects(Repository.self)
+                .filter("username = '\(username)'")
+                .sorted("createdAt", ascending: false)
+        } else {
+            self.repositories = try! Realm().objects(Repository.self)
+                .sorted("createdAt", ascending: false)
+        }
         
     }
     
@@ -92,11 +99,43 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
 
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "repositoryToPlayer") {
-            let indexPath = repositoriesTableView.indexPathForCell(sender as! UITableViewCell)!
-            let repository = self.repositories![indexPath.row]
-            let viewController = segue.destinationViewController as! VideoPlayerViewController;
-            viewController.repository = repository
+            //let indexPath = repositoriesTableView.indexPathForCell(sender as! UITableViewCell)!
+            //let repository = self.repositories![indexPath.row]
+            //let viewController = segue.destinationViewController as! VideoPlayerViewController;
+            //viewController.repository = repository
+           
         }
+    }
+    
+    override func shouldPerformSegueWithIdentifier(identifier: String,sender: AnyObject?) -> Bool {
+        //Helper.openStoryboard(sourceViewController: self,
+        //                      storyboardName: "Login",
+        //                      viewControllerName: "LoginInputViewController")
+        
+       //let popupController = STPopupController(rootViewController: LoginInputViewController());
+       //popupController.presentInViewController(self)
+        
+        let appearance = SCLAlertView.SCLAppearance(hideWhenBackgroundViewIsTapped: true,
+                                                    showCloseButton: false)
+        let alertView  = SCLAlertView(appearance: appearance)
+ 
+        alertView.addButton("Login") {
+            Helper.openStoryboard(sourceViewController: self,
+                                                        storyboardName: "Login",
+                                 viewControllerName: "LoginNavigationController")
+        }
+        
+        alertView.addButton("Register") {
+            Helper.openStoryboard(sourceViewController: self,
+                                  storyboardName: "Login",
+                                  viewControllerName: "SignupNavigationController")
+        }
+
+        alertView.showEdit("", subTitle: "You must Login in order to save to profile",
+                               colorStyle: 0x704DEF,
+                               duration: 10.0)
+
+        return false
     }
     
     

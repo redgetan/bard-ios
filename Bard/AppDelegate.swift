@@ -35,18 +35,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         setupNavigationBarColor()
         
-        let isLogined = UserConfig.isLogined()
-    
-        if isLogined {
-            Helper.openStoryboard(window: window,
+        Helper.openStoryboard(window: window,
                                   storyboardName: "Main",
                                   viewControllerName: "TabBarViewController")
-        } else {
-            Helper.openStoryboard(window: window,
-                                  storyboardName: "Login",
-                                  viewControllerName: "LoginNavigationController")
-        }
-        
         return true
     }
     

@@ -90,10 +90,11 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
             print("Ooops! Something went wrong: \(error)")
         }
         
+        let username = UserConfig.getUsername() != nil ? UserConfig.getUsername()! : ""
         Repository.create(token,
                           wordTagStrings: self.outputWordTagStrings,
                           url: url,
-                          username: UserConfig.getUsername(),
+                          username: username,
                           fileName: NSURL(fileURLWithPath: repoFilePath).pathComponents!.last!,
                           localIdentifier: nil,
                           characterToken: self.characterToken,

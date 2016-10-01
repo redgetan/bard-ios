@@ -48,6 +48,9 @@ class SignupInputViewController: UIViewController, TTTAttributedLabelDelegate {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func cancel(sender: UIBarButtonItem) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
     
     @IBAction func doSignUp(sender: UIButton) {
         BardClient.signUp(username: self.usernameTextField.text!,
@@ -56,7 +59,8 @@ class SignupInputViewController: UIViewController, TTTAttributedLabelDelegate {
             Drop.down("Account successfully created", state: .Success, duration: 2)
             UserConfig.storeCredentials(value)
             Analytics.identify(createdAt: NSDate())
-            Helper.openStoryboard(sourceViewController: self, storyboardName: "Main", viewControllerName: "TabBarViewController")
+            self.dismissViewControllerAnimated(true, completion: nil)
+
 
         }, failure: { errorMessage in
             Drop.down(errorMessage, state: .Error, duration: 3)

@@ -17,9 +17,12 @@ class LoginInputViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*
         if UserConfig.isLogined() {
             Helper.openStoryboard(sourceViewController: self, storyboardName: "Main", viewControllerName: "TabBarViewController")
         }
+        */
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -33,13 +36,18 @@ class LoginInputViewController: UIViewController {
         super.didReceiveMemoryWarning()
     }
 
+    @IBAction func cancel(sender: UIBarButtonItem) {
+        dismissViewControllerAnimated(true, completion: nil)
+
+    }
 
     @IBAction func doLogin(sender: UIButton) {
         BardClient.login(usernameOrEmail: usernameOrEmailTextField.text!,
                          password: passwordTextField.text!, success: { value in
             UserConfig.storeCredentials(value)
             Analytics.identify()
-            Helper.openStoryboard(sourceViewController: self, storyboardName: "Main", viewControllerName: "TabBarViewController")
+            self.dismissViewControllerAnimated(true, completion: nil)
+
             }, failure: { errorMessage in
             Drop.down(errorMessage, state: .Error, duration: 3)
         })
