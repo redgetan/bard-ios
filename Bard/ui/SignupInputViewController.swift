@@ -57,11 +57,10 @@ class SignupInputViewController: UIViewController, TTTAttributedLabelDelegate {
                             email: self.emailTextField.text!,
                             password: self.passwordTextField.text!, success: { value in
             
-            let result = value as! [String: String]
-            if result["error"] != nil {
-                Drop.down("Account successfully created", state: .Success, duration: 2)
-            }
             UserConfig.storeCredentials(value)
+            Storage.setup() // create directories for user if not present 
+                            // (must be after credentials have been saved)
+
             Analytics.identify(createdAt: NSDate())
             self.dismissViewControllerAnimated(true, completion: nil)
             Drop.down("Account successfully created", state: .Success, duration: 2)

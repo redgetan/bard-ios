@@ -44,7 +44,10 @@ class LoginInputViewController: UIViewController {
     @IBAction func doLogin(sender: UIButton) {
         BardClient.login(usernameOrEmail: usernameOrEmailTextField.text!,
                          password: passwordTextField.text!, success: { value in
+            
             UserConfig.storeCredentials(value)
+            Storage.setup() // create directories for user if not present
+                            // (must be after credentials have been saved)
             Analytics.identify()
             self.dismissViewControllerAnimated(true, completion: nil)
             Drop.down("Login Successful", state: .Success, duration: 2)

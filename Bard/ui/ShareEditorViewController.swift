@@ -106,7 +106,11 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     }
     
     func goToRootViewController() {
-       self.view.window!.rootViewController!.dismissViewControllerAnimated(true, completion: {})
+        if self.view.window != nil {
+            // for some reason this is being called twice when we upload to twitter first, then save to profile
+            // and 2nd time, the window is nil. temp hack. check for nil
+            self.view.window!.rootViewController!.dismissViewControllerAnimated(true, completion: {})
+        }
     }
     
     override func didReceiveMemoryWarning() {
