@@ -563,7 +563,7 @@
                                                     <constraint firstAttribute="width" constant="300" id="ogU-Qu-GqT"/>
                                                 </constraints>
                                                 <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
-                                                <state key="normal" title="Save to Phone">
+                                                <state key="normal" title="Save to Profile">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </state>
                                                 <variation key="default">
@@ -712,7 +712,7 @@
                                         <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Vt1-RD-2aH">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="avatar_placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="Vt1-RD-2aH">
                                         <constraints>
                                             <constraint firstAttribute="height" constant="75" id="9lp-H2-5sY"/>
                                             <constraint firstAttribute="width" constant="75" id="KFr-3F-X7d"/>
@@ -946,7 +946,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="avatar_placeholder" width="42" height="42"/>
+        <image name="avatar_placeholder" width="25" height="25"/>
         <image name="icon_back" width="25" height="25"/>
         <image name="icon_bookmark" width="25" height="25"/>
         <image name="icon_close" width="25" height="25"/>

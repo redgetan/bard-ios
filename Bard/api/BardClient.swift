@@ -106,10 +106,15 @@ class BardClient {
         
         Alamofire.request(method, url, parameters: parameters, headers: headers)
             .responseJSON { response in
+
                 if let httpError = response.result.error {
                     failure?(httpError.localizedDescription)
                 } else if let JSON = response.result.value {
-                    success?(JSON)
+                    if let error = (JSON as? [String: String])?["error"] {
+                        failure?(error)
+                    } else {
+                        success?(JSON)
+                    }
                 } else {
                     failure?("something went wrong")
                 }

@@ -47,6 +47,7 @@ class LoginInputViewController: UIViewController {
             UserConfig.storeCredentials(value)
             Analytics.identify()
             self.dismissViewControllerAnimated(true, completion: nil)
+            Drop.down("Login Successful", state: .Success, duration: 2)
 
             }, failure: { errorMessage in
             Drop.down(errorMessage, state: .Error, duration: 3)

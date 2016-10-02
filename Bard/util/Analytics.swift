@@ -9,6 +9,7 @@
 import Foundation
 import Mixpanel
 
+
 class Analytics {
     static func identify(createdAt createdAt: NSDate? = nil) {
         let mixpanel = Mixpanel.sharedInstance()

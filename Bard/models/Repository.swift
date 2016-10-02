@@ -32,6 +32,14 @@ class Repository: Object {
         return repo
     }
     
+    static func forUrl(url: String?) -> Repository? {
+        if url == nil {
+            return nil
+        }
+        
+        return try! Realm().objects(Repository.self).filter("url = '\(url!)'").first
+    }
+    
     static func create(token: String, wordTagStrings: [String], url: String, username: String, fileName: String, localIdentifier: String?, characterToken: String, sceneToken: String? = nil, repoCreated: (Int -> Void)? = nil) {
 
         let repository = Repository()

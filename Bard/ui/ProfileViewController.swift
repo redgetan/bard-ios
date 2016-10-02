@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftyDrop
 
 class ProfileViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
 
@@ -32,20 +33,42 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initProfileHeader()
+        let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
+        self.profileImageView.userInteractionEnabled = true
+        self.profileImageView.addGestureRecognizer(tapGestureRecognizer)
+        
         profilesTableView.delegate = self
         profilesTableView.dataSource = self
     }
     
-    func initProfileHeader() {
-        self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
-        self.profileImageView.clipsToBounds = true
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        reloadData()
+    }
+    
+    func reloadData() {
+        drawProfileHeader()
+        profilesTableView.reloadData()
+    }
+    
+    func drawProfileHeader() {
+        //self.profileImageView.layer.cornerRadius = self.profileImageView.frame.size.width / 2
+        //self.profileImageView.clipsToBounds = true
 //        self.profileImageView.layer.borderWidth = 2.0
 //        self.profileImageView.layer.borderColor = UIColor.whiteColor().CGColor
+        
         self.usernameLabel.text = UserConfig.getUsername() != nil ? UserConfig.getUsername() : "Click to Login"
         self.emailLabel.text = UserConfig.getEmail() != nil ? UserConfig.getEmail() : ""
     }
-
+    
+    func handleTapGestureRecognizer(gestureRecognizer: UITapGestureRecognizer) {
+        if !UserConfig.isLogined() {
+            Helper.openStoryboard(sourceViewController: self,
+                                  storyboardName: "Login",
+                                  viewControllerName: "LoginNavigationController")
+        }
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -55,8 +78,15 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     
     func tableView(tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        return Row.RowCount.rawValue
+        if !UserConfig.isLogined() {
+            return Row.RowCount.rawValue - 1 // ignore last row (Logout)
+        } else {
+            return Row.RowCount.rawValue
+        }
+
     }
+    
+    
     
     func tableView(tableView: UITableView,
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -135,14 +165,25 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
             break
         case .Logout:
             UserConfig.clearCredentials()
-            Helper.openStoryboard(sourceViewController: self,
-                                  storyboardName: "Login",
-                                  viewControllerName: "LoginNavigationController")
+            reloadRepoAndProfile()
+            Drop.down("You have been Logged out", state: .Success, duration: 2)
+
             break
         default:
             break
         }
         
+        
+        
+    }
+    
+    func reloadRepoAndProfile() {
+        self.reloadData()
+        profilesTableView.setContentOffset(CGPointZero, animated:true)
+        
+        let navigationController = self.tabBarController!.viewControllers![0] as! UINavigationController
+        let controller = navigationController.visibleViewController as! RepositoriesViewController
+        controller.reloadData()
     }
     
 

@@ -60,7 +60,9 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     }
     
     @IBAction func saveRepo(sender: UIButton) {
-        if self.url != nil {
+        if !UserConfig.isLogined() {
+            Helper.showAskUserToLogin(self, message: "You must Login to save to profile")
+        } else if (Repository.forUrl(url) != nil) {
             // already saved
             self.saveButton.setTitle("Saved", forState: .Normal)
             self.saveButton.enabled = false
@@ -68,13 +70,13 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         } else {
             EZLoadingActivity.show("Saving..", disableUI: true)
             uploadAndSaveToDisk({ url in
+                EZLoadingActivity.hide()
                 if url != nil {
                     // successful
                     self.saveButton.setTitle("Saved", forState: .Normal)
                     self.saveButton.enabled = false
                     self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
                 }
-                EZLoadingActivity.hide()
             })
         }
      
@@ -104,7 +106,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     }
     
     func goToRootViewController() {
-       self.view.window!.rootViewController!.dismissViewControllerAnimated(false, completion: {})
+       self.view.window!.rootViewController!.dismissViewControllerAnimated(true, completion: {})
     }
     
     override func didReceiveMemoryWarning() {
@@ -290,9 +292,16 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
 
                         if let remoteUrl = dict["url"] as? String {
                             let token = dict["token"] as! String
-                            self.saveRepoWithRemoteUrl(remoteUrl, token: token, finished: { repoId in
+                            
+                            if UserConfig.isLogined() {
+                                // if logged in, save locally
+                                self.saveRepoWithRemoteUrl(remoteUrl, token: token, finished: { repoId in
+                                    handler?(remoteUrl)
+                                })
+                            } else {
                                 handler?(remoteUrl)
-                            })
+                            }
+                            
                         }
                     }, failure: { error in
                         dispatch_async(dispatch_get_main_queue()) {

@@ -56,11 +56,15 @@ class SignupInputViewController: UIViewController, TTTAttributedLabelDelegate {
         BardClient.signUp(username: self.usernameTextField.text!,
                             email: self.emailTextField.text!,
                             password: self.passwordTextField.text!, success: { value in
-            Drop.down("Account successfully created", state: .Success, duration: 2)
+            
+            let result = value as! [String: String]
+            if result["error"] != nil {
+                Drop.down("Account successfully created", state: .Success, duration: 2)
+            }
             UserConfig.storeCredentials(value)
             Analytics.identify(createdAt: NSDate())
             self.dismissViewControllerAnimated(true, completion: nil)
-
+            Drop.down("Account successfully created", state: .Success, duration: 2)
 
         }, failure: { errorMessage in
             Drop.down(errorMessage, state: .Error, duration: 3)

@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SCLAlertView
+
 
 class Helper {
     static func openStoryboard(window window: UIWindow? = nil, sourceViewController: UIViewController? = nil, storyboardName: String, viewControllerName: String) {
@@ -22,6 +24,29 @@ class Helper {
             sourceViewController!.presentViewController(targetViewController, animated: true, completion: nil)
         }
     }
+    
+    static func showAskUserToLogin(viewController :UIViewController, message: String) {
+        let appearance = SCLAlertView.SCLAppearance(hideWhenBackgroundViewIsTapped: true,
+                                                    showCloseButton: false)
+        let alertView  = SCLAlertView(appearance: appearance)
+        
+        alertView.addButton("Login") {
+            Helper.openStoryboard(sourceViewController: viewController,
+                                  storyboardName: "Login",
+                                  viewControllerName: "LoginNavigationController")
+        }
+        
+        alertView.addButton("Register") {
+            Helper.openStoryboard(sourceViewController: viewController,
+                                  storyboardName: "Login",
+                                  viewControllerName: "SignupNavigationController")
+        }
+        
+        alertView.showEdit("", subTitle: message,
+                           colorStyle: 0x704DEF,
+                           duration: 10.0)
+    }
+
     
     // http://stackoverflow.com/a/23157272/803865
     static func addBorder(view: UIView, edges: UIRectEdge, colour: UIColor = UIColor.whiteColor(), thickness: CGFloat = 1) -> [UIView] {
