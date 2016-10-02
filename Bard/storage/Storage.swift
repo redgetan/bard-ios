@@ -63,12 +63,7 @@ class Storage {
     
     static func getSegmentsStorageDirectory() -> String {
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
-        
-        if let username = UserConfig.getUsername() {
-            return "\(documentDirectory)/\(username)/segments"
-        } else {
-            return "\(documentDirectory)/anonymous/segments"
-        }
+        return "\(documentDirectory)/segments"
     }
     
     static func getMergeVideoFilePath() -> String {
