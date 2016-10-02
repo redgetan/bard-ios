@@ -236,22 +236,21 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     }
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let status = PHPhotoLibrary.authorizationStatus()
-        if status == .NotDetermined {
-            Storage.requestPhotoAccess()
-        } else if status == .Authorized {
-            onSocialShareClick(indexPath.row)
-        } else {
-            Drop.down("Please allow Photo Access to enable Facebook share", state: .Error, duration: 4)
-        }
-        
+        onSocialShareClick(indexPath.row)
     }
     
     func onSocialShareClick(index: Int) {
         let socialShare = self.socialShares[index]
         
         if socialShare[0] == "facebook" {
-            facebookDirectShare()
+            let status = PHPhotoLibrary.authorizationStatus()
+            if status == .NotDetermined {
+                Storage.requestPhotoAccess()
+            } else if status == .Authorized {
+                facebookDirectShare()
+            } else {
+                Drop.down("Please allow Photo Access to enable Facebook share", state: .Error, duration: 4)
+            }
         } else if socialShare[0] == "messenger" {
             let videoData = NSData(contentsOfFile: outputURL.path!)
             FBSDKMessengerSharer.shareVideo(videoData, withOptions:nil)
