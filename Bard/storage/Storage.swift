@@ -83,7 +83,7 @@ class Storage {
     
     static func getRepositoryS3Key(characterName: String, uuid: String) -> String {
         if let username = UserConfig.getUsername() {
-            return "repositories/\(username))/\(uuid).mp4"
+            return "repositories/\(username)/\(uuid).mp4"
         } else {
             return "repositories/anonymous/\(uuid).mp4"
         }
