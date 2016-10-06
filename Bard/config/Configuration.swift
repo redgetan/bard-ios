@@ -12,7 +12,7 @@ class Configuration {
     
     #if DEBUG
     
-    static let bardAccountBaseURL = "http://10.0.9.18:3000"
+    static let bardAccountBaseURL = "http://localhost:3000"
     static let keychainService    = "co.bard.auth-token-debug"
     static let s3UserBucket       = "roplabs-bard-users-staging"
     static let awsCognitoPoolId   = "us-west-2:7bd4263f-57f2-4d08-9855-7672299d73d4"
