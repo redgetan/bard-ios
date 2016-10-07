@@ -14,7 +14,7 @@ import SwiftyDrop
 import EZLoadingActivity
 
 
-class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate {
+class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate, PlayerDelegate {
     let cdnPath = "https://segments.bard.co"
     var character: Character!
     var characterToken: String!
@@ -673,11 +673,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func generateBardVideo() {
         Analytics.timeEvent("generateBardVideo")
-        
-        if self.activityIndicator == nil {
-            self.activityIndicator = addActivityIndicator(self.player.view)
-        }
-        
+
         // http://stackoverflow.com/questions/10781291/center-uiactivityindicatorview-in-a-uiimageview
         // http://stackoverflow.com/questions/17530659/uiactivityindicatorview-animation-delayed
         self.activityIndicator?.startAnimating()
@@ -971,42 +967,51 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func downloadSegmentPlayVideoAndHighlightThumbnail(segmentUrl: String) {
-        // download video if not cached to disk yet
-        Storage.saveRemoteVideo(segmentUrl)
-        let filePath = Storage.getSegmentFilePathFromUrl(segmentUrl)
-        let segmentFileUrl = NSURL(fileURLWithPath: filePath)
-        playVideo(segmentFileUrl)
-        
-        // let previewTimeline draw thumbnails once mp4 has been downloaded
-        previewTimelineCollectionView.reloadData()
-        previewTimelineCollectionView.layoutIfNeeded()
-        
-        // once thumbnails are drawn, we can highlight/select them
-        let indexPath = NSIndexPath(forRow: currentWordTagListIndex, inSection: 0)
-        
-        var thumbnail = previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell
-        
-        // if at first try thumbnail is nil, it means the cell item is currently not visible
-        // try to scroll to that position to make it visibe, then re-attempt to fetch the thumbnail again
-        if thumbnail == nil {
-            // before we scroll some of previous cells outside of view, unhighlight them first
-            unHighlightPreviousImageView()
-            
-            UIView.animateWithDuration(0.3, animations: {
-                self.previewTimelineCollectionView.scrollToItemAtIndexPath(indexPath,
-                    atScrollPosition: .CenteredHorizontally,
-                    animated: false)
-            }, completion: { (finished: Bool) -> Void in
-                thumbnail = self.previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell
-                if thumbnail != nil {
-                    self.highlightImageView(thumbnail!)
-                }
-            })
-            
-            
-        } else {
-            highlightImageView(thumbnail!)
+        // HACK: at this point the bounds of player has been set (we can safely position the activityIndicator)
+        if self.activityIndicator == nil {
+            self.activityIndicator = addActivityIndicator(self.player.view)
         }
+        
+        // download video if not cached to disk yet
+        Storage.saveRemoteVideoAsync(segmentUrl,
+                                     activityIndicator: self.activityIndicator,
+                                     completion: { filePath in
+                                        
+        
+            let segmentFileUrl = NSURL(fileURLWithPath: filePath)
+            self.playVideo(segmentFileUrl)
+            
+            // let previewTimeline draw thumbnails once mp4 has been downloaded
+            self.previewTimelineCollectionView.reloadData()
+            self.previewTimelineCollectionView.layoutIfNeeded()
+            
+            // once thumbnails are drawn, we can highlight/select them
+            let indexPath = NSIndexPath(forRow: self.currentWordTagListIndex, inSection: 0)
+            
+            var thumbnail = self.previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell
+            
+            // if at first try thumbnail is nil, it means the cell item is currently not visible
+            // try to scroll to that position to make it visibe, then re-attempt to fetch the thumbnail again
+            if thumbnail == nil {
+                // before we scroll some of previous cells outside of view, unhighlight them first
+                self.unHighlightPreviousImageView()
+                
+                UIView.animateWithDuration(0.3, animations: {
+                    self.previewTimelineCollectionView.scrollToItemAtIndexPath(indexPath,
+                        atScrollPosition: .CenteredHorizontally,
+                        animated: false)
+                }, completion: { (finished: Bool) -> Void in
+                    thumbnail = self.previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell
+                    if thumbnail != nil {
+                        self.highlightImageView(thumbnail!)
+                    }
+                })
+                
+                
+            } else {
+                self.highlightImageView(thumbnail!)
+            }
+        })
 
     }
     
@@ -1045,8 +1050,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTapGestureRecognizer(_:)))
         tapGestureRecognizer.numberOfTapsRequired = 1
         self.player.view.addGestureRecognizer(tapGestureRecognizer)
-        
+        self.player.delegate = self
         self.player.layerBackgroundColor = UIColor.blackColor()
+
         addWordTagPaginator()
     }
     
@@ -1133,7 +1139,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         progressIcon.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
         // http://stackoverflow.com/a/10781464
         progressIcon.center = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds));
+        
         view.addSubview(progressIcon)
+        view.bringSubviewToFront(progressIcon)
+        
         return progressIcon
     }
     
