@@ -103,7 +103,8 @@ class BardClient {
     }
     
     static func bardDownload(url: String, destinationPath: String, progress: ((Int64, Int64, Int64) -> Void)? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) -> Alamofire.Request {
-        
+        print("download request: \(url)")
+
         var customHeaders = [String : String]()
         customHeaders["Accept"] = "application/json"
         
@@ -131,9 +132,11 @@ class BardClient {
                  .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
                     
                    progress?(bytesRead, totalBytesRead, totalBytesExpectedToRead)
-                 }.response { response, _, _, error in
+                 }.response { _, response, _, error in
                   
-
+                    print("headers[reponse]:")
+                    print(response?.allHeaderFields)
+                    print(response?.expectedContentLength)
                     if error != nil {
                         failure?("something went wrong")
                         print("Failed with error: \(error)")
@@ -164,6 +167,7 @@ class BardClient {
     }
     
     static func apiRequest(method: Alamofire.Method, url: String, parameters: [String : AnyObject]? = nil, headers: [String : String]? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
+        print("\(method) \(url)")
         
         Alamofire.request(method, url, parameters: parameters, headers: headers)
             .responseJSON { response in

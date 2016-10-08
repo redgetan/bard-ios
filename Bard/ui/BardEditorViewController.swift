@@ -87,6 +87,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         inputTextField.delegate = self
         characterToken = self.character.token
+        print("characterSelect: \(characterToken)")
         updateTitle()
         initPlayer()
 
