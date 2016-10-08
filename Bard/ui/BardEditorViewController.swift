@@ -1124,18 +1124,23 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func onPrevBtnClick() {
         if self.wordTagSelector?.getWordTagVariantCount() == 1 {
             self.player.playFromBeginning()
-        } else if let wordTagString = self.wordTagSelector?.findPrevWordTag() {
-            self.wordTagList[self.currentWordTagListIndex] = wordTagString
-            onWordTagChanged(wordTagString, withDelay: 0.5)
+
+        } else if let wordTagString = self.wordTagSelector.findPrevWordTag() {
+            if self.currentWordTagListIndex < self.wordTagList.count {
+                self.wordTagList[self.currentWordTagListIndex] = wordTagString
+                onWordTagChanged(wordTagString, withDelay: 0.5)
+            }
         }
     }
     
     func onNextBtnClick() {
         if self.wordTagSelector?.getWordTagVariantCount() == 1 {
             self.player.playFromBeginning()
-        } else if let wordTagString = self.wordTagSelector?.findNextWordTag() {
-            self.wordTagList[self.currentWordTagListIndex] = wordTagString
-            onWordTagChanged(wordTagString, withDelay: 0.5)
+        } else if let wordTagString = self.wordTagSelector.findNextWordTag() {
+            if self.currentWordTagListIndex < self.wordTagList.count {
+                self.wordTagList[self.currentWordTagListIndex] = wordTagString
+                onWordTagChanged(wordTagString, withDelay: 0.5)
+            }
         }
     }
     
