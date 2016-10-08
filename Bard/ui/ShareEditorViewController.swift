@@ -335,15 +335,16 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
        
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
         let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("temp")
-        let uploadRequest1 : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
+        let uploadRequest : AWSS3TransferManagerUploadRequest = AWSS3TransferManagerUploadRequest()
         
         let data = NSData(contentsOfFile: outputURL.path!)!
         data.writeToURL(testFileURL1!, atomically: true)
-        uploadRequest1.bucket = Configuration.s3UserBucket
-        uploadRequest1.key = s3Key
-        uploadRequest1.body = testFileURL1
+        uploadRequest.bucket = Configuration.s3UserBucket
+        uploadRequest.key = s3Key
+        uploadRequest.body = testFileURL1
+        uploadRequest.contentType = "video/mp4"
         
-        let task = transferManager.upload(uploadRequest1)
+        let task = transferManager.upload(uploadRequest)
         task.continueWithBlock { task in
             if task.error != nil {
                 print("Error: \(task.error)")
