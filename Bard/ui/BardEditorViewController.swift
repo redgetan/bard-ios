@@ -26,6 +26,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var previousSelectedTokenIndex = [Int]()
     var wordTagSelector: WordTagSelector?
     var wordTagPaginationLabel: UILabel!
+    var wordUnavailableLabel: UILabel!
+
     var outputURL: NSURL!
     var characterDownloadRequest: Alamofire.Request?
 
@@ -375,13 +377,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         if !missingWordList.isEmpty {
             let missingWords = missingWordList.joinWithSeparator(",")
-            if let drop = UIApplication.sharedApplication().keyWindow?.subviews.last as? Drop {
-                (drop.subviews.last as! UILabel).text = "Unavailable words: \(missingWords)"
-            } else {
-                Drop.down("Unavailable words: \(missingWords)", state: .Error, duration: 60)
-            }
+            wordUnavailableLabel.text = "Unavailable: \(missingWords)"
+            wordUnavailableLabel.hidden = false
         } else {
-            Drop.upAll()
+            wordUnavailableLabel.hidden = true
+            wordUnavailableLabel.text = ""
         }
         
     }
@@ -664,7 +664,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             return CGSizeMake(50, 50)
         } else {
             let wordTagString = self.wordTagStringList[indexPath.row]
-            if let wordTagComponents = wordTagString.componentsSeparatedByString(":") {
+            let wordTagComponents = wordTagString.componentsSeparatedByString(":")
+            
+            if wordTagComponents.count > 0 {
                 let word = wordTagComponents[0]
                 self.sizingCell.textLabel.text = word
             }
@@ -1079,12 +1081,25 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         wordTagPaginationLabel.backgroundColor = UIColor.blackColor().colorWithAlphaComponent(0.7)
         wordTagPaginationLabel.translatesAutoresizingMaskIntoConstraints = false
         wordTagPaginationLabel.font = UIFont.systemFontOfSize(16)
-
         
         self.player.view.addSubview(wordTagPaginationLabel)
         
         NSLayoutConstraint(item: wordTagPaginationLabel, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0).active = true
         NSLayoutConstraint(item: wordTagPaginationLabel, attribute: NSLayoutAttribute.Bottom, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.BottomMargin, multiplier: 1.0, constant: -10.0).active = true
+        
+
+        // word unavailable error label
+        wordUnavailableLabel = UILabelWithPadding()
+        wordUnavailableLabel.textColor = UIColor.whiteColor()
+        wordUnavailableLabel.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.6)
+        wordUnavailableLabel.translatesAutoresizingMaskIntoConstraints = false
+        wordUnavailableLabel.font = UIFont.systemFontOfSize(12)
+        wordUnavailableLabel.hidden = true
+
+        self.player.view.addSubview(wordUnavailableLabel)
+        
+        NSLayoutConstraint(item: wordUnavailableLabel, attribute: NSLayoutAttribute.CenterX, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.CenterX, multiplier: 1, constant: 0).active = true
+        NSLayoutConstraint(item: wordUnavailableLabel, attribute: NSLayoutAttribute.Top, relatedBy: NSLayoutRelation.Equal, toItem: self.player.view, attribute: NSLayoutAttribute.TopMargin, multiplier: 1.0, constant: 10.0).active = true
 
         // back
         
@@ -1127,7 +1142,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         if self.wordTagSelector?.getWordTagVariantCount() == 1 {
             self.player.playFromBeginning()
 
-        } else if let wordTagString = self.wordTagSelector.findPrevWordTag() {
+        } else if let wordTagString = self.wordTagSelector?.findPrevWordTag() {
             if self.currentWordTagListIndex < self.wordTagList.count {
                 self.wordTagList[self.currentWordTagListIndex] = wordTagString
                 onWordTagChanged(wordTagString, withDelay: 0.5)
@@ -1138,7 +1153,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func onNextBtnClick() {
         if self.wordTagSelector?.getWordTagVariantCount() == 1 {
             self.player.playFromBeginning()
-        } else if let wordTagString = self.wordTagSelector.findNextWordTag() {
+        } else if let wordTagString = self.wordTagSelector?.findNextWordTag() {
             if self.currentWordTagListIndex < self.wordTagList.count {
                 self.wordTagList[self.currentWordTagListIndex] = wordTagString
                 onWordTagChanged(wordTagString, withDelay: 0.5)
