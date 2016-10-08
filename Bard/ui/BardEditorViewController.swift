@@ -664,8 +664,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             return CGSizeMake(50, 50)
         } else {
             let wordTagString = self.wordTagStringList[indexPath.row]
-            let word = wordTagString.componentsSeparatedByString(":")[0]
-            self.sizingCell.textLabel.text = word;
+            if let wordTagComponents = wordTagString.componentsSeparatedByString(":") {
+                let word = wordTagComponents[0]
+                self.sizingCell.textLabel.text = word
+            }
             return self.sizingCell.intrinsicContentSize()
         }
     }
