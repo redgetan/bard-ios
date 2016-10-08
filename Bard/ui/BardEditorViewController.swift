@@ -222,7 +222,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let characterBeforeCursor = getCharacterBeforeCursor()
         let isLeaderPressed = characterBeforeCursor == " " && !isBackspacePressed
         
-        print("ontextchange: \(currentWordTagListIndex), characterBeforeCursor: \(characterBeforeCursor),isBackspacePressed: \(isBackspacePressed), wordTagList: \(wordTagList)")
+        BardLogger.log("ontextchange: \(currentWordTagListIndex), characterBeforeCursor: \(characterBeforeCursor),isBackspacePressed: \(isBackspacePressed), wordTagList: \(wordTagList)")
 
         
         while tokenCount < lastTokenCount {
@@ -306,7 +306,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             }
         }
         
-        print("ontextchange [post] wordTagList: \(wordTagList)")
+        BardLogger.log("ontextchange [post] wordTagList: \(wordTagList)")
         drawGenerateButton()
 
         lastTokenCount = tokenCount
@@ -629,7 +629,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             } else {
                 wordTagList[self.currentWordTagListIndex] = wordTagString
             }
-            print("wordTagClick - wordTagList is \(wordTagList)")
+            BardLogger.log("wordTagClick - wordTagList is \(wordTagList)")
             onWordTagChanged(wordTagString)
         }
         
@@ -694,7 +694,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         self.outputPhrase = self.outputWordTagStrings.map { wordTagString in wordTagString.componentsSeparatedByString(":")[0]}.joinWithSeparator(" ")
         
         if self.outputPhrase.isEmpty {
-            print("text is blank. type something")
+            BardLogger.log("text is blank. type something")
             return
         }
         
@@ -712,10 +712,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                     self.generateButton.backgroundColor = UIColor(hex: "#2a9f47")
 
                     if error != nil {
-                        print(error)
+                        BardLogger.log((error?.localizedDescription)!)
                     }
                     else if outputURL == nil {
-                        print("failed to merge videos")
+                        BardLogger.log("failed to merge videos")
                     }
                     else {
                         Analytics.track("generateBardVideo",
@@ -774,7 +774,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             } else {
                 word = wordTagString
                 guard let wordTagString = randomWordTagFromWord(word) else {
-                    print("missing word \(word)")
+                    BardLogger.log("missing word \(word)")
                     continue
                 }
                 

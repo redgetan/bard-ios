@@ -24,7 +24,6 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
         let backButton = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         self.navigationItem.backBarButtonItem = backButton
         
-        Analytics.track("compose", properties: nil)
         initCharacters()
         charactersTableView.delegate = self
         charactersTableView.dataSource = self
@@ -82,6 +81,9 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
         if (segue.identifier == "characterToEditor") {
             let indexPath = charactersTableView.indexPathForCell(sender as! UITableViewCell)!
             let character = self.characters![indexPath.row]
+            Analytics.track("compose", properties: ["characterToken" : character.token,
+                                                    "character" : character.name])
+            BardLogger.log("characterSelect: \(character.name) - \(character.token)")
             let viewController = segue.destinationViewController as! BardEditorViewController;
             viewController.character = character
         }
