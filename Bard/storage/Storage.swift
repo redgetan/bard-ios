@@ -20,6 +20,7 @@ class Storage {
     static func createMissingDirectories() {
         createStorageDirectory(getRepositoryStorageDirectory())
         createStorageDirectory(getSegmentsStorageDirectory())
+        createStorageDirectory(getCharactersStorageDirectory())
     }
     
     static func requestPhotoAccess() {
@@ -64,6 +65,15 @@ class Storage {
     static func getSegmentsStorageDirectory() -> String {
         let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
         return "\(documentDirectory)/segments"
+    }
+    
+    static func getCharactersStorageDirectory() -> String {
+        let documentDirectory = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+        return "\(documentDirectory)/characters"
+    }
+    
+    static func getCharacterFilePath(characterToken: String) -> String {
+        return "\(getCharactersStorageDirectory())/\(characterToken)"
     }
     
     static func getMergeVideoFilePath() -> String {

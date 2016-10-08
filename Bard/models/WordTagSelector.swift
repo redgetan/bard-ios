@@ -25,9 +25,9 @@ public class WordTagSelector {
         self.wordTagMap = wordTagMap
     }
     
-    func setWordTag(wordTagString: String, force: Bool? = false) -> Bool {
+    func setWordTag(wordTagString: String, force: Bool? = false) -> String? {
         if !force! && (!wordTagString.characters.contains(":") || wordTagString == getCurrentWordTagString()) {
-            return false
+            return nil
         }
         
         
@@ -37,7 +37,7 @@ public class WordTagSelector {
             self.currentWordTagIndex = wordTagList.indexOf(wordTagString)!
         }
         
-        return true
+        return wordTagString
     }
     
     func getCurrentWordTagString() -> String {

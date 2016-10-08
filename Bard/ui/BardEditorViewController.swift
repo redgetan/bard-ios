@@ -11,7 +11,7 @@ import RealmSwift
 import Player
 import Photos
 import SwiftyDrop
-import EZLoadingActivity
+import Alamofire
 
 
 class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate, PlayerDelegate {
@@ -24,9 +24,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var skipAddToWordTag: Bool = false
     var skipTextSelectionChange: Bool = false
     var previousSelectedTokenIndex = [Int]()
-    var wordTagSelector: WordTagSelector!
+    var wordTagSelector: WordTagSelector?
     var wordTagPaginationLabel: UILabel!
     var outputURL: NSURL!
+    var characterDownloadRequest: Alamofire.Request?
+
     
     // word -> array of wordtagstrings 
     // useful for knowing whether a word is in the bard dictionary (valid or not)
@@ -87,11 +89,13 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         characterToken = self.character.token
         updateTitle()
         initPlayer()
+
         initDictionary()
         initPreviewTimeline()
         initCollectionView()
     }
     
+
     
     @IBAction func onControlButtonClick(sender: UIButton) {
         if isKeyboardShown {
@@ -148,9 +152,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             self.currentWordTagListIndex = getInputTokenIndex()
             if self.wordTagList.count > self.currentWordTagListIndex {
                 let wordTagString = self.wordTagList[self.currentWordTagListIndex]
-                if self.wordTagSelector.setWordTag(wordTagString) {
+                if (self.wordTagSelector?.setWordTag(wordTagString) != nil) {
                     onWordTagChanged(wordTagString)
                 }
+                
             }
   
         }
@@ -262,7 +267,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
                 if !upperHalfWord.isEmpty {
                     // assign tag for latter half of split-word
-                    if let wordTagString = self.wordTagSelector.findRandomWordTag(upperHalfWord) {
+                    if let wordTagString = self.wordTagSelector?.findRandomWordTag(upperHalfWord) {
                         wordTagList.insert(wordTagString, atIndex: tokenIndex + 1)
                         onWordTagChanged(wordTagString)
                     } else {
@@ -270,7 +275,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                     }
                     
                     // assign tag for former half of split-word
-                    if let wordTagString = self.wordTagSelector.findRandomWordTag(lowerHalfWord) {
+                    if let wordTagString = self.wordTagSelector?.findRandomWordTag(lowerHalfWord) {
                         wordTagList[tokenIndex] = wordTagString
                         onWordTagChanged(wordTagString)
                     } else {
@@ -281,7 +286,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                 // assign wordTag to last
                 let wordAtInputField = getWordAtTokenIndex(tokenIndex)
                 if !wordAtInputField.isEmpty && !wordTagList[tokenIndex].characters.contains(":") {
-                    if let wordTagString = self.wordTagSelector.findRandomWordTag(wordAtInputField) {
+                    if let wordTagString = self.wordTagSelector?.findRandomWordTag(wordAtInputField) {
                         wordTagList[tokenIndex] = wordTagString
                         onWordTagChanged(wordTagString)
                     } else {
@@ -538,7 +543,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         self.currentWordTagListIndex = indexPath.row
         let wordTagString = self.wordTagList[indexPath.row]
         
-        if self.wordTagSelector.setWordTag(wordTagString) {
+        if ((self.wordTagSelector?.setWordTag(wordTagString)) != nil) {
             onWordTagChanged(wordTagString)
         } else if wordTagString.characters.contains(":") {
             self.player.playFromBeginning()
@@ -617,7 +622,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
         self.currentWordTagListIndex = getInputTokenIndex()
         
-        if self.wordTagSelector.setWordTag(wordTagString, force: true) {
+        if ((self.wordTagSelector?.setWordTag(wordTagString, force: true)) != nil) {
             if lastTokenCount > tokenCountBeforeWordTagClick {
                 wordTagList.insert(wordTagString, atIndex: self.currentWordTagListIndex)
             } else {
@@ -839,7 +844,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func initCharacterWordList() {
         if self.character.isBundleDownloaded {
-            EZLoadingActivity.show("Initializing...", disableUI: true)
+            Helper.showProgress(self.view, message: "Initializing...")
             
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
                 let scenes = Scene.forCharacterToken(self.characterToken)
@@ -850,31 +855,39 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                 
                 dispatch_async(dispatch_get_main_queue()) {
                     self.wordTagCollectionView.reloadData()
-                    EZLoadingActivity.hide()
+                    Helper.hideProgress(self.view)
                 }
             }
         
 
         } else {
-            EZLoadingActivity.show("Downloading Word List...", disableUI: true)
-            BardClient.getCharacterWordList(self.character.token, success: { value in
-                for (sceneToken, wordList) in value as! NSDictionary {
-                    if Scene.forToken(sceneToken as! String) == nil {
-                        Scene.createWithTokenAndWordList(sceneToken as! String, characterToken: self.character.token, wordList: wordList as! String)
-                        self.addWordListToDictionary(wordList as! String)
+            let hud = Helper.showDownloadProgress(self.view, message: "Downloading...")
+            self.characterDownloadRequest = BardClient.getCharacterWordList(self.character.token,
+                progress: { bytesRead, totalBytesRead, totalBytesExpectedToRead in
+                    let percentage = Float(totalBytesRead) / Float(totalBytesExpectedToRead)
+                    dispatch_async(dispatch_get_main_queue()) {
+                        hud.progress = percentage
+                        //hud.label.text = "Downloading...\(totalBytesRead) of \(totalBytesExpectedToRead)"
                     }
-                }
-                
-                let realm = try! Realm()
-                try! realm.write {
-                    self.character.isBundleDownloaded = true
-                }
-                
-                EZLoadingActivity.hide()
-                self.wordTagCollectionView.reloadData()
-                
+                },
+                success: { value in
+                    Helper.hideProgress(self.view)
+                    for (sceneToken, wordList) in value as! NSDictionary {
+                        if Scene.forToken(sceneToken as! String) == nil {
+                            Scene.createWithTokenAndWordList(sceneToken as! String, characterToken: self.character.token, wordList: wordList as! String)
+                            self.addWordListToDictionary(wordList as! String)
+                        }
+                    }
+                    
+                    let realm = try! Realm()
+                    try! realm.write {
+                        self.character.isBundleDownloaded = true
+                    }
+                    
+                    self.wordTagCollectionView.reloadData()
                 }, failure: { errorMessage in
-                    EZLoadingActivity.hide(success: false, animated: true)
+                    Helper.hideProgress(self.view)
+                    Drop.down("Failed to download word list", state: .Error, duration: 3)
             })
         }
     }
@@ -948,7 +961,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             
         }
         
-        self.wordTagSelector.setSceneWordTagMap(sceneWordTagMap)
+        self.wordTagSelector?.setSceneWordTagMap(sceneWordTagMap)
     }
     
     func onWordTagChanged(wordTagString: String, withDelay: NSTimeInterval? = nil) {
@@ -1108,18 +1121,18 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func onPrevBtnClick() {
-        if self.wordTagSelector.getWordTagVariantCount() == 1 {
+        if self.wordTagSelector?.getWordTagVariantCount() == 1 {
             self.player.playFromBeginning()
-        } else if let wordTagString = self.wordTagSelector.findPrevWordTag() {
+        } else if let wordTagString = self.wordTagSelector?.findPrevWordTag() {
             self.wordTagList[self.currentWordTagListIndex] = wordTagString
             onWordTagChanged(wordTagString, withDelay: 0.5)
         }
     }
     
     func onNextBtnClick() {
-        if self.wordTagSelector.getWordTagVariantCount() == 1 {
+        if self.wordTagSelector?.getWordTagVariantCount() == 1 {
             self.player.playFromBeginning()
-        } else if let wordTagString = self.wordTagSelector.findNextWordTag() {
+        } else if let wordTagString = self.wordTagSelector?.findNextWordTag() {
             self.wordTagList[self.currentWordTagListIndex] = wordTagString
             onWordTagChanged(wordTagString, withDelay: 0.5)
         }

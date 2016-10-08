@@ -13,7 +13,7 @@ target 'Bard' do
   pod 'HanekeSwift', :git => 'https://github.com/cannyboy/HanekeSwift.git'
   pod 'DZNEmptyDataSet'
   pod 'UICollectionViewLeftAlignedLayout'
-  pod 'EZLoadingActivity', :git => "https://github.com/redgetan/EZLoadingActivity.git", :branch => "swift_2_3"
+  pod 'MBProgressHUD', '~> 1.0.0'
   pod 'TTTAttributedLabel'
 
   # crash reporting

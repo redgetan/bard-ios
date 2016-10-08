@@ -6,7 +6,6 @@ PODS:
   - AWSS3 (2.4.9):
     - AWSCore (= 2.4.9)
   - DZNEmptyDataSet (1.8.1)
-  - EZLoadingActivity (0.8)
   - Firebase (3.3.0):
     - Firebase/Core (= 3.3.0)
   - Firebase/Analytics (3.3.0):
@@ -27,6 +26,7 @@ PODS:
   - HanekeSwift (0.10.1)
   - Instabug (5.3.1)
   - KeychainAccess (2.4.0)
+  - MBProgressHUD (1.0.0)
   - Mixpanel (3.0.0):
     - Mixpanel/Mixpanel (= 3.0.0)
   - Mixpanel/Mixpanel (3.0.0)
@@ -46,11 +46,11 @@ DEPENDENCIES:
   - AWSCognito
   - AWSS3
   - DZNEmptyDataSet
-  - EZLoadingActivity (from `https://github.com/redgetan/EZLoadingActivity.git`, branch `swift_2_3`)
   - Firebase
   - HanekeSwift (from `https://github.com/cannyboy/HanekeSwift.git`)
   - Instabug
   - KeychainAccess (~> 2.4.0)
+  - MBProgressHUD (~> 1.0.0)
   - Mixpanel
   - Player (from `https://github.com/redgetan/Player`, branch `layer_background`)
   - RealmSwift (~> 1.1.0)
@@ -60,9 +60,6 @@ DEPENDENCIES:
   - UICollectionViewLeftAlignedLayout
 
 EXTERNAL SOURCES:
-  EZLoadingActivity:
-    :branch: swift_2_3
-    :git: https://github.com/redgetan/EZLoadingActivity.git
   HanekeSwift:
     :git: https://github.com/cannyboy/HanekeSwift.git
   Player:
@@ -70,9 +67,6 @@ EXTERNAL SOURCES:
     :git: https://github.com/redgetan/Player
 
 CHECKOUT OPTIONS:
-  EZLoadingActivity:
-    :commit: 37d1a7d788600e0c563001313b1c3e516403f0b2
-    :git: https://github.com/redgetan/EZLoadingActivity.git
   HanekeSwift:
     :commit: 6d269cf310c62e17b321af4d43fa7d675d00caf7
     :git: https://github.com/cannyboy/HanekeSwift.git
@@ -86,7 +80,6 @@ SPEC CHECKSUMS:
   AWSCore: 175208358b95492e0ebe0337df2ab415300bddac
   AWSS3: e4959b48db48d5f3dcd5cdf9e24a07f60a313611
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
-  EZLoadingActivity: 6fd75a05765a4085f4b6fef6f62edf9f144b3139
   Firebase: 6250071f0e2440a5c4c67b8cb6b868f868237ac3
   FirebaseAnalytics: 0fd6532cb2c3d03cd5cf26ad295ccb091efd3104
   FirebaseInstanceID: a9d923f3d0b6fbf9fac89310860357aaadc34be5
@@ -96,6 +89,7 @@ SPEC CHECKSUMS:
   HanekeSwift: 4113367892828e7700d24a384027de6ebc79aad1
   Instabug: b77626dcf1baf66534521a400d0680a2e914b241
   KeychainAccess: c2a71459af5bddf720a51806046a598500976c04
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   Mixpanel: ac92056ee35a961362513ba11049e67cffcaa1f1
   Player: 40e06506c0dac14a29657be25723314a62ccaf76
   Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
@@ -105,6 +99,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
 
-PODFILE CHECKSUM: 677c5b991e8647790bf1cb1c5991f5ae00a1e047
+PODFILE CHECKSUM: 3015d99af2b42b841096fb72f683cf0417853886
 
 COCOAPODS: 1.0.1

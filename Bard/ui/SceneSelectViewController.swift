@@ -10,7 +10,6 @@ import UIKit
 import RealmSwift
 import SwiftyDrop
 import Haneke
-import EZLoadingActivity
 
 class SceneSelectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     

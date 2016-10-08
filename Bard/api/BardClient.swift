@@ -70,8 +70,8 @@ class BardClient {
         bardApiRequest(.GET, url: getSceneWordListUrl(characterToken, sceneToken: sceneToken), success: success, failure: failure)
     }
     
-    static func getCharacterWordList(characterToken: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
-        bardApiRequest(.GET, url: getCharacterWordListUrl(characterToken), success: success, failure: failure)
+    static func getCharacterWordList(characterToken: String, progress: ((Int64, Int64, Int64) -> Void)? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) -> Alamofire.Request {
+        return bardDownload(getCharacterWordListUrl(characterToken), destinationPath: Storage.getCharacterFilePath(characterToken), progress: progress, success: success, failure: failure)
     }
     
     static func postRepo(uuid: String, characterToken: String, wordList: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
@@ -100,6 +100,67 @@ class BardClient {
         }
         
         apiRequest(method, url: url, parameters: parameters, headers: customHeaders, success: success, failure: failure)
+    }
+    
+    static func bardDownload(url: String, destinationPath: String, progress: ((Int64, Int64, Int64) -> Void)? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) -> Alamofire.Request {
+        
+        var customHeaders = [String : String]()
+        customHeaders["Accept"] = "application/json"
+        
+        if let authenticationToken = UserConfig.getAuthenticationToken() {
+            customHeaders["Authorization"] = "Token \(authenticationToken)"
+        }
+
+        let destination: (NSURL, NSHTTPURLResponse) -> (NSURL) = {
+            (temporaryUrl, response)  in
+            if response.statusCode == 200 {
+                let destinationURL = NSURL(fileURLWithPath: destinationPath)
+                if NSFileManager.defaultManager().fileExistsAtPath(destinationPath) {
+                    try! NSFileManager.defaultManager().removeItemAtURL(destinationURL)
+                }
+                return destinationURL
+            } else {
+                return temporaryUrl
+            }
+        }
+        
+        return Alamofire.download(.GET, url, parameters: nil,
+                            encoding: .JSON,
+                            headers: customHeaders,
+                            destination: destination)
+                 .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
+                    
+                   progress?(bytesRead, totalBytesRead, totalBytesExpectedToRead)
+                 }.response { response, _, _, error in
+                  
+
+                    if error != nil {
+                        failure?("something went wrong")
+                        print("Failed with error: \(error)")
+                    } else if !NSFileManager.defaultManager().fileExistsAtPath(destinationPath) {
+                        failure?("Download failed")
+                    } else {
+
+                        if let jsonData = NSData(contentsOfFile: destinationPath)  {
+                            do {
+                                if let jsonResult: NSDictionary = try NSJSONSerialization.JSONObjectWithData(jsonData, options: NSJSONReadingOptions.MutableContainers) as? [String: AnyObject] {
+                                    if let error = (jsonResult as? [String: String])?["error"] {
+                                        failure?(error)
+                                    } else {
+                                        success?(jsonResult)
+                                    }
+                                }
+                            } catch let error as NSError {
+                                failure?(error.localizedDescription)
+                            }
+                            
+                        
+                        }
+                    }
+                    
+                    
+                 }
+    
     }
     
     static func apiRequest(method: Alamofire.Method, url: String, parameters: [String : AnyObject]? = nil, headers: [String : String]? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {

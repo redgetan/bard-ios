@@ -8,6 +8,7 @@
 
 import UIKit
 import SCLAlertView
+import MBProgressHUD
 
 
 class Helper {
@@ -23,6 +24,24 @@ class Helper {
         } else if sourceViewController != nil {
             sourceViewController!.presentViewController(targetViewController, animated: true, completion: nil)
         }
+    }
+    
+    static func showDownloadProgress(view: UIView, message: String) -> MBProgressHUD {
+        let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        hud.label.text = message
+        hud.mode = .AnnularDeterminate
+        return hud
+    }
+    
+    static func showProgress(view: UIView, message: String) -> MBProgressHUD {
+        let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
+        hud.label.text = message
+        hud.mode = .Indeterminate
+        return hud
+    }
+    
+    static func hideProgress(view: UIView) {
+        MBProgressHUD.hideHUDForView(view,animated: true)
     }
     
     static func showAskUserToLogin(viewController :UIViewController, message: String) {

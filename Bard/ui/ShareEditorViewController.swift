@@ -12,7 +12,6 @@ import Player
 import Photos
 import SwiftyDrop
 import AWSS3
-import EZLoadingActivity
 
 class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, FBSDKSharingDelegate {
 
@@ -68,9 +67,9 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
             self.saveButton.enabled = false
             self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
         } else {
-            EZLoadingActivity.show("Saving..", disableUI: true)
+            Helper.showProgress(self.view, message: "Saving..")
             uploadAndSaveToDisk({ url in
-                EZLoadingActivity.hide()
+                Helper.hideProgress(self.view)
                 if url != nil {
                     // successful
                     self.saveButton.setTitle("Saved", forState: .Normal)
@@ -259,14 +258,14 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
                 // already uploaded this repo to bard with generated url
                 self.doTwitterShare(self.url!)
             } else {
-                EZLoadingActivity.show("Uploading video", disableUI: true)
+                Helper.showProgress(self.view, message: "Uploading video")
                 uploadAndSaveToDisk({ url in
                     if url != nil {
                         // upload success
                         self.url = url
                         self.doTwitterShare(url!)
                     }
-                    EZLoadingActivity.hide()
+                    Helper.hideProgress(self.view)
                 })
             }
             
