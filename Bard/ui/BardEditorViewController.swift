@@ -1089,9 +1089,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
 
         // word unavailable error label
-        wordUnavailableLabel = UILabelWithPadding()
+        wordUnavailableLabel = UILabelWithPadding(topInset: 2,leftInset: 2,bottomInset: 2,rightInset: 2)
         wordUnavailableLabel.textColor = UIColor.whiteColor()
-        wordUnavailableLabel.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.6)
+        wordUnavailableLabel.backgroundColor = UIColor.redColor().colorWithAlphaComponent(0.8)
         wordUnavailableLabel.translatesAutoresizingMaskIntoConstraints = false
         wordUnavailableLabel.font = UIFont.systemFontOfSize(12)
         wordUnavailableLabel.hidden = true
