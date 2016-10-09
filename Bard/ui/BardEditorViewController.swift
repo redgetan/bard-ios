@@ -1090,6 +1090,42 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
     }
     
+    // source: 
+    // https://github.com/ViccAlexander/Chameleon/blob/dde307d62cff1c0f9d65cf40a334c063db032c8f/Pod/Classes/Objective-C/UIColor%2BChameleon.m#L488
+    func blackGradient(frame: CGRect, direction: String) -> UIColor {
+        let backgroundGradientLayer = CAGradientLayer()
+        backgroundGradientLayer.frame = frame
+        let cgColors = [UIColor.blackColor().CGColor, UIColor.clearColor().CGColor]
+        backgroundGradientLayer.colors = cgColors
+        
+        if direction == "right" {
+            backgroundGradientLayer.startPoint = CGPointMake(0.0, 0.5)
+            backgroundGradientLayer.endPoint   = CGPointMake(1.0, 0.5)
+        } else if direction == "left" {
+            backgroundGradientLayer.startPoint = CGPointMake(1.0, 0.5)
+            backgroundGradientLayer.endPoint   = CGPointMake(0.0, 0.5)
+        }
+        
+        //Convert our CALayer to a UIImage object
+        UIGraphicsBeginImageContextWithOptions(backgroundGradientLayer.bounds.size,false, UIScreen.mainScreen().scale)
+        backgroundGradientLayer.renderInContext(UIGraphicsGetCurrentContext()!)
+        
+        let backgroundColorImage: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return UIColor(patternImage: backgroundColorImage)
+    }
+    
+    func addGradientsToNavigation() {
+        if self.findPrevButton.backgroundColor == nil {
+            self.findPrevButton.backgroundColor = blackGradient(self.findPrevButton.frame, direction: "right")
+        }
+        
+        if self.findNextButton.backgroundColor == nil {
+            self.findNextButton.backgroundColor = blackGradient(self.findNextButton.frame, direction: "left")
+        }
+        
+    }
+    
     func drawPagination(wordTagString: String) {
         let word =  wordTagString.componentsSeparatedByString(":")[0]
         
@@ -1100,6 +1136,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             
             self.findPrevButton.hidden = false
             self.findNextButton.hidden = false
+            
+            addGradientsToNavigation()
             
             if wordTagVariants.count == 1 {
                 self.findPrevButton.tintColor = UIColor.whiteColor()
