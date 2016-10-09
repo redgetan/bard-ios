@@ -150,6 +150,8 @@ class VideoMergeManager
                 // Start reading
                 assetReader.startReading()
                 
+                var audioBuffers = 0
+                var videoBuffers = 0
                 while assetReader.status == .Reading
                 {
                     // Video
@@ -170,6 +172,7 @@ class VideoMergeManager
                         }
                         
                         videoInput.appendSampleBuffer(videoSampleBuffer)
+                        videoBuffers += 1
                         lastVideoPts = CMSampleBufferGetPresentationTimeStamp(videoSampleBuffer)
                         
                         if VideoMergeManagerPrintPts {
@@ -213,6 +216,7 @@ class VideoMergeManager
                             }
                             
                             audioInput!.appendSampleBuffer(audioSampleBuffer)
+                            audioBuffers += 1
                             lastAudioPts = currentPts
                             lastAudioDuration = duration
                             
@@ -245,10 +249,21 @@ class VideoMergeManager
                         videoBasePts = audioBasePts
                     }
                     else {
+                        if let test = audioFormatHint {
+                            let diff = CMTimeSubtract(videoBasePts, audioBasePts)
+                            let sampleRate = CMAudioFormatDescriptionGetStreamBasicDescription(test).memory.mSampleRate
+                            let scaledDiff = CMTimeConvertScale(diff, Int32(sampleRate), .RoundHalfAwayFromZero)
+                            let silentAudioSampleBuffer = self.createSilentAudioSampleBufferWithFormatDescription(test,
+                                                                                                                  numSamples: Int(scaledDiff.value),
+                                                                                                                  presentationTime: audioBasePts)
+                            audioInput!.appendSampleBuffer(silentAudioSampleBuffer!)
+                        }
                         audioBasePts = videoBasePts
                     }
                     
                     if VideoMergeManagerPrintPts {
+                        print("vc: \(videoBuffers)");
+                        print("ac: \(audioBuffers)");
                         print("vb: \(String(format: "%.4f", CMTimeGetSeconds(videoBasePts)))")
                         print("ab: \(String(format: "%.4f", CMTimeGetSeconds(audioBasePts)))")
                         print("")
@@ -327,10 +342,7 @@ class VideoMergeManager
         
         // Video input
         let videoDimensions: CMVideoDimensions = CMVideoFormatDescriptionGetDimensions(videoFormatHint as CMVideoFormatDescription)
-        
-        let compressionSettings: [String : String] =
-            [AVVideoProfileLevelKey: AVVideoProfileLevelH264Baseline30]
-        
+        let compressionSettings: [String : String] = [AVVideoProfileLevelKey: AVVideoProfileLevelH264Baseline30]
         let videoSettings: [String : AnyObject] = [AVVideoCodecKey: AVVideoCodecH264,
                                                    AVVideoWidthKey: Int(videoDimensions.width),
                                                    AVVideoHeightKey: Int(videoDimensions.height),
@@ -347,8 +359,10 @@ class VideoMergeManager
             return (nil, nil, nil)
         }
         
+        let audioSettings: [String : AnyObject] = [AVFormatIDKey: Int(kAudioFormatMPEG4AAC),
+                                                   AVNumberOfChannelsKey: 2]
         let audioInput: AVAssetWriterInput? = AVAssetWriterInput(mediaType: AVMediaTypeAudio,
-                                                                 outputSettings: nil,
+                                                                 outputSettings: audioSettings,
                                                                  sourceFormatHint: audioFormatHint)
         audioInput?.expectsMediaDataInRealTime = true
         
@@ -402,7 +416,9 @@ class VideoMergeManager
         // Audio output
         let audioTracks = asset.tracksWithMediaType(AVMediaTypeAudio)
         if audioTracks.count > 0 {
-            audioOutput = AVAssetReaderTrackOutput(track: asset.tracksWithMediaType(AVMediaTypeAudio).first!, outputSettings: nil)
+            let audioSettings: [String : AnyObject] = [AVFormatIDKey: Int(kAudioFormatLinearPCM),
+                                                       AVNumberOfChannelsKey: 2]
+            audioOutput = AVAssetReaderTrackOutput(track: audioTracks.first!, outputSettings: audioSettings)
             if assetReader!.canAddOutput(audioOutput!) {
                 assetReader!.addOutput(audioOutput!)
             }
@@ -464,5 +480,39 @@ class VideoMergeManager
         }
         
         return (nil, nil)
+    }
+    
+    static func createSilentAudioSampleBufferWithFormatDescription(formatDescription:CMAudioFormatDescription,
+                                                                   numSamples: Int,
+                                                                   presentationTime: CMTime) -> CMSampleBuffer?
+    {
+        let audioStreamBasicDescription = CMAudioFormatDescriptionGetStreamBasicDescription(formatDescription).memory
+        let blockSize: size_t = numSamples * Int(audioStreamBasicDescription.mBytesPerFrame) // TODO: Probably need to calc in another way
+        var blockPointer: CMBlockBuffer? = nil
+        CMBlockBufferCreateWithMemoryBlock(kCFAllocatorDefault,
+                                           nil,
+                                           blockSize,
+                                           nil,
+                                           nil,
+                                           0,
+                                           blockSize,
+                                           0,
+                                           &blockPointer)
+        
+        guard let block = blockPointer else {
+            return nil
+        }
+        
+        CMBlockBufferFillDataBytes(0, block, 0, blockSize)
+        
+        var sampleBuffer: CMSampleBuffer? = nil
+        CMAudioSampleBufferCreateReadyWithPacketDescriptions(kCFAllocatorDefault,
+                                                             block,
+                                                             formatDescription,
+                                                             numSamples,
+                                                             presentationTime,
+                                                             nil,
+                                                             &sampleBuffer)
+        return sampleBuffer
     }
 }
