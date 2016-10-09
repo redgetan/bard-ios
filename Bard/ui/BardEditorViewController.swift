@@ -31,6 +31,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var outputURL: NSURL!
     var characterDownloadRequest: Alamofire.Request?
 
+    var assignWordTagTimer: NSTimer?
     
     // word -> array of wordtagstrings 
     // useful for knowing whether a word is in the bard dictionary (valid or not)
@@ -139,6 +140,28 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
+    func attemptAssignWordTagDelayed(word: String, tokenIndex: Int) {
+//        NSObject.cancelPreviousPerformRequestsWithTarget(self)
+        let wordToTokenIndexMap: [String: Int] = [word : tokenIndex]
+        
+        self.assignWordTagTimer?.invalidate()
+        self.assignWordTagTimer = NSTimer.scheduledTimerWithTimeInterval(1.5, target: self, selector: #selector(attemptAssignWordTag), userInfo: wordToTokenIndexMap, repeats: false)
+
+//        performSelector(#selector(attemptAssignWordTag), withObject: , afterDelay: 1.5)
+    }
+    
+    func attemptAssignWordTag(timer: NSTimer!) {
+        let wordToTokenIndexMap: [String: Int] = timer.userInfo as! [String: Int]
+        
+        let word = ([String] (wordToTokenIndexMap.keys))[0]
+        let tokenIndex = wordToTokenIndexMap[word]
+        
+        if let wordTagString = self.wordTagSelector?.findRandomWordTag(word) {
+            wordTagList[tokenIndex!] = wordTagString
+            onWordTagChanged(wordTagString)
+        }
+    }
+    
     func updateTitle() {
       self.title = scene?.name ?? character.name
     }
@@ -212,6 +235,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func addWordToWordTagList() {
+        self.assignWordTagTimer?.invalidate()
         
         if skipAddToWordTag {
             return
@@ -255,6 +279,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                 let wordAtWordTagList = wordTagList[tokenIndex].componentsSeparatedByString(":")[0]
                 if !wordAtInputField.isEmpty && wordAtWordTagList != wordAtInputField {
                     wordTagList[tokenIndex] = wordAtInputField
+                    attemptAssignWordTagDelayed(wordAtInputField, tokenIndex: tokenIndex)
                     
                     if wordAtInputField.characters.contains(":") {
                         previewTimelineCollectionView.reloadData()
@@ -308,6 +333,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             } else {
                 wordTagList[tokenIndex] = wordAtInputField
             }
+            
+            attemptAssignWordTagDelayed(wordAtInputField, tokenIndex: tokenIndex)
         }
         
         BardLogger.log("ontextchange [post] wordTagList: \(wordTagList)")
