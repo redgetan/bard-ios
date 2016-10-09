@@ -27,7 +27,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var wordTagSelector: WordTagSelector?
     var wordTagPaginationLabel: UILabel!
     var wordUnavailableLabel: UILabel!
+    var placeholderLabel : UILabel!
 
+    
     var outputURL: NSURL!
     var characterDownloadRequest: Alamofire.Request?
 
@@ -88,15 +90,29 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
         self.automaticallyAdjustsScrollViewInsets = false
         
-        inputTextField.delegate = self
         characterToken = self.character.token
         print("characterSelect: \(characterToken)")
+        
+        initControls()
         updateTitle()
         initPlayer()
 
         initDictionary()
         initPreviewTimeline()
         initCollectionView()
+    }
+    
+    func initControls() {
+        inputTextField.delegate = self
+
+        placeholderLabel = UILabel()
+        placeholderLabel.text = "say something"
+        placeholderLabel.font = UIFont.systemFontOfSize(12)
+        placeholderLabel.sizeToFit()
+        inputTextField.addSubview(placeholderLabel)
+        placeholderLabel.frame.origin = CGPointMake(5, inputTextField.font!.pointSize / 2)
+        placeholderLabel.textColor = UIColor(white: 0, alpha: 0.3)
+        placeholderLabel.hidden = !inputTextField.text.isEmpty
     }
     
 
@@ -116,12 +132,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(BardEditorViewController.keyboardWillAppear(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(BardEditorViewController.keyboardWillDisappear(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
-        NSNotificationCenter.defaultCenter().addObserver(
-            self,
-            selector: #selector(BardEditorViewController.textFieldTextChanged(_:)),
-            name: UITextViewTextDidChangeNotification,
-            object: inputTextField
-        )
+//        NSNotificationCenter.defaultCenter().addObserver(
+//            self,
+//            selector: #selector(BardEditorViewController.textFieldTextChanged(_:)),
+//            name: UITextViewTextDidChangeNotification,
+//            object: inputTextField
+//        )
         
     }
     
@@ -169,6 +185,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         if (text == ""){
             isBackspacePressed = true
+        } else {
+            isBackspacePressed = false
         }
         return true
     }
@@ -202,8 +220,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 //        }
     }
     
-    
-    func textFieldTextChanged(sender : AnyObject) {
+    func textViewDidChange(textView: UITextView) {
+//    func textFieldTextChanged(sender : AnyObject) {
+        placeholderLabel.hidden = !inputTextField.text.isEmpty
+
         // add word to wordTagList
         addWordToWordTagList()
 
@@ -244,11 +264,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let tokenCount = getInputTokenCount()
         let tokenIndex = getInputTokenIndex()
         
-        if isBackspacePressed {
-            
-}
         let characterBeforeCursor = getCharacterBeforeCursor()
-        let isLeaderPressed = characterBeforeCursor == " " && !isBackspacePressed
+        let isLeaderPressed = isBackspacePressed == false && characterBeforeCursor == " "
+        let isUserDeleteKeyPressed = isBackspacePressed == true
         
         BardLogger.log("ontextchange: \(currentWordTagListIndex), characterBeforeCursor: \(characterBeforeCursor),isBackspacePressed: \(isBackspacePressed), wordTagList: \(wordTagList)")
 
@@ -269,9 +287,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             previewTimelineCollectionView.layoutIfNeeded()
         }
         
-        // possibly due to race condition or just bug in my code, sometimes isBackspacePressed would be true even if
-        // characterBeforeCursor contains character. Add another condition to check for presence of character
-        if isBackspacePressed == true && characterBeforeCursor.isEmpty {
+        if isUserDeleteKeyPressed {
             // deleting wordTag from list
             
             if tokenIndex < wordTagList.count {
@@ -438,21 +454,27 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                                                 - controlsContainer.frame.size.height
         
         if keyboardHeight > wordTagCollectionView.frame.size.height {
+            // keyboard covers input text field
             playerAspectRatioConstraint.setMultiplier(self.playerContainer.frame.size.width / newVideoPlayerHeight)
+            wordTagCollectionView.hidden = true
             self.view.layoutIfNeeded()
+        } else {
+            wordTagCollectionView.hidden = true
         }
+        
         
     }
     
     func keyboardWillDisappear(notification: NSNotification){
         //controlButton.setImage(UIImage(named: "icon_keyboard"), forState: UIControlState.Normal)
         isKeyboardShown = false
+        wordTagCollectionView.hidden = false
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         NSNotificationCenter.defaultCenter().removeObserver(self)
-        NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidChangeNotification, object: inputTextField)
+//        NSNotificationCenter.defaultCenter().removeObserver(self, name: UITextViewTextDidChangeNotification, object: inputTextField)
     }
 
     func initPreviewTimeline() {
@@ -692,13 +714,19 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         if collectionView == previewTimelineCollectionView {
             return CGSizeMake(50, 50)
         } else {
-            let wordTagString = self.wordTagStringList[indexPath.row]
-            let wordTagComponents = wordTagString.componentsSeparatedByString(":")
-            
-            if wordTagComponents.count > 0 {
-                let word = wordTagComponents[0]
-                self.sizingCell.textLabel.text = word
+            if indexPath.row < self.wordTagStringList.count {
+                // http://stackoverflow.com/a/38287614
+                // background thread might not update/fill self.wordTagStringList fast enough
+                // making it incur index out of bounds error
+                let wordTagString = self.wordTagStringList[indexPath.row]
+                let wordTagComponents = wordTagString.componentsSeparatedByString(":")
+                
+                if wordTagComponents.count > 0 {
+                    let word = wordTagComponents[0]
+                    self.sizingCell.textLabel.text = word
+                }
             }
+            
             return self.sizingCell.intrinsicContentSize()
         }
     }
@@ -1190,13 +1218,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                 self.wordTagList[self.currentWordTagListIndex] = wordTagString
                 onWordTagChanged(wordTagString, withDelay: 0.5)
             }
-        }
-    }
-    
-    func initControls() {
-        if self.scene != nil {
-            inputTextField.hidden = true
-            controlButton.hidden  = true
         }
     }
     
