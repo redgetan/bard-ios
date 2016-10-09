@@ -24,10 +24,10 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RepositoryTableViewCell" id="93Q-kw-mHP">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="1000" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="93Q-kw-mHP" id="UAv-dd-6R3">
-                                            <frame key="frameInset" width="342" height="43"/>
+                                            <frame key="frameInset" width="818" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
@@ -82,10 +82,10 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="CharacterTableViewCell" id="oTa-ct-aW7">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="92" width="1000" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="oTa-ct-aW7" id="i6a-0K-Ue9">
-                                            <frame key="frameInset" width="342" height="43"/>
+                                            <frame key="frameInset" width="818" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
@@ -134,10 +134,10 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SceneTableViewCell" rowHeight="90" id="PWX-Np-Vym" customClass="SceneTableViewCell" customModule="Bard" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="92" width="375" height="90"/>
+                                        <rect key="frame" x="0.0" y="92" width="1000" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PWX-Np-Vym" id="dMc-Jf-JDr">
-                                            <frame key="frameInset" width="342" height="89"/>
+                                            <frame key="frameInset" width="818" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mV8-H5-0EG">
@@ -239,7 +239,7 @@
                                             <constraint firstAttribute="width" constant="50" id="cZg-zK-WhX"/>
                                         </constraints>
                                         <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="icon_bookmark"/>
+                                        <state key="normal" image="icon_crop_android"/>
                                         <connections>
                                             <action selector="onControlButtonClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="D0e-jP-5R2"/>
                                             <segue destination="ieR-cs-WzM" kind="presentation" identifier="editorToScene" id="j3M-f2-umd"/>
@@ -747,21 +747,21 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="puV-My-Bfe">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="p0R-1j-bjg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="1SB-SX-rI3">
-                                    <rect key="frame" x="0.0" y="116" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="116" width="1000" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ProfileTableViewCell" id="odA-w7-QJd">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="1000" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="odA-w7-QJd" id="3zL-NT-jyq">
-                                            <frame key="frameInset" width="342" height="43"/>
+                                            <frame key="frameInset" width="818" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -946,10 +946,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="avatar_placeholder" width="25" height="25"/>
+        <image name="avatar_placeholder" width="42" height="42"/>
         <image name="icon_back" width="25" height="25"/>
         <image name="icon_bookmark" width="25" height="25"/>
         <image name="icon_close" width="25" height="25"/>
+        <image name="icon_crop_android" width="25" height="25"/>
         <image name="icon_keyboard" width="25" height="25"/>
         <image name="icon_messenger" width="40" height="40"/>
         <image name="icon_profile" width="25" height="25"/>

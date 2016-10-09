@@ -129,9 +129,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             originatingViewController = nil
             
             if let selectedScene = self.scene {
+                self.sceneSelectButton.alpha = 1
                 sceneSelectButton.hnk_setImageFromURL(NSURL(string: selectedScene.thumbnailUrl)!)
             } else {
-                sceneSelectButton.setImage(UIImage(named: "icon_bookmark"), forState: UIControlState.Normal)
+                sceneSelectButton.setImage(UIImage(named: "icon_crop_android"), forState: UIControlState.Normal)
+                self.sceneSelectButton.alpha = 0.4
             }
 
         }
@@ -399,7 +401,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func keyboardWillAppear(notification: NSNotification){
-        controlButton.setImage(UIImage(named: "icon_plus"), forState: UIControlState.Normal)
+        //controlButton.setImage(UIImage(named: "icon_plus"), forState: UIControlState.Normal)
         isKeyboardShown = true
         
         let info : NSDictionary = notification.userInfo!
@@ -416,7 +418,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func keyboardWillDisappear(notification: NSNotification){
-        controlButton.setImage(UIImage(named: "icon_keyboard"), forState: UIControlState.Normal)
+        //controlButton.setImage(UIImage(named: "icon_keyboard"), forState: UIControlState.Normal)
         isKeyboardShown = false
     }
     
@@ -1061,6 +1063,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func initPlayer() {
+        self.sceneSelectButton.alpha = 0.4
+        self.controlButton.alpha     = 0.5
+        
         self.player = self.childViewControllers.last as! Player
         self.player.view.layer.hidden = false
         self.player.view.backgroundColor = UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1.0)

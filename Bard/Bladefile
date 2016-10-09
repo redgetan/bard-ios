@@ -47,4 +47,6 @@ blades:
     mount: Assets.xcassets/icon_twitter.imageset
   - source: images/icon_tumblr_120.png
     mount: Assets.xcassets/icon_tumblr.imageset
+  - source: images/icon_crop_android_75.png
+    mount: Assets.xcassets/icon_crop_android.imageset
 
