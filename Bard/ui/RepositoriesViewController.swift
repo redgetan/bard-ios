@@ -89,9 +89,15 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
         if editingStyle == .Delete {
             let repository = self.repositories![indexPath.row]
             BardClient.deleteRepo(repository.getToken(), success: { result in
+                let characterName = Character.forToken(repository.getToken())?.name ?? ""
+                Analytics.track("deleteRepo",
+                    properties: ["wordTags" : repository.wordList,
+                        "characterToken" : repository.getToken(),
+                        "character" : characterName])
                 Storage.removeFile(repository.getFilePath())
                 repository.delete()
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
+                
             }, failure: { error in
                 Drop.down(error, state: .Error, duration: 2)
                 print("unable to delete remote repo")

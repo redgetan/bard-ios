@@ -23,6 +23,10 @@ class Character: Object {
         }
     }
     
+    static func forToken(token: String) -> Character? {
+        return try! Realm().objects(Character.self).filter("token = '\(token)'").first
+    }
+    
     static func create(obj: AnyObject) -> Void {
         let character = Character()
         let dict = (obj as! [String:AnyObject])

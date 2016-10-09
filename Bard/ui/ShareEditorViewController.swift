@@ -74,6 +74,11 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
                     // successful
                     self.saveButton.setTitle("Saved", forState: .Normal)
                     self.saveButton.enabled = false
+                    Analytics.track("saveRepo",
+                        properties: ["wordTags" : self.outputWordTagStrings,
+                            "characterToken" : self.character.token,
+                            "character" : self.character.name])
+                    
                     self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
                 }
             })
