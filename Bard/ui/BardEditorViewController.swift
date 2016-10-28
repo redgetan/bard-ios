@@ -891,7 +891,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                         selectedScene.wordList = sceneWordList
                     }
                     
+                    // add to both scene dictionary and main dictionary (as it wasnt there before)
                     self.addWordListToSceneDictionary(sceneWordList)
+                    self.addWordListToDictionary(sceneWordList)
+                    
                     self.wordTagCollectionView.reloadData()
                 }
                 
@@ -923,13 +926,13 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
 
         } else {
-            let hud = Helper.showDownloadProgress(self.view, message: "Downloading...")
+            let hud = Helper.showDownloadProgress(self.view, message: "Fetching...")
             self.characterDownloadRequest = BardClient.getCharacterWordList(self.character.token,
                 progress: { bytesRead, totalBytesRead, totalBytesExpectedToRead in
                     let percentage = Float(totalBytesRead) / Float(totalBytesExpectedToRead)
                     dispatch_async(dispatch_get_main_queue()) {
                         hud.progress = percentage
-                        //hud.label.text = "Downloading...\(totalBytesRead) of \(totalBytesExpectedToRead)"
+                        //hud.label.text = "Fetching...\(totalBytesRead) of \(totalBytesExpectedToRead)"
                     }
                 },
                 success: { value in

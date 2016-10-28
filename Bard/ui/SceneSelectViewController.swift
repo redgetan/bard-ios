@@ -55,6 +55,9 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
                     if scene.thumbnailUrl.isEmpty {
                         scene.setNameAndThumbnail(sceneName, thumbnailUrl: thumbnailUrl)
                     }
+                } else {
+                    // create scene if it didnt exist before
+                    Scene.createWithTokenAndName(dict)
                 }
             }
             self.scenesTableView.reloadData()
