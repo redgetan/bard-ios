@@ -19,10 +19,20 @@ class WordTagCollectionViewCell: UICollectionViewCell {
         self.contentView.layer.borderWidth = 1
         self.contentView.layer.backgroundColor = UIColor.whiteColor().CGColor
         
-        self.textLabel = UILabelWithPadding()
+        
+        var wordTagFontSize: CGFloat
+        if DeviceType.IS_IPHONE_6P {
+            self.textLabel = UILabelWithPadding(topInset: 7, leftInset: 12, bottomInset: 7, rightInset: 12)
+
+            wordTagFontSize = CGFloat(18)
+        } else {
+            self.textLabel = UILabelWithPadding()
+            wordTagFontSize = CGFloat(16)
+        }
+        
         self.textLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.textLabel.font = UIFont.systemFontOfSize(16)
-            self.textLabel.textColor = UIColor.grayColor()
+        self.textLabel.font = UIFont.systemFontOfSize(wordTagFontSize)
+        self.textLabel.textColor = UIColor.grayColor()
         self.contentView.addSubview(self.textLabel)
 
         // http://stackoverflow.com/a/26181982

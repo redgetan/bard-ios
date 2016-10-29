@@ -21,6 +21,7 @@
 		8942C7691D996F81009F70A0 /* FBSDKShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8942C7681D996F81009F70A0 /* FBSDKShareKit.framework */; };
 		8942C76B1D996FA0009F70A0 /* FBSDKMessengerShareKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8942C76A1D996FA0009F70A0 /* FBSDKMessengerShareKit.framework */; };
 		8942C76D1D9972D2009F70A0 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8942C76C1D9972D2009F70A0 /* Bolts.framework */; };
+		8947A8641DC44C5D004A913A /* DeviceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8947A8631DC44C5D004A913A /* DeviceType.swift */; };
 		894BE2631DA987E800B95EE6 /* BardLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 894BE2621DA987E800B95EE6 /* BardLogger.swift */; };
 		896074881D72495C0072C022 /* NSLayoutConstraint+Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 896074871D72495C0072C022 /* NSLayoutConstraint+Helper.swift */; };
 		8974AF971D6F8F870022C0B0 /* VideoMergeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8974AF961D6F8F870022C0B0 /* VideoMergeManager.swift */; };
@@ -77,6 +78,7 @@
 		8942C7681D996F81009F70A0 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKShareKit.framework; sourceTree = "<group>"; };
 		8942C76A1D996FA0009F70A0 /* FBSDKMessengerShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKMessengerShareKit.framework; sourceTree = "<group>"; };
 		8942C76C1D9972D2009F70A0 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		8947A8631DC44C5D004A913A /* DeviceType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeviceType.swift; path = models/DeviceType.swift; sourceTree = "<group>"; };
 		894BE2621DA987E800B95EE6 /* BardLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BardLogger.swift; path = util/BardLogger.swift; sourceTree = "<group>"; };
 		896074871D72495C0072C022 /* NSLayoutConstraint+Helper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSLayoutConstraint+Helper.swift"; path = "extensions/NSLayoutConstraint+Helper.swift"; sourceTree = "<group>"; };
 		8974AF961D6F8F870022C0B0 /* VideoMergeManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VideoMergeManager.swift; path = models/VideoMergeManager.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				890D3E681D494A5D008F96DF /* VideoMerger.swift */,
 				8974AF961D6F8F870022C0B0 /* VideoMergeManager.swift */,
 				89DB08291D95E3EE009241FD /* WordTagSelector.swift */,
+				8947A8631DC44C5D004A913A /* DeviceType.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -447,6 +450,7 @@
 				89C986321D46AF230056E687 /* Configuration.swift in Sources */,
 				89C986261D46823A0056E687 /* SignupInputViewController.swift in Sources */,
 				898CC11B1D4D3843006D56E4 /* UILabelWithPadding.swift in Sources */,
+				8947A8641DC44C5D004A913A /* DeviceType.swift in Sources */,
 				89E3BBE91D47F48600963EEE /* CharacterSelectViewController.swift in Sources */,
 				89FCDA2F1D4EA09F00326588 /* TabBarViewController.swift in Sources */,
 				890D3E651D493E8E008F96DF /* SceneSelectViewController.swift in Sources */,
