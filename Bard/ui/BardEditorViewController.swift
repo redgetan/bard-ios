@@ -142,13 +142,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         if (originatingViewController as? SceneSelectViewController) != nil {
             originatingViewController = nil
             
-            if let selectedScene = self.scene {
-//                self.sceneSelectButton.alpha = 1
-//                sceneSelectButton.hnk_setImageFromURL(NSURL(string: selectedScene.thumbnailUrl)!)
-            } else {
-//                sceneSelectButton.setImage(UIImage(named: "icon_crop_android"), forState: UIControlState.Normal)
-//                self.sceneSelectButton.alpha = 0.4
-            }
 
         }
     }
@@ -240,7 +233,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "editorToScene") {
             let nav = segue.destinationViewController as! UINavigationController
-            let viewController = nav.topViewController as! SceneSelectViewController
+            _ = nav.topViewController as! SceneSelectViewController
         } else if (segue.identifier == "editorToShare") {
             let viewController = segue.destinationViewController as! ShareEditorViewController
             viewController.scene = self.scene

@@ -43,8 +43,6 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     
     func syncRemoteData(pageIndex: Int) {
         var sceneToken: String = ""
-        var thumbnailUrl: String = ""
-        var sceneName: String = ""
         var scene: Scene?
         
         BardClient.getSceneList(pageIndex, success: { value in
@@ -52,9 +50,6 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
                 let dict = (obj as! [String:AnyObject])
 
                 sceneToken = dict["token"] as! String
-                thumbnailUrl = dict["thumbnailUrl"] as! String
-                sceneName = dict["name"] as! String
-                
                 scene = Scene.forToken(sceneToken)
                 
                 if scene == nil {
