@@ -44,7 +44,7 @@ class Scene: Object {
         }
     }
     
-    static func createWithTokenAndName(obj: AnyObject) {
+    static func createWithTokenAndName(obj: AnyObject) -> Scene? {
         let scene = Scene()
         let dict = (obj as! [String:AnyObject])
         
@@ -55,12 +55,14 @@ class Scene: Object {
         let realm = try! Realm()
         
         if realm.objects(Scene.self).filter("token = '\(scene.token)'").first != nil {
-            return
+            return nil
         }
         
         try! realm.write {
             realm.add(scene)
         }
+        
+        return scene
     }
     
     func setNameAndThumbnail(name: String, thumbnailUrl: String) {

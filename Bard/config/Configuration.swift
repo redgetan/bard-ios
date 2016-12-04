@@ -19,7 +19,8 @@ class Configuration {
     static let awsCognitoPoolId   = "us-west-2:7bd4263f-57f2-4d08-9855-7672299d73d4"
     static let mixpanelToken      = "46b3c885b8bb3f753d9f8aa378eca667"
     static let segmentsCdnPath    = "https://s3-us-west-2.amazonaws.com/roplabs-mad-staging"
-    
+//    static let segmentsCdnPath    = "https://segments.bard.co"
+
     #else
     
     static let bardAccountBaseURL = "https://bard.co"
