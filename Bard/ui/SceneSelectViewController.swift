@@ -35,7 +35,6 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     
     func initScenes() {
         self.scenes = try! Realm().objects(Scene.self)
-            .filter("characterToken = '\(character.token)'")
             .sorted("createdAt", ascending: false)
     }
     
@@ -44,7 +43,7 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         var thumbnailUrl: String = ""
         var sceneName: String = ""
         
-        BardClient.getSceneList(character.token, success: { value in
+        BardClient.getSceneList({ value in
             for obj in (value as! NSArray) {
                 let dict = (obj as! [String:AnyObject])
 
@@ -75,8 +74,7 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        let allRowCount = 1
-        return self.scenes!.count + allRowCount;
+        return self.scenes!.count;
         
     }
     
@@ -86,19 +84,16 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         let cell = scenesTableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SceneTableViewCell
         
         
-        if indexPath.row == 0 {
-            // for first row, show "All"
-            cell.sceneNameLabel?.text = "All"
-        } else {
-            // since first row is reserved for "All", indexPath becomes 1-indexed instead of 0-indexed
-            let sceneIndex = indexPath.row - 1
-            let scene = self.scenes![sceneIndex]
-            
-            cell.sceneNameLabel?.text = scene.name
-            if let url = NSURL(string: scene.thumbnailUrl) {
-                cell.sceneImageView.hnk_setImageFromURL(url)
-            }
+        
+    
+        let sceneIndex = indexPath.row
+        let scene = self.scenes![sceneIndex]
+        
+        cell.sceneNameLabel?.text = scene.name
+        if let url = NSURL(string: scene.thumbnailUrl) {
+            cell.sceneImageView.hnk_setImageFromURL(url)
         }
+    
 
         return cell
     }
@@ -113,9 +108,14 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
             let indexPath = scenesTableView.indexPathForCell(sender as! UITableViewCell)!
 
             if indexPath.row != 0 {
-                let sceneIndex = indexPath.row - 1
+                let sceneIndex = indexPath.row
                 let scene = self.scenes![sceneIndex]
-                self.selectedScene = scene
+                Analytics.track("compose", properties: ["sceneToken" : scene.token,
+                    "scene" : scene.name])
+                BardLogger.log("sceneSelect: \(scene.name) - \(scene.token)")
+                let viewController = segue.destinationViewController as! BardEditorViewController;
+                viewController.scene = scene
+
             }
             
 

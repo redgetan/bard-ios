@@ -12,12 +12,13 @@ class Configuration {
     
     #if DEBUG
     
-//    static let bardAccountBaseURL = "http://localhost:3000"
-    static let bardAccountBaseURL = "https://bard.co"
+    static let bardAccountBaseURL = "http://localhost:3000"
+//    static let bardAccountBaseURL = "https://bard.co"
     static let keychainService    = "co.bard.auth-token-debug"
     static let s3UserBucket       = "roplabs-bard-users-staging"
     static let awsCognitoPoolId   = "us-west-2:7bd4263f-57f2-4d08-9855-7672299d73d4"
     static let mixpanelToken      = "46b3c885b8bb3f753d9f8aa378eca667"
+    static let segmentsCdnPath    = "https://s3-us-west-2.amazonaws.com/roplabs-mad-staging"
     
     #else
     
@@ -26,7 +27,7 @@ class Configuration {
     static let s3UserBucket       = "roplabs-bard-users"
     static let awsCognitoPoolId   = "us-west-2:a42a156a-30f6-4fb7-a2ea-78599fa4d180"
     static let mixpanelToken      = "713420870c68f5a53546941e2e4e3790"
-
+    static let segmentsCdnPath    = "https://segments.bard.co"
     
     
     #endif

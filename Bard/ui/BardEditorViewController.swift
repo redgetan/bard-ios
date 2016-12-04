@@ -15,9 +15,9 @@ import Alamofire
 
 
 class BardEditorViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UITextViewDelegate, PlayerDelegate {
-    let cdnPath = "https://segments.bard.co"
-    var character: Character!
-    var characterToken: String!
+    let cdnPath = Configuration.segmentsCdnPath
+//    var character: Character!
+//    var characterToken: String!
     var scene: Scene? = nil
     var isBackspacePressed: Bool = false
     var lastTokenCount: Int = 0
@@ -67,7 +67,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var activityIndicator: UIActivityIndicatorView? = nil
     var previousSelectedPreviewThumbnail: PreviewTimelineCollectionViewCell? = nil
     
-    @IBOutlet weak var sceneSelectButton: UIButton!
+//    @IBOutlet weak var sceneSelectButton: UIButton!
     @IBOutlet weak var generateButton: UIButton!
     @IBOutlet weak var previewTimelineCollectionView: UICollectionView!
     @IBOutlet weak var playerContainer: UIView!
@@ -89,9 +89,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         super.viewDidLoad()
 
         self.automaticallyAdjustsScrollViewInsets = false
-        
-        characterToken = self.character.token
-        print("characterSelect: \(characterToken)")
         
         initControls()
         updateTitle()
@@ -146,11 +143,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             originatingViewController = nil
             
             if let selectedScene = self.scene {
-                self.sceneSelectButton.alpha = 1
-                sceneSelectButton.hnk_setImageFromURL(NSURL(string: selectedScene.thumbnailUrl)!)
+//                self.sceneSelectButton.alpha = 1
+//                sceneSelectButton.hnk_setImageFromURL(NSURL(string: selectedScene.thumbnailUrl)!)
             } else {
-                sceneSelectButton.setImage(UIImage(named: "icon_crop_android"), forState: UIControlState.Normal)
-                self.sceneSelectButton.alpha = 0.4
+//                sceneSelectButton.setImage(UIImage(named: "icon_crop_android"), forState: UIControlState.Normal)
+//                self.sceneSelectButton.alpha = 0.4
             }
 
         }
@@ -179,7 +176,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func updateTitle() {
-      self.title = scene?.name ?? character.name
+      self.title = scene?.name
     }
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
@@ -244,10 +241,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         if (segue.identifier == "editorToScene") {
             let nav = segue.destinationViewController as! UINavigationController
             let viewController = nav.topViewController as! SceneSelectViewController
-            viewController.character = self.character
         } else if (segue.identifier == "editorToShare") {
             let viewController = segue.destinationViewController as! ShareEditorViewController
-            viewController.character = self.character
+            viewController.scene = self.scene
             viewController.outputURL = self.outputURL
             viewController.outputPhrase = self.outputPhrase
             viewController.outputWordTagStrings = self.outputWordTagStrings
@@ -779,9 +775,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                     else {
                         Analytics.track("generateBardVideo",
                                     properties: ["wordTags" : self.outputWordTagStrings,
-                                        "characterToken" : self.character.token,
                                         "sceneToken" : self.scene?.token ?? "",
-                                        "character" : self.character.name,
                                         "scene": self.scene?.name ?? ""])
 
                         self.outputURL = outputURL!
@@ -875,14 +869,14 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         if let selectedScene = self.scene {
             initSceneWordList(selectedScene)
         } else {
-            initCharacterWordList()
+//            initCharacterWordList()
         }
         
     }
     
     func initSceneWordList(selectedScene: Scene) {
         if selectedScene.wordList.isEmpty {
-            BardClient.getSceneWordList(character.token, sceneToken: selectedScene.token, success: { value in
+            BardClient.getSceneWordList(selectedScene.token, success: { value in
                 let dict = (value as! [String:AnyObject])
 
                 if let sceneWordList = dict["wordList"] as? String {
@@ -892,7 +886,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                     }
                     
                     // add to both scene dictionary and main dictionary (as it wasnt there before)
-                    self.addWordListToSceneDictionary(sceneWordList)
                     self.addWordListToDictionary(sceneWordList)
                     
                     self.wordTagCollectionView.reloadData()
@@ -902,58 +895,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                     Drop.down("Failed to load word list", state: .Error, duration: 3)
             })
         } else {
-            addWordListToSceneDictionary(selectedScene.wordList)
+            addWordListToDictionary(selectedScene.wordList)
             self.wordTagCollectionView.reloadData()
-        }
-    }
-    
-    func initCharacterWordList() {
-        if self.character.isBundleDownloaded {
-            Helper.showProgress(self.view, message: "Initializing...")
-            
-            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0)) {
-                let scenes = Scene.forCharacterToken(self.characterToken)
-                
-                for scene in scenes {
-                    self.addWordListToDictionary(scene.wordList)
-                }
-                
-                dispatch_async(dispatch_get_main_queue()) {
-                    self.wordTagCollectionView.reloadData()
-                    Helper.hideProgress(self.view)
-                }
-            }
-        
-
-        } else {
-            let hud = Helper.showDownloadProgress(self.view, message: "Fetching...")
-            self.characterDownloadRequest = BardClient.getCharacterWordList(self.character.token,
-                progress: { bytesRead, totalBytesRead, totalBytesExpectedToRead in
-                    let percentage = Float(totalBytesRead) / Float(totalBytesExpectedToRead)
-                    dispatch_async(dispatch_get_main_queue()) {
-                        hud.progress = percentage
-                        //hud.label.text = "Fetching...\(totalBytesRead) of \(totalBytesExpectedToRead)"
-                    }
-                },
-                success: { value in
-                    Helper.hideProgress(self.view)
-                    for (sceneToken, wordList) in value as! NSDictionary {
-                        if Scene.forToken(sceneToken as! String) == nil {
-                            Scene.createWithTokenAndWordList(sceneToken as! String, characterToken: self.character.token, wordList: wordList as! String)
-                            self.addWordListToDictionary(wordList as! String)
-                        }
-                    }
-                    
-                    let realm = try! Realm()
-                    try! realm.write {
-                        self.character.isBundleDownloaded = true
-                    }
-                    
-                    self.wordTagCollectionView.reloadData()
-                }, failure: { errorMessage in
-                    Helper.hideProgress(self.view)
-                    Drop.down("Failed to download word list", state: .Error, duration: 3)
-            })
         }
     }
     
@@ -1159,7 +1102,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func initPlayer() {
-        self.sceneSelectButton.alpha = 0.4
+//        self.sceneSelectButton.alpha = 0.4
         self.controlButton.alpha     = 0.5
         
         self.player = self.childViewControllers.last as! Player

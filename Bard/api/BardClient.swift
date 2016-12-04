@@ -16,12 +16,12 @@ class BardClient {
     static let loginUrl  = "\(Configuration.bardAccountBaseURL)/users/sign_in"
     static let characterListUrl  = "\(Configuration.bardAccountBaseURL)/bundles"
     
-    static func getSceneListUrl(characterToken: String) -> String  {
-        return "\(Configuration.bardAccountBaseURL)/bundles/\(characterToken)/scenes"
+    static func getSceneListUrl() -> String  {
+        return "\(Configuration.bardAccountBaseURL)/scenes"
     }
 
-    static func getSceneWordListUrl(characterToken: String, sceneToken: String) -> String  {
-        return "\(Configuration.bardAccountBaseURL)/bundles/\(characterToken)/scenes/\(sceneToken)/word_list"
+    static func getSceneWordListUrl(sceneToken: String) -> String  {
+        return "\(Configuration.bardAccountBaseURL)/scenes/\(sceneToken)/word_list"
     }
     
     static func getCharacterWordListUrl(characterToken: String) -> String {
@@ -62,22 +62,22 @@ class BardClient {
         bardApiRequest(.GET, url: characterListUrl, success: success, failure: failure)
     }
     
-    static func getSceneList(characterToken: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
-        bardApiRequest(.GET, url: getSceneListUrl(characterToken), success: success, failure: failure)
+    static func getSceneList(success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
+        bardApiRequest(.GET, url: getSceneListUrl(), success: success, failure: failure)
     }
     
-    static func getSceneWordList(characterToken: String, sceneToken: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
-        bardApiRequest(.GET, url: getSceneWordListUrl(characterToken, sceneToken: sceneToken), success: success, failure: failure)
+    static func getSceneWordList(sceneToken: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
+        bardApiRequest(.GET, url: getSceneWordListUrl(sceneToken), success: success, failure: failure)
     }
     
     static func getCharacterWordList(characterToken: String, progress: ((Int64, Int64, Int64) -> Void)? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) -> Alamofire.Request {
         return bardDownload(getCharacterWordListUrl(characterToken), destinationPath: Storage.getCharacterFilePath(characterToken), progress: progress, success: success, failure: failure)
     }
     
-    static func postRepo(uuid: String, characterToken: String, wordList: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
+    static func postRepo(uuid: String, sceneToken: String, wordList: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
         let params : [String : String] = [
             "uuid": uuid,
-            "character_token" : characterToken,
+            "scene_token" : sceneToken,
             "word_list" : wordList
         ]
         bardApiRequest(.POST, url: postRepoUrl(), parameters: params, success: success, failure: failure)

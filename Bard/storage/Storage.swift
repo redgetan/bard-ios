@@ -83,15 +83,15 @@ class Storage {
         return path
     }
     
-    static func getRepositorySaveFilePath(characterName: String, text: String) -> String {
+    static func getRepositorySaveFilePath(text: String) -> String {
         let directoryPath = getRepositoryStorageDirectory()
         let date =  lround(NSDate().timeIntervalSince1970)
-        let fileName = "\(characterName) says - \(text) [Bard] \(date).mp4"
+        let fileName = "\(text) [Bard] \(date).mp4"
         let path = (directoryPath as NSString).stringByAppendingPathComponent(fileName)
         return path
     }
     
-    static func getRepositoryS3Key(characterName: String, uuid: String) -> String {
+    static func getRepositoryS3Key(uuid: String) -> String {
         if let username = UserConfig.getUsername() {
             return "repositories/\(username)/\(uuid).mp4"
         } else {

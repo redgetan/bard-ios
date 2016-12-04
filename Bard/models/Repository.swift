@@ -40,7 +40,7 @@ class Repository: Object {
         return try! Realm().objects(Repository.self).filter("url = '\(url!)'").first
     }
     
-    static func create(token: String, wordTagStrings: [String], url: String, username: String, fileName: String, localIdentifier: String?, characterToken: String, sceneToken: String? = nil, repoCreated: (Int -> Void)? = nil) {
+    static func create(token: String, wordTagStrings: [String], url: String, username: String, fileName: String, localIdentifier: String?, sceneToken: String? = nil, repoCreated: (Int -> Void)? = nil) {
 
         let repository = Repository()
         repository.id = getNextId()
@@ -50,7 +50,6 @@ class Repository: Object {
         repository.username = username
         repository.localIdentifier = localIdentifier
         repository.token = token
-        repository.characterToken = characterToken
         repository.sceneToken = sceneToken
         repository.createdAt = NSDate()
                 

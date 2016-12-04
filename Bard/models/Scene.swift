@@ -30,7 +30,6 @@ class Scene: Object {
 
         scene.name = dict["name"] as! String
         scene.token = dict["token"] as! String
-        scene.characterToken = dict["characterToken"] as! String
         scene.thumbnailUrl = dict["thumbnailUrl"] as! String
         scene.wordList = dict["wordList"] as? String ?? ""
         
@@ -51,7 +50,6 @@ class Scene: Object {
         
         scene.name = dict["name"] as! String
         scene.token = dict["token"] as! String
-        scene.characterToken = dict["characterToken"] as! String
         scene.thumbnailUrl = dict["thumbnailUrl"] as! String
         
         let realm = try! Realm()

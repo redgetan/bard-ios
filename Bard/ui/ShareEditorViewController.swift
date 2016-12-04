@@ -24,8 +24,8 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     var outputURL: NSURL!
     var outputWordTagStrings: [String] = [String]()
     var outputPhrase: String = ""
-    var character: Character!
-    var characterToken: String!
+    var scene: Scene!
+    var sceneToken: String!
     var player: Player!
     var playButton: UIButton!
     var socialShares: [[String]] = [[String]]()
@@ -37,7 +37,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         
 //        UIApplication.sharedApplication().statusBarStyle = .LightContent
 
-        self.characterToken = character.token
+        self.sceneToken = scene.token
         self.initPlayer()
         self.initSocialShare()
         
@@ -76,8 +76,8 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
                     self.saveButton.enabled = false
                     Analytics.track("saveRepo",
                         properties: ["wordTags" : self.outputWordTagStrings,
-                            "characterToken" : self.character.token,
-                            "character" : self.character.name])
+                            "sceneToken" : self.scene.token,
+                            "scene" : self.scene.name])
                     
                     self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
                 }
@@ -87,7 +87,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     }
     
     func saveRepoWithRemoteUrl(url: String, token: String, finished: (Int -> Void)? = nil) {
-        let repoFilePath = Storage.getRepositorySaveFilePath(self.character.name, text: outputPhrase)
+        let repoFilePath = Storage.getRepositorySaveFilePath(outputPhrase)
         let fileManager = NSFileManager.defaultManager()
         do {
             try fileManager.copyItemAtPath(self.outputURL.path!, toPath: repoFilePath)
@@ -103,7 +103,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
                           username: username,
                           fileName: NSURL(fileURLWithPath: repoFilePath).pathComponents!.last!,
                           localIdentifier: nil,
-                          characterToken: self.characterToken,
+                          sceneToken: self.scene.token,
                           repoCreated: { repoId in
                             finished?(repoId)
         })
@@ -292,7 +292,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
                 
                 // create Repository both locally and remotely, get link of repo
                 BardClient.postRepo(uuid!,
-                    characterToken: self.characterToken,
+                    sceneToken: self.sceneToken,
                     wordList: self.outputWordTagStrings.joinWithSeparator(","),
                     success: { result in
                         let dict = (result as! [String:AnyObject])
@@ -324,7 +324,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     
     func doTwitterShare(url: String) {
         if let vc = SLComposeViewController(forServiceType: SLServiceTypeTwitter) {
-            vc.setInitialText("I made \(character.name) say \(url) via @letsbard")
+            vc.setInitialText("\(outputPhrase) - \(url) via @letsbard")
             presentViewController(vc, animated: true, completion: {})
         }
     }
@@ -336,7 +336,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
         }
         
         let uuid = NSUUID().UUIDString.lowercaseString
-        let s3Key = Storage.getRepositoryS3Key(self.character.name, uuid: uuid)
+        let s3Key = Storage.getRepositoryS3Key(uuid)
        
         let transferManager = AWSS3TransferManager.defaultS3TransferManager()
         let testFileURL1 = NSURL(fileURLWithPath: NSTemporaryDirectory()).URLByAppendingPathComponent("temp")

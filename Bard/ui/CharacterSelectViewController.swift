@@ -85,7 +85,7 @@ class CharacterSelectViewController: UIViewController, UITableViewDataSource, UI
                                                     "character" : character.name])
             BardLogger.log("characterSelect: \(character.name) - \(character.token)")
             let viewController = segue.destinationViewController as! BardEditorViewController;
-            viewController.character = character
+//            viewController.character = character
         }
     }
     
