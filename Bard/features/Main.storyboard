@@ -67,7 +67,7 @@
             </objects>
             <point key="canvasLocation" x="1562" y="-320"/>
         </scene>
-        <!--Choose Scene-->
+        <!--Choose Video-->
         <scene sceneID="VW6-dq-xGa">
             <objects>
                 <viewController id="bLr-EZ-ITe" customClass="SceneSelectViewController" customModule="Bard" customModuleProvider="target" sceneMemberID="viewController">
@@ -127,7 +127,7 @@
                             <constraint firstItem="JIF-4J-oO8" firstAttribute="leading" secondItem="NIk-Gb-uNB" secondAttribute="leading" id="U3Q-OR-Muo"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Choose Scene" id="fNn-fg-K9Z">
+                    <navigationItem key="navigationItem" title="Choose Video" id="fNn-fg-K9Z">
                         <barButtonItem key="backBarButtonItem" title=" " id="h2H-53-Yu6"/>
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="ytm-PR-eUA">
                             <connections>
