@@ -11,18 +11,19 @@ import RealmSwift
 import SwiftyDrop
 import Haneke
 
-class SceneSelectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class SceneSelectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var scenesTableView: UITableView!
     
     var scenes: [Scene] = []
-    var selectedScene: Scene? = nil
     let cellIdentifier = "SceneTableViewCell"
     var character: Character!
     var totalRowsLoaded: Int = 0
     var totalPagesLoaded: Int = 0
     var isLoading: Bool = false
     var isEndOfPage: Bool = false
+    var isSearching: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +32,7 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         self.navigationItem.backBarButtonItem = backButton
         
         initScenes()
+        searchBar.delegate = self
         scenesTableView.delegate = self
         scenesTableView.dataSource = self
         
@@ -41,11 +43,41 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         self.scenes = []
     }
     
-    func syncRemoteData(pageIndex: Int) {
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
+        self.totalPagesLoaded = 0
+        self.totalRowsLoaded = 0
+        self.scenes = []
+        self.isLoading = false
+        self.isEndOfPage = false
+        
+        if self.isSearching {
+            return
+        }
+        
+        self.isSearching = true
+        syncRemoteData(self.totalPagesLoaded + 1, search: searchBar.text)
+    }
+    
+    func searchBarTextDidBeginEditing(searchBar: UISearchBar) {
+        let searchBarTextField: UITextField?
+        
+        let views = searchBar.subviews[0].subviews
+        for subview in views {
+            if (subview.isKindOfClass(UITextField))
+            {
+                searchBarTextField = subview as? UITextField
+                searchBarTextField?.enablesReturnKeyAutomatically = false
+                break
+            }
+        }
+        
+    }
+    
+    func syncRemoteData(pageIndex: Int, search: String? = nil) {
         var sceneToken: String = ""
         var scene: Scene?
         
-        BardClient.getSceneList(pageIndex, success: { value in
+        BardClient.getSceneList(pageIndex, search: search, success: { value in
             for obj in (value as! NSArray) {
                 let dict = (obj as! [String:AnyObject])
 
@@ -71,16 +103,25 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
                 self.totalPagesLoaded += 1
             }
             
+            
             self.scenesTableView.reloadData()
+            self.isSearching = false
+            
             }, failure: { errorMessage in
                 if self.scenes.count == 0 {
                     Drop.down("Failed to list scenes from the network", state: .Error, duration: 3)
                 }
+                
+                self.isSearching = false
         })
     }
     
     func getScenesNextPage() {
-        syncRemoteData(self.totalPagesLoaded + 1)
+        if (self.searchBar.text == nil) {
+            syncRemoteData(self.totalPagesLoaded + 1)
+        } else {
+            syncRemoteData(self.totalPagesLoaded + 1, search: searchBar.text)
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -116,7 +157,7 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         
-        if (indexPath.row + 1  >= self.totalRowsLoaded && !isLoading && !isEndOfPage) {
+        if (indexPath.row + 1  >= self.totalRowsLoaded && !isLoading && !isEndOfPage && !isSearching) {
             self.isLoading = true
             self.getScenesNextPage()
             self.isLoading = false
@@ -134,17 +175,14 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         if (segue.identifier == "sceneToEditor") {
             let indexPath = scenesTableView.indexPathForCell(sender as! UITableViewCell)!
 
-            if indexPath.row != 0 {
-                let sceneIndex = indexPath.row
-                let scene = self.scenes[sceneIndex]
-                Analytics.track("compose", properties: ["sceneToken" : scene.token,
-                    "scene" : scene.name])
-                BardLogger.log("sceneSelect: \(scene.name) - \(scene.token)")
-                let viewController = segue.destinationViewController as! BardEditorViewController;
-                viewController.scene = scene
+            let sceneIndex = indexPath.row
+            let scene = self.scenes[sceneIndex]
+            Analytics.track("compose", properties: ["sceneToken" : scene.token,
+                "scene" : scene.name])
+            BardLogger.log("sceneSelect: \(scene.name) - \(scene.token)")
+            let viewController = segue.destinationViewController as! BardEditorViewController;
+            viewController.scene = scene
 
-            }
-            
 
         }
     }

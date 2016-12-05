@@ -25,10 +25,10 @@
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="RepositoryTableViewCell" id="93Q-kw-mHP">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="28" width="1000" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="93Q-kw-mHP" id="UAv-dd-6R3">
-                                            <frame key="frameInset" width="342" height="43.5"/>
+                                            <frame key="frameInset" width="818" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
@@ -86,7 +86,7 @@
                                         <rect key="frame" x="0.0" y="92" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PWX-Np-Vym" id="dMc-Jf-JDr">
-                                            <frame key="frameInset" width="342" height="89.5"/>
+                                            <frame key="frameInset" width="342" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mV8-H5-0EG">
@@ -118,13 +118,22 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <searchBar contentMode="redraw" placeholder="Search" translatesAutoresizingMaskIntoConstraints="NO" id="v7A-g2-eyC">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="b8J-zk-Npi"/>
+                                </constraints>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="JIF-4J-oO8" secondAttribute="trailing" id="1jr-2k-4sm"/>
-                            <constraint firstItem="JIF-4J-oO8" firstAttribute="top" secondItem="NIk-Gb-uNB" secondAttribute="top" id="9ec-ul-9P0"/>
+                            <constraint firstItem="JIF-4J-oO8" firstAttribute="top" secondItem="NIk-Gb-uNB" secondAttribute="top" constant="40" id="9ec-ul-9P0"/>
+                            <constraint firstItem="v7A-g2-eyC" firstAttribute="leading" secondItem="NIk-Gb-uNB" secondAttribute="leading" id="Hyx-9q-VWl"/>
                             <constraint firstItem="7MF-Y8-x0M" firstAttribute="top" secondItem="JIF-4J-oO8" secondAttribute="bottom" id="PIA-7I-EZm"/>
                             <constraint firstItem="JIF-4J-oO8" firstAttribute="leading" secondItem="NIk-Gb-uNB" secondAttribute="leading" id="U3Q-OR-Muo"/>
+                            <constraint firstAttribute="trailing" secondItem="v7A-g2-eyC" secondAttribute="trailing" id="jQ5-kK-GHr"/>
+                            <constraint firstItem="v7A-g2-eyC" firstAttribute="top" secondItem="blL-qS-kFw" secondAttribute="bottom" id="mwm-u6-EYv"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Choose Video" id="fNn-fg-K9Z">
@@ -137,11 +146,12 @@
                     </navigationItem>
                     <connections>
                         <outlet property="scenesTableView" destination="JIF-4J-oO8" id="5OS-1D-kQ3"/>
+                        <outlet property="searchBar" destination="v7A-g2-eyC" id="xZV-K8-GPe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BqI-r0-CAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3089" y="-86"/>
+            <point key="canvasLocation" x="3088.8000000000002" y="-86.806596701649184"/>
         </scene>
         <!--Bard Editor View Controller-->
         <scene sceneID="9g6-DY-t0D">
@@ -677,21 +687,21 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="puV-My-Bfe">
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="p0R-1j-bjg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="1000" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="1SB-SX-rI3">
-                                    <rect key="frame" x="0.0" y="116" width="375" height="44"/>
+                                    <rect key="frame" x="0.0" y="116" width="1000" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </view>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ProfileTableViewCell" id="odA-w7-QJd">
-                                        <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="72" width="1000" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="odA-w7-QJd" id="3zL-NT-jyq">
-                                            <frame key="frameInset" width="342" height="43.5"/>
+                                            <frame key="frameInset" width="818" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>

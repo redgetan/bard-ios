@@ -902,7 +902,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             self.wordTagStringList.removeAll()
             
             // set scene
-            self.scene = sourceViewController.selectedScene
             
             updateTitle()
             initDictionary()

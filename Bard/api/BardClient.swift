@@ -16,8 +16,12 @@ class BardClient {
     static let loginUrl  = "\(Configuration.bardAccountBaseURL)/users/sign_in"
     static let characterListUrl  = "\(Configuration.bardAccountBaseURL)/bundles"
     
-    static func getSceneListUrl(pageIndex: Int) -> String  {
-        return "\(Configuration.bardAccountBaseURL)/scenes?page=\(pageIndex)"
+    static func getSceneListUrl(pageIndex: Int, search: String? = nil) -> String  {
+        if let searchText = search {
+            return "\(Configuration.bardAccountBaseURL)/scenes?search=\(searchText)&page=\(pageIndex)"
+        } else {
+            return "\(Configuration.bardAccountBaseURL)/scenes?page=\(pageIndex)"
+        }
     }
 
     static func getSceneWordListUrl(sceneToken: String) -> String  {
@@ -62,8 +66,8 @@ class BardClient {
         bardApiRequest(.GET, url: characterListUrl, success: success, failure: failure)
     }
     
-    static func getSceneList(pageIndex: Int, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
-        bardApiRequest(.GET, url: getSceneListUrl(pageIndex), success: success, failure: failure)
+    static func getSceneList(pageIndex: Int, search: String? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
+        bardApiRequest(.GET, url: getSceneListUrl(pageIndex, search: search), success: success, failure: failure)
     }
     
     static func getSceneWordList(sceneToken: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
