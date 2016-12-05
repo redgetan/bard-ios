@@ -10,7 +10,7 @@
         <!--Home-->
         <scene sceneID="04C-ck-8xb">
             <objects>
-                <viewController id="jzm-3g-xfU" customClass="WelcomeViewController" customModule="Bard" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WelcomeViewController" id="jzm-3g-xfU" customClass="WelcomeViewController" customModule="Bard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="BPJ-3P-7Zw"/>
                         <viewControllerLayoutGuide type="bottom" id="osX-O4-ulb"/>
