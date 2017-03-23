@@ -84,37 +84,49 @@
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SceneTableViewCell" rowHeight="90" id="PWX-Np-Vym" customClass="SceneTableViewCell" customModule="Bard" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="90"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="PWX-Np-Vym" id="dMc-Jf-JDr">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PWX-Np-Vym" id="dMc-Jf-JDr">
                                             <rect key="frame" x="0.0" y="0.0" width="342" height="89"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mV8-H5-0EG">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mV8-H5-0EG">
                                                     <rect key="frame" x="0.0" y="0.0" width="90" height="89"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="90" id="81K-Nb-g6P"/>
                                                         <constraint firstAttribute="height" constant="89" id="ZKe-fa-xmw"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Scene Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7p-42-8Fa">
-                                                    <rect key="frame" x="98" y="8" width="236" height="74"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scene Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7p-42-8Fa">
+                                                    <rect key="frame" x="98" y="8" width="236" height="50"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="50" id="TE7-p6-4Ga"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Owner" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UC6-M0-eqH">
+                                                    <rect key="frame" x="98" y="58" width="228" height="23.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="P7p-42-8Fa" firstAttribute="leading" secondItem="mV8-H5-0EG" secondAttribute="trailing" constant="8" id="DuN-fW-VPP"/>
                                                 <constraint firstAttribute="trailing" secondItem="P7p-42-8Fa" secondAttribute="trailing" constant="8" id="Eki-gN-r6b"/>
+                                                <constraint firstItem="UC6-M0-eqH" firstAttribute="top" secondItem="P7p-42-8Fa" secondAttribute="bottom" id="H4y-4t-XvS"/>
+                                                <constraint firstItem="UC6-M0-eqH" firstAttribute="leading" secondItem="mV8-H5-0EG" secondAttribute="trailing" constant="8" id="NPU-MT-j6b"/>
                                                 <constraint firstItem="P7p-42-8Fa" firstAttribute="top" secondItem="dMc-Jf-JDr" secondAttribute="top" constant="8" id="PKg-xL-OY8"/>
                                                 <constraint firstItem="mV8-H5-0EG" firstAttribute="top" secondItem="dMc-Jf-JDr" secondAttribute="top" id="PQw-ZU-8iX"/>
                                                 <constraint firstItem="mV8-H5-0EG" firstAttribute="leading" secondItem="dMc-Jf-JDr" secondAttribute="leading" id="RuO-MY-DEu"/>
-                                                <constraint firstItem="P7p-42-8Fa" firstAttribute="centerY" secondItem="mV8-H5-0EG" secondAttribute="centerY" id="Zoe-U1-hyl"/>
-                                                <constraint firstAttribute="bottom" secondItem="P7p-42-8Fa" secondAttribute="bottom" constant="8" id="wsD-1l-9WW"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="UC6-M0-eqH" secondAttribute="bottom" id="cmB-yz-L30"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="UC6-M0-eqH" secondAttribute="trailing" constant="8" id="yD6-Co-Qzp"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="sceneImageView" destination="mV8-H5-0EG" id="AWU-x3-duo"/>
                                             <outlet property="sceneNameLabel" destination="P7p-42-8Fa" id="kGs-Kw-FHe"/>
+                                            <outlet property="sceneOwnerLabel" destination="UC6-M0-eqH" id="PNi-4W-Cdc"/>
                                             <segue destination="WNR-dj-mS0" kind="presentation" identifier="sceneToEditor" id="Z33-DC-5rI"/>
                                         </connections>
                                     </tableViewCell>

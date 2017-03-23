@@ -12,6 +12,7 @@ import RealmSwift
 class Scene: Object {
     dynamic var name: String = ""
     dynamic var token: String = ""
+    dynamic var owner: String = ""
     dynamic var characterToken: String = ""
     dynamic var wordList: String = ""
     dynamic var thumbnailUrl: String = ""
@@ -30,6 +31,7 @@ class Scene: Object {
 
         scene.name = dict["name"] as! String
         scene.token = dict["token"] as! String
+        scene.owner = dict["owner"] as! String
         scene.thumbnailUrl = dict["thumbnailUrl"] as! String
         scene.wordList = dict["wordList"] as? String ?? ""
         

@@ -148,6 +148,8 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         let scene = self.scenes[sceneIndex]
         
         cell.sceneNameLabel?.text = scene.name
+        cell.sceneOwnerLabel?.text = "by \(scene.owner)"
+
         if let url = NSURL(string: scene.thumbnailUrl) {
             cell.sceneImageView.hnk_setImageFromURL(url)
         }
