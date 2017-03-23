@@ -20,7 +20,8 @@ target 'Bard' do
   pod 'Instabug'
 
   # analytics
-  pod 'Firebase'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
   pod 'Mixpanel'
 
 
