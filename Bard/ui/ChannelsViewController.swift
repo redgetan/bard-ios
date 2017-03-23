@@ -33,7 +33,7 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         channelsTableView.delegate = self
         channelsTableView.dataSource = self
         
-        syncRemoteData(self.totalPagesLoaded + 1)
+//        syncRemoteData(self.totalPagesLoaded + 1)
     }
     
     func initScenes() {
@@ -138,18 +138,18 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
     func tableView(tableView: UITableView,
                    cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = channelsTableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! SceneTableViewCell
+        let cell = channelsTableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! ChannelTableViewCell
         
         
         
-        
-        let sceneIndex = indexPath.row
-        let scene = self.scenes[sceneIndex]
-        
-        cell.sceneNameLabel?.text = scene.name
-        if let url = NSURL(string: scene.thumbnailUrl) {
-            cell.sceneImageView.hnk_setImageFromURL(url)
-        }
+//        
+//        let sceneIndex = indexPath.row
+//        let scene = self.scenes[sceneIndex]
+//        
+//        cell.sceneNameLabel?.text = scene.name
+//        if let url = NSURL(string: scene.thumbnailUrl) {
+//            cell.sceneImageView.hnk_setImageFromURL(url)
+//        }
         
         
         return cell
@@ -159,7 +159,7 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         
         if (indexPath.row + 1  >= self.totalRowsLoaded && !isLoading && !isEndOfPage && !isSearching) {
             self.isLoading = true
-            self.getChannelsNextPage()
+//            self.getChannelsNextPage()
             self.isLoading = false
             
         }

@@ -12,9 +12,6 @@ import Foundation
 
 class ChannelTableViewCell: UITableViewCell {
     
-    @IBOutlet weak var sceneNameLabel: UILabel!
-    
-    @IBOutlet weak var sceneImageView: UIImageView!
     
     override func awakeFromNib() {
         super.awakeFromNib()

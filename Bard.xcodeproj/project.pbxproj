@@ -14,8 +14,8 @@
 		890D3E651D493E8E008F96DF /* SceneSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E641D493E8E008F96DF /* SceneSelectViewController.swift */; };
 		890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E681D494A5D008F96DF /* VideoMerger.swift */; };
 		89114E211D45A29E0078205C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89114E201D45A29E0078205C /* Assets.xcassets */; };
-		893F35DC1E8373930001B6A0 /* ChannelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F35DB1E8373930001B6A0 /* ChannelsViewController.swift */; };
-		893F35DE1E83761D0001B6A0 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F35DD1E83761D0001B6A0 /* ChannelTableViewCell.swift */; };
+		893F35E01E8427980001B6A0 /* ChannelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F35DF1E8427980001B6A0 /* ChannelsViewController.swift */; };
+		893F35E21E8427A60001B6A0 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F35E11E8427A60001B6A0 /* ChannelTableViewCell.swift */; };
 		8942C7611D976D8D009F70A0 /* BardEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */; };
 		8942C7631D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8942C7621D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift */; };
 		8942C7651D996F23009F70A0 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8942C7641D996F23009F70A0 /* FBSDKCoreKit.framework */; };
@@ -73,8 +73,8 @@
 		89114E201D45A29E0078205C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89114E251D45A29E0078205C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8929FFFC1D9C84B500BEB83B /* Bard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bard.entitlements; sourceTree = "<group>"; };
-		893F35DB1E8373930001B6A0 /* ChannelsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelsViewController.swift; sourceTree = "<group>"; };
-		893F35DD1E83761D0001B6A0 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChannelTableViewCell.swift; sourceTree = "<group>"; };
+		893F35DF1E8427980001B6A0 /* ChannelsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChannelsViewController.swift; path = ui/ChannelsViewController.swift; sourceTree = "<group>"; };
+		893F35E11E8427A60001B6A0 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChannelTableViewCell.swift; path = ui/views/ChannelTableViewCell.swift; sourceTree = "<group>"; };
 		8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BardEditorViewController.swift; path = ui/BardEditorViewController.swift; sourceTree = "<group>"; };
 		8942C7621D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialShareCollectionViewCell.swift; path = ui/views/SocialShareCollectionViewCell.swift; sourceTree = "<group>"; };
 		8942C7641D996F23009F70A0 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -214,6 +214,7 @@
 				89C9861E1D465FF90056E687 /* views */,
 				89C986191D45BA990056E687 /* ProfileViewController.swift */,
 				89C9861A1D45BA990056E687 /* RepositoriesViewController.swift */,
+				893F35DF1E8427980001B6A0 /* ChannelsViewController.swift */,
 				89C986331D46D8350056E687 /* LoginInputViewController.swift */,
 				89C986251D46823A0056E687 /* SignupInputViewController.swift */,
 				89C986381D46EE040056E687 /* WelcomeViewController.swift */,
@@ -223,7 +224,6 @@
 				8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */,
 				89C2EEBE1D4FC8E0005BB3C2 /* VideoPlayerViewController.swift */,
 				89DB08351D97346C009241FD /* ShareEditorViewController.swift */,
-				893F35DB1E8373930001B6A0 /* ChannelsViewController.swift */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -254,6 +254,7 @@
 		89C9861E1D465FF90056E687 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				893F35E11E8427A60001B6A0 /* ChannelTableViewCell.swift */,
 				89C9861F1D4660290056E687 /* BorderedButton.swift */,
 				89C9862B1D4691D90056E687 /* BorderedTextField.swift */,
 				899145C01D4A873C00C99369 /* SceneTableViewCell.swift */,
@@ -263,7 +264,6 @@
 				89DB082D1D973172009241FD /* SegueFromRight.swift */,
 				89DB082F1D97321D009241FD /* UnwindSegueFromRight.swift */,
 				8942C7621D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift */,
-				893F35DD1E83761D0001B6A0 /* ChannelTableViewCell.swift */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -441,7 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				893F35DE1E83761D0001B6A0 /* ChannelTableViewCell.swift in Sources */,
+				893F35E21E8427A60001B6A0 /* ChannelTableViewCell.swift in Sources */,
 				899145C11D4A873C00C99369 /* SceneTableViewCell.swift in Sources */,
 				89C9861D1D45BA990056E687 /* RepositoriesViewController.swift in Sources */,
 				890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */,
@@ -452,7 +452,7 @@
 				896074881D72495C0072C022 /* NSLayoutConstraint+Helper.swift in Sources */,
 				890D3E5F1D493A20008F96DF /* Repository.swift in Sources */,
 				89C986171D45BA8E0056E687 /* UserConfig.swift in Sources */,
-				893F35DC1E8373930001B6A0 /* ChannelsViewController.swift in Sources */,
+				893F35E01E8427980001B6A0 /* ChannelsViewController.swift in Sources */,
 				89C9861C1D45BA990056E687 /* ProfileViewController.swift in Sources */,
 				890D3E5D1D493931008F96DF /* Scene.swift in Sources */,
 				89C986321D46AF230056E687 /* Configuration.swift in Sources */,
