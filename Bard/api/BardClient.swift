@@ -36,6 +36,11 @@ class BardClient {
         return "\(Configuration.bardAccountBaseURL)/repos"
     }
     
+    static func postVideoUploadUrl() -> String {
+        return "\(Configuration.bardAccountBaseURL)/upload"
+    }
+    
+    
     static func deleteRepoUrl(token: String) -> String {
         return "\(Configuration.bardAccountBaseURL)/repos/\(token)/delete"
     }
@@ -77,6 +82,14 @@ class BardClient {
     static func getCharacterWordList(characterToken: String, progress: ((Int64, Int64, Int64) -> Void)? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) -> Alamofire.Request {
         return bardDownload(getCharacterWordListUrl(characterToken), destinationPath: Storage.getCharacterFilePath(characterToken), progress: progress, success: success, failure: failure)
     }
+    
+    static func postVideoUpload(youtubeUrl: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
+        let params : [String : String] = [
+            "youtube_url": youtubeUrl
+        ]
+        bardApiRequest(.POST, url: postVideoUploadUrl(), parameters: params, success: success, failure: failure)
+    }
+    
     
     static func postRepo(uuid: String, sceneToken: String, wordList: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
         let params : [String : String] = [
@@ -158,7 +171,7 @@ class BardClient {
                                     }
                                 }
                             } catch let error as NSError {
-                                failure?(error.localizedDescription)
+                                failure?("Error. Try again later.")
                             }
                             
                         
@@ -177,7 +190,7 @@ class BardClient {
             .responseJSON { response in
 
                 if let httpError = response.result.error {
-                    failure?(httpError.localizedDescription)
+                    failure?("Error. Try again later.")
                 } else if let JSON = response.result.value {
                     if let error = (JSON as? [String: String])?["error"] {
                         failure?(error)

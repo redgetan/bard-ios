@@ -38,7 +38,7 @@ class UserConfig {
         defaults.synchronize()
         
     }
-    
+ 
     static func clearCredentials() {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.removeObjectForKey("is_user_logined")
@@ -58,6 +58,18 @@ class UserConfig {
         let defaults = NSUserDefaults.standardUserDefaults()
         return defaults.stringForKey("email")
     }
+    
+    static func setCurrentUpload(uploadSceneToken: String) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(uploadSceneToken, forKey: "uploadSceneToken")
+        defaults.synchronize()
+    }
+    
+    static func getCurrentUpload() -> String? {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.stringForKey("uploadSceneToken")
+    }
+    
     
     static func getAuthenticationToken() -> String? {
         let token = keychain[string: "authentication_token"]

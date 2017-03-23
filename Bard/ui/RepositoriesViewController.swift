@@ -119,7 +119,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     // MARK: DZNEmptyDataSetSource
     
     func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
-        let text = "Create your first Bard"
+        let text = ""
         let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
                           NSForegroundColorAttributeName: UIColor.darkGrayColor()]
     
@@ -127,7 +127,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
-        let text = "To start, click the button on upper-right corner."
+        let text = "You have no videos yet"
     
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping
