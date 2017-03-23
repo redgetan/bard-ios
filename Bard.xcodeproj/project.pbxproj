@@ -16,6 +16,7 @@
 		89114E211D45A29E0078205C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89114E201D45A29E0078205C /* Assets.xcassets */; };
 		893F35E01E8427980001B6A0 /* ChannelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F35DF1E8427980001B6A0 /* ChannelsViewController.swift */; };
 		893F35E21E8427A60001B6A0 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F35E11E8427A60001B6A0 /* ChannelTableViewCell.swift */; };
+		893F35E41E84323E0001B6A0 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F35E31E84323E0001B6A0 /* UploadViewController.swift */; };
 		8942C7611D976D8D009F70A0 /* BardEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */; };
 		8942C7631D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8942C7621D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift */; };
 		8942C7651D996F23009F70A0 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8942C7641D996F23009F70A0 /* FBSDKCoreKit.framework */; };
@@ -75,6 +76,7 @@
 		8929FFFC1D9C84B500BEB83B /* Bard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bard.entitlements; sourceTree = "<group>"; };
 		893F35DF1E8427980001B6A0 /* ChannelsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChannelsViewController.swift; path = ui/ChannelsViewController.swift; sourceTree = "<group>"; };
 		893F35E11E8427A60001B6A0 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChannelTableViewCell.swift; path = ui/views/ChannelTableViewCell.swift; sourceTree = "<group>"; };
+		893F35E31E84323E0001B6A0 /* UploadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UploadViewController.swift; path = ui/UploadViewController.swift; sourceTree = "<group>"; };
 		8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BardEditorViewController.swift; path = ui/BardEditorViewController.swift; sourceTree = "<group>"; };
 		8942C7621D98C0E4009F70A0 /* SocialShareCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SocialShareCollectionViewCell.swift; path = ui/views/SocialShareCollectionViewCell.swift; sourceTree = "<group>"; };
 		8942C7641D996F23009F70A0 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -224,6 +226,7 @@
 				8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */,
 				89C2EEBE1D4FC8E0005BB3C2 /* VideoPlayerViewController.swift */,
 				89DB08351D97346C009241FD /* ShareEditorViewController.swift */,
+				893F35E31E84323E0001B6A0 /* UploadViewController.swift */,
 			);
 			name = ui;
 			sourceTree = "<group>";
@@ -442,6 +445,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				893F35E21E8427A60001B6A0 /* ChannelTableViewCell.swift in Sources */,
+				893F35E41E84323E0001B6A0 /* UploadViewController.swift in Sources */,
 				899145C11D4A873C00C99369 /* SceneTableViewCell.swift in Sources */,
 				89C9861D1D45BA990056E687 /* RepositoriesViewController.swift in Sources */,
 				890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */,
