@@ -59,6 +59,18 @@ class UserConfig {
         return defaults.stringForKey("email")
     }
     
+    
+    static func setIsUploading(isUploading: Bool) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(isUploading, forKey: "isUploading")
+        defaults.synchronize()
+    }
+    
+    static func getIsUploading() -> Bool? {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.boolForKey("isUploading")
+    }
+    
     static func setCurrentUpload(uploadSceneToken: String) {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(uploadSceneToken, forKey: "uploadSceneToken")

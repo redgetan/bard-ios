@@ -22,7 +22,19 @@ class UploadViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        progressResultView.hidden = true
+        
+        showHideUploadViews()
+    }
+    
+    func showHideUploadViews() {
+        let isUploading = UserConfig.getIsUploading()
+        if (isUploading != nil && isUploading!) {
+            uploadFormView.hidden = true
+            progressResultView.hidden = false
+        } else {
+            uploadFormView.hidden = false
+            progressResultView.hidden = true
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -41,6 +53,8 @@ class UploadViewController: UIViewController {
               } else if let successMessage = dict["result"] as? String {
                 if let uploadSceneToken = dict["sceneToken"] as? String {
                     UserConfig.setCurrentUpload(uploadSceneToken)
+                    UserConfig.setIsUploading(true)
+                    self.showHideUploadViews()
                 }
                 Drop.down(successMessage, state: .Success, duration: 3)
               }
