@@ -127,7 +127,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     }
     
     func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
-        let text = "You have no videos yet"
+        let text = "You have no Bards yet"
     
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping

@@ -9,9 +9,10 @@
 import UIKit
 import RealmSwift
 import SwiftyDrop
+import DZNEmptyDataSet
 import Haneke
 
-class SceneSelectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
+class SceneSelectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate,DZNEmptyDataSetSource, DZNEmptyDataSetDelegate {
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var scenesTableView: UITableView!
@@ -36,6 +37,8 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         searchBar.delegate = self
         scenesTableView.delegate = self
         scenesTableView.dataSource = self
+        scenesTableView.emptyDataSetSource = self
+        scenesTableView.emptyDataSetDelegate = self
         
         syncRemoteData(self.totalPagesLoaded + 1)
     }
@@ -190,6 +193,29 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         }
     }
   
+    // MARK: DZNEmptyDataSetSource
+    
+    func titleForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
+        let text = ""
+        let attributes = [NSFontAttributeName: UIFont.boldSystemFontOfSize(18.0),
+                          NSForegroundColorAttributeName: UIColor.darkGrayColor()]
+        
+        return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+    func descriptionForEmptyDataSet(scrollView: UIScrollView) -> NSAttributedString {
+        let text = "No results found."
+        
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = NSLineBreakMode.ByWordWrapping
+        paragraph.alignment = .Center
+        
+        let attributes = [NSFontAttributeName: UIFont.systemFontOfSize(14.0),
+                          NSForegroundColorAttributeName: UIColor.lightGrayColor(),
+                          NSParagraphStyleAttributeName: paragraph]
+        
+        return NSAttributedString(string: text, attributes: attributes)
+    }
     
     
 }

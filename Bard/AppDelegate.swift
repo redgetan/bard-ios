@@ -10,6 +10,7 @@ import UIKit
 import Firebase
 import Mixpanel
 import AWSCore
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -32,13 +33,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         AWSServiceManager.defaultServiceManager().defaultServiceConfiguration = configuration
         
-        
+        performRealmMigration()
         setupNavigationBarColor()
         
         Helper.openStoryboard(window: window,
                                   storyboardName: "Main",
                                   viewControllerName: "TabBarViewController")
         return true
+    }
+    
+    private func performRealmMigration() {
+        let config = Realm.Configuration(
+            // Set the new schema version. This must be greater than the previously used
+            // version (if you've never set a schema version before, the version is 0).
+            schemaVersion: 1,
+            
+            // Set the block which will be called automatically when opening a Realm with
+            // a schema version lower than the one set above
+            migrationBlock: { migration, oldSchemaVersion in
+                
+                if oldSchemaVersion < 1 {
+                    // Nothing to do!
+                    // Realm will automatically detect new properties and removed properties
+                    // And will update the schema on disk automatically
+                }
+            }
+        ) 
+        Realm.Configuration.defaultConfiguration = config
     }
     
     // http://stackoverflow.com/a/27929937/803865
