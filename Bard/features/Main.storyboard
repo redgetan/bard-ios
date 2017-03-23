@@ -68,7 +68,7 @@
         <!--Videos-->
         <scene sceneID="VW6-dq-xGa">
             <objects>
-                <viewController id="bLr-EZ-ITe" customClass="SceneSelectViewController" customModule="Bard" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="bLr-EZ-ITe" customClass="SceneSelectViewController" customModule="Bard" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="blL-qS-kFw"/>
                         <viewControllerLayoutGuide type="bottom" id="7MF-Y8-x0M"/>
@@ -78,7 +78,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JIF-4J-oO8">
-                                <rect key="frame" x="0.0" y="40" width="375" height="578"/>
+                                <rect key="frame" x="0.0" y="188" width="375" height="430"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SceneTableViewCell" rowHeight="90" id="PWX-Np-Vym" customClass="SceneTableViewCell" customModule="Bard" customModuleProvider="target">
@@ -96,7 +96,7 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scene Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7p-42-8Fa">
-                                                    <rect key="frame" x="98" y="8" width="236" height="73.5"/>
+                                                    <rect key="frame" x="98" y="8" width="236" height="74"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
@@ -108,6 +108,7 @@
                                                 <constraint firstItem="P7p-42-8Fa" firstAttribute="top" secondItem="dMc-Jf-JDr" secondAttribute="top" constant="8" id="PKg-xL-OY8"/>
                                                 <constraint firstItem="mV8-H5-0EG" firstAttribute="top" secondItem="dMc-Jf-JDr" secondAttribute="top" id="PQw-ZU-8iX"/>
                                                 <constraint firstItem="mV8-H5-0EG" firstAttribute="leading" secondItem="dMc-Jf-JDr" secondAttribute="leading" id="RuO-MY-DEu"/>
+                                                <constraint firstItem="P7p-42-8Fa" firstAttribute="centerY" secondItem="mV8-H5-0EG" secondAttribute="centerY" id="Zoe-U1-hyl"/>
                                                 <constraint firstAttribute="bottom" secondItem="P7p-42-8Fa" secondAttribute="bottom" constant="8" id="wsD-1l-9WW"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -126,16 +127,40 @@
                                 </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Cat-qi-jKv">
+                                <rect key="frame" x="0.0" y="108" width="375" height="80"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ntz-lm-zMW">
+                                        <rect key="frame" x="137" y="25" width="100" height="30"/>
+                                        <color key="backgroundColor" red="0.190116704" green="0.67248854709999994" blue="0.34981807799999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="2Yg-ym-FvN"/>
+                                        </constraints>
+                                        <state key="normal" title="Upload">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="Ntz-lm-zMW" firstAttribute="centerY" secondItem="Cat-qi-jKv" secondAttribute="centerY" id="5nt-sX-d4i"/>
+                                    <constraint firstItem="Ntz-lm-zMW" firstAttribute="centerX" secondItem="Cat-qi-jKv" secondAttribute="centerX" id="9qr-xm-zBY"/>
+                                    <constraint firstAttribute="height" constant="80" id="u5e-d7-38t"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="JIF-4J-oO8" secondAttribute="trailing" id="1jr-2k-4sm"/>
-                            <constraint firstItem="JIF-4J-oO8" firstAttribute="top" secondItem="NIk-Gb-uNB" secondAttribute="top" constant="40" id="9ec-ul-9P0"/>
+                            <constraint firstAttribute="trailing" secondItem="Cat-qi-jKv" secondAttribute="trailing" id="3dU-xz-GbJ"/>
+                            <constraint firstItem="Cat-qi-jKv" firstAttribute="leading" secondItem="NIk-Gb-uNB" secondAttribute="leading" id="9iC-mP-ePy"/>
                             <constraint firstItem="v7A-g2-eyC" firstAttribute="leading" secondItem="NIk-Gb-uNB" secondAttribute="leading" id="Hyx-9q-VWl"/>
                             <constraint firstItem="7MF-Y8-x0M" firstAttribute="top" secondItem="JIF-4J-oO8" secondAttribute="bottom" id="PIA-7I-EZm"/>
                             <constraint firstItem="JIF-4J-oO8" firstAttribute="leading" secondItem="NIk-Gb-uNB" secondAttribute="leading" id="U3Q-OR-Muo"/>
+                            <constraint firstItem="JIF-4J-oO8" firstAttribute="top" secondItem="Cat-qi-jKv" secondAttribute="bottom" id="fpt-gZ-aYm"/>
                             <constraint firstAttribute="trailing" secondItem="v7A-g2-eyC" secondAttribute="trailing" id="jQ5-kK-GHr"/>
                             <constraint firstItem="v7A-g2-eyC" firstAttribute="top" secondItem="blL-qS-kFw" secondAttribute="bottom" id="mwm-u6-EYv"/>
+                            <constraint firstItem="Cat-qi-jKv" firstAttribute="top" secondItem="v7A-g2-eyC" secondAttribute="bottom" id="pz1-4b-1sf"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Videos" id="fNn-fg-K9Z">
@@ -149,6 +174,7 @@
                     <connections>
                         <outlet property="scenesTableView" destination="JIF-4J-oO8" id="5OS-1D-kQ3"/>
                         <outlet property="searchBar" destination="v7A-g2-eyC" id="xZV-K8-GPe"/>
+                        <outlet property="uploaderView" destination="Cat-qi-jKv" id="Cb7-qx-Den"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BqI-r0-CAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

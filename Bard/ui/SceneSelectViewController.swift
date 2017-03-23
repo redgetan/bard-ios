@@ -13,6 +13,7 @@ import Haneke
 
 class SceneSelectViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate {
     
+    @IBOutlet weak var uploaderView: UIView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var scenesTableView: UITableView!
     
@@ -32,6 +33,10 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         self.navigationItem.backBarButtonItem = backButton
         
         initScenes()
+        let image = UIImage(named:  "ancient_pattern")!
+        let uicolor = UIColor(patternImage: image)
+        self.uploaderView.backgroundColor = uicolor
+        
         searchBar.delegate = self
         scenesTableView.delegate = self
         scenesTableView.dataSource = self
