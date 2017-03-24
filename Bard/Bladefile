@@ -53,4 +53,10 @@ blades:
     mount: Assets.xcassets/icon_list.imageset
   - source: images/icon_camera_75.png
     mount: Assets.xcassets/icon_camera.imageset
+  - source: images/icon_search_60.png
+    mount: Assets.xcassets/icon_search.imageset
+  - source: images/icon_settings_60.png
+    mount: Assets.xcassets/icon_settings.imageset
+  - source: images/icon_profile_60.png
+    mount: Assets.xcassets/icon_profile_small.imageset
 

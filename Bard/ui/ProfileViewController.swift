@@ -186,6 +186,13 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         controller.reloadData()
     }
     
+    
+   
+    @IBAction func cancel(sender: UIBarButtonItem) {
+        dismissViewControllerAnimated(true, completion: nil)
+
+    }
+    
 
 
 }

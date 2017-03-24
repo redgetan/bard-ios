@@ -172,10 +172,13 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     }
     
  
-    
     @IBAction func cancel(sender: UIBarButtonItem) {
-        dismissViewControllerAnimated(true, completion: nil)
+      dismissViewControllerAnimated(true, completion: nil)
+
     }
+
+    
+
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "sceneToEditor") {
