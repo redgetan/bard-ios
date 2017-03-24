@@ -1220,6 +1220,11 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func copyLink() {
+        if let currentScene = self.scene {
+            let sceneEditorUrl = Configuration.bardAccountBaseURL + "/" + currentScene.token + "/editor"
+            UIPasteboard.generalPasteboard().string = sceneEditorUrl
+            Drop.down("Copied to clipboard", state: .Success, duration: 3)
+        }
         
     }
     
@@ -1240,7 +1245,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         
         
         let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { [weak self] _ in
-            self?.dismissViewControllerAnimated(true, completion: nil)
+            // do nothing will dismiss it
         }
         
         alertController.addAction(addToCollectionAction)
