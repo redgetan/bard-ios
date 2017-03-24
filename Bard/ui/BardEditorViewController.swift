@@ -72,10 +72,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var previewTimelineCollectionView: UICollectionView!
     @IBOutlet weak var playerContainer: UIView!
     
+    @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var playerAspectRatioConstraint: NSLayoutConstraint!
     @IBOutlet weak var controlsContainer: UIView!
     @IBOutlet weak var inputTextField: UITextView!
-    @IBOutlet weak var controlButton: UIButton!
     @IBOutlet weak var wordTagCollectionView: UICollectionView!
     
     let cellIdentifier = "wordTagCollectionViewCell"
@@ -102,6 +102,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func initControls() {
         inputTextField.delegate = self
 
+        moreButton.tintColor = UIColor.whiteColor()
+        
         placeholderLabel = UILabel()
         placeholderLabel.text = "say something"
         placeholderLabel.font = UIFont.systemFontOfSize(12)
@@ -113,15 +115,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
 
-    
-    @IBAction func onControlButtonClick(sender: UIButton) {
-        if isKeyboardShown {
-            inputTextField.resignFirstResponder()
-        } else {
-            //            inputTextField.endEditing(true)
-            inputTextField.becomeFirstResponder()
-        }
+    @IBAction func onMoreBtnClick(sender: UIButton) {
+        showMoreOptions()
     }
+
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
@@ -433,7 +430,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func keyboardWillAppear(notification: NSNotification){
-        //controlButton.setImage(UIImage(named: "icon_plus"), forState: UIControlState.Normal)
         isKeyboardShown = true
         
         let info : NSDictionary = notification.userInfo!
@@ -455,7 +451,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func keyboardWillDisappear(notification: NSNotification){
-        //controlButton.setImage(UIImage(named: "icon_keyboard"), forState: UIControlState.Normal)
         isKeyboardShown = false
         wordTagCollectionView.hidden = false
     }
@@ -467,6 +462,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     func initPreviewTimeline() {
+        previewTimelineCollectionView.hidden = true
         previewTimelineCollectionView.contentInset = UIEdgeInsetsMake(0.0,0.0,0.0,0.0)
         previewTimelineCollectionView.delegate = self
         previewTimelineCollectionView.dataSource = self
@@ -1095,7 +1091,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func initPlayer() {
 //        self.sceneSelectButton.alpha = 0.4
-        self.controlButton.alpha     = 0.5
         
         self.player = self.childViewControllers.last as! Player
         self.player.view.layer.hidden = false
@@ -1214,6 +1209,47 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func playVideo(fileUrl: NSURL) {
         self.player.setUrl(fileUrl)
         self.player.playFromBeginning()
+    }
+    
+    func shareSceneToFriend() {
+        
+    }
+    
+    func addRemoveSceneToCollection() {
+        
+    }
+    
+    func copyLink() {
+        
+    }
+    
+    func showMoreOptions() {
+        let alertController = UIAlertController(title: NSLocalizedString("More actions", comment: ""), message: nil, preferredStyle: .ActionSheet)
+        
+        let shareToFriendAction: UIAlertAction = UIAlertAction(title: "Share to Friend", style: .Default) { _ in
+            self.shareSceneToFriend()
+        }
+        
+        let addToCollectionAction: UIAlertAction = UIAlertAction(title: "Add to My Collection", style: .Default) { _ in
+            self.addRemoveSceneToCollection()
+        }
+        
+        let copyLinkAction: UIAlertAction = UIAlertAction(title: "Copy Link", style: .Default) { _ in
+            self.copyLink()
+        }
+        
+        
+        let cancelAction: UIAlertAction = UIAlertAction(title: "Cancel", style: .Cancel) { [weak self] _ in
+            self?.dismissViewControllerAnimated(true, completion: nil)
+        }
+        
+        alertController.addAction(addToCollectionAction)
+        alertController.addAction(shareToFriendAction)
+        alertController.addAction(copyLinkAction)
+        alertController.addAction(cancelAction)
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+
     }
     
     // MARK: UIGestureRecognizer

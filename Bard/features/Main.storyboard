@@ -202,42 +202,39 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8tI-Jw-5hX">
                                 <rect key="frame" x="0.0" y="281.5" width="375" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M4N-pn-kaL">
-                                        <rect key="frame" x="325" y="10" width="50" height="30"/>
-                                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="HrI-Lp-Rw2"/>
-                                        </constraints>
-                                        <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <state key="normal" image="icon_keyboard"/>
-                                        <connections>
-                                            <action selector="onControlButtonClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="qm8-zB-peS"/>
-                                        </connections>
-                                    </button>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zjY-KL-2j8">
-                                        <rect key="frame" x="18" y="10" width="307" height="30"/>
+                                        <rect key="frame" x="18" y="10" width="289" height="30"/>
                                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                                     </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97r-O3-2Yt">
+                                        <rect key="frame" x="317" y="10" width="50" height="30"/>
+                                        <color key="backgroundColor" red="0.19011670396703051" green="0.67248854712041883" blue="0.34981807801185777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="GGy-Gd-xAu"/>
+                                            <constraint firstAttribute="width" constant="50" id="afJ-Ds-mIe"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <state key="normal" title="Talk">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onGenerateButtonClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="r5t-nD-EqX"/>
+                                            <segue destination="oF3-uX-Rob" kind="custom" identifier="editorToShare" customClass="SegueFromRight" customModule="Bard" customModuleProvider="target" id="47n-b7-lDS"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="M4N-pn-kaL" secondAttribute="bottom" constant="10" id="6v3-a4-smk"/>
-                                    <constraint firstItem="M4N-pn-kaL" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="top" constant="10" id="BQx-Ae-YHW"/>
                                     <constraint firstAttribute="height" constant="50" id="JFg-eV-bR2"/>
+                                    <constraint firstAttribute="trailing" secondItem="97r-O3-2Yt" secondAttribute="trailing" constant="8" id="XW2-Ak-PjZ"/>
                                     <constraint firstItem="zjY-KL-2j8" firstAttribute="leading" secondItem="8tI-Jw-5hX" secondAttribute="leadingMargin" constant="10" id="eZq-aV-Jjf"/>
-                                    <constraint firstAttribute="trailing" secondItem="M4N-pn-kaL" secondAttribute="trailing" id="nHf-PE-ETb"/>
-                                    <constraint firstItem="M4N-pn-kaL" firstAttribute="leading" secondItem="zjY-KL-2j8" secondAttribute="trailing" id="sKb-OI-RPh"/>
-                                    <constraint firstItem="M4N-pn-kaL" firstAttribute="leading" secondItem="8tI-Jw-5hX" secondAttribute="leading" constant="8" id="uOb-de-7ew"/>
+                                    <constraint firstItem="97r-O3-2Yt" firstAttribute="centerY" secondItem="8tI-Jw-5hX" secondAttribute="centerY" id="gqx-a4-WJM"/>
+                                    <constraint firstItem="97r-O3-2Yt" firstAttribute="leading" secondItem="zjY-KL-2j8" secondAttribute="trailing" constant="10" id="niv-b4-aUz"/>
                                     <constraint firstItem="zjY-KL-2j8" firstAttribute="top" secondItem="8tI-Jw-5hX" secondAttribute="top" constant="10" id="uhq-OW-Zi2"/>
                                     <constraint firstAttribute="bottom" secondItem="zjY-KL-2j8" secondAttribute="bottom" constant="10" id="xvG-o0-nLf"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="uOb-de-7ew"/>
-                                    </mask>
-                                </variation>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="qL0-xj-jDG">
                                 <rect key="frame" x="0.0" y="331.5" width="375" height="335.5"/>
@@ -259,9 +256,10 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ye1-Wl-AX8">
-                                        <rect key="frame" x="50" y="20" width="235" height="50"/>
+                                        <rect key="frame" x="50" y="20" width="200" height="50"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="200" id="ULD-em-tJm"/>
                                             <constraint firstAttribute="height" constant="50" id="ZgF-Wr-diR"/>
                                         </constraints>
                                         <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="nHc-sy-uPi">
@@ -342,31 +340,29 @@
                                             <action selector="cancel:" destination="WNR-dj-mS0" eventType="touchUpInside" id="R4K-fo-jin"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="97r-O3-2Yt">
-                                        <rect key="frame" x="295" y="30" width="70" height="30"/>
-                                        <color key="backgroundColor" red="0.19011670396703051" green="0.67248854712041883" blue="0.34981807801185777" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vFd-4n-XNJ">
+                                        <rect key="frame" x="315" y="20" width="50" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="GGy-Gd-xAu"/>
-                                            <constraint firstAttribute="width" constant="70" id="afJ-Ds-mIe"/>
+                                            <constraint firstAttribute="height" constant="50" id="ZTw-4H-dGK"/>
+                                            <constraint firstAttribute="width" constant="50" id="yfD-PM-6Qt"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="Generate">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="normal" image="icon_more">
+                                            <color key="titleColor" red="1" green="0.92298280928567855" blue="0.25401527305403027" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <connections>
-                                            <action selector="onGenerateButtonClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="r5t-nD-EqX"/>
-                                            <segue destination="oF3-uX-Rob" kind="custom" identifier="editorToShare" customClass="SegueFromRight" customModule="Bard" customModuleProvider="target" id="47n-b7-lDS"/>
+                                            <action selector="onMoreBtnClick:" destination="WNR-dj-mS0" eventType="touchUpInside" id="d1b-bD-3NV"/>
                                         </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="XPK-5k-Q5r" secondAttribute="bottom" id="0cV-3a-g7Y"/>
-                                    <constraint firstAttribute="trailing" secondItem="97r-O3-2Yt" secondAttribute="trailing" constant="10" id="34k-ej-F7n"/>
-                                    <constraint firstItem="97r-O3-2Yt" firstAttribute="leading" secondItem="Ye1-Wl-AX8" secondAttribute="trailing" constant="10" id="ChN-oH-jw9"/>
+                                    <constraint firstAttribute="trailing" secondItem="vFd-4n-XNJ" secondAttribute="trailing" constant="10" id="3YY-Ha-n6B"/>
+                                    <constraint firstAttribute="bottom" secondItem="vFd-4n-XNJ" secondAttribute="bottom" id="Aym-m7-a0a"/>
                                     <constraint firstAttribute="height" constant="70" id="Ht1-ZT-3uu"/>
                                     <constraint firstItem="XPK-5k-Q5r" firstAttribute="centerY" secondItem="K63-7C-PeU" secondAttribute="centerY" id="Mw1-bu-5yL"/>
-                                    <constraint firstAttribute="bottom" secondItem="97r-O3-2Yt" secondAttribute="bottom" constant="10" id="RlY-c0-aEa"/>
                                     <constraint firstAttribute="bottom" secondItem="XPK-5k-Q5r" secondAttribute="bottom" constant="12" id="bf8-Yz-Ocm"/>
                                     <constraint firstAttribute="bottom" secondItem="Ye1-Wl-AX8" secondAttribute="bottom" id="d7K-yE-LYP"/>
                                     <constraint firstItem="Ye1-Wl-AX8" firstAttribute="leading" secondItem="XPK-5k-Q5r" secondAttribute="trailing" id="oxv-vY-TvH"/>
@@ -406,10 +402,10 @@
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="controlButton" destination="M4N-pn-kaL" id="WMf-1D-MqH"/>
                         <outlet property="controlsContainer" destination="8tI-Jw-5hX" id="ra8-ow-HvX"/>
                         <outlet property="generateButton" destination="97r-O3-2Yt" id="Ezi-Xr-NkZ"/>
                         <outlet property="inputTextField" destination="zjY-KL-2j8" id="zXe-VG-ZRc"/>
+                        <outlet property="moreButton" destination="vFd-4n-XNJ" id="3NU-Kr-ehr"/>
                         <outlet property="playerAspectRatioConstraint" destination="O3E-ds-ZFj" id="4Cb-O1-nvK"/>
                         <outlet property="playerContainer" destination="cbC-Tr-7su" id="sqo-V4-zdA"/>
                         <outlet property="previewTimelineCollectionView" destination="Ye1-Wl-AX8" id="Xet-qd-LfC"/>
@@ -418,7 +414,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fV5-fk-QU5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4050" y="-52"/>
+            <point key="canvasLocation" x="4048.8000000000002" y="-52.623688155922046"/>
         </scene>
         <!--Share Editor View Controller-->
         <scene sceneID="nWQ-eR-eY1">
@@ -1163,9 +1159,9 @@
         <image name="icon_bookmark" width="25" height="25"/>
         <image name="icon_camera" width="25" height="25"/>
         <image name="icon_close" width="25" height="25"/>
-        <image name="icon_keyboard" width="25" height="25"/>
         <image name="icon_list" width="25" height="25"/>
         <image name="icon_messenger" width="40" height="40"/>
+        <image name="icon_more" width="25" height="25"/>
         <image name="icon_profile" width="25" height="25"/>
         <image name="icon_profile_filled" width="25" height="25"/>
         <image name="icon_profile_small" width="20" height="20"/>

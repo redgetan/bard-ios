@@ -59,4 +59,6 @@ blades:
     mount: Assets.xcassets/icon_settings.imageset
   - source: images/icon_profile_60.png
     mount: Assets.xcassets/icon_profile_small.imageset
+  - source: images/icon_more_75.png
+    mount: Assets.xcassets/icon_more.imageset
 

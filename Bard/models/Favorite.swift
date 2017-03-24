@@ -24,7 +24,6 @@ class Favorite: Object {
     
     static func create(username: String, sceneToken: String) {
         let favorite = Favorite()
-        let dict = (obj as! [String:AnyObject])
         
         favorite.username = username
         favorite.sceneToken = sceneToken
