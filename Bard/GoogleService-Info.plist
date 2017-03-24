@@ -7,21 +7,21 @@
 	<key>AD_UNIT_ID_FOR_INTERSTITIAL_TEST</key>
 	<string>ca-app-pub-3940256099942544/4411468910</string>
 	<key>CLIENT_ID</key>
-	<string>229621972089-e9dq41ph796p5t7u4i6kn581p9hsdv3i.apps.googleusercontent.com</string>
+	<string>382617240916-g9m46anon0hcm467v8mksf5b3m8gbfi9.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.229621972089-e9dq41ph796p5t7u4i6kn581p9hsdv3i</string>
+	<string>com.googleusercontent.apps.382617240916-g9m46anon0hcm467v8mksf5b3m8gbfi9</string>
 	<key>API_KEY</key>
-	<string>AIzaSyC5bTkbU79cOqjCJ7FNlYia2jnvyDVZsq4</string>
+	<string>AIzaSyAtoh_i5I_l1SiHPnpZrsgPzFe4rTz6O1o</string>
 	<key>GCM_SENDER_ID</key>
-	<string>229621972089</string>
+	<string>382617240916</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.roplabs.bard</string>
 	<key>PROJECT_ID</key>
-	<string>bard-ios-bfb2f</string>
+	<string>bard-37e0f</string>
 	<key>STORAGE_BUCKET</key>
-	<string>bard-ios-bfb2f.appspot.com</string>
+	<string>bard-37e0f.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<true/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -33,8 +33,8 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:229621972089:ios:1ac7711681be55ac</string>
+	<string>1:382617240916:ios:1ac7711681be55ac</string>
 	<key>DATABASE_URL</key>
-	<string>https://bard-ios-bfb2f.firebaseio.com</string>
+	<string>https://bard-37e0f.firebaseio.com</string>
 </dict>
 </plist>

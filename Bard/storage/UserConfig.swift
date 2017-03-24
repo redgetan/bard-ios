@@ -71,15 +71,26 @@ class UserConfig {
         return defaults.boolForKey("isUploading")
     }
     
-    static func setCurrentUpload(uploadSceneToken: String) {
+    static func setCurrentUploadSceneToken(uploadSceneToken: String) {
         let defaults = NSUserDefaults.standardUserDefaults()
         defaults.setObject(uploadSceneToken, forKey: "uploadSceneToken")
         defaults.synchronize()
     }
     
-    static func getCurrentUpload() -> String? {
+    static func getCurrentUploadSceneToken() -> String? {
         let defaults = NSUserDefaults.standardUserDefaults()
         return defaults.stringForKey("uploadSceneToken")
+    }
+    
+    static func setCurrentUploadSceneName(uploadSceneName: String) {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        defaults.setObject(uploadSceneName, forKey: "uploadSceneName")
+        defaults.synchronize()
+    }
+    
+    static func getCurrentUploadSceneName() -> String? {
+        let defaults = NSUserDefaults.standardUserDefaults()
+        return defaults.stringForKey("uploadSceneName")
     }
     
     

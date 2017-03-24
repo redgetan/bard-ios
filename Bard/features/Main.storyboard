@@ -1020,15 +1020,27 @@
                                             <action selector="onUploadBtnClick:" destination="17s-aL-d93" eventType="touchUpInside" id="yOF-Vr-9MQ"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aos-iZ-njq">
+                                        <rect key="frame" x="0.0" y="170" width="343" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="QBO-fs-3eH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="dL4-PL-Wve" firstAttribute="leading" secondItem="Fjv-y4-TXq" secondAttribute="leading" id="DBO-cl-h0V"/>
+                                    <constraint firstAttribute="trailing" secondItem="aos-iZ-njq" secondAttribute="trailing" id="DOF-sI-I3N"/>
                                     <constraint firstItem="dL4-PL-Wve" firstAttribute="top" secondItem="NNz-Ei-yQJ" secondAttribute="bottom" constant="10" id="DTy-oO-FD1"/>
                                     <constraint firstAttribute="height" constant="200" id="Ghm-Xf-hyl"/>
+                                    <constraint firstAttribute="bottom" secondItem="aos-iZ-njq" secondAttribute="bottom" constant="10" id="MRo-iE-AQo"/>
                                     <constraint firstItem="9Yj-v8-YNB" firstAttribute="trailing" secondItem="Fjv-y4-TXq" secondAttribute="trailingMargin" id="PhO-aZ-V6C"/>
                                     <constraint firstItem="NNz-Ei-yQJ" firstAttribute="leading" secondItem="Fjv-y4-TXq" secondAttribute="leading" id="XBR-vi-mcc"/>
                                     <constraint firstItem="NNz-Ei-yQJ" firstAttribute="top" secondItem="Fjv-y4-TXq" secondAttribute="top" constant="50" id="ZiV-bv-lC9"/>
+                                    <constraint firstItem="aos-iZ-njq" firstAttribute="leading" secondItem="Fjv-y4-TXq" secondAttribute="leading" id="bQs-b1-H1K"/>
                                     <constraint firstAttribute="trailing" secondItem="dL4-PL-Wve" secondAttribute="trailing" id="dmn-wj-GF3"/>
                                     <constraint firstItem="9Yj-v8-YNB" firstAttribute="leading" secondItem="NNz-Ei-yQJ" secondAttribute="trailing" constant="10" id="jhs-gq-xF7"/>
                                     <constraint firstItem="9Yj-v8-YNB" firstAttribute="top" secondItem="Fjv-y4-TXq" secondAttribute="top" constant="50" id="yaY-O1-EJ7"/>
@@ -1058,7 +1070,10 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Upload" id="XyF-fC-CBx"/>
                     <connections>
+                        <outlet property="progressPercentLabel" destination="esG-1g-6HP" id="cTT-MZ-NEx"/>
                         <outlet property="progressResultView" destination="OCI-Ws-hEX" id="C3B-2K-J9g"/>
+                        <outlet property="progressSceneLabel" destination="asv-Ie-um6" id="4KA-4U-kBy"/>
+                        <outlet property="recentFinishedUploadLabel" destination="aos-iZ-njq" id="sr6-rK-i0F"/>
                         <outlet property="uploadFormView" destination="Fjv-y4-TXq" id="3iH-UG-iRN"/>
                         <outlet property="uploadTextField" destination="NNz-Ei-yQJ" id="Z72-WB-ERL"/>
                     </connections>
