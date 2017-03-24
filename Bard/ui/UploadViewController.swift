@@ -34,7 +34,7 @@ class UploadViewController: UIViewController {
         firebaseRef = FIRDatabase.database().reference()
 //        FIRDatabase.setLoggingEnabled(true)
         
-        showHideUploadViews()
+        enterUploadMode()
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(UploadViewController.onRecentUploadClick))
         recentFinishedUploadLabel.userInteractionEnabled = true
@@ -42,41 +42,52 @@ class UploadViewController: UIViewController {
         
         let isUploading = UserConfig.getIsUploading()
         if (isUploading != nil && isUploading!) {
-            displayProgress(UserConfig.getCurrentUploadSceneToken()!)
+            observeProgress(UserConfig.getCurrentUploadSceneToken()!)
         }
+    }
+    
+    @IBAction func hideProgressView(sender: UIButton) {
+        enterUploadMode()
     }
     
     func onRecentUploadClick(sender:UITapGestureRecognizer) {
         print("sceneToken clicked: " + self.recentUploadedSceneToken)
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         
-        let viewController = storyBoard.instantiateViewControllerWithIdentifier("BardEditorViewController") as! BardEditorViewController
-        viewController.scene = Scene.forToken(self.recentUploadedSceneToken)
-        self.presentViewController(viewController, animated:true, completion:nil)
-    }
-    
-    func showHideUploadViews() {
         let isUploading = UserConfig.getIsUploading()
         if (isUploading != nil && isUploading!) {
-            uploadFormView.hidden = true
-            progressResultView.hidden = false
-            
-            self.progressSceneLabel.text = "Processing \(UserConfig.getCurrentUploadSceneName()!) . You will be notified by email once it completes processing. Progress will also be shown below."
+            enterProgressResultMode()
         } else {
-            uploadFormView.hidden = false
-            progressResultView.hidden = true
+            // if already finished uploading (show editor)
+            let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
             
-            // show recent successful upload if not nil
-            let isUploading = UserConfig.getIsUploading()
-            if (isUploading != nil && isUploading == false) {
-                let recentUploadedSceneName = UserConfig.getCurrentUploadSceneName()
-                self.recentUploadedSceneToken = UserConfig.getCurrentUploadSceneToken()
-                let recentUploadLabel = "Completed - \(recentUploadedSceneName)"
-                let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: recentUploadLabel)
-                attributeString.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0, attributeString.length))
-                recentFinishedUploadLabel.attributedText = attributeString
-            }
+            let viewController = storyBoard.instantiateViewControllerWithIdentifier("BardEditorViewController") as! BardEditorViewController
+            viewController.scene = Scene.forToken(self.recentUploadedSceneToken)
+            self.presentViewController(viewController, animated:true, completion:nil)
+
         }
+    }
+    
+   
+    func enterProgressResultMode() {
+        uploadFormView.hidden = true
+        progressResultView.hidden = false
+        
+        self.progressSceneLabel.text = "Processing \(UserConfig.getCurrentUploadSceneName()!) . You will be notified by email once it completes processing. Progress will also be shown below."
+    }
+    
+    func enterUploadMode() {
+        uploadFormView.hidden = false
+        progressResultView.hidden = true
+        
+        // show recent successful upload if not nil
+        
+        let recentUploadedSceneName = UserConfig.getCurrentUploadSceneName()
+        self.recentUploadedSceneToken = UserConfig.getCurrentUploadSceneToken()
+        let recentUploadLabel = "\(recentUploadedSceneName!)"
+        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: recentUploadLabel)
+        attributeString.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0, attributeString.length))
+        recentFinishedUploadLabel.attributedText = attributeString
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -98,14 +109,19 @@ class UploadViewController: UIViewController {
               if let errorMessage = dict["error"] as? String {
                 Drop.down(errorMessage, state: .Error, duration: 3)
               } else if let successMessage = dict["result"] as? String {
-                if let sceneObj = dict["scene"] as? [String:String] {
-                    let scene = Scene.createWithTokenAndName(sceneObj)!
+                let obj = dict["scene"] as! NSDictionary
+                let sceneToken = obj["token"] as! String
+                if let _ = Scene.forToken(sceneToken) {
+                   // already exist
+                } else {
+                    let scene = Scene.createWithTokenAndName(obj)!
                     UserConfig.setCurrentUploadSceneName(scene.name)
                     UserConfig.setCurrentUploadSceneToken(scene.token)
                     UserConfig.setIsUploading(true)
-                    self.showHideUploadViews()
-                    self.displayProgress(scene.token)
+                    self.enterProgressResultMode()
+                    self.observeProgress(scene.token)
                 }
+                
                 
                 Drop.down(successMessage, state: .Success, duration: 3)
               }
@@ -124,12 +140,12 @@ class UploadViewController: UIViewController {
     
     
     
-    func displayProgress(sceneToken: String) {
+    func observeProgress(sceneToken: String) {
         let progressRef = self.firebaseRef.child("scenes/\(sceneToken)/progress")
         
         progressRef.observeEventType(FIRDataEventType.Value, withBlock: { (snapshot) in
             let progressDict = snapshot.value as? [String : AnyObject] ?? [:]
-            if let percentComplete = progressDict["percentComplete"] as? String {
+            if let percentComplete = progressDict["percentComplete"] as? Int {
                 self.progressPercentLabel.text = "\(percentComplete) %"
             } else {
                 self.progressPercentLabel.text = "In queue"
@@ -138,7 +154,7 @@ class UploadViewController: UIViewController {
                 if isProcessed == true {
                     UserConfig.setIsUploading(false)
                     progressRef.removeAllObservers()
-                    self.showHideUploadViews()
+                    self.enterUploadMode()
                 }
             }
             
