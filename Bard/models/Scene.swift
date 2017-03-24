@@ -53,6 +53,8 @@ class Scene: Object {
         scene.name = dict["name"] as! String
         scene.token = dict["token"] as! String
         scene.thumbnailUrl = dict["thumbnailUrl"] as! String
+        scene.owner = dict["owner"] as! String
+        
         
         let realm = try! Realm()
         

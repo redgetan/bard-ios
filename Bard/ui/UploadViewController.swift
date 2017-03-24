@@ -48,6 +48,11 @@ class UploadViewController: UIViewController {
     
     func onRecentUploadClick(sender:UITapGestureRecognizer) {
         print("sceneToken clicked: " + self.recentUploadedSceneToken)
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        
+        let viewController = storyBoard.instantiateViewControllerWithIdentifier("BardEditorViewController") as! BardEditorViewController
+        viewController.scene = Scene.forToken(self.recentUploadedSceneToken)
+        self.presentViewController(viewController, animated:true, completion:nil)
     }
     
     func showHideUploadViews() {
@@ -80,6 +85,11 @@ class UploadViewController: UIViewController {
     
     
     @IBAction func onUploadBtnClick(sender: UIButton) {
+        if !UserConfig.isLogined() {
+            Helper.showAskUserToLogin(self, message: "You must Login to upload")
+            return
+        }
+        
         // queue upload
         let youtubeUrl = uploadTextField.text!
         
@@ -88,13 +98,13 @@ class UploadViewController: UIViewController {
               if let errorMessage = dict["error"] as? String {
                 Drop.down(errorMessage, state: .Error, duration: 3)
               } else if let successMessage = dict["result"] as? String {
-                if let uploadSceneToken = dict["sceneToken"] as? String {
-                    let uploadSceneName = dict["sceneName"] as! String
-                    UserConfig.setCurrentUploadSceneName(uploadSceneName)
-                    UserConfig.setCurrentUploadSceneToken(uploadSceneToken)
+                if let sceneObj = dict["scene"] as? [String:String] {
+                    let scene = Scene.createWithTokenAndName(sceneObj)!
+                    UserConfig.setCurrentUploadSceneName(scene.name)
+                    UserConfig.setCurrentUploadSceneToken(scene.token)
                     UserConfig.setIsUploading(true)
                     self.showHideUploadViews()
-                    self.displayProgress(uploadSceneToken)
+                    self.displayProgress(scene.token)
                 }
                 
                 Drop.down(successMessage, state: .Success, duration: 3)

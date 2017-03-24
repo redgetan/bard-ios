@@ -1141,9 +1141,9 @@
         <image name="icon_messenger" width="40" height="40"/>
         <image name="icon_profile" width="25" height="25"/>
         <image name="icon_profile_filled" width="25" height="25"/>
-        <image name="icon_profile_small" width="16" height="16"/>
-        <image name="icon_search" width="16" height="16"/>
-        <image name="icon_settings" width="16" height="16"/>
+        <image name="icon_profile_small" width="20" height="20"/>
+        <image name="icon_search" width="20" height="20"/>
+        <image name="icon_settings" width="20" height="20"/>
         <image name="icon_share" width="48" height="66"/>
     </resources>
 </document>
