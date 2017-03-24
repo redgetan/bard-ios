@@ -51,4 +51,6 @@ blades:
     mount: Assets.xcassets/icon_crop_android.imageset
   - source: images/icon_list_75.png
     mount: Assets.xcassets/icon_list.imageset
+  - source: images/icon_camera_75.png
+    mount: Assets.xcassets/icon_camera.imageset
 

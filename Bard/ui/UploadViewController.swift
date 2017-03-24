@@ -32,12 +32,12 @@ class UploadViewController: UIViewController {
         
         
         firebaseRef = FIRDatabase.database().reference()
-        FIRDatabase.setLoggingEnabled(true)
+//        FIRDatabase.setLoggingEnabled(true)
         
         showHideUploadViews()
-        
-        let tap = UITapGestureRecognizer(target: self, action: #selector(UploadViewController.onRecentUploadClick))
 
+        let tap = UITapGestureRecognizer(target: self, action: #selector(UploadViewController.onRecentUploadClick))
+        recentFinishedUploadLabel.userInteractionEnabled = true
         recentFinishedUploadLabel.addGestureRecognizer(tap)
         
         let isUploading = UserConfig.getIsUploading()
@@ -56,7 +56,7 @@ class UploadViewController: UIViewController {
             uploadFormView.hidden = true
             progressResultView.hidden = false
             
-            self.progressSceneLabel.text = "Processing \(UserConfig.getCurrentUploadSceneName())"
+            self.progressSceneLabel.text = "Processing \(UserConfig.getCurrentUploadSceneName()!) . You will be notified by email once it completes processing. Progress will also be shown below."
         } else {
             uploadFormView.hidden = false
             progressResultView.hidden = true
@@ -66,7 +66,10 @@ class UploadViewController: UIViewController {
             if (isUploading != nil && isUploading == false) {
                 let recentUploadedSceneName = UserConfig.getCurrentUploadSceneName()
                 self.recentUploadedSceneToken = UserConfig.getCurrentUploadSceneToken()
-                recentFinishedUploadLabel.text = recentUploadedSceneName
+                let recentUploadLabel = "Completed - \(recentUploadedSceneName)"
+                let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: recentUploadLabel)
+                attributeString.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0, attributeString.length))
+                recentFinishedUploadLabel.attributedText = attributeString
             }
         }
     }
@@ -118,11 +121,15 @@ class UploadViewController: UIViewController {
             let progressDict = snapshot.value as? [String : AnyObject] ?? [:]
             if let percentComplete = progressDict["percentComplete"] as? String {
                 self.progressPercentLabel.text = "\(percentComplete) %"
+            } else {
+                self.progressPercentLabel.text = "In queue"
             }
-            if let _ = progressDict["isProcessed"] as? Bool {
-                UserConfig.setIsUploading(false)
-                progressRef.removeAllObservers()
-                self.showHideUploadViews()
+            if let isProcessed = progressDict["isProcessed"] as? Bool {
+                if isProcessed == true {
+                    UserConfig.setIsUploading(false)
+                    progressRef.removeAllObservers()
+                    self.showHideUploadViews()
+                }
             }
             
         })
