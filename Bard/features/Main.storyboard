@@ -778,6 +778,7 @@
                         <outlet property="emailLabel" destination="TiG-Ng-t4t" id="H50-lm-Hn7"/>
                         <outlet property="profileImageView" destination="Vt1-RD-2aH" id="jhT-Ul-Eu4"/>
                         <outlet property="profilesTableView" destination="puV-My-Bfe" id="TCa-MA-bA2"/>
+                        <outlet property="settingsButton" destination="Wmh-Ym-bzO" id="JcH-XJ-h0x"/>
                         <outlet property="usernameLabel" destination="ibG-SN-seG" id="Y0S-vn-wtB"/>
                     </connections>
                 </viewController>
@@ -978,61 +979,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fjv-y4-TXq" userLabel="Upload Form ">
-                                <rect key="frame" x="16" y="164" width="343" height="200"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Paste Youtube Link" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NNz-Ei-yQJ">
-                                        <rect key="frame" x="0.0" y="50" width="265" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maximum Duration of 10 minutes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dL4-PL-Wve">
-                                        <rect key="frame" x="0.0" y="90" width="343" height="14.5"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Yj-v8-YNB">
-                                        <rect key="frame" x="275" y="50" width="60" height="30"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="30" id="0iI-PK-hbV"/>
-                                            <constraint firstAttribute="width" constant="60" id="CND-x5-eQr"/>
-                                        </constraints>
-                                        <state key="normal" title="Submit">
-                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="onUploadBtnClick:" destination="17s-aL-d93" eventType="touchUpInside" id="yOF-Vr-9MQ"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aos-iZ-njq">
-                                        <rect key="frame" x="0.0" y="170" width="343" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="20" id="QBO-fs-3eH"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                        <color key="textColor" red="0.27165955912833195" green="0.55129504053928069" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="dL4-PL-Wve" firstAttribute="leading" secondItem="Fjv-y4-TXq" secondAttribute="leading" id="DBO-cl-h0V"/>
-                                    <constraint firstAttribute="trailing" secondItem="aos-iZ-njq" secondAttribute="trailing" id="DOF-sI-I3N"/>
-                                    <constraint firstItem="dL4-PL-Wve" firstAttribute="top" secondItem="NNz-Ei-yQJ" secondAttribute="bottom" constant="10" id="DTy-oO-FD1"/>
-                                    <constraint firstAttribute="height" constant="200" id="Ghm-Xf-hyl"/>
-                                    <constraint firstAttribute="bottom" secondItem="aos-iZ-njq" secondAttribute="bottom" constant="10" id="MRo-iE-AQo"/>
-                                    <constraint firstItem="9Yj-v8-YNB" firstAttribute="trailing" secondItem="Fjv-y4-TXq" secondAttribute="trailingMargin" id="PhO-aZ-V6C"/>
-                                    <constraint firstItem="NNz-Ei-yQJ" firstAttribute="leading" secondItem="Fjv-y4-TXq" secondAttribute="leading" id="XBR-vi-mcc"/>
-                                    <constraint firstItem="NNz-Ei-yQJ" firstAttribute="top" secondItem="Fjv-y4-TXq" secondAttribute="top" constant="50" id="ZiV-bv-lC9"/>
-                                    <constraint firstItem="aos-iZ-njq" firstAttribute="leading" secondItem="Fjv-y4-TXq" secondAttribute="leading" id="bQs-b1-H1K"/>
-                                    <constraint firstAttribute="trailing" secondItem="dL4-PL-Wve" secondAttribute="trailing" id="dmn-wj-GF3"/>
-                                    <constraint firstItem="9Yj-v8-YNB" firstAttribute="leading" secondItem="NNz-Ei-yQJ" secondAttribute="trailing" constant="10" id="jhs-gq-xF7"/>
-                                    <constraint firstItem="9Yj-v8-YNB" firstAttribute="top" secondItem="Fjv-y4-TXq" secondAttribute="top" constant="50" id="yaY-O1-EJ7"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OCI-Ws-hEX" userLabel="Progress Result">
                                 <rect key="frame" x="16" y="164" width="343" height="444"/>
                                 <subviews>
@@ -1086,6 +1032,61 @@
                                     <constraint firstItem="asv-Ie-um6" firstAttribute="top" secondItem="OCI-Ws-hEX" secondAttribute="top" constant="20" id="ZOU-7m-s0G"/>
                                     <constraint firstItem="esG-1g-6HP" firstAttribute="top" secondItem="asv-Ie-um6" secondAttribute="bottom" constant="50" id="aL1-XZ-nvB"/>
                                     <constraint firstItem="asv-Ie-um6" firstAttribute="leading" secondItem="OCI-Ws-hEX" secondAttribute="leading" id="sMg-9R-AIS"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fjv-y4-TXq" userLabel="Upload Form ">
+                                <rect key="frame" x="16" y="164" width="343" height="200"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Paste Youtube Link" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="NNz-Ei-yQJ">
+                                        <rect key="frame" x="0.0" y="50" width="265" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Yj-v8-YNB">
+                                        <rect key="frame" x="275" y="50" width="60" height="30"/>
+                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="0iI-PK-hbV"/>
+                                            <constraint firstAttribute="width" constant="60" id="CND-x5-eQr"/>
+                                        </constraints>
+                                        <state key="normal" title="Submit">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="onUploadBtnClick:" destination="17s-aL-d93" eventType="touchUpInside" id="yOF-Vr-9MQ"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aos-iZ-njq">
+                                        <rect key="frame" x="0.0" y="170" width="343" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="20" id="QBO-fs-3eH"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.27165955912833195" green="0.55129504053928069" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maximum Duration of 10 minutes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dL4-PL-Wve">
+                                        <rect key="frame" x="0.0" y="-4.5" width="343" height="14.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="dL4-PL-Wve" firstAttribute="leading" secondItem="Fjv-y4-TXq" secondAttribute="leading" id="DBO-cl-h0V"/>
+                                    <constraint firstAttribute="trailing" secondItem="aos-iZ-njq" secondAttribute="trailing" id="DOF-sI-I3N"/>
+                                    <constraint firstAttribute="height" constant="200" id="Ghm-Xf-hyl"/>
+                                    <constraint firstAttribute="bottom" secondItem="aos-iZ-njq" secondAttribute="bottom" constant="10" id="MRo-iE-AQo"/>
+                                    <constraint firstItem="9Yj-v8-YNB" firstAttribute="trailing" secondItem="Fjv-y4-TXq" secondAttribute="trailingMargin" id="PhO-aZ-V6C"/>
+                                    <constraint firstItem="NNz-Ei-yQJ" firstAttribute="leading" secondItem="Fjv-y4-TXq" secondAttribute="leading" id="XBR-vi-mcc"/>
+                                    <constraint firstItem="NNz-Ei-yQJ" firstAttribute="top" secondItem="Fjv-y4-TXq" secondAttribute="top" constant="50" id="ZiV-bv-lC9"/>
+                                    <constraint firstItem="aos-iZ-njq" firstAttribute="leading" secondItem="Fjv-y4-TXq" secondAttribute="leading" id="bQs-b1-H1K"/>
+                                    <constraint firstItem="NNz-Ei-yQJ" firstAttribute="top" secondItem="dL4-PL-Wve" secondAttribute="bottom" constant="40" id="ciK-id-b17"/>
+                                    <constraint firstAttribute="trailing" secondItem="dL4-PL-Wve" secondAttribute="trailing" id="dmn-wj-GF3"/>
+                                    <constraint firstItem="9Yj-v8-YNB" firstAttribute="leading" secondItem="NNz-Ei-yQJ" secondAttribute="trailing" constant="10" id="jhs-gq-xF7"/>
+                                    <constraint firstItem="9Yj-v8-YNB" firstAttribute="top" secondItem="Fjv-y4-TXq" secondAttribute="top" constant="50" id="yaY-O1-EJ7"/>
                                 </constraints>
                             </view>
                         </subviews>

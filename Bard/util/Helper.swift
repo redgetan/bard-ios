@@ -40,6 +40,11 @@ class Helper {
         return hud
     }
     
+    static func makeHUDCancelable(hud: MBProgressHUD, tap: UITapGestureRecognizer) {
+        hud.detailsLabel.text = "Tap to cancel"
+        hud.addGestureRecognizer(tap)
+    }
+    
     static func hideProgress(view: UIView) {
         MBProgressHUD.hideHUDForView(view,animated: true)
     }

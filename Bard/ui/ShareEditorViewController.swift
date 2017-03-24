@@ -67,7 +67,8 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
             self.saveButton.enabled = false
             self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
         } else {
-            Helper.showProgress(self.view, message: "Saving..")
+            let hud = Helper.showProgress(self.view, message: "Saving..")
+            Helper.makeHUDCancelable(hud, tap: UITapGestureRecognizer(target: self, action: #selector(cancelProgress)))
             uploadAndSaveToDisk({ url in
                 Helper.hideProgress(self.view)
                 if url != nil {
@@ -84,6 +85,10 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
             })
         }
      
+    }
+    
+    func cancelProgress(gestureRecognizer: UITapGestureRecognizer) {
+        Helper.hideProgress(self.view)
     }
     
     func saveRepoWithRemoteUrl(url: String, token: String, finished: (Int -> Void)? = nil) {
@@ -263,7 +268,8 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
                 // already uploaded this repo to bard with generated url
                 self.doTwitterShare(self.url!)
             } else {
-                Helper.showProgress(self.view, message: "Uploading video")
+                let hud = Helper.showProgress(self.view, message: "Uploading video")
+                Helper.makeHUDCancelable(hud, tap: UITapGestureRecognizer(target: self, action: #selector(cancelProgress)))
                 uploadAndSaveToDisk({ url in
                     if url != nil {
                         // upload success

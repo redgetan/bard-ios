@@ -1212,6 +1212,12 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func shareSceneToFriend() {
+        if let currentScene = self.scene {
+            let sceneEditorUrl = Configuration.bardAccountBaseURL + "/" + currentScene.token + "/editor"
+            let objectsToShare = [sceneEditorUrl]
+            let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
+            self.presentViewController(activityViewController, animated: true, completion: nil)
+        }
         
     }
     
@@ -1248,7 +1254,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             // do nothing will dismiss it
         }
         
-        alertController.addAction(addToCollectionAction)
+//        alertController.addAction(addToCollectionAction)
         alertController.addAction(shareToFriendAction)
         alertController.addAction(copyLinkAction)
         alertController.addAction(cancelAction)

@@ -15,6 +15,7 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
     @IBOutlet weak var usernameLabel: UILabel!
     @IBOutlet weak var emailLabel: UILabel!
     @IBOutlet weak var profilesTableView: UITableView!
+    @IBOutlet weak var settingsButton: UIBarButtonItem!
     
     let cellIdentifier = "ProfileTableViewCell"
     
@@ -39,6 +40,8 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         
         profilesTableView.delegate = self
         profilesTableView.dataSource = self
+        
+        settingsButton.enabled = false
     }
     
     override func viewDidAppear(animated: Bool) {
