@@ -1224,7 +1224,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func shareSceneToFriend() {
         if let currentScene = self.scene {
-            let sceneEditorUrl = Configuration.bardAccountBaseURL + "/" + currentScene.token + "/editor"
+            let sceneEditorUrl = Configuration.bardAccountBaseURL + "/scenes/" + currentScene.token + "/editor"
             let objectsToShare = [sceneEditorUrl]
             let activityViewController = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
             self.presentViewController(activityViewController, animated: true, completion: nil)
@@ -1238,7 +1238,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     
     func copyLink() {
         if let currentScene = self.scene {
-            let sceneEditorUrl = Configuration.bardAccountBaseURL + "/" + currentScene.token + "/editor"
+            let sceneEditorUrl = Configuration.bardAccountBaseURL + "/scenes/" + currentScene.token + "/editor"
             UIPasteboard.generalPasteboard().string = sceneEditorUrl
             Drop.down("Copied to clipboard", state: .Success, duration: 3)
         }
