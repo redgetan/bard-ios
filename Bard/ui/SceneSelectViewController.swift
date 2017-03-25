@@ -152,7 +152,7 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         
         cell.sceneNameLabel?.text = scene.name
         if scene.owner.isEmpty {
-            cell.sceneOwnerLabel?.text = "by mario"
+//            cell.sceneOwnerLabel?.text = "by mario"
         } else {
             cell.sceneOwnerLabel?.text = "by \(scene.owner)"
         }
