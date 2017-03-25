@@ -65,7 +65,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
             // already saved
             self.saveButton.setTitle("Saved", forState: .Normal)
             self.saveButton.enabled = false
-            self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
+//            self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
         } else {
             let hud = Helper.showProgress(self.view, message: "Saving..")
             Helper.makeHUDCancelable(hud, tap: UITapGestureRecognizer(target: self, action: #selector(cancelProgress)))
@@ -80,7 +80,7 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
                             "sceneToken" : self.scene.token,
                             "scene" : self.scene.name])
                     
-                    self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
+//                    self.performSelector(#selector(self.goToRootViewController), withObject: nil, afterDelay: 0.5)
                 }
             })
         }

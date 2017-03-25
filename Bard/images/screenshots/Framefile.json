@@ -1,0 +1,41 @@
+{
+  "device_frame_version": "latest",
+  "default": {
+    "keyword": {
+    },
+    "title": {
+      "color": "#ffffff"
+    },
+    "background": "./background.jpg",
+    "padding": 50,
+    "show_complete_frame": true,
+    "stack_title" : false
+  },
+
+  "data": [
+    {
+      "filter": "find",
+      "keyword": {
+        "color": "#d21559"
+      }
+    },
+    {
+      "filter": "reassemble",
+      "keyword": {
+        "color": "#feb909"
+      }
+    },
+    {
+      "filter": "merge",
+      "keyword": {
+        "color": "#aa4dbc"
+      }
+    },
+    {
+      "filter": "upload",
+      "keyword": {
+        "color": "#31bb48"
+      }
+    }
+  ]
+}
