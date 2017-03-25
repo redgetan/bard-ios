@@ -101,6 +101,52 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     }
     
+    // https://www.raywenderlich.com/128948/universal-links-make-connection
+    func application(application: UIApplication, continueUserActivity userActivity: NSUserActivity, restorationHandler: ([AnyObject]?) -> Void) -> Bool {
+        
+        if userActivity.activityType == NSUserActivityTypeBrowsingWeb {
+            let url = userActivity.webpageURL!
+            let universalLinkFullPath = url.path!
+            let matched = self.regexMatches("scenes/(.+)/editor", text: universalLinkFullPath)
+            if matched.count > 0 {
+                let sceneToken = matched[0].componentsSeparatedByString("/")[1]
+                print("universal link bard editor \(sceneToken)")
+                self.openDeepLink(sceneToken)
+
+                return true
+            }
+        }
+        
+        
+        application.openURL(userActivity.webpageURL!)
+        return false
+    }
+    
+    func openDeepLink(sceneToken: String) {
+        let storyboardName = "Main"
+        let viewControllerName = "TabBarViewController"
+        
+        let storyboard = UIStoryboard(name: storyboardName, bundle: nil)
+        let targetViewController = storyboard.instantiateViewControllerWithIdentifier(viewControllerName) as! TabBarViewController
+        targetViewController.sceneTokenDeepLink = sceneToken
+        
+        window!.rootViewController = targetViewController
+        
+    }
+    
+    func regexMatches(regex: String, text: String) -> [String] {
+        
+        do {
+            let regex = try NSRegularExpression(pattern: regex, options: [])
+            let nsString = text as NSString
+            let results = regex.matchesInString(text,
+                                                options: [], range: NSMakeRange(0, nsString.length))
+            return results.map { nsString.substringWithRange($0.range)}
+        } catch let error as NSError {
+            print("invalid regex: \(error.localizedDescription)")
+            return []
+        }
+    }
 
 
 }

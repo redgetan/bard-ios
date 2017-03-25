@@ -34,6 +34,7 @@ class UploadViewController: UIViewController {
         firebaseRef = FIRDatabase.database().reference()
 //        FIRDatabase.setLoggingEnabled(true)
         
+        hideKeyboardOnTouch()
         enterUploadMode()
 
         let tap = UITapGestureRecognizer(target: self, action: #selector(UploadViewController.onRecentUploadClick))
@@ -67,6 +68,20 @@ class UploadViewController: UIViewController {
         }
     }
     
+    // http://stackoverflow.com/a/38283424/803865
+    func hideKeyboardOnTouch()
+    {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(UploadViewController.dismissKeyboard))
+        
+        self.view.addGestureRecognizer(tap)
+    }
+    
+    func dismissKeyboard()
+    {
+        self.view.endEditing(true)
+    }
    
     func enterProgressResultMode() {
         uploadFormView.hidden = true
@@ -81,12 +96,14 @@ class UploadViewController: UIViewController {
         
         // show recent successful upload if not nil
         
-        let recentUploadedSceneName = UserConfig.getCurrentUploadSceneName()
-        self.recentUploadedSceneToken = UserConfig.getCurrentUploadSceneToken()
-        let recentUploadLabel = "\(recentUploadedSceneName!)"
-        let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: recentUploadLabel)
-        attributeString.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0, attributeString.length))
-        recentFinishedUploadLabel.attributedText = attributeString
+        if let recentUploadedSceneName = UserConfig.getCurrentUploadSceneName() {
+            self.recentUploadedSceneToken = UserConfig.getCurrentUploadSceneToken()
+            let recentUploadLabel = "\(recentUploadedSceneName)"
+            let attributeString: NSMutableAttributedString =  NSMutableAttributedString(string: recentUploadLabel)
+            attributeString.addAttribute(NSUnderlineStyleAttributeName, value: 1, range: NSMakeRange(0, attributeString.length))
+            recentFinishedUploadLabel.attributedText = attributeString
+        }
+        
         
     }
     

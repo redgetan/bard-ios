@@ -30,12 +30,49 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
        
         // A little trick for removing the cell separators
         repositoriesTableView.tableFooterView = UIView()
+        
+        handleDeepLink()
 
     }
     
+    func handleDeepLink() {
+        // deep link into Bard Editor
+        if let sceneToken = (self.tabBarController as? TabBarViewController)?.sceneTokenDeepLink {
+            if let scene = Scene.forToken(sceneToken) {
+                self.openBardEditor(scene)
+            } else {
+                BardClient.getScene(sceneToken, success: { value in
+                    let dict = value as! [String:AnyObject]
+                    if let _ = dict["error"] as? String {
+                        return
+                    }
+                    
+                    if let scene = Scene.createWithTokenAndName(dict) {
+                        self.openBardEditor(scene)
+                        return
+                    }
+                    
+                    
+                    }, failure: { errorMessage in
+                })
+            }
+        }
+        
+        
+    }
+    
+    func openBardEditor(scene: Scene) {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        
+        let viewController = storyBoard.instantiateViewControllerWithIdentifier("BardEditorViewController") as! BardEditorViewController
+        viewController.scene = scene
+        self.presentViewController(viewController, animated:true, completion:nil)
+    }
+
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        reloadData()
+//        reloadData()
     }
     
     func reloadData() {
