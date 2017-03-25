@@ -72,7 +72,10 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-//        reloadData()
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.reloadData()
+        })
     }
     
     func reloadData() {
