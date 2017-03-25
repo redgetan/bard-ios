@@ -78,6 +78,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     @IBOutlet weak var inputTextField: UITextView!
     @IBOutlet weak var wordTagCollectionView: UICollectionView!
     
+    @IBOutlet weak var keyboardToggleButton: UIButton!
     let cellIdentifier = "wordTagCollectionViewCell"
     let previewTimelineCellIdentifier = "previewTimelineCollectionViewCell"
 
@@ -102,6 +103,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func initControls() {
         inputTextField.delegate = self
 
+        keyboardToggleButton.alpha = 0.5
         moreButton.tintColor = UIColor.whiteColor()
         
         placeholderLabel = UILabel()
@@ -429,6 +431,15 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         return missingWordList
     }
     
+    @IBAction func onKeyboardBtnClick(sender: UIButton) {
+        if isKeyboardShown {
+             inputTextField.resignFirstResponder()
+        } else {
+            //   inputTextField.endEditing(true)
+            inputTextField.becomeFirstResponder()
+        }
+    }
+    
     func keyboardWillAppear(notification: NSNotification){
         isKeyboardShown = true
         
@@ -585,8 +596,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         } else if wordTagString.characters.contains(":") {
             self.player.playFromBeginning()
             // highlight thumbnail even if same wordtagstring (to account for change in indexPath.row)
-            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PreviewTimelineCollectionViewCell
-            highlightImageView(cell)
+//            let cell = collectionView.cellForItemAtIndexPath(indexPath) as! PreviewTimelineCollectionViewCell
+//            highlightImageView(cell)
         }
         
         
@@ -997,29 +1008,29 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             // once thumbnails are drawn, we can highlight/select them
             let indexPath = NSIndexPath(forRow: self.currentWordTagListIndex, inSection: 0)
             
-            var thumbnail = self.previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell
+//            var thumbnail = self.previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell
             
             // if at first try thumbnail is nil, it means the cell item is currently not visible
             // try to scroll to that position to make it visibe, then re-attempt to fetch the thumbnail again
-            if thumbnail == nil {
-                // before we scroll some of previous cells outside of view, unhighlight them first
-                self.unHighlightPreviousImageView()
-                
-                UIView.animateWithDuration(0.3, animations: {
-                    self.previewTimelineCollectionView.scrollToItemAtIndexPath(indexPath,
-                        atScrollPosition: .CenteredHorizontally,
-                        animated: false)
-                }, completion: { (finished: Bool) -> Void in
-                    thumbnail = self.previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell
-                    if thumbnail != nil {
-                        self.highlightImageView(thumbnail!)
-                    }
-                })
-                
-                
-            } else {
-                self.highlightImageView(thumbnail!)
-            }
+//            if thumbnail == nil {
+//                // before we scroll some of previous cells outside of view, unhighlight them first
+//                self.unHighlightPreviousImageView()
+//                
+//                UIView.animateWithDuration(0.3, animations: {
+//                    self.previewTimelineCollectionView.scrollToItemAtIndexPath(indexPath,
+//                        atScrollPosition: .CenteredHorizontally,
+//                        animated: false)
+//                }, completion: { (finished: Bool) -> Void in
+//                    thumbnail = self.previewTimelineCollectionView.cellForItemAtIndexPath(indexPath) as? PreviewTimelineCollectionViewCell
+//                    if thumbnail != nil {
+//                        self.highlightImageView(thumbnail!)
+//                    }
+//                })
+//                
+//                
+//            } else {
+//                self.highlightImageView(thumbnail!)
+//            }
         })
 
     }
