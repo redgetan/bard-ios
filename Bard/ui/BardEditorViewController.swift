@@ -989,7 +989,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     func downloadSegmentPlayVideoAndHighlightThumbnail(segmentUrl: String) {
         // HACK: at this point the bounds of player has been set (we can safely position the activityIndicator)
         if self.activityIndicator == nil {
-            self.activityIndicator = addActivityIndicator(self.player.view)
+            self.activityIndicator = Helper.addActivityIndicator(self.player.view)
         }
         
         // download video if not cached to disk yet
@@ -1203,19 +1203,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         }
     }
     
-    // https://coderwall.com/p/6onn0g/adding-progress-icon-programmatically-to-a-new-uiview
-    
-    func addActivityIndicator(view: UIView) -> UIActivityIndicatorView {
-        let progressIcon = UIActivityIndicatorView()
-        progressIcon.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
-        // http://stackoverflow.com/a/10781464
-        progressIcon.center = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds));
-        
-        view.addSubview(progressIcon)
-        view.bringSubviewToFront(progressIcon)
-        
-        return progressIcon
-    }
+
     
     func playVideo(fileUrl: NSURL) {
         self.player.setUrl(fileUrl)

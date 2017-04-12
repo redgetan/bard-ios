@@ -166,6 +166,20 @@ class Helper {
         }
     }
     
+    // https://coderwall.com/p/6onn0g/adding-progress-icon-programmatically-to-a-new-uiview
+    
+    static func addActivityIndicator(view: UIView) -> UIActivityIndicatorView {
+        let progressIcon = UIActivityIndicatorView()
+        progressIcon.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.White
+        // http://stackoverflow.com/a/10781464
+        progressIcon.center = CGPointMake(CGRectGetMidX(view.bounds), CGRectGetMidY(view.bounds));
+        
+        view.addSubview(progressIcon)
+        view.bringSubviewToFront(progressIcon)
+        
+        return progressIcon
+    }
+    
     static func matchesForRegexInRange(regex: String!, text: String!) -> [NSRange] {
         
         do {
