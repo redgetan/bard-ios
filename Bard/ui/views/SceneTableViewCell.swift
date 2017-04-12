@@ -14,6 +14,8 @@ class SceneTableViewCell: UITableViewCell {
 
     @IBOutlet weak var sceneOwnerLabel: UILabel!
     @IBOutlet weak var sceneImageView: UIImageView!
+    @IBOutlet weak var sceneTagListLabel: UILabel!
+    @IBOutlet weak var sceneTagListHeightConstraint: NSLayoutConstraint!
     
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -131,7 +131,7 @@ class UploadViewController: UIViewController {
                 if let _ = Scene.forToken(sceneToken) {
                    // already exist
                 } else {
-                    let scene = Scene.createWithTokenAndName(obj)!
+                    let scene = Scene.create(obj)!
                     UserConfig.setCurrentUploadSceneName(scene.name)
                     UserConfig.setCurrentUploadSceneToken(scene.token)
                     UserConfig.setIsUploading(true)

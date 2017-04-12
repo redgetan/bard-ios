@@ -13,8 +13,10 @@ class Scene: Object {
     dynamic var name: String = ""
     dynamic var token: String = ""
     dynamic var owner: String = ""
+    dynamic var labeler: String = ""
     dynamic var characterToken: String = ""
     dynamic var wordList: String = ""
+    dynamic var tagList: String = ""
     dynamic var thumbnailUrl: String = ""
     dynamic var createdAt: NSDate = NSDate()
     
@@ -25,25 +27,29 @@ class Scene: Object {
         }
     }
 
-    static func create(obj: AnyObject) {
+    static func create(obj: AnyObject)  -> Scene? {
         let scene = Scene()
         let dict = (obj as! [String:AnyObject])
 
         scene.name = dict["name"] as! String
         scene.token = dict["token"] as! String
         scene.owner = dict["owner"] as! String
+        scene.labeler = dict["labeler"] as! String
+        scene.tagList = dict["tagList"] as! String
         scene.thumbnailUrl = dict["thumbnailUrl"] as! String
         scene.wordList = dict["wordList"] as? String ?? ""
         
         let realm = try! Realm()
         
         if realm.objects(Scene.self).filter("token = '\(scene.token)'").first != nil {
-            return
+            return nil
         }
         
         try! realm.write {
             realm.add(scene)
         }
+        
+        return scene
     }
     
     static func createWithTokenAndName(obj: AnyObject) -> Scene? {

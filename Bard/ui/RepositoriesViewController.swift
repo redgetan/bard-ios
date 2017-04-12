@@ -47,7 +47,7 @@ class RepositoriesViewController: UIViewController, UITableViewDataSource, UITab
                         return
                     }
                     
-                    if let scene = Scene.createWithTokenAndName(dict) {
+                    if let scene = Scene.create(dict) {
                         self.openBardEditor(scene)
                         return
                     }

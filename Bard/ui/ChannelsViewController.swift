@@ -83,7 +83,7 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
                 
                 if scene == nil {
                     // create scene if it didnt exist before
-                    scene = Scene.createWithTokenAndName(dict)
+                    scene = Scene.create(dict)
                 }
                 
                 if scene != nil {

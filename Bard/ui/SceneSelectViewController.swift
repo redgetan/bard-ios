@@ -90,7 +90,7 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
                 
                 if scene == nil {
                      // create scene if it didnt exist before
-                    scene = Scene.createWithTokenAndName(dict)
+                    scene = Scene.create(dict)
                 }
                 
                 if scene != nil {
@@ -151,10 +151,26 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         let scene = self.scenes[sceneIndex]
         
         cell.sceneNameLabel?.text = scene.name
-        if scene.owner.isEmpty {
-//            cell.sceneOwnerLabel?.text = "by mario"
+        
+
+        // taglist
+        cell.sceneTagListHeightConstraint.constant = 25
+        if !scene.tagList.isEmpty {
+            cell.sceneTagListLabel?.text = scene.tagList.componentsSeparatedByString(",").map { tag in
+                "#\(tag)"
+            }.joinWithSeparator(" ")
         } else {
+            cell.sceneTagListLabel?.text = ""
+            cell.sceneTagListHeightConstraint.constant = 0
+        }
+        
+        // owner/trimmer name
+        if !scene.labeler.isEmpty {
+            cell.sceneOwnerLabel?.text = "by \(scene.labeler)"
+        } else if !scene.owner.isEmpty {
             cell.sceneOwnerLabel?.text = "by \(scene.owner)"
+        } else {
+            cell.sceneOwnerLabel?.text = ""
         }
 
         if let url = NSURL(string: scene.thumbnailUrl) {

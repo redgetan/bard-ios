@@ -106,31 +106,42 @@
                                                         <constraint firstAttribute="height" constant="89" id="ZKe-fa-xmw"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scene Name" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7p-42-8Fa">
-                                                    <rect key="frame" x="98" y="8" width="236" height="50"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scene Name" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P7p-42-8Fa">
+                                                    <rect key="frame" x="98" y="8" width="236" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="50" id="TE7-p6-4Ga"/>
+                                                        <constraint firstAttribute="height" constant="25" id="TE7-p6-4Ga"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Hc-n3-1Fr">
+                                                    <rect key="frame" x="98" y="33" width="228" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="25" id="pQ0-j5-v10"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" red="0.45962348413088155" green="0.27099057169792384" blue="0.79044471153846152" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UC6-M0-eqH">
-                                                    <rect key="frame" x="98" y="58" width="228" height="24"/>
+                                                    <rect key="frame" x="98" y="58" width="228" height="0.0"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="UC6-M0-eqH" firstAttribute="top" secondItem="4Hc-n3-1Fr" secondAttribute="bottom" id="DXG-eh-yDw"/>
                                                 <constraint firstItem="P7p-42-8Fa" firstAttribute="leading" secondItem="mV8-H5-0EG" secondAttribute="trailing" constant="8" id="DuN-fW-VPP"/>
                                                 <constraint firstAttribute="trailing" secondItem="P7p-42-8Fa" secondAttribute="trailing" constant="8" id="Eki-gN-r6b"/>
-                                                <constraint firstItem="UC6-M0-eqH" firstAttribute="top" secondItem="P7p-42-8Fa" secondAttribute="bottom" id="H4y-4t-XvS"/>
+                                                <constraint firstItem="4Hc-n3-1Fr" firstAttribute="top" secondItem="P7p-42-8Fa" secondAttribute="bottom" id="Gws-rv-gQr"/>
                                                 <constraint firstItem="UC6-M0-eqH" firstAttribute="leading" secondItem="mV8-H5-0EG" secondAttribute="trailing" constant="8" id="NPU-MT-j6b"/>
                                                 <constraint firstItem="P7p-42-8Fa" firstAttribute="top" secondItem="dMc-Jf-JDr" secondAttribute="top" constant="8" id="PKg-xL-OY8"/>
                                                 <constraint firstItem="mV8-H5-0EG" firstAttribute="top" secondItem="dMc-Jf-JDr" secondAttribute="top" id="PQw-ZU-8iX"/>
                                                 <constraint firstItem="mV8-H5-0EG" firstAttribute="leading" secondItem="dMc-Jf-JDr" secondAttribute="leading" id="RuO-MY-DEu"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="UC6-M0-eqH" secondAttribute="bottom" id="cmB-yz-L30"/>
+                                                <constraint firstItem="4Hc-n3-1Fr" firstAttribute="leading" secondItem="mV8-H5-0EG" secondAttribute="trailing" constant="8" id="SaL-xq-LlM"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="4Hc-n3-1Fr" secondAttribute="trailing" constant="8" id="uje-d7-3Z9"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="UC6-M0-eqH" secondAttribute="trailing" constant="8" id="yD6-Co-Qzp"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -138,6 +149,8 @@
                                             <outlet property="sceneImageView" destination="mV8-H5-0EG" id="AWU-x3-duo"/>
                                             <outlet property="sceneNameLabel" destination="P7p-42-8Fa" id="kGs-Kw-FHe"/>
                                             <outlet property="sceneOwnerLabel" destination="UC6-M0-eqH" id="PNi-4W-Cdc"/>
+                                            <outlet property="sceneTagListHeightConstraint" destination="pQ0-j5-v10" id="ddR-O2-bA1"/>
+                                            <outlet property="sceneTagListLabel" destination="4Hc-n3-1Fr" id="itA-rZ-4ZF"/>
                                             <segue destination="WNR-dj-mS0" kind="presentation" identifier="sceneToEditor" id="Z33-DC-5rI"/>
                                         </connections>
                                     </tableViewCell>
@@ -176,7 +189,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BqI-r0-CAQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3316" y="-51"/>
+            <point key="canvasLocation" x="3316" y="-51.724137931034484"/>
         </scene>
         <!--Bard Editor View Controller-->
         <scene sceneID="9g6-DY-t0D">
