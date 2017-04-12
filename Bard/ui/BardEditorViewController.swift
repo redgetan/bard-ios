@@ -849,8 +849,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         }
         
         let tag = wordTagString.componentsSeparatedByString(":")[1]
-        
-        return "\(cdnPath)/segments/\(scene.token)/\(tag).mp4"
+        let originalSceneToken = scene.token.componentsSeparatedByString("@")[0]
+        return "\(cdnPath)/segments/\(originalSceneToken)/\(tag).mp4"
         
     }
     
