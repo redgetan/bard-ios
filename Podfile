@@ -22,7 +22,6 @@ target 'Bard' do
   # analytics
   pod 'Firebase/Core'
   pod 'Firebase/Database'
-  pod 'Mixpanel'
 
 
   # services

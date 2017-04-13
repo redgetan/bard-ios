@@ -118,7 +118,6 @@
 		89DB082D1D973172009241FD /* SegueFromRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SegueFromRight.swift; path = ui/views/SegueFromRight.swift; sourceTree = "<group>"; };
 		89DB082F1D97321D009241FD /* UnwindSegueFromRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnwindSegueFromRight.swift; path = ui/views/UnwindSegueFromRight.swift; sourceTree = "<group>"; };
 		89DB08351D97346C009241FD /* ShareEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareEditorViewController.swift; path = ui/ShareEditorViewController.swift; sourceTree = "<group>"; };
-		89E3BBE51D47A9A000963EEE /* Bard-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Bard-Bridging-Header.h"; sourceTree = "<group>"; };
 		89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterSelectViewController.swift; path = ui/CharacterSelectViewController.swift; sourceTree = "<group>"; };
 		89FCDA2E1D4EA09F00326588 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarViewController.swift; path = ui/TabBarViewController.swift; sourceTree = "<group>"; };
@@ -186,7 +185,6 @@
 				89C9860E1D45BA720056E687 /* AppDelegate.swift */,
 				89114E251D45A29E0078205C /* Info.plist */,
 				89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */,
-				89E3BBE51D47A9A000963EEE /* Bard-Bridging-Header.h */,
 			);
 			path = Bard;
 			sourceTree = "<group>";

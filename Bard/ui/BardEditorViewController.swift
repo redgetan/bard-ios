@@ -735,8 +735,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
     
     func generateBardVideo() {
-        Analytics.timeEvent("generateBardVideo")
-
         // http://stackoverflow.com/questions/10781291/center-uiactivityindicatorview-in-a-uiimageview
         // http://stackoverflow.com/questions/17530659/uiactivityindicatorview-animation-delayed
         self.activityIndicator?.startAnimating()

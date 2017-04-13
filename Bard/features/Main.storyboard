@@ -1015,7 +1015,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In queue" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esG-1g-6HP">
-                                        <rect key="frame" x="125.5" y="85" width="93" height="50"/>
+                                        <rect key="frame" x="125" y="85" width="93" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="fX2-i8-Hk0"/>
                                         </constraints>
@@ -1024,7 +1024,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Abg-xT-x4E" customClass="BorderedButton" customModule="Bard" customModuleProvider="target">
-                                        <rect key="frame" x="146.5" y="175" width="50" height="30"/>
+                                        <rect key="frame" x="147" y="175" width="50" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="gts-RR-iNQ"/>
                                             <constraint firstAttribute="width" constant="50" id="y94-Bf-cFX"/>
@@ -1092,7 +1092,7 @@
                                         <color key="textColor" red="0.27165955912833195" green="0.55129504053928069" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maximum Duration of 10 minutes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dL4-PL-Wve">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Maximum Duration of 20 minutes" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dL4-PL-Wve">
                                         <rect key="frame" x="0.0" y="-5" width="343" height="15"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>

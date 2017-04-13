@@ -8,7 +8,6 @@
 
 import UIKit
 import Firebase
-import Mixpanel
 import AWSCore
 import RealmSwift
 
@@ -21,7 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         FIRApp.configure()
         
-        Mixpanel.sharedInstanceWithToken(Configuration.mixpanelToken)
         Instabug.startWithToken("b95aeb23d36646812b25000303399919", invocationEvent: IBGInvocationEvent.None)
         FBSDKApplicationDelegate.sharedInstance().application(application,
             didFinishLaunchingWithOptions: launchOptions)

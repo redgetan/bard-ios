@@ -30,9 +30,6 @@ PODS:
   - Instabug (5.3.1)
   - KeychainAccess (2.4.0)
   - MBProgressHUD (1.0.0)
-  - Mixpanel (3.0.0):
-    - Mixpanel/Mixpanel (= 3.0.0)
-  - Mixpanel/Mixpanel (3.0.0)
   - Player (0.1.3)
   - Realm (1.1.0):
     - Realm/Headers (= 1.1.0)
@@ -55,7 +52,6 @@ DEPENDENCIES:
   - Instabug
   - KeychainAccess (~> 2.4.0)
   - MBProgressHUD (~> 1.0.0)
-  - Mixpanel
   - Player (from `https://github.com/redgetan/Player`, branch `layer_background`)
   - RealmSwift (~> 1.1.0)
   - SCLAlertView
@@ -95,7 +91,6 @@ SPEC CHECKSUMS:
   Instabug: b77626dcf1baf66534521a400d0680a2e914b241
   KeychainAccess: c2a71459af5bddf720a51806046a598500976c04
   MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
-  Mixpanel: ac92056ee35a961362513ba11049e67cffcaa1f1
   Player: 40e06506c0dac14a29657be25723314a62ccaf76
   Realm: ceecf1a4540c4ce9efe196fe73fa9855bce05bd8
   RealmSwift: 838058b2db95b12cb86bd0cf209df642c33fb60a
@@ -104,6 +99,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
 
-PODFILE CHECKSUM: 0a79ccbb3d2b7ee21198c9e1109cf2cb0ea0edde
+PODFILE CHECKSUM: a8fceb92ba863b9d64f57067e635136cc2df76cc
 
 COCOAPODS: 1.2.0
