@@ -113,13 +113,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 print("universal link bard editor \(sceneToken)")
                 self.openDeepLink(sceneToken)
 
-                return true
             }
         }
         
         
-        application.openURL(userActivity.webpageURL!)
-        return false
+        return true
     }
     
     func openDeepLink(sceneToken: String) {
