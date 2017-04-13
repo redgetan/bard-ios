@@ -251,6 +251,14 @@ class ShareEditorViewController: UIViewController, PlayerDelegate, UICollectionV
     func onSocialShareClick(index: Int) {
         let socialShare = self.socialShares[index]
         
+        Analytics.track("shareSocialAttempt", properties: [
+            "medium": socialShare,
+            "wordTags" : self.outputWordTagStrings,
+            "sceneToken" : self.scene.token,
+            "scene" : self.scene.name
+        ])
+    
+        
         if socialShare[0] == "facebook" {
             let status = PHPhotoLibrary.authorizationStatus()
             if status == .NotDetermined {

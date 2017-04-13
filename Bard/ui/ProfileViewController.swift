@@ -184,9 +184,9 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         self.reloadData()
         profilesTableView.setContentOffset(CGPointZero, animated:true)
         
-        let navigationController = self.tabBarController!.viewControllers![0] as! UINavigationController
-        let controller = navigationController.visibleViewController as! RepositoriesViewController
-        controller.reloadData()
+//        let navigationController = self.tabBarController!.viewControllers![0] as! UINavigationController
+//        let controller = navigationController.visibleViewController as! RepositoriesViewController
+//        controller.reloadData()
     }
     
     
