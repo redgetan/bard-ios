@@ -5,7 +5,10 @@ PODS:
   - AWSCore (2.4.9)
   - AWSS3 (2.4.9):
     - AWSCore (= 2.4.9)
+  - Crashlytics (3.8.2):
+    - Fabric (~> 1.6.3)
   - DZNEmptyDataSet (1.8.1)
+  - Fabric (1.6.9)
   - Firebase/Analytics (3.6.0):
     - FirebaseAnalytics (= 3.4.2)
   - Firebase/Core (3.6.0):
@@ -45,7 +48,9 @@ DEPENDENCIES:
   - Alamofire (~> 3.5)
   - AWSCognito
   - AWSS3
+  - Crashlytics
   - DZNEmptyDataSet
+  - Fabric
   - Firebase/Core
   - Firebase/Database
   - HanekeSwift (from `https://github.com/cannyboy/HanekeSwift.git`)
@@ -79,7 +84,9 @@ SPEC CHECKSUMS:
   AWSCognito: 4fa9fefcadae1d8425b01cbde27d564c21e3fd35
   AWSCore: 175208358b95492e0ebe0337df2ab415300bddac
   AWSS3: e4959b48db48d5f3dcd5cdf9e24a07f60a313611
+  Crashlytics: 27acca95a01b042a8294291dd6dff27f8f6af6d7
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
+  Fabric: bc5bec42cef4bcf1ee3ce0e218fc518e4b44dfbb
   Firebase: 34187200ef4979dbd485c7aa685ef078bf587c86
   FirebaseAnalytics: 3f5358d9104adf159cc8d99b7b501e50099a39ad
   FirebaseDatabase: 750a4a0fe18ef114318876fd654b2d9c671e0992
@@ -99,6 +106,6 @@ SPEC CHECKSUMS:
   TTTAttributedLabel: 8cffe8e127e4e82ff3af1e5386d4cd0ad000b656
   UICollectionViewLeftAlignedLayout: 830bf6fa5bab9f9b464f62e3384f9d2e00b3c0f6
 
-PODFILE CHECKSUM: a8fceb92ba863b9d64f57067e635136cc2df76cc
+PODFILE CHECKSUM: 9f2d4d341879ecfb56bd1d7b3ea5baa740fa3575
 
 COCOAPODS: 1.2.0

@@ -18,6 +18,8 @@ target 'Bard' do
 
   # crash reporting
   pod 'Instabug'
+  pod 'Fabric'
+  pod 'Crashlytics'
 
   # analytics
   pod 'Firebase/Core'

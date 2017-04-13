@@ -10,6 +10,8 @@ import UIKit
 import Firebase
 import AWSCore
 import RealmSwift
+import Fabric
+import Crashlytics
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,6 +35,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         performRealmMigration()
         setupNavigationBarColor()
+        
+        Fabric.with([Crashlytics.self])
         
         Helper.openStoryboard(window: window,
                                   storyboardName: "Main",
