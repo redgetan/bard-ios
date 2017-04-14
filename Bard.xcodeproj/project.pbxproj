@@ -60,7 +60,7 @@
 		89DB08301D97321D009241FD /* UnwindSegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DB082F1D97321D009241FD /* UnwindSegueFromRight.swift */; };
 		89DB08361D97346C009241FD /* ShareEditorViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89DB08351D97346C009241FD /* ShareEditorViewController.swift */; };
 		89E3BBE71D47D72300963EEE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */; };
-		89E3BBE91D47F48600963EEE /* CharacterSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */; };
+		89E3BBE91D47F48600963EEE /* PackSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89E3BBE81D47F48600963EEE /* PackSelectViewController.swift */; };
 		89FCDA2F1D4EA09F00326588 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89FCDA2E1D4EA09F00326588 /* TabBarViewController.swift */; };
 		FD17554C7E51AFA7656D7139 /* Pods_Bard.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 977A13353D1C37465D0C5F9D /* Pods_Bard.framework */; };
 /* End PBXBuildFile section */
@@ -123,7 +123,7 @@
 		89DB082F1D97321D009241FD /* UnwindSegueFromRight.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UnwindSegueFromRight.swift; path = ui/views/UnwindSegueFromRight.swift; sourceTree = "<group>"; };
 		89DB08351D97346C009241FD /* ShareEditorViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ShareEditorViewController.swift; path = ui/ShareEditorViewController.swift; sourceTree = "<group>"; };
 		89E3BBE61D47D72300963EEE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
-		89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CharacterSelectViewController.swift; path = ui/CharacterSelectViewController.swift; sourceTree = "<group>"; };
+		89E3BBE81D47F48600963EEE /* PackSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PackSelectViewController.swift; path = ui/PackSelectViewController.swift; sourceTree = "<group>"; };
 		89FCDA2E1D4EA09F00326588 /* TabBarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TabBarViewController.swift; path = ui/TabBarViewController.swift; sourceTree = "<group>"; };
 		977A13353D1C37465D0C5F9D /* Pods_Bard.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Bard.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B128EAF2B771CB927D36F828 /* Pods-Bard.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Bard.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Bard/Pods-Bard.debug.xcconfig"; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 				89C986331D46D8350056E687 /* LoginInputViewController.swift */,
 				89C986251D46823A0056E687 /* SignupInputViewController.swift */,
 				89C986381D46EE040056E687 /* WelcomeViewController.swift */,
-				89E3BBE81D47F48600963EEE /* CharacterSelectViewController.swift */,
+				89E3BBE81D47F48600963EEE /* PackSelectViewController.swift */,
 				890D3E641D493E8E008F96DF /* SceneSelectViewController.swift */,
 				89FCDA2E1D4EA09F00326588 /* TabBarViewController.swift */,
 				8942C7601D976D8D009F70A0 /* BardEditorViewController.swift */,
@@ -489,7 +489,7 @@
 				89C986261D46823A0056E687 /* SignupInputViewController.swift in Sources */,
 				898CC11B1D4D3843006D56E4 /* UILabelWithPadding.swift in Sources */,
 				8947A8641DC44C5D004A913A /* DeviceType.swift in Sources */,
-				89E3BBE91D47F48600963EEE /* CharacterSelectViewController.swift in Sources */,
+				89E3BBE91D47F48600963EEE /* PackSelectViewController.swift in Sources */,
 				89FCDA2F1D4EA09F00326588 /* TabBarViewController.swift in Sources */,
 				890D3E651D493E8E008F96DF /* SceneSelectViewController.swift in Sources */,
 				89C2EEBF1D4FC8E0005BB3C2 /* VideoPlayerViewController.swift in Sources */,

@@ -44,10 +44,12 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.activityIndicator = Helper.addActivityIndicator(self.view)
-        self.activityIndicator?.startAnimating()
-
-        syncRemoteData(self.totalPagesLoaded + 1)
+        
+        if (self.scenes.isEmpty) {
+            self.activityIndicator = Helper.addActivityIndicator(self.view)
+            self.activityIndicator?.startAnimating()
+            syncRemoteData(0)
+        }
     }
 
     func initScenes() {
