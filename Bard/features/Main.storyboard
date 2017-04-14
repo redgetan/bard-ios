@@ -32,7 +32,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="93Q-kw-mHP" id="UAv-dd-6R3">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <connections>
@@ -56,18 +56,7 @@
                             </mask>
                         </variation>
                     </view>
-                    <navigationItem key="navigationItem" title="Bard" id="pMx-11-fOW">
-                        <barButtonItem key="leftBarButtonItem" image="icon_search" id="qlm-9k-Kih">
-                            <connections>
-                                <segue destination="SR5-dA-g1g" kind="presentation" id="Lta-r4-1EF"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="icon_profile_small" id="3wz-wa-ZEY">
-                            <connections>
-                                <segue destination="lKk-HJ-qr1" kind="presentation" id="QYH-GG-ljK"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Bard" id="pMx-11-fOW"/>
                     <connections>
                         <outlet property="repositoriesTableView" destination="IW4-1x-dYi" id="7HK-pe-HQ2"/>
                     </connections>
@@ -89,7 +78,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="JIF-4J-oO8">
-                                <rect key="frame" x="0.0" y="108" width="375" height="559"/>
+                                <rect key="frame" x="0.0" y="108" width="375" height="510"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="SceneTableViewCell" rowHeight="90" id="PWX-Np-Vym" customClass="SceneTableViewCell" customModule="Bard" customModuleProvider="target">
@@ -175,13 +164,7 @@
                             <constraint firstItem="v7A-g2-eyC" firstAttribute="top" secondItem="blL-qS-kFw" secondAttribute="bottom" id="mwm-u6-EYv"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Find Videos" id="fNn-fg-K9Z">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="Z09-R7-Hje">
-                            <connections>
-                                <action selector="cancel:" destination="bLr-EZ-ITe" id="zmz-M0-OPt"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Find Videos" id="fNn-fg-K9Z"/>
                     <connections>
                         <outlet property="scenesTableView" destination="JIF-4J-oO8" id="5OS-1D-kQ3"/>
                         <outlet property="searchBar" destination="v7A-g2-eyC" id="xZV-K8-GPe"/>
@@ -757,7 +740,7 @@
                                 </variation>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="puV-My-Bfe">
-                                <rect key="frame" x="0.0" y="250" width="375" height="417"/>
+                                <rect key="frame" x="0.0" y="250" width="375" height="368"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="p0R-1j-bjg">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
@@ -774,7 +757,7 @@
                                         <rect key="frame" x="0.0" y="72" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="odA-w7-QJd" id="3zL-NT-jyq">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -792,19 +775,11 @@
                             <constraint firstItem="JMq-sg-8ny" firstAttribute="leading" secondItem="QS5-Rx-YEW" secondAttribute="leading" id="uke-Jf-zkg"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="gbs-1P-4xH">
-                        <barButtonItem key="leftBarButtonItem" title="Back" id="iV0-0o-heh">
-                            <connections>
-                                <action selector="cancel:" destination="8rJ-Kc-sve" id="aNN-2G-rZc"/>
-                            </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="icon_settings" id="Wmh-Ym-bzO"/>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Profile" id="gbs-1P-4xH"/>
                     <connections>
                         <outlet property="emailLabel" destination="TiG-Ng-t4t" id="H50-lm-Hn7"/>
                         <outlet property="profileImageView" destination="Vt1-RD-2aH" id="jhT-Ul-Eu4"/>
                         <outlet property="profilesTableView" destination="puV-My-Bfe" id="TCa-MA-bA2"/>
-                        <outlet property="settingsButton" destination="Wmh-Ym-bzO" id="JcH-XJ-h0x"/>
                         <outlet property="usernameLabel" destination="ibG-SN-seG" id="Y0S-vn-wtB"/>
                     </connections>
                 </viewController>
@@ -824,7 +799,9 @@
                     </tabBar>
                     <connections>
                         <segue destination="EUc-In-i2B" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
+                        <segue destination="SR5-dA-g1g" kind="relationship" relationship="viewControllers" id="wL6-cg-rCe"/>
                         <segue destination="0an-Qy-0aJ" kind="relationship" relationship="viewControllers" id="y5X-zw-zoT"/>
+                        <segue destination="lKk-HJ-qr1" kind="relationship" relationship="viewControllers" id="niK-dg-kBW"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HuB-VB-40B" sceneMemberID="firstResponder"/>
@@ -851,7 +828,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6RC-NJ-UK9" id="8uw-ri-fdP">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -950,7 +927,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9st-m1-fHw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2631" y="-52"/>
+            <point key="canvasLocation" x="754" y="425"/>
         </scene>
         <!--Profile-->
         <scene sceneID="H9j-eE-7mU">
@@ -973,7 +950,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="CRm-bE-5tr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2630" y="818"/>
+            <point key="canvasLocation" x="754" y="1327"/>
         </scene>
         <!--Player-->
         <scene sceneID="9Mk-gk-1fN">
@@ -1192,9 +1169,6 @@
         <image name="icon_more" width="25" height="25"/>
         <image name="icon_profile" width="25" height="25"/>
         <image name="icon_profile_filled" width="25" height="25"/>
-        <image name="icon_profile_small" width="20" height="20"/>
-        <image name="icon_search" width="20" height="20"/>
-        <image name="icon_settings" width="20" height="20"/>
         <image name="icon_share" width="48" height="66"/>
     </resources>
 </document>
