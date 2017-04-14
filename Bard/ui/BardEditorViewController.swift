@@ -128,6 +128,9 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(BardEditorViewController.keyboardWillAppear(_:)), name: UIKeyboardWillShowNotification, object: nil)
         NSNotificationCenter.defaultCenter().addObserver(self, selector:#selector(BardEditorViewController.keyboardWillDisappear(_:)), name: UIKeyboardWillHideNotification, object: nil)
         
+        // keyboard should not be shown when navigating back or on first view
+        inputTextField.resignFirstResponder()
+
 //        NSNotificationCenter.defaultCenter().addObserver(
 //            self,
 //            selector: #selector(BardEditorViewController.textFieldTextChanged(_:)),
@@ -188,7 +191,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             if self.wordTagList.count > self.currentWordTagListIndex {
                 let wordTagString = self.wordTagList[self.currentWordTagListIndex]
                 if (self.wordTagSelector?.setWordTag(wordTagString) != nil) {
-                    onWordTagChanged(wordTagString)
+                    onWordTagChanged(wordTagString, withDelay: 1)
                 }
                 
             }
@@ -271,8 +274,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                 wordTagList.removeAtIndex(tokenIndex + 1)
             }
             lastTokenCount = lastTokenCount - 1
-            previewTimelineCollectionView.reloadData()
-            previewTimelineCollectionView.layoutIfNeeded()
         }
         
         if isUserDeleteKeyPressed {
@@ -284,11 +285,6 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
                 if !wordAtInputField.isEmpty && wordAtWordTagList != wordAtInputField {
                     wordTagList[tokenIndex] = wordAtInputField
                     attemptAssignWordTagDelayed(wordAtInputField, tokenIndex: tokenIndex)
-                    
-                    if wordAtInputField.characters.contains(":") {
-                        previewTimelineCollectionView.reloadData()
-                        previewTimelineCollectionView.layoutIfNeeded()
-                    }
                    
                 }
             }
