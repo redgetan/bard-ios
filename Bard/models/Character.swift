@@ -9,7 +9,7 @@
 import Foundation
 import RealmSwift
 
-class Character: Object {
+class Pack: Object {
     dynamic var token: String = ""
     dynamic var name: String = ""
     dynamic var details: String? = ""
@@ -19,29 +19,29 @@ class Character: Object {
     static var count: Int {
         get {
             let realm = try! Realm()
-            return realm.objects(Character.self).count
+            return realm.objects(Pack.self).count
         }
     }
     
-    static func forToken(token: String) -> Character? {
-        return try! Realm().objects(Character.self).filter("token = '\(token)'").first
+    static func forToken(token: String) -> Pack? {
+        return try! Realm().objects(Pack.self).filter("token = '\(token)'").first
     }
     
     static func create(obj: AnyObject) -> Void {
-        let character = Character()
+        let pack = Pack()
         let dict = (obj as! [String:AnyObject])
-        character.name = dict["name"] as! String
-        character.token = dict["token"] as! String
-        character.details = dict["description"] as? String
+        pack.name = dict["name"] as! String
+        pack.token = dict["token"] as! String
+        pack.details = dict["description"] as? String
         
         let realm = try! Realm()
 
-        if realm.objects(Character.self).filter("token = '\(character.token)'").first != nil {
+        if realm.objects(Pack.self).filter("token = '\(pack.token)'").first != nil {
             return
         }
         
         try! realm.write {
-            realm.add(character)
+            realm.add(pack)
         }
         
     }

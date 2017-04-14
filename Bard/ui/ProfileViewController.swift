@@ -41,7 +41,6 @@ class ProfileViewController: UIViewController, UITableViewDataSource, UITableVie
         profilesTableView.delegate = self
         profilesTableView.dataSource = self
         
-        settingsButton.enabled = false
     }
     
     override func viewDidAppear(animated: Bool) {

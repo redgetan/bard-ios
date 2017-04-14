@@ -10,12 +10,12 @@ import Foundation
 import Alamofire
 
 class BardClient {
- 
-    
+
+
     static let signUpUrl = "\(Configuration.bardAccountBaseURL)/users"
     static let loginUrl  = "\(Configuration.bardAccountBaseURL)/users/sign_in"
-    static let characterListUrl  = "\(Configuration.bardAccountBaseURL)/bundles"
-    
+    static let packListUrl  = "\(Configuration.bardAccountBaseURL)/bundles"
+
     static func getSceneListUrl(pageIndex: Int, search: String? = nil) -> String  {
         if let searchText = search {
             return "\(Configuration.bardAccountBaseURL)/scenes?search=\(searchText)&page=\(pageIndex)"
@@ -27,78 +27,78 @@ class BardClient {
     static func getSceneWordListUrl(sceneToken: String) -> String  {
         return "\(Configuration.bardAccountBaseURL)/scenes/\(sceneToken)/word_list"
     }
-    
+
     static func getSceneUrl(sceneToken: String) -> String  {
         return "\(Configuration.bardAccountBaseURL)/scenes/\(sceneToken)"
     }
-    
-    static func getCharacterWordListUrl(characterToken: String) -> String {
-        return "\(Configuration.bardAccountBaseURL)/bundles/\(characterToken)/word_list"
+
+    static func getPackWordListUrl(packToken: String) -> String {
+        return "\(Configuration.bardAccountBaseURL)/bundles/\(packToken)/word_list"
     }
-    
+
     static func postRepoUrl() -> String {
         return "\(Configuration.bardAccountBaseURL)/repos"
     }
-    
+
     static func postVideoUploadUrl() -> String {
         return "\(Configuration.bardAccountBaseURL)/upload"
     }
-    
-    
+
+
     static func deleteRepoUrl(token: String) -> String {
         return "\(Configuration.bardAccountBaseURL)/repos/\(token)/delete"
     }
-    
-    
+
+
     static func login(usernameOrEmail usernameOrEmail: String, password: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
-        
+
         let params : [String : String] = [
             "email"    : usernameOrEmail,
             "password" : password
         ]
-        
+
         bardApiRequest(.POST, url: loginUrl, parameters: params, success: success, failure: failure)
     }
-    
+
     static func signUp(username username: String, email: String, password: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
-        
+
         let params : [String : String] = [
             "username" : username,
             "email"    : email,
             "password" : password
         ]
-        
+
         bardApiRequest(.POST, url: signUpUrl, parameters: params, success: success, failure: failure)
     }
-    
-    static func getCharacterList(success success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
-        bardApiRequest(.GET, url: characterListUrl, success: success, failure: failure)
+
+    static func getPackList(success success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
+        bardApiRequest(.GET, url: packListUrl, success: success, failure: failure)
     }
-    
+
     static func getSceneList(pageIndex: Int, search: String? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
         bardApiRequest(.GET, url: getSceneListUrl(pageIndex, search: search), success: success, failure: failure)
     }
-    
+
     static func getScene(sceneToken: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
         bardApiRequest(.GET, url: getSceneUrl(sceneToken), success: success, failure: failure)
     }
-    
+
     static func getSceneWordList(sceneToken: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
         bardApiRequest(.GET, url: getSceneWordListUrl(sceneToken), success: success, failure: failure)
     }
-    
-    static func getCharacterWordList(characterToken: String, progress: ((Int64, Int64, Int64) -> Void)? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) -> Alamofire.Request {
-        return bardDownload(getCharacterWordListUrl(characterToken), destinationPath: Storage.getCharacterFilePath(characterToken), progress: progress, success: success, failure: failure)
+
+    static func getPackWordList(packToken: String, progress: ((Int64, Int64, Int64) -> Void)? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) -> Alamofire.Request {
+        return bardDownload(getPackWordListUrl(packToken), destinationPath: Storage.getPackFilePath(packToken), progress: progress, success: success, failure: failure)
     }
-    
+
     static func postVideoUpload(youtubeUrl: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
         let params : [String : String] = [
             "youtube_url": youtubeUrl
         ]
         bardApiRequest(.POST, url: postVideoUploadUrl(), parameters: params, success: success, failure: failure)
     }
-    
-    
+
+
     static func postRepo(uuid: String, sceneToken: String, wordList: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
         let params : [String : String] = [
             "uuid": uuid,
@@ -107,32 +107,32 @@ class BardClient {
         ]
         bardApiRequest(.POST, url: postRepoUrl(), parameters: params, success: success, failure: failure)
     }
-    
+
     static func deleteRepo(token: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
         let params : [String : String] = [
             "token": token
         ]
         bardApiRequest(.POST, url: deleteRepoUrl(token), parameters: params, success: success, failure: failure)
     }
-    
+
     static func bardApiRequest(method: Alamofire.Method, url: String, parameters: [String : AnyObject]? = nil, headers: [String : String]? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
 
         var customHeaders = headers ?? [String : String]()
         customHeaders["Accept"] = "application/json"
-        
+
         if let authenticationToken = UserConfig.getAuthenticationToken() {
             customHeaders["Authorization"] = "Token \(authenticationToken)"
         }
-        
+
         apiRequest(method, url: url, parameters: parameters, headers: customHeaders, success: success, failure: failure)
     }
-    
+
     static func bardDownload(url: String, destinationPath: String, progress: ((Int64, Int64, Int64) -> Void)? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) -> Alamofire.Request {
         print("download request: \(url)")
 
         var customHeaders = [String : String]()
         customHeaders["Accept"] = "application/json"
-        
+
         if let authenticationToken = UserConfig.getAuthenticationToken() {
             customHeaders["Authorization"] = "Token \(authenticationToken)"
         }
@@ -149,16 +149,16 @@ class BardClient {
                 return temporaryUrl
             }
         }
-        
+
         return Alamofire.download(.GET, url, parameters: nil,
                             encoding: .JSON,
                             headers: customHeaders,
                             destination: destination)
                  .progress { (bytesRead, totalBytesRead, totalBytesExpectedToRead) in
-                    
+
                    progress?(bytesRead, totalBytesRead, totalBytesExpectedToRead)
                  }.response { _, response, _, error in
-                  
+
                     print("headers[reponse]:")
                     print(response?.allHeaderFields)
                     print(response?.expectedContentLength)
@@ -181,19 +181,19 @@ class BardClient {
                             } catch let error as NSError {
                                 failure?("Error. Try again later.")
                             }
-                            
-                        
+
+
                         }
                     }
-                    
-                    
+
+
                  }
-    
+
     }
-    
+
     static func apiRequest(method: Alamofire.Method, url: String, parameters: [String : AnyObject]? = nil, headers: [String : String]? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil ) {
         print("\(method) \(url)")
-        
+
         Alamofire.request(method, url, parameters: parameters, headers: headers)
             .responseJSON { response in
 

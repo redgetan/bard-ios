@@ -14,6 +14,8 @@
 		890D3E651D493E8E008F96DF /* SceneSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E641D493E8E008F96DF /* SceneSelectViewController.swift */; };
 		890D3E691D494A5D008F96DF /* VideoMerger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 890D3E681D494A5D008F96DF /* VideoMerger.swift */; };
 		89114E211D45A29E0078205C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 89114E201D45A29E0078205C /* Assets.xcassets */; };
+		892142A41EA1716600704E6C /* Word.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892142A31EA1716600704E6C /* Word.swift */; };
+		892142A61EA172AC00704E6C /* ACRAutocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = 892142A51EA172AC00704E6C /* ACRAutocomplete.swift */; };
 		893F35E01E8427980001B6A0 /* ChannelsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F35DF1E8427980001B6A0 /* ChannelsViewController.swift */; };
 		893F35E21E8427A60001B6A0 /* ChannelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F35E11E8427A60001B6A0 /* ChannelTableViewCell.swift */; };
 		893F35E41E84323E0001B6A0 /* UploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 893F35E31E84323E0001B6A0 /* UploadViewController.swift */; };
@@ -74,6 +76,8 @@
 		89114E141D45A29E0078205C /* Bard.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bard.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		89114E201D45A29E0078205C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		89114E251D45A29E0078205C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		892142A31EA1716600704E6C /* Word.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Word.swift; path = models/Word.swift; sourceTree = "<group>"; };
+		892142A51EA172AC00704E6C /* ACRAutocomplete.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ACRAutocomplete.swift; path = models/ACRAutocomplete.swift; sourceTree = "<group>"; };
 		8929FFFC1D9C84B500BEB83B /* Bard.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Bard.entitlements; sourceTree = "<group>"; };
 		893F35DF1E8427980001B6A0 /* ChannelsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChannelsViewController.swift; path = ui/ChannelsViewController.swift; sourceTree = "<group>"; };
 		893F35E11E8427A60001B6A0 /* ChannelTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ChannelTableViewCell.swift; path = ui/views/ChannelTableViewCell.swift; sourceTree = "<group>"; };
@@ -242,6 +246,8 @@
 				89DB08291D95E3EE009241FD /* WordTagSelector.swift */,
 				8947A8631DC44C5D004A913A /* DeviceType.swift */,
 				894F07131E85A76C00BCF935 /* Favorite.swift */,
+				892142A31EA1716600704E6C /* Word.swift */,
+				892142A51EA172AC00704E6C /* ACRAutocomplete.swift */,
 			);
 			name = models;
 			sourceTree = "<group>";
@@ -479,6 +485,7 @@
 				89C9861C1D45BA990056E687 /* ProfileViewController.swift in Sources */,
 				890D3E5D1D493931008F96DF /* Scene.swift in Sources */,
 				89C986321D46AF230056E687 /* Configuration.swift in Sources */,
+				892142A41EA1716600704E6C /* Word.swift in Sources */,
 				89C986261D46823A0056E687 /* SignupInputViewController.swift in Sources */,
 				898CC11B1D4D3843006D56E4 /* UILabelWithPadding.swift in Sources */,
 				8947A8641DC44C5D004A913A /* DeviceType.swift in Sources */,
@@ -486,6 +493,7 @@
 				89FCDA2F1D4EA09F00326588 /* TabBarViewController.swift in Sources */,
 				890D3E651D493E8E008F96DF /* SceneSelectViewController.swift in Sources */,
 				89C2EEBF1D4FC8E0005BB3C2 /* VideoPlayerViewController.swift in Sources */,
+				892142A61EA172AC00704E6C /* ACRAutocomplete.swift in Sources */,
 				89C986391D46EE040056E687 /* WelcomeViewController.swift in Sources */,
 				89C2EEC11D5134F7005BB3C2 /* Analytics.swift in Sources */,
 				89C9862F1D46A56F0056E687 /* BardClient.swift in Sources */,
