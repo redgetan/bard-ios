@@ -48,7 +48,7 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         if (self.scenes.isEmpty) {
             self.activityIndicator = Helper.addActivityIndicator(self.view)
             self.activityIndicator?.startAnimating()
-            syncRemoteData(0)
+            syncRemoteData(1) // first page
         }
     }
 
