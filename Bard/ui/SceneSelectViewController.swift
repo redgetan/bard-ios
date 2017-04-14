@@ -25,6 +25,8 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
     var isLoading: Bool = false
     var isEndOfPage: Bool = false
     var isSearching: Bool = false
+    var activityIndicator: UIActivityIndicatorView? = nil
+    var isSearchPerformed: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,6 +41,14 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         scenesTableView.dataSource = self
         scenesTableView.emptyDataSetSource = self
         scenesTableView.emptyDataSetDelegate = self
+        
+   
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        self.activityIndicator = Helper.addActivityIndicator(self.view)
+        self.activityIndicator?.startAnimating()
         
         syncRemoteData(self.totalPagesLoaded + 1)
     }
@@ -59,6 +69,7 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         }
         
         self.isSearching = true
+        self.activityIndicator?.startAnimating()
         syncRemoteData(self.totalPagesLoaded + 1, search: searchBar.text)
     }
     
@@ -82,6 +93,9 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
         var scene: Scene?
         
         BardClient.getSceneList(pageIndex, search: search, success: { value in
+            self.activityIndicator?.stopAnimating()
+            self.isSearchPerformed = true
+
             for obj in (value as! NSArray) {
                 let dict = (obj as! [String:AnyObject])
 
@@ -112,6 +126,11 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
             self.isSearching = false
             
             }, failure: { errorMessage in
+                self.isSearchPerformed = true
+                self.activityIndicator?.stopAnimating()
+                self.scenesTableView.reloadData()
+
+
                 if self.scenes.count == 0 {
                     Drop.down("Failed to list scenes from the network", state: .Error, duration: 3)
                 }
@@ -238,6 +257,12 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
                           NSParagraphStyleAttributeName: paragraph]
         
         return NSAttributedString(string: text, attributes: attributes)
+    }
+    
+    // MARK: DZNEmptyDataSetDelegate
+    
+    func emptyDataSetShouldDisplay(scrollView: UIScrollView!) -> Bool {
+        return isSearchPerformed;
     }
     
     
