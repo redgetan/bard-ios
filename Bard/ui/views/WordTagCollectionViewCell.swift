@@ -22,7 +22,7 @@ class WordTagCollectionViewCell: UICollectionViewCell {
         
         var wordTagFontSize: CGFloat
         if DeviceType.IS_IPHONE_6P {
-            self.textLabel = UILabelWithPadding(topInset: 7, leftInset: 12, bottomInset: 7, rightInset: 12)
+            self.textLabel = UILabelWithPadding(topInset: 5, leftInset: 10, bottomInset: 5, rightInset: 10)
 
             wordTagFontSize = CGFloat(18)
         } else {
