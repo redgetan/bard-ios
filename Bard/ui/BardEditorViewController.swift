@@ -92,6 +92,14 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
         self.automaticallyAdjustsScrollViewInsets = false
 
+        // http://stackoverflow.com/a/35290370/803865
+        do {
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+        }
+        catch {
+            // report for an error
+        }
+        
         initControls()
         updateTitle()
         initPlayer()
