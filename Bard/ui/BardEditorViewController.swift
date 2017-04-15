@@ -245,6 +245,19 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             viewController.outputWordTagStrings = self.outputWordTagStrings
         }
     }
+    
+    func getTypedWord() -> String {
+        let indexStartOfText = inputTextField.text.startIndex.advancedBy(getCursorPosition())
+        let textUntilCursor  = inputTextField.text.substringToIndex(indexStartOfText)
+        
+        let tokens = textUntilCursor.componentsSeparatedByString(" ")
+        
+        if tokens.isEmpty {
+            return textUntilCursor
+        } else {
+            return tokens.last!
+        }
+    }
 
     func addWordToWordTagList() {
         self.assignWordTagTimer?.invalidate()
@@ -256,7 +269,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let tokenCount = getInputTokenCount()
         let tokenIndex = getInputTokenIndex()
 
-        let typedWord = getWordAtTokenIndex(getCursorTokenIndex())
+        let typedWord = getTypedWord()
         let filteredResults = uniqueWords.search(typedWord)
         BardLogger.log(filteredResults.description)
         
@@ -688,14 +701,42 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     }
 
     func didSelectWordTag(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
-        let wordTagString = self.wordTagStringList[indexPath.row]
+        var wordTagString = self.wordTagStringList[indexPath.row]
         let word = wordTagString.componentsSeparatedByString(":")[0]
         let tokenCountBeforeWordTagClick = getInputTokenCount()
 
+        // if wordTagString is word, (i.e. user clicked wordTag on filtered results)
+        
+        if !wordTagString.containsString(":") {
+            wordTagString = wordTagMap[word]![0] // get first entry from wordTagMap
+        }
+        
+        // find the range of the word that cursor is on
+        let wordRanges = Helper.matchesForRegexInRange("\\w+", text: inputTextField.text)
+        var wordInCursorRange: NSRange? = nil
+        
+        for wordRange in wordRanges {
+            if wordRange.toRange()!.startIndex <= getCursorPosition() &&
+                getCursorPosition() <= wordRange.toRange()!.endIndex {
+                wordInCursorRange = wordRange
+               break
+            }
+        }
+
+        
         // insert word in uitextview
         skipAddToWordTag = true
         skipTextSelectionChange = true
-        if let selectedTextRange = inputTextField.selectedTextRange {
+        
+        if let wordRange = wordInCursorRange {
+            let startPosition = inputTextField.positionFromPosition(inputTextField.beginningOfDocument, offset: wordRange.location)
+            let endPosition = inputTextField.positionFromPosition(startPosition!, offset: wordRange.length)
+            
+            let uiTextRange = inputTextField.textRangeFromPosition(startPosition!,
+                                                                   toPosition: endPosition!)
+
+            inputTextField.replaceRange(uiTextRange!, withText: "\(word)")
+        } else if let selectedTextRange = inputTextField.selectedTextRange {
             inputTextField.replaceRange(selectedTextRange, withText: " \(word) ")
         } else {
             inputTextField.text = "\(inputTextField.text!) \(word)"

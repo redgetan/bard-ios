@@ -221,7 +221,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gw2-ZH-nHu">
-                                        <rect key="frame" x="10" y="12" width="50" height="25"/>
+                                        <rect key="frame" x="10" y="13.5" width="50" height="22"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="tqU-TL-0jl"/>
                                         </constraints>
