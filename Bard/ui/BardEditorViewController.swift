@@ -28,7 +28,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var wordTagPaginationLabel: UILabel!
     var wordUnavailableLabel: UILabel!
     var placeholderLabel : UILabel!
-
+    var uniqueWords:  AutoComplete<Word>! = AutoComplete<Word>()
 
     var outputURL: NSURL!
     var packDownloadRequest: Alamofire.Request?
@@ -45,7 +45,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
     // list of wordtag strings to be used for collectionview, rendering word tags that user can click on
     var wordTagStringList: [String] = [String]()
-
+    var originalWordTagStringList: [String] = [String]()
+    
     // the actual array of word tags that have been inputed by the user
     // it can contain either word (hello) or a wordtag (hello:45k8sn)
     // on generateBardVideo, all words would be searched for matching wordtag
@@ -255,6 +256,26 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         let tokenCount = getInputTokenCount()
         let tokenIndex = getInputTokenIndex()
 
+        let typedWord = getWordAtTokenIndex(getCursorTokenIndex())
+        let filteredResults = uniqueWords.search(typedWord)
+        BardLogger.log(filteredResults.description)
+        
+        if !typedWord.isEmpty {
+            if self.originalWordTagStringList.isEmpty {
+                self.originalWordTagStringList = self.wordTagStringList
+            }
+            
+            self.wordTagStringList.removeAll()
+            for filteredResult in filteredResults {
+                self.wordTagStringList.append(filteredResult.word)
+            }
+            self.wordTagCollectionView.reloadData()
+        } else {
+            self.wordTagStringList = self.originalWordTagStringList
+            self.wordTagCollectionView.reloadData()
+        }
+        
+
         let characterBeforeCursor = getCharacterBeforeCursor()
         let isLeaderPressed = isBackspacePressed == false && characterBeforeCursor == " "
         let isUserDeleteKeyPressed = isBackspacePressed == true
@@ -386,7 +407,30 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             return spaceSeparators.count
         }
 
-
+    }
+    
+    func getCursorTokenIndex() -> Int {
+        let indexStartOfText = inputTextField.text.startIndex.advancedBy(getCursorPosition())
+        let textUntilCursor  = inputTextField.text.substringToIndex(indexStartOfText)
+        let trimmedText = trimmedLeadingSpace(textUntilCursor)
+        let spaceSeparators = Helper.matchesForRegexInText("\\s+", text: trimmedText)
+        return spaceSeparators.count
+    }
+    
+    func trimmedLeadingSpace(text: String) -> String {
+        var result: [Character] = [Character]()
+        var shouldCheckSpace = true
+        
+        for char in text.characters {
+            if shouldCheckSpace && char == " " {
+                continue
+            } else {
+                shouldCheckSpace = false
+                result.append(char)
+            }
+        }
+        
+        return String(result)
     }
 
     func getInputTokenCount() -> Int {
@@ -448,10 +492,10 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         if keyboardHeight > wordTagCollectionView.frame.size.height {
             // keyboard covers input text field
             playerAspectRatioConstraint.setMultiplier(self.playerContainer.frame.size.width / newVideoPlayerHeight)
-            wordTagCollectionView.hidden = true
+//            wordTagCollectionView.hidden = true
             self.view.layoutIfNeeded()
         } else {
-            wordTagCollectionView.hidden = true
+//            wordTagCollectionView.hidden = true
         }
 
 
@@ -459,7 +503,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
     func keyboardWillDisappear(notification: NSNotification){
         isKeyboardShown = false
-        wordTagCollectionView.hidden = false
+//        wordTagCollectionView.hidden = false
     }
 
     override func viewWillDisappear(animated: Bool) {
@@ -929,6 +973,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
             } else {
                 self.wordTagMap[word] = [String]()
                 self.wordTagMap[word]!.append(wordTagString)
+                
+                self.uniqueWords.insert(Word(word))
             }
 
 

@@ -9,7 +9,7 @@
 import Foundation
 
 
-class Word : Searchable {
+class Word : NSObject, Searchable {
     let word : String
     init(_ word: String) {
         self.word = word
@@ -21,7 +21,8 @@ class Word : Searchable {
     }
     
     // Hashable
-    var hashValue: Int { return word.hashValue }
+    override var hashValue: Int { return word.hashValue }
+    override var description: String { return word }
     
 }
 
