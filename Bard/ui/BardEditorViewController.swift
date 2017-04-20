@@ -30,6 +30,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
     var placeholderLabel : UILabel!
     var uniqueWords:  AutoComplete<Word>! = AutoComplete<Word>()
 
+    @IBOutlet weak var previewThumbnail: UIImageView!
     var outputURL: NSURL!
     var packDownloadRequest: Alamofire.Request?
 
@@ -1177,6 +1178,14 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         self.player.delegate = self
         self.player.layerBackgroundColor = UIColor.blackColor()
 
+        if scene != nil {
+            let hqThumbnailUrl = scene!.thumbnailUrl.stringByReplacingOccurrencesOfString("default.jpg", withString: "hqdefault.jpg")
+            if let url = NSURL(string: hqThumbnailUrl) {
+                
+                previewThumbnail.hnk_setImageFromURL(url)
+            }
+        }
+        
         addWordTagPaginator()
     }
 
@@ -1270,6 +1279,8 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
 
 
     func playVideo(fileUrl: NSURL) {
+        previewThumbnail.hidden = true
+        
         self.player.setUrl(fileUrl)
         self.player.playFromBeginning()
     }
