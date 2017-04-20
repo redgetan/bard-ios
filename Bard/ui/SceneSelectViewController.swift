@@ -84,14 +84,27 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
                 break
             }
         }
-
+        
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+    
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+    
+    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(false, animated: true)
     }
 
     func syncRemoteData(pageIndex: Int, search: String? = nil) {
         var sceneToken: String = ""
         var scene: Scene?
+        
+        let safeSearch = search?.stringByTrimmingCharactersInSet(
+            NSCharacterSet.whitespaceAndNewlineCharacterSet()
+        ).componentsSeparatedByString(" ").joinWithSeparator("+")
 
-        BardClient.getSceneList(pageIndex, search: search, success: { value in
+        BardClient.getSceneList(pageIndex, search: safeSearch, success: { value in
             self.activityIndicator?.stopAnimating()
             self.isSearchPerformed = true
 
