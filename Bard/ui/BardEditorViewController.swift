@@ -116,7 +116,7 @@ class BardEditorViewController: UIViewController, UICollectionViewDataSource, UI
         moreButton.tintColor = UIColor.whiteColor()
 
         placeholderLabel = UILabel()
-        placeholderLabel.text = "say something"
+        placeholderLabel.text = "Type something"
         placeholderLabel.font = UIFont.systemFontOfSize(12)
         placeholderLabel.sizeToFit()
         inputTextField.addSubview(placeholderLabel)
