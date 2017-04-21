@@ -74,7 +74,9 @@ class ChannelsViewController: UIViewController, UITableViewDataSource, UITableVi
         var sceneToken: String = ""
         var scene: Scene?
         
-        BardClient.getSceneList(pageIndex, search: search, success: { value in
+        let locale = NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String
+        
+        BardClient.getSceneList(pageIndex, search: search, locale: locale, success: { value in
             for obj in (value as! NSArray) {
                 let dict = (obj as! [String:AnyObject])
                 

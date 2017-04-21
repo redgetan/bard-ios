@@ -104,7 +104,9 @@ class SceneSelectViewController: UIViewController, UITableViewDataSource, UITabl
             NSCharacterSet.whitespaceAndNewlineCharacterSet()
         ).componentsSeparatedByString(" ").joinWithSeparator("+")
 
-        BardClient.getSceneList(pageIndex, search: safeSearch, success: { value in
+        let locale = NSLocale.currentLocale().objectForKey(NSLocaleLanguageCode) as! String
+        
+        BardClient.getSceneList(pageIndex, search: safeSearch, locale: locale, success: { value in
             self.activityIndicator?.stopAnimating()
             self.isSearchPerformed = true
 

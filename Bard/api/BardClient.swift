@@ -16,11 +16,11 @@ class BardClient {
     static let loginUrl  = "\(Configuration.bardAccountBaseURL)/users/sign_in"
     static let packListUrl  = "\(Configuration.bardAccountBaseURL)/bundles"
 
-    static func getSceneListUrl(pageIndex: Int, search: String? = nil) -> String  {
+    static func getSceneListUrl(pageIndex: Int, search: String? = nil, locale: String) -> String  {
         if let searchText = search {
-            return "\(Configuration.bardAccountBaseURL)/scenes?search=\(searchText)&page=\(pageIndex)"
+            return "\(Configuration.bardAccountBaseURL)/scenes?search=\(searchText)&page=\(pageIndex)&locale=\(locale)"
         } else {
-            return "\(Configuration.bardAccountBaseURL)/scenes?page=\(pageIndex)"
+            return "\(Configuration.bardAccountBaseURL)/scenes?page=\(pageIndex)&locale=\(locale)"
         }
     }
 
@@ -75,8 +75,8 @@ class BardClient {
         bardApiRequest(.GET, url: packListUrl, success: success, failure: failure)
     }
 
-    static func getSceneList(pageIndex: Int, search: String? = nil, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
-        bardApiRequest(.GET, url: getSceneListUrl(pageIndex, search: search), success: success, failure: failure)
+    static func getSceneList(pageIndex: Int, search: String? = nil, locale: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
+        bardApiRequest(.GET, url: getSceneListUrl(pageIndex, search: search, locale: locale), success: success, failure: failure)
     }
 
     static func getScene(sceneToken: String, success: (AnyObject -> Void)? = nil, failure: (String -> Void)? = nil) {
